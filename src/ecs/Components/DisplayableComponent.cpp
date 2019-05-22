@@ -6,3 +6,11 @@
 */
 
 #include "DisplayableComponent.hpp"
+
+namespace ECS
+{
+    Displayable::Displayable()
+    : Component("Displayable")
+    {
+    }
+}

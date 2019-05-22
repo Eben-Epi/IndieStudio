@@ -5,13 +5,19 @@
 ** Displayable.hpp
 */
 
-#ifndef BOMBERMAN_DISPLAYABLECOMPONENT_HPP
-#define BOMBERMAN_DISPLAYABLECOMPONENT_HPP
+#ifndef DISPLAYABLECOMPONENT_HPP
+#define DISPLAYABLECOMPONENT_HPP
 
+#include "Component.hpp"
 
-class DisplayableComponent {
+namespace ECS
+{
+	class Displayable : public Component {
+		public:
+			// ... _sprite;
+			// ... _animation;
+			Displayable();
+	};
+}
 
-};
-
-
-#endif //BOMBERMAN_DISPLAYABLECOMPONENT_HPP
+#endif
