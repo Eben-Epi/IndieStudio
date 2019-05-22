@@ -20,8 +20,8 @@ namespace ECS
 
 	public:
 		System(std::string &&name);
-		std::string getName();
-		virtual void updateEntity(Entity &entity) = 0;
+		std::string	getName() const;
+		virtual void	updateEntity(Entity &entity) = 0;
 	};
 }
 

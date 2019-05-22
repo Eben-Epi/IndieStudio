@@ -14,7 +14,7 @@ namespace ECS
 	{
 	}
 
-	std::string System::getName()
+	std::string System::getName() const
 	{
 		return this->_name;
 	}
