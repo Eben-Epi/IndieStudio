@@ -43,6 +43,18 @@ add_executable(
 	src/ecs/Components/PowerUpComponent.hpp
 	src/ecs/Components/CollisionComponent.cpp
 	src/ecs/Components/CollisionComponent.hpp
+	src/ecs/Components/BuffedComponent.cpp
+	src/ecs/Components/BuffedComponent.hpp
+	src/ecs/Components/PickableComponent.cpp
+	src/ecs/Components/PickableComponent.hpp
+	src/ecs/Components/PickerComponent.cpp
+	src/ecs/Components/PickerComponent.hpp
+	src/ecs/Components/ExplodeComponent.cpp
+	src/ecs/Components/ExplodeComponent.hpp
+	src/ecs/Components/ControllerComponent.cpp
+	src/ecs/Components/ControllerComponent.hpp
+	src/ecs/Components/EphemeralComponent.cpp
+	src/ecs/Components/EphemeralComponent.hpp
 	src/ecs/Systems/CollisionSystem.cpp
 	src/ecs/Systems/CollisionSystem.hpp
 	src/ecs/Systems/DisplayableSystem.cpp

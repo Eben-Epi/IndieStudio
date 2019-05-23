@@ -15,7 +15,7 @@ namespace ECS
 {
 	class DirectionComponent : public Component {
 	public:
-		Directions dir;
+		IndieStudio::Directions dir;
 		DirectionComponent();
 	};
 } // namespace ECS
