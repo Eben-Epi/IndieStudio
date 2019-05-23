@@ -1,8 +1,11 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION
+	3.13)
 project(bomberman)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/packages)
+set(CMAKE_CXX_STANDARD
+	11)
+set(CMAKE_MODULE_PATH
+	${PROJECT_SOURCE_DIR}/packages)
 
 add_executable(
 	bomberman
@@ -46,6 +49,10 @@ add_executable(
 	src/ecs/Systems/DisplayableSystem.hpp
 	src/ecs/data/Directions.hpp
 	src/ecs/data/Vector2.hpp
+	src/ecs/Factories/EntityFactory.cpp
+	src/ecs/Factories/EntityFactory.hpp
+	src/ecs/Factories/SystemFactory.cpp
+	src/ecs/Factories/SystemFactory.hpp
 )
 
 find_package(Irrlicht)

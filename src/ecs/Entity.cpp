@@ -9,10 +9,11 @@
 
 namespace ECS
 {
-	Entity::Entity(unsigned id, std::string &&name, std::vector<Component> &&components) :
+	Entity::Entity(unsigned id, std::string &&name, std::vector<Component *> &&components) :
 		_id(id),
-		_name(name),
-		_components(components)
+		_name(name)
 	{
+		for (Component *comp : components)
+			this->_components.emplace_back(comp);
 	}
 }
