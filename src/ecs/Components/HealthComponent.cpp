@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** HealthComponent.cpp
@@ -9,9 +9,9 @@
 
 namespace ECS
 {
-    Health::Health(unsigned int health)
-    : Component("Health")
-    {
-        this->_health = health;
-    }
+	HealthComponent::HealthComponent(unsigned int health) :
+		Component("Health"),
+		health(health)
+	{
+	}
 }

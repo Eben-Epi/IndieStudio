@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** ItemContainerComponent.hpp
@@ -8,17 +8,17 @@
 #ifndef ITEMCONTAINERCOMPONENT_HPP
 #define ITEMCONTAINERCOMPONENT_HPP
 
-#include "Component.hpp"
-#include "ItemEntity.hpp"
+#include "../Component.hpp"
+#include "../Entity.hpp"
 
 namespace ECS
 {
-    class ItemContainer: public Component
+    class ItemContainerComponent : public Component
     {
         public:
-            std::vector<Item> _items;
-            ItemContainer();
-    }
+            std::vector<Entity> items;
+            ItemContainerComponent();
+    };
 }
 
 #endif

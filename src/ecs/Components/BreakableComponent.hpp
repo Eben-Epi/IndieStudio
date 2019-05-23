@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** BreakableComponent.hpp
@@ -8,14 +8,14 @@
 #ifndef BREAKABLECOMPONENT_HPP
 #define BREAKABLECOMPONENT_HPP
 
-#include "Component.hpp"
+#include "../Component.hpp"
 
 namespace ECS
 {
-	class Breakable : public Component
+	class BreakableComponent : public Component
 	{
-		public:
-			Breakable();
+	public:
+		BreakableComponent();
 	};
 } // namespace ECS
 

@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** PositionComponent.hpp
@@ -8,14 +8,15 @@
 #ifndef POSITIONCOMPONENT_HPP
 #define POSITIONCOMPONENT_HPP
 
-#include "Component.hpp"
+#include "../Component.hpp"
+#include "../data/Vector2.hpp"
 
 namespace ECS
 {
-	class Position : public Component {
-		public:
-			Point _pos;
-			Position(Point pos);
+	class PositionComponent : public Component {
+	public:
+		Point pos;
+		PositionComponent(Point pos);
 	};
 } // namespace ECS
 

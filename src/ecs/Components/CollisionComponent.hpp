@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** SolidComponent.hpp
@@ -8,15 +8,15 @@
 #ifndef SOLIDCOMPONENT_HPP
 #define SOLIDCOMPONENT_HPP
 
-#include "Component.hpp"
+#include "../Component.hpp"
 
 namespace ECS
 {
-    class Solid : public Component
+    class CollisionComponent : public Component
     {
         public:
-            unsigned int _hardness;
-            Solid(unsigned int hardness);
+            unsigned int hardness;
+            CollisionComponent(unsigned int hardness);
     };
 } // namespace ECS
 

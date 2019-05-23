@@ -8,15 +8,15 @@
 #ifndef DISPLAYABLECOMPONENT_HPP
 #define DISPLAYABLECOMPONENT_HPP
 
-#include "Component.hpp"
+#include "../Component.hpp"
 
 namespace ECS
 {
-	class Displayable : public Component {
-		public:
-			// ... _sprite;
-			// ... _animation;
-			Displayable();
+	class DisplayableComponent : public Component {
+	public:
+		std::string	spriteId;
+		unsigned	animation;
+		explicit DisplayableComponent(std::string &&striteId);
 	};
 }
 

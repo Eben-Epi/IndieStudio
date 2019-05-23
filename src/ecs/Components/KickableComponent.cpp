@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** KickableComponent.cpp
@@ -9,8 +9,8 @@
 
 namespace ECS
 {
-    Kickable::Kickable()
-    : Component("Kickable")
+    KickableComponent::KickableComponent()
+    : Component("KickableComponent")
     {
     }
 }

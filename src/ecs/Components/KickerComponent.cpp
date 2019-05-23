@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** KickerComponent.cpp
@@ -9,7 +9,7 @@
 
 namespace ECS
 {
-    Kicker::Kicker()
+    KickerComponent::KickerComponent()
     : Component("Kicker")
     {
     }

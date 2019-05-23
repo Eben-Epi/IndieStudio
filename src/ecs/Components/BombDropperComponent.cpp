@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** BombDropperComponent.cpp
@@ -9,11 +9,11 @@
 
 namespace ECS
 {
-    BombDropper::BombDropper()
-    : Component ("BombDropper")
-    {
-        this->_max = 3;
-        this->_range = 1;
-        this->_timeToExplode = 2.0;
-    }
+	BombDropperComponent::BombDropperComponent(unsigned max, float timeToExplode, unsigned range) :
+		Component ("BombDropper"),
+		max(max),
+		timeToExplode(timeToExplode),
+		range(range)
+	{
+	}
 }

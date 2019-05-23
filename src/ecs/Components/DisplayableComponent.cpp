@@ -9,8 +9,9 @@
 
 namespace ECS
 {
-    Displayable::Displayable()
-    : Component("Displayable")
-    {
-    }
+	DisplayableComponent::DisplayableComponent(std::string &&spriteId) :
+		Component("Displayable"),
+		spriteId(spriteId)
+	{
+	}
 }

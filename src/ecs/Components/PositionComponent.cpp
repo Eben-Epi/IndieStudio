@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** PositionComponent.cpp
@@ -9,9 +9,9 @@
 
 namespace ECS
 {
-	Position::Position(Point pos)
-	: Component("Position")
+	PositionComponent::PositionComponent(Point pos) :
+		Component("Position"),
+		pos(pos)
 	{
-		this->_pos = pos;
 	}
 }

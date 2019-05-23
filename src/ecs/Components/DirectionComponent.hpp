@@ -8,14 +8,15 @@
 #ifndef DIRECTIONCOMPONENT_HPP
 #define DERECTIONCOMPONENT_HPP
 
-#include "Component.hpp"
+#include "../Component.hpp"
+#include "../data/Directions.hpp"
 
 namespace ECS
 {
-	class Direction : public Component {
-		public:
-			Directions _dir;
-			Direction();
+	class DirectionComponent : public Component {
+	public:
+		Directions dir;
+		DirectionComponent();
 	};
 } // namespace ECS
 

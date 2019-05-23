@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** KickableComponent.hpp
@@ -8,14 +8,14 @@
 #ifndef KICKABLE_HPP
 #define KICKABLE_HPP
 
-#include "Component.hpp"
+#include "../Component.hpp"
 
 namespace ECS
 {
-    class Kickable : public Component
+    class KickableComponent : public Component
     {
         public:
-            Kickable();
+            KickableComponent();
     };
 } // namespace ECS
 

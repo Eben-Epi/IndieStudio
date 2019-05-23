@@ -9,9 +9,9 @@
 
 namespace ECS
 {
-    Direction::Direction()
-    : Component("Direction")
+    DirectionComponent::DirectionComponent() :
+    	Component("Direction"),
+    	dir(UP)
     {
-        this->_dir = UP;
     }
 }

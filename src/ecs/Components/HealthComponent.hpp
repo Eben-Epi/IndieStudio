@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** HealthComponent.hpp
@@ -8,15 +8,15 @@
 #ifndef HEALTHCOMPONENT_HPP
 #define HEALTHCOPONENT_HPP
 
-#include "Component.hpp"
+#include "../Component.hpp"
 
 namespace ECS
 {
-    class Health : public Component
+    class HealthComponent : public Component
     {
         public:
-            unsigned int _health;
-            Health(unsigned int health);
+            unsigned int health;
+            HealthComponent(unsigned int health);
     };
 } // namespace ECS
 

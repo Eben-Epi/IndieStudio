@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** ItemContainerComponent.cpp
@@ -9,8 +9,8 @@
 
 namespace ECS
 {
-    ItemContainer::ItemContainer()
-    : Component("Itemcontainer")
+    ItemContainerComponent::ItemContainerComponent() :
+    	Component("Itemcontainer")
     {
     }
 }

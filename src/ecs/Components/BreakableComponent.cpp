@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** BreakableComponent.cpp
@@ -9,7 +9,7 @@
 
 namespace ECS
 {
-    Breakable::Breakable()
+    BreakableComponent::BreakableComponent()
     : Component("Breakable")
     {
     }

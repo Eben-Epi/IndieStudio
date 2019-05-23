@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** KickerComponent.hpp
@@ -8,13 +8,13 @@
 #ifndef KICKERCOMPONENT_HPP
 #define KICKERCOMPONENT_HPP
 
-#include "Component.hpp"
+#include "../Component.hpp"
 
 namespace ECS
 {
-    class Kicker : public Component {
+    class KickerComponent : public Component {
         public:
-            Kicker();
+            KickerComponent();
     };
 } // namespace ECS
 

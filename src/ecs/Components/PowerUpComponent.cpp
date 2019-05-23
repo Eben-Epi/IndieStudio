@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** PowerUpComponent.cpp
@@ -9,13 +9,13 @@
 
 namespace ECS
 {
-    PowerUp::PowerUp(unsigned int health = 0, float speed = 0, unsigned int nbBomb = 0, bool kick = false, unsigned int hardness = 0)
-    : Component("PowerUp")
+    PowerUpComponent::PowerUpComponent(unsigned int health, float speed, unsigned int nbBomb, bool kick, unsigned int hardness) :
+    	Component("PowerUp"),
+    	health(health),
+    	speed(speed),
+    	nbBomb(nbBomb),
+    	kick(kick),
+    	hardness(hardness)
     {
-        this->_health = health;
-        this->_speed = speed;
-        this->_nbBomb = nbBomb;
-        this->_kick = kick;
-        this->_hardness = hardness;
     }
 }
