@@ -11,6 +11,7 @@
 namespace ECS
 {
 	Entity::Entity(unsigned id, std::string &&name, std::vector<Component *> &&components) :
+		_destroy(false),
 		_id(id),
 		_name(name)
 	{
@@ -49,5 +50,15 @@ namespace ECS
 			return false;
 		}
 		return true;
+	}
+
+	bool Entity::isDestroyed()
+	{
+		return this->_destroy;
+	}
+
+	void Entity::destroy()
+	{
+		this->_destroy = true;
 	}
 }

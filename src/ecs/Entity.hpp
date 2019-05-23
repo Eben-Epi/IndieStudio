@@ -17,12 +17,15 @@ namespace ECS
 {
 	class Entity {
 	private:
+		bool _destroy;
 		unsigned _id;
 		std::string _name;
 		std::vector<std::unique_ptr<Component>> _components;
 
 	public:
 		Entity(unsigned id, std::string &&name, std::vector<Component *> &&components);
+		void destroy();
+		bool isDestroyed();
 		unsigned getId() const;
 		std::string getName() const;
 		bool hasComponent(const std::string &name) const;
