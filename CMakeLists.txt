@@ -55,7 +55,7 @@ add_executable(
 	src/ecs/Factories/SystemFactory.hpp
 )
 
-find_package(Irrlicht)
+find_package(Irrlicht REQUIRED)
 
 target_link_libraries(
 	bomberman
