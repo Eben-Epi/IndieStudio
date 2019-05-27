@@ -19,9 +19,24 @@ namespace ECS
 		std::string _msg;
 
 	public:
-		explicit ECSException(std::string &&msg) : _msg(msg) {};
+		explicit ECSException(const std::string &msg) : _msg(msg) {};
 
 		const char *what() const noexcept override { return this->_msg.c_str(); };
+	};
+
+	class NoSuchComponentException : public ECSException {
+	public:
+		explicit NoSuchComponentException(const std::string &msg) : ECSException(msg) {};
+	};
+
+	class NoSuchEntity : public ECSException {
+	public:
+		explicit NoSuchEntity(const std::string &msg) : ECSException(msg) {};
+	};
+
+	class NoSuchSystem : public ECSException {
+	public:
+		explicit NoSuchSystem(const std::string &msg) : ECSException(msg) {};
 	};
 }
 

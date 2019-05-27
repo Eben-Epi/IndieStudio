@@ -53,7 +53,7 @@ add_executable(
 	src/ecs/Factories/EntityFactory.hpp
 	src/ecs/Factories/SystemFactory.cpp
 	src/ecs/Factories/SystemFactory.hpp
-)
+	src/ecs/Ressources.hpp)
 
 find_package(Irrlicht REQUIRED)
 

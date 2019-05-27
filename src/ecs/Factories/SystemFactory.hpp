@@ -16,12 +16,18 @@
 
 namespace ECS
 {
-	class SystemFactory {
-	public:
-		static std::map<std::string, std::function<System *()>> functions;
+	class ECSCore;
 
-		static std::unique_ptr<System> build(std::string &&name);
-		static std::vector<std::unique_ptr<System>> buildAll();
+	class SystemFactory {
+	private:
+		const ECSCore &_core;
+		static std::map<std::string, std::function<System *(const ECSCore &core)>> _functions;
+
+	public:
+		explicit SystemFactory(const ECSCore &core);
+
+		std::unique_ptr<System> build(std::string &&name, const ECSCore &core);
+		std::vector<std::unique_ptr<System>> buildAll(const ECSCore &core);
 	};
 }
 

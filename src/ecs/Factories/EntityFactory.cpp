@@ -6,24 +6,30 @@
 */
 
 #include "EntityFactory.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
-	std::map<std::string, std::function<Entity *()>> EntityFactory::functions = {
+	EntityFactory::EntityFactory(const ECS::Ressources &ressources) :
+		_ressources(ressources)
+	{
+	}
+
+	std::map<std::string, std::function<Entity *(const Ressources &ressources)>> EntityFactory::_functions = {
 
 	};
 
-	std::unique_ptr<Entity> EntityFactory::build(std::string &&name)
+	std::unique_ptr<Entity> EntityFactory::build(const std::string &name)
 	{
-		return std::unique_ptr<Entity>(EntityFactory::functions[name]());
+		return std::unique_ptr<Entity>(EntityFactory::_functions[name](this->_ressources));
 	}
 
 	std::vector<std::unique_ptr<Entity>> EntityFactory::buildAll()
 	{
-		std::vector<std::unique_ptr<Entity>> vec{EntityFactory::functions.size()};
+		std::vector<std::unique_ptr<Entity>> vec{EntityFactory::_functions.size()};
 
-		for (auto &fun : EntityFactory::functions)
-			vec.emplace_back(fun.second());
+		for (auto &fun : EntityFactory::_functions)
+			vec.emplace_back(fun.second(this->_ressources));
 		return vec;
 	}
 }
