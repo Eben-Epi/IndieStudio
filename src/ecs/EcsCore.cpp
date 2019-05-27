@@ -18,7 +18,7 @@ namespace ECS
 	{
 	}
 
-	Entity &ECSCore::getEntity(unsigned id)
+	Entity &ECSCore::getEntityById(unsigned id)
 	{
 		for (auto &entity : this->_entities)
 			if (entity->getId() == id)
@@ -34,12 +34,22 @@ namespace ECS
 		throw NoSuchSystem("Cannot find any system with name " + name);
 	}
 
-	std::vector<Entity *> ECSCore::getEntities(const std::string &name)
+	std::vector<Entity *> ECSCore::getEntitiesByName(const std::string &name)
 	{
 		std::vector<Entity *> found;
 
 		for (auto &entity : this->_entities)
 			if (entity->getName() == name)
+				found.push_back(&*entity);
+		return found;
+	}
+
+	std::vector<Entity *> ECSCore::getEntitiesByComponent(const std::string &name)
+	{
+		std::vector<Entity *> found;
+
+		for (auto &entity : this->_entities)
+			if (entity->hasComponent(name))
 				found.push_back(&*entity);
 		return found;
 	}

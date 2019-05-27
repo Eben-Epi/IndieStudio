@@ -27,8 +27,9 @@ namespace ECS
 
 	public:
 		explicit ECSCore(const Ressources &ressources);
-		Entity &getEntity(unsigned id);
-		std::vector<Entity *> getEntities(const std::string &name);
+		Entity &getEntityById(unsigned id);
+		std::vector<Entity *> getEntitiesByName(const std::string &name);
+		std::vector<Entity *> getEntitiesByComponent(const std::string &name);
 		System &getSystem(const std::string &name);
 		void update();
 	};
