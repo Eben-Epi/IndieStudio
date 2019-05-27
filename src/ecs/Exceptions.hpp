@@ -28,6 +28,16 @@ namespace ECS
 	public:
 		explicit NoSuchComponentException(const std::string &msg) : ECSException(msg) {};
 	};
+
+	class NoSuchEntity : public ECSException {
+	public:
+		explicit NoSuchEntity(const std::string &msg) : ECSException(msg) {};
+	};
+
+	class NoSuchSystem : public ECSException {
+	public:
+		explicit NoSuchSystem(const std::string &msg) : ECSException(msg) {};
+	};
 }
 
 #endif //BOMBERMAN_EXCEPTIONS_HPP

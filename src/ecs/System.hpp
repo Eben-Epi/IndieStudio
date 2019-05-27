@@ -14,12 +14,17 @@
 
 namespace ECS
 {
+	class ECSCore;
+
 	class System {
 	private:
-		std::string _name;
+		std::string	_name;
+
+	protected:
+		const ECSCore	&_core;
 
 	public:
-		System(std::string &&name);
+		explicit System(std::string &&name, const ECSCore &core);
 		std::string	getName() const;
 		virtual void	updateEntity(Entity &entity) = 0;
 	};
