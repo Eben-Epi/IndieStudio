@@ -11,7 +11,7 @@ namespace ECS
 {
     DirectionComponent::DirectionComponent() :
     	Component("Direction"),
-    	dir(UP)
+    	dir(IndieStudio::Directions::UP)
     {
     }
 }

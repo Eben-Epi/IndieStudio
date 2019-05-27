@@ -8,7 +8,7 @@
 #ifndef DIRECTIONS_HPP
 #define DIRECTIONS_HPP
 
-namespace ECS
+namespace IndieStudio
 {
     enum Directions
     {

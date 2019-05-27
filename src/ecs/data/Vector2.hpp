@@ -8,7 +8,7 @@
 #ifndef VECTOR2_HPP
 #define VECTOR2_HPP
 
-namespace ECS
+namespace IndieStudio
 {
     template <typename T>
     struct Vector2 {
