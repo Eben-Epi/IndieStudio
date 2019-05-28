@@ -57,6 +57,8 @@ add_executable(
 	src/irrlicht/Irrlicht.cpp
 	src/irrlicht/Irrlicht.hpp
 	src/irrlicht/Animations.hpp
+	src/map/Map.hpp
+	src/map/Map.cpp
 )
 
 find_package(Irrlicht REQUIRED)
@@ -68,3 +70,4 @@ target_link_libraries(
 	sfml-window
 	sfml-system
 )
+
