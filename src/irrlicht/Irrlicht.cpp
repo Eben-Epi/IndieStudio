@@ -7,6 +7,7 @@
 
 #include <memory>
 #include "Irrlicht.hpp"
+#include "../config.hpp"
 #include "../ecs/Components/PositionComponent.hpp"
 
 namespace Irrlicht
@@ -88,13 +89,13 @@ namespace Irrlicht
 		id{id},
 		pos{0, 0},
 		anim{IDLE},
-		size{64, 64}
+		size{TILESIZE, TILESIZE}
 	{
 		if (name == "Player") {
 			this->color = 0x0e1670;
 			this->size = {
-				50,
-				50
+				static_cast<unsigned>(TILESIZE * 0.75),
+				static_cast<unsigned>(TILESIZE * 0.75)
 			};
 		} else if (name == "Wall")
 			this->color = 0x8b2020;

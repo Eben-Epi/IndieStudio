@@ -8,7 +8,7 @@ int main()
 	ECS::Ressources		res{screen};
 	Map::Map		map{res};
 
-	map.generateMap({10, 10}, 70);
+	map.generateMap({20, 20}, 70);
 	while (!screen.isEnd()) {
 		map.update();
 		screen.display();
