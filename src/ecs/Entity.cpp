@@ -29,7 +29,7 @@ namespace ECS
 		return this->_id;
 	}
 
-	std::vector<std::unique_ptr<Component>>& Entity::getComponents()
+	std::vector<std::unique_ptr<Component>> &Entity::getComponents()
 	{
 		return this->_components;
 	}

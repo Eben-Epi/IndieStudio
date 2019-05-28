@@ -66,9 +66,18 @@ namespace ECS
 		for (auto &entity : this->_entities) {
 			for (auto &comp : entity->getComponents()) {
 				try {
-					this->getSystem(comp->getName()).updateEntity(*entity);
+					auto &system = this->getSystem(comp->getName());
+
+					system.checkDependencies(*entity);
+					system.updateEntity(*entity);
 				} catch (NoSuchSystemException &e) {
-					std::cerr << e.what() << ", but is required by a component of entity n°";
+					std::cerr << e.what() << ", but is required by " + comp->getName() + "Component of entity n°";
+					std::cerr << std::to_string(entity->getId());
+					std::cerr << " '" + entity->getName() + "'";
+					std::cerr << std::endl;
+					throw;
+				} catch (MissingDependenciesException &e) {
+					std::cerr << e.what() << ", but is required by " + comp->getName() + "Component of entity n°";
 					std::cerr << std::to_string(entity->getId());
 					std::cerr << " '" + entity->getName() + "'";
 					std::cerr << std::endl;
