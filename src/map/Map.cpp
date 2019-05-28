@@ -18,33 +18,33 @@ void Map::Map::update() {
     this->_core.update();
 }
 
-std::vector<unsigned> generateAirBlocksPos(unsigned sizeMap)
+std::vector<unsigned> generateAirBlocksPos(ECS::Vector2<unsigned> sizeMap)
 {
-    unsigned maxSize = sizeMap * sizeMap;
-    unsigned maxSizeM = maxSize - sizeMap;
-    unsigned doubleSize = sizeMap * 2;
+    unsigned maxSize = sizeMap.x * sizeMap.y;
+    unsigned maxSizeM = maxSize - sizeMap.x;
+    unsigned doubleSize = sizeMap.x * 2;
     unsigned maxSizeDM = maxSize - doubleSize;
     std::vector<unsigned> airPos;
 
-    airPos = {0, 1, sizeMap - 2, sizeMap - 1, sizeMap, sizeMap + 1, doubleSize - 2, doubleSize - 1,
+    airPos = {0, 1, sizeMap.x - 2, sizeMap.x - 1, sizeMap.x, sizeMap.x + 1, doubleSize - 2, doubleSize - 1,
         maxSizeDM, maxSizeDM + 1, maxSizeM - 2, maxSizeM - 1, maxSizeM, maxSizeM + 1, maxSize - 2, maxSize - 1};
     return (airPos);
 }
 
-void Map::Map::generateMap(unsigned sizeMap, unsigned brickRatio)
+void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
 {
     std::vector<std::string> terrainByStr;
     std::vector<unsigned> airBlocksPos = generateAirBlocksPos(sizeMap);
     std::random_device rand_device;
     unsigned int randNum;
 
-    for (int i = 0; i < 398; ++i) {
+    for (int i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)
             airBlocksPos.erase(airBlocksPos.begin());
         else {
             randNum = rand_device() % 100;
             if (randNum < brickRatio)
-                reinterpret_cast<ECS::PositionComponent &>(this->_core.makeEntity("Brick").getComponentByName("Position")).pos = {i / 20, i % 20};
+                reinterpret_cast<ECS::PositionComponent &>(this->_core.makeEntity("Brick").getComponentByName("Position")).pos = {(double)(i % sizeMap.x), (double)(i / sizeMap.x)};
         }
     }
 }

@@ -1,0 +1,3 @@
+/home/jmartin/IndieStudio/build/CMakeFiles/rebuild_cache.dir
+/home/jmartin/IndieStudio/build/CMakeFiles/IndieStudio.dir
+/home/jmartin/IndieStudio/build/CMakeFiles/edit_cache.dir
