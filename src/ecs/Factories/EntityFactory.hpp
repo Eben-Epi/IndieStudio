@@ -13,15 +13,20 @@
 #include <memory>
 #include <functional>
 #include "../Entity.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
 	class EntityFactory {
-	public:
-		static std::map<std::string, std::function<Entity *()>> functions;
+	private:
+		const Ressources &_ressources;
+		static std::map<std::string, std::function<Entity *(const Ressources &ressources)>> _functions;
 
-		static std::unique_ptr<Entity> build(std::string &&name);
-		static std::vector<std::unique_ptr<Entity>> buildAll();
+	public:
+		explicit EntityFactory(const Ressources &ressources);
+
+		std::unique_ptr<Entity> build(const std::string &name);
+		std::vector<std::unique_ptr<Entity>> buildAll();
 	};
 }
 
