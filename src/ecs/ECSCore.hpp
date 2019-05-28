@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
-** EcsCore.hpp
+** ECSCore.hpp
 */
 
 #ifndef BOMBERMAN_ECSCORE_HPP
@@ -19,6 +19,7 @@ namespace ECS
 {
 	class ECSCore {
 	private:
+		unsigned				_lastEntityId;
 		Ressources				_ressources;
 		SystemFactory				_systemFactory;
 		EntityFactory				_entityFactory;
@@ -27,10 +28,11 @@ namespace ECS
 
 	public:
 		explicit ECSCore(const Ressources &ressources);
-		Entity &getEntityById(unsigned id);
-		std::vector<Entity *> getEntitiesByName(const std::string &name);
-		std::vector<Entity *> getEntitiesByComponent(const std::string &name);
-		System &getSystem(const std::string &name);
+		Entity &getEntityById(unsigned id) const;
+		std::vector<Entity *> getEntitiesByName(const std::string &name) const;
+		std::vector<Entity *> getEntitiesByComponent(const std::string &name) const;
+		System &getSystem(const std::string &name) const;
+		Entity &makeEntity(const std::string &name);
 		void update();
 	};
 }
