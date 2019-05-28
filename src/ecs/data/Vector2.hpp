@@ -16,6 +16,19 @@ namespace ECS
         T y;
     };
 
+    typedef Vector2<double> PointF;
+    typedef Vector2<double> Point;
+}; // namespace ECS
+
+namespace IndieStudio
+{
+    template <typename T>
+    struct Vector2 {
+        T x;
+        T y;
+    };
+
+    typedef Vector2<double> PointF;
     typedef Vector2<double> Point;
 }; // namespace ECS
 

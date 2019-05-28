@@ -12,7 +12,7 @@
 namespace Irrlicht
 {
 	Irrlicht::Irrlicht() :
-		_window(sf::VideoMode(640, 512), "Irrlicht"),
+		_window(sf::VideoMode(640, 640), "Irrlicht"),
 		_lastId(0)
 	{
 		this->_window.setFramerateLimit(30);

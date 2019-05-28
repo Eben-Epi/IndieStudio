@@ -19,11 +19,8 @@ namespace Map {
 
     public:
         Map(const ECS::Ressources &ressources);
-
-        ~Map();
-
+        ~Map() = default;
         void update();
-
         void generateMap(unsigned sizeMap, unsigned brickRatio);
 
     };
