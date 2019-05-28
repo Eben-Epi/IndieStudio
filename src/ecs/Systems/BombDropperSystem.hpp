@@ -4,6 +4,7 @@
 ** File description:
 ** BombDropperSystem.hpp
 */
+
 #ifndef BOMBERMAN_BOMBDROPPERSYSTEM_HPP
 #define BOMBERMAN_BOMBDROPPERSYSTEM_HPP
 
@@ -11,7 +12,8 @@
 
 namespace ECS {
     class BombDropperSystem : public System {
-        public:
+    public:
+        BombDropperSystem(ECSCore &core);
         void updateEntity(Entity &entity) override;
     };
 }

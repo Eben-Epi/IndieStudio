@@ -2,7 +2,14 @@
 
 DIR_PATH=`dirname "$0"`
 ECS_PATH="$DIR_PATH/src/ecs/Systems/"
-FILE_PATH="$ECS_PATH/$1System.hpp"
+if [[ "$1" =~ ^.*System$ ]]
+then
+    NAME="$1"
+else
+    NAME="$1System"
+fi
+
+FILE_PATH="$ECS_PATH/$NAME.hpp"
 
 echo $ECS_PATH
 
@@ -19,8 +26,9 @@ then
 #include \"../System.hpp\"
 
 namespace ECS {
-    class $1System : public System {
-        public:
+    class $NAME : public System {
+    public:
+	$NAME(ECSCore &core);
         void updateEntity(Entity &entity) override;
     };
 }

@@ -23,9 +23,7 @@ add_executable(
 	src/ecs/data/Vector2.hpp
 	src/ecs/Components/BombDropperComponent.cpp
 	src/ecs/Components/BombDropperComponent.hpp
-	src/ecs/Components/BreakableComponent.cpp
-	src/ecs/Components/BreakableComponent.hpp
-	src/ecs/Components/DisplayableComponent.cpp
+		src/ecs/Components/DisplayableComponent.cpp
 	src/ecs/Components/DisplayableComponent.hpp
 	src/ecs/Components/HealthComponent.cpp
 	src/ecs/Components/HealthComponent.hpp
@@ -75,7 +73,7 @@ add_executable(
 	src/ecs/Systems/DisplayableSystem.hpp
 	src/ecs/Systems/HealthSystem.cpp
 	src/ecs/Systems/HealthSystem.hpp
-)
+        src/ecs/Systems/BuffedSystem.cpp src/ecs/Systems/BuffedSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 
