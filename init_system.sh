@@ -19,7 +19,7 @@ then
 #include \"../System.hpp\"
 
 namespace ECS {
-    class $1 : public System {
+    class $1System : public System {
         public:
         void updateEntity(Entity &entity) override;
     };
