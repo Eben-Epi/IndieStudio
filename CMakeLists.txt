@@ -1,11 +1,10 @@
-cmake_minimum_required(VERSION
-	3.13)
+cmake_minimum_required(VERSION 3.13)
+
 project(bomberman)
 
-set(CMAKE_CXX_STANDARD
-	11)
-set(CMAKE_MODULE_PATH
-	${PROJECT_SOURCE_DIR}/packages)
+set(CMAKE_CXX_STANDARD 11)
+
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/packages)
 
 add_executable(
 	bomberman
@@ -23,7 +22,7 @@ add_executable(
 	src/ecs/Components/BombDropperComponent.hpp
 	src/ecs/Components/BreakableComponent.cpp
 	src/ecs/Components/BreakableComponent.hpp
-		src/ecs/Components/DisplayableComponent.cpp
+	src/ecs/Components/DisplayableComponent.cpp
 	src/ecs/Components/DisplayableComponent.hpp
 	src/ecs/Components/HealthComponent.cpp
 	src/ecs/Components/HealthComponent.hpp
@@ -63,7 +62,17 @@ add_executable(
 	src/ecs/Factories/EntityFactory.hpp
 	src/ecs/Factories/SystemFactory.cpp
 	src/ecs/Factories/SystemFactory.hpp
-	src/ecs/Ressources.hpp src/ecs/Systems/KickableSystem.cpp src/ecs/Systems/KickableSystem.hpp src/ecs/Systems/EphemeralSystem.cpp src/ecs/Systems/EphemeralSystem.hpp)
+	src/ecs/Ressources.hpp
+	src/ecs/Systems/KickableSystem.cpp
+	src/ecs/Systems/KickableSystem.hpp
+	src/ecs/Systems/EphemeralSystem.cpp
+	src/ecs/Systems/EphemeralSystem.hpp
+	src/ecs/Systems/BombDropperSystem.cpp
+	src/ecs/Systems/BombDropperSystem.hpp
+	src/ecs/Systems/HealthSystem.cpp
+	src/ecs/Systems/HealthSystem.hpp
+	src/config.hpp
+)
 
 find_package(Irrlicht REQUIRED)
 
