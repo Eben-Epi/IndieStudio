@@ -8,15 +8,24 @@
 #ifndef INDIESTUDIO_MAP_HPP
 #define INDIESTUDIO_MAP_HPP
 
+#include "../ecs/ECSCore.hpp"
 
-class Map {
+namespace Map {
 
-private:
-    ECS::ECSCore _map;
+    class Map {
 
-public:
+    private:
+        ECS::ECSCore _core;
 
-};
+    public:
+        Map(const ECS::Ressources &ressources);
+
+        ~Map() = default;
+
+        void generateMap();
+
+    };
+}
 
 
 #endif //INDIESTUDIO_MAP_HPP
