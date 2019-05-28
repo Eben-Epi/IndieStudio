@@ -22,32 +22,34 @@ namespace Irrlicht
 {
 	typedef unsigned Color;
 
-	class irrEntity {
-		public:
-			unsigned id;
-			ECS::Point pos;
-			ECS::Vector2<unsigned> size;
-			Color color;
+	class IrrEntity {
+	public:
+		unsigned id;
+		ECS::Point pos;
+		Animations anim;
+		ECS::Vector2<unsigned> size;
+		Color color;
 
-			irrEntity(ECS::Entity);
+		IrrEntity(const std::string &name, unsigned id);
 	};
 
 	class Irrlicht {
-		std::vector<irrEntity> _entities;
-		ECS::Vector2<unsigned> _gridSize;
+	private:
+		std::vector<IrrEntity> _entities;
 		sf::RectangleShape _rectangle;
 		sf::RenderWindow _window;
+		unsigned _lastId;
+
+		void drawRect(ECS::Point pos, ECS::Vector2<unsigned> size, Color color = 0xFFFFFF, bool filled = false);
 
 	public:
-		Irrlicht(ECS::Vector2<unsigned> gridSize);
-
-		void createEntity(ECS::Entity);
-        void drawRect(ECS::Point pos, ECS::Vector2<unsigned> size, Color color = 0xFFFFFF, bool filled = false);
+		Irrlicht();
 
 		unsigned registerEntity(const std::string &name);
 		bool areColliding(unsigned entity1, unsigned entity2);
 		void setAnimation(unsigned entity, Animations anim);
 		void setPosition(unsigned entity, float x, float y);
+		void display();
 	};
 }
 

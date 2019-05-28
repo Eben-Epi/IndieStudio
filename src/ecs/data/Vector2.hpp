@@ -16,7 +16,7 @@ namespace ECS
         T y;
     };
 
-    typedef Vector2<int> Point;
+    typedef Vector2<double> Point;
 }; // namespace ECS
 
 #endif

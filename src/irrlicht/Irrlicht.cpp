@@ -11,44 +11,62 @@
 
 namespace Irrlicht
 {
-	Irrlicht::Irrlicht(ECS::Vector2<unsigned> gridSize) :
-		_gridSize(gridSize),
-		_window(sf::VideoMode(640, 480), "Arcade")
+	Irrlicht::Irrlicht() :
+		_window(sf::VideoMode(640, 480), "Irrlicht"),
+		_lastId(0)
 	{
 		this->_window.setFramerateLimit(30);
 	}
 
-	void Irrlicht::createEntity(ECS::Entity entity)
+	unsigned Irrlicht::registerEntity(const std::string &name)
 	{
-		irrEntity newEntity(entity);
+		this->_entities.emplace_back(name, this->_lastId);
+		return this->_lastId++;
+	}
 
-		this->_entities.push_back(newEntity);
+	void Irrlicht::setAnimation(unsigned entity, Animations anim)
+	{
+		for (auto &ent : this->_entities)
+			if (ent.id == entity)
+				ent.anim = anim;
+	}
+
+	void Irrlicht::setPosition(unsigned entity, float x, float y)
+	{
+		for (auto &ent : this->_entities)
+			if (ent.id == entity)
+				ent.pos = {x, y};
+	}
+
+	void Irrlicht::display()
+	{
+		this->_window.clear();
+		for (auto &ent : this->_entities)
+			this->drawRect(ent.pos, ent.size, ent.color, true);
+		this->_window.display();
 	}
 
 	bool Irrlicht::areColliding(unsigned entity1, unsigned entity2)
 	{
-		unsigned int ent1 = -1;
-		unsigned int ent2 = -1;
+		std::vector<IrrEntity *> vec;
 
-		for (unsigned int i = 0; i < this->_entities.size(); i++) {
-			if (this->_entities.at(i).id == entity1)
-				ent1 = i;
-			else if (this->_entities.at(i).id == entity2)
-				ent2 = i;
-		}
+		for (auto &ent : this->_entities)
+			if (ent.id == entity1 || ent.id == entity2)
+				vec.push_back(&ent);
 
-		if (this->_entities.at(ent1).pos.x >= this->_entities.at(ent2).pos.x && this->_entities.at(ent1).pos.x <= this->_entities.at(ent2).pos.x + this->_entities.at(ent1).size.x)
-			if (this->_entities.at(ent1).pos.y >= this->_entities.at(ent2).pos.y && this->_entities.at(ent1).pos.y <= this->_entities.at(ent2).pos.y + this->_entities.at(ent1).size.y)
-				return (true);
-		return (false);
+		IrrEntity &e1 = *vec.at(0);
+		IrrEntity &e2 = *vec.at(1);
+
+		return !(
+			e1.pos.x + e1.size.x < e2.pos.x ||
+			e2.pos.x + e2.size.x < e1.pos.x ||
+			e1.pos.y + e1.size.y < e2.pos.y ||
+			e2.pos.y + e2.size.y < e1.pos.y
+		);
 	}
 
 	void Irrlicht::drawRect(ECS::Point pos, ECS::Vector2<unsigned> size, Color color, bool filled)
 	{
-		pos.x *= 640. / this->_gridSize.x;
-		pos.y *= 480. / this->_gridSize.y;
-		size.x *= 640. / this->_gridSize.x;
-		size.y *= 480. / this->_gridSize.y;
 		pos.x += 1;
 		pos.y += 1;
 		if (size.x <= 1 || size.y <= 1)
@@ -66,28 +84,25 @@ namespace Irrlicht
 		this->_window.draw(this->_rectangle);
 	}
 
-	irrEntity::irrEntity(ECS::Entity entity)
+	IrrEntity::IrrEntity(const std::string &name, unsigned id) :
+		id{id},
+		pos{0, 0},
+		anim{IDLE},
+		size{64, 64}
 	{
-		this->id = entity.getId();
-		std::vector<std::unique_ptr<ECS::Component>> components = entity.getComponents();
-
-		for (unsigned int i = 0; i < components.size(); i++) {
-			if (components[i]->getName() == "Position") {
-				this->pos = dynamic_cast<unique_ptr<ECS::PositionComponent>>(components[i])->pos;
-			}
-			if (components[i]->getName() == "Size") {
-				this->pos = dynamic_cast<unique_ptr<ECS::PositionComponent>>(components[i])->size;
-			}
-		}
-		if (entity.getName() == "Player")
-			this->color = 0e1670;
-		else if (entity.getName() == "Wall")
-			this->color = 8b2020;
-		else if (entity.getName() == "Brick")
-			this->color = f90061;
-		else if (entity.getName() == "Bomb")
-			this->color = 666666;
+		if (name == "Player") {
+			this->color = 0x0e1670;
+			this->size = {
+				50,
+				50
+			};
+		} else if (name == "Wall")
+			this->color = 0x8b2020;
+		else if (name == "Brick")
+			this->color = 0xf90061;
+		else if (name == "Bomb")
+			this->color = 0x666666;
 		else
-			this->color = ffffff;
+			this->color = 0xffffff;
 	}
 }

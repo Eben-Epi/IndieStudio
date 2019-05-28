@@ -60,4 +60,7 @@ find_package(Irrlicht REQUIRED)
 target_link_libraries(
 	bomberman
 	Irrlicht
+	sfml-graphics
+	sfml-window
+	sfml-system
 )
