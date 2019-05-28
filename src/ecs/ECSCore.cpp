@@ -89,4 +89,10 @@ namespace ECS
 			while ((*it)->isDestroyed())
 				this->_entities.erase(it);
 	}
+
+	void ECSCore::reset()
+	{
+		this->_entities.erase(this->_entities.begin(), this->_entities.end());
+		this->_lastEntityId = 0;
+	}
 }

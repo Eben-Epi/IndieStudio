@@ -12,7 +12,7 @@
 namespace Irrlicht
 {
 	Irrlicht::Irrlicht() :
-		_window(sf::VideoMode(640, 480), "Irrlicht"),
+		_window(sf::VideoMode(640, 640), "Irrlicht"),
 		_lastId(0)
 	{
 		this->_window.setFramerateLimit(30);
@@ -104,5 +104,15 @@ namespace Irrlicht
 			this->color = 0x666666;
 		else
 			this->color = 0xffffff;
+	}
+
+	bool Irrlicht::isEnd()
+	{
+		sf::Event event;
+
+		while (this->_window.pollEvent(event))
+			if (event.type == sf::Event::Closed)
+				return true;
+		return false;
 	}
 }

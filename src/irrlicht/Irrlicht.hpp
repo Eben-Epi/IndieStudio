@@ -50,6 +50,7 @@ namespace Irrlicht
 		void setAnimation(unsigned entity, Animations anim);
 		void setPosition(unsigned entity, float x, float y);
 		void display();
+		bool isEnd();
 	};
 }
 

@@ -34,6 +34,7 @@ namespace ECS
 		System &getSystem(const std::string &name) const;
 		Entity &makeEntity(const std::string &name);
 		void update();
+		void reset();
 	};
 }
 

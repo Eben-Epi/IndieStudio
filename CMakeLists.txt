@@ -8,7 +8,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/packages)
 
 add_executable(
 	bomberman
-	main.cpp
+	src/core/main.cpp
 	src/ecs/ECSCore.cpp
 	src/ecs/ECSCore.hpp
 	src/ecs/System.cpp
@@ -68,7 +68,6 @@ add_executable(
 	src/ecs/Systems/BombDropperSystem.hpp
 	src/ecs/Systems/HealthSystem.cpp
 	src/ecs/Systems/HealthSystem.hpp
-	src/config.hpp
 	src/ecs/Systems/CollisionSystem.cpp
 	src/ecs/Systems/CollisionSystem.hpp
 	src/ecs/Systems/DisplayableSystem.cpp
@@ -77,7 +76,8 @@ add_executable(
 	src/ecs/Systems/HealthSystem.hpp
 	src/ecs/Systems/BuffedSystem.cpp
 	src/ecs/Systems/BuffedSystem.hpp
-    src/irrlicht/Irrlicht.cpp
+	src/config.hpp
+	src/irrlicht/Irrlicht.cpp
 	src/irrlicht/Irrlicht.hpp
 	src/irrlicht/Animations.hpp)
 
