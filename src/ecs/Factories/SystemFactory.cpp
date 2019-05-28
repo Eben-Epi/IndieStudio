@@ -6,21 +6,26 @@
 */
 
 #include "SystemFactory.hpp"
+#include "../Exceptions.hpp"
 
 namespace ECS
 {
-	SystemFactory::SystemFactory(const ECS::ECSCore &core) :
+	SystemFactory::SystemFactory(ECS::ECSCore &core) :
 		_core(core)
 	{
 	}
 
-	std::map<std::string, std::function<System *(const ECS::ECSCore &core)>> SystemFactory::_functions = {
+	std::map<std::string, std::function<System *(ECS::ECSCore &core)>> SystemFactory::_functions = {
 
 	};
 
 	std::unique_ptr<System> SystemFactory::build(std::string &&name) const
 	{
-		return std::unique_ptr<System>(SystemFactory::_functions[name](this->_core));
+		try {
+			return std::unique_ptr<System>(SystemFactory::_functions[name](this->_core));
+		} catch (std::bad_function_call &) {
+			throw NoSuchSystemException("Cannot create system called " + name);
+		}
 	}
 
 	std::vector<std::unique_ptr<System>> SystemFactory::buildAll() const

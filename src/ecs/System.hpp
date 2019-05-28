@@ -21,11 +21,14 @@ namespace ECS
 		std::string	_name;
 
 	protected:
-		const ECSCore	&_core;
+		std::vector<std::string>_dependencies;
+		ECSCore			&_core;
 
 	public:
-		explicit System(std::string &&name, const ECSCore &core);
+		explicit System(std::string &&name, ECSCore &core);
+
 		std::string	getName() const;
+		void		checkDependencies(Entity &entity);
 		virtual void	updateEntity(Entity &entity) = 0;
 	};
 }
