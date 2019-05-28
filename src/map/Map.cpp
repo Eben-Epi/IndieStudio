@@ -18,6 +18,87 @@ void Map::Map::update() {
     this->_core.update();
 }
 
+std::vector<unsigned> XPairYPairSidesWallGenerator(ECS::Vector2<unsigned> sizeMap)
+{
+    unsigned maxSize = sizeMap.x * sizeMap.y;
+    bool yShift = false;
+    bool xShift = false;
+    std::vector<unsigned> wallPos;
+
+    for (unsigned i = 0; i < maxSize; ++i) {
+        if ((maxSize / sizeMap.x) < sizeMap.y / 2)
+            yShift = true;
+        if ((maxSize % sizeMap.x) < sizeMap.x / 2)
+            xShift = true;
+        if ((maxSize / sizeMap.x + yShift) % 2 == 1 && (maxSize % sizeMap.x + xShift) % 2 == 1)
+            wallPos.push_back(i);
+        yShift = false;
+        xShift = false;
+    }
+    return (wallPos);
+}
+
+std::vector<unsigned> XImpairYImpairSidesWallGenerator(ECS::Vector2<unsigned> sizeMap)
+{
+    unsigned maxSize = sizeMap.x * sizeMap.y;
+    std::vector<unsigned> wallPos;
+
+    for (unsigned i = 0; i < maxSize; ++i) {
+        if ((maxSize / sizeMap.x) % 2 == 1 && (maxSize % sizeMap.x) % 2 == 1)
+            wallPos.push_back(i);
+    }
+    return (wallPos);
+}
+
+std::vector<unsigned> XPairYImpairSidesWallGenerator(ECS::Vector2<unsigned> sizeMap)
+{
+    unsigned maxSize = sizeMap.x * sizeMap.y;
+    bool xShift = false;
+    std::vector<unsigned> wallPos;
+
+    for (unsigned i = 0; i < maxSize; ++i) {
+        if ((maxSize % sizeMap.x) < sizeMap.x / 2)
+            xShift = true;
+        if ((maxSize / sizeMap.x) % 2 == 1 && (maxSize % sizeMap.x + xShift) % 2 == 1)
+            wallPos.push_back(i);
+        xShift = false;
+    }
+    return (wallPos);
+}
+
+std::vector<unsigned> XImpairYPairSidesWallGenerator(ECS::Vector2<unsigned> sizeMap)
+{
+    unsigned maxSize = sizeMap.x * sizeMap.y;
+    bool yShift = false;
+    std::vector<unsigned> wallPos;
+
+    for (unsigned i = 0; i < maxSize; ++i) {
+        if ((maxSize / sizeMap.x) < sizeMap.y / 2)
+            yShift = true;
+        if ((maxSize / sizeMap.x + yShift) % 2 == 1 && (maxSize % sizeMap.x) % 2 == 1)
+            wallPos.push_back(i);
+        yShift = false;
+    }
+    return (wallPos);
+}
+std::vector<unsigned> generateWallBlocksPos(ECS::Vector2<unsigned> sizeMap)
+{
+    bool pairX = sizeMap.x + 1 % 2;
+    bool pairY = sizeMap.y + 1 % 2;
+
+    switch (pairX + (pairY * 2)) {
+        case 1:
+            return (XPairYImpairSidesWallGenerator(sizeMap));
+        case 2:
+            return (XImpairYPairSidesWallGenerator(sizeMap));
+        case 3:
+            return (XPairYPairSidesWallGenerator(sizeMap));
+        default:
+            return (XImpairYImpairSidesWallGenerator(sizeMap));
+    }
+
+}
+
 std::vector<unsigned> generateAirBlocksPos(ECS::Vector2<unsigned> sizeMap)
 {
     unsigned maxSize = sizeMap.x * sizeMap.y;
