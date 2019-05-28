@@ -29,14 +29,24 @@ namespace ECS
 		explicit NoSuchComponentException(const std::string &msg) : ECSException(msg) {};
 	};
 
-	class NoSuchEntity : public ECSException {
+	class NoSuchEntityException : public ECSException {
 	public:
-		explicit NoSuchEntity(const std::string &msg) : ECSException(msg) {};
+		explicit NoSuchEntityException(const std::string &msg) : ECSException(msg) {};
 	};
 
-	class NoSuchSystem : public ECSException {
+	class NoSuchSystemException : public ECSException {
 	public:
-		explicit NoSuchSystem(const std::string &msg) : ECSException(msg) {};
+		explicit NoSuchSystemException(const std::string &msg) : ECSException(msg) {};
+	};
+
+	class MissingDependenciesException : public ECSException {
+	public:
+		explicit MissingDependenciesException(const std::string &msg) : ECSException(msg) {};
+	};
+
+	class InvalidStateException : public ECSException {
+	public:
+		explicit InvalidStateException(const std::string &msg) : ECSException(msg) {};
 	};
 }
 
