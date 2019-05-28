@@ -53,7 +53,9 @@ add_executable(
 	src/ecs/Factories/EntityFactory.hpp
 	src/ecs/Factories/SystemFactory.cpp
 	src/ecs/Factories/SystemFactory.hpp
-	src/ecs/Ressources.hpp)
+	src/ecs/Ressources.hpp
+	src/map/Map.hpp
+	src/map/Map.cpp)
 
 find_package(Irrlicht)
 
@@ -61,3 +63,4 @@ target_link_libraries(
 	bomberman
 	Irrlicht
 )
+
