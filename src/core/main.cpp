@@ -5,7 +5,7 @@
 int main()
 {
 	Irrlicht::Irrlicht	screen;
-	ECS::Ressources		res;
+	ECS::Ressources		res{screen};
 	Map::Map		map{res};
 
 	map.generateMap(10, 70);
@@ -13,5 +13,5 @@ int main()
 		map.update();
 		screen.display();
 	}
-	return EXIT_FAILURE;
+	return EXIT_SUCCESS;
 }

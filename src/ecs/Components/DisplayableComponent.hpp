@@ -9,14 +9,18 @@
 #define DISPLAYABLECOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../../irrlicht/Animations.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
 	class DisplayableComponent : public Component {
 	public:
-		std::string	spriteId;
-		unsigned	animation;
-		explicit DisplayableComponent(std::string &&striteId);
+		Irrlicht::Irrlicht	&screen;
+		unsigned		entityId;
+		std::string		spriteId;
+		Irrlicht::Animations	animation;
+		explicit DisplayableComponent(std::string &&striteId, const Ressources &ressources);
 	};
 }
 

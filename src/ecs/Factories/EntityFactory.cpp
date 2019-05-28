@@ -8,6 +8,7 @@
 #include "EntityFactory.hpp"
 #include "../Exceptions.hpp"
 #include "../Ressources.hpp"
+#include "../Entities/Brick.hpp"
 
 namespace ECS
 {
@@ -17,7 +18,7 @@ namespace ECS
 	}
 
 	std::map<std::string, std::function<Entity *(const Ressources &ressources, unsigned id)>> EntityFactory::_functions = {
-
+		{"Brick", [](const Ressources &ressources, unsigned id) { return new Brick(id, ressources); }}
 	};
 
 	std::unique_ptr<Entity> EntityFactory::build(const std::string &name, unsigned id) const

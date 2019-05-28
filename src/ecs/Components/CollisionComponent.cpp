@@ -10,7 +10,7 @@
 namespace ECS
 {
     CollisionComponent::CollisionComponent(unsigned int hardness) :
-    	Component("ColisionComponent"),
+    	Component("Collision"),
     	hardness(hardness)
     {
     }

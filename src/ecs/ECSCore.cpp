@@ -14,7 +14,8 @@ namespace ECS
 	ECSCore::ECSCore(const ECS::Ressources &ressources) :
 		_ressources(ressources),
 		_systemFactory(*this),
-		_entityFactory(ressources)
+		_entityFactory(ressources),
+		_lastEntityId(0)
 	{
 		this->_systems = this->_systemFactory.buildAll();
 	}

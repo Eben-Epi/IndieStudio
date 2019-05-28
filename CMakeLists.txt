@@ -76,11 +76,15 @@ add_executable(
 	src/ecs/Systems/HealthSystem.hpp
 	src/ecs/Systems/BuffedSystem.cpp
 	src/ecs/Systems/BuffedSystem.hpp
+	src/ecs/Systems/PositionSystem.cpp
+	src/ecs/Systems/PositionSystem.hpp
 	src/config.hpp
 	src/irrlicht/Irrlicht.cpp
 	src/irrlicht/Irrlicht.hpp
 	src/irrlicht/Animations.hpp
-		src/ecs/Systems/PositionSystem.cpp src/ecs/Systems/PositionSystem.hpp)
+	src/ecs/Entities/Brick.cpp
+	src/ecs/Entities/Brick.hpp
+)
 
 find_package(Irrlicht REQUIRED)
 
