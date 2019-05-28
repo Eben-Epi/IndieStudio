@@ -26,8 +26,8 @@ namespace ECS
 	public:
 		explicit SystemFactory(const ECSCore &core);
 
-		std::unique_ptr<System> build(std::string &&name, const ECSCore &core);
-		std::vector<std::unique_ptr<System>> buildAll(const ECSCore &core);
+		std::unique_ptr<System> build(std::string &&name) const;
+		std::vector<std::unique_ptr<System>> buildAll() const;
 	};
 }
 

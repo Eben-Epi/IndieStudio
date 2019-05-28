@@ -16,6 +16,7 @@ namespace ECS
 		_systemFactory(*this),
 		_entityFactory(ressources)
 	{
+		this->_systems = this->_systemFactory.buildAll();
 	}
 
 	Entity &ECSCore::getEntityById(unsigned id) const
