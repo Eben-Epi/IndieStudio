@@ -61,4 +61,10 @@ namespace ECS
 	{
 		this->_destroy = true;
 	}
+
+	/*Component &Entity::addComponent(ECS::Component *component)
+	{
+		this->_components.emplace_back(component);
+		return *this->_components.back();
+	}*/
 }
