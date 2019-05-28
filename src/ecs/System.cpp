@@ -10,7 +10,7 @@
 
 namespace ECS
 {
-	System::System(std::string &&name, const ECSCore &core) :
+	System::System(std::string &&name, ECSCore &core) :
 		_name(name),
 		_core(core)
 	{
