@@ -9,6 +9,8 @@
 #define SOLIDCOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../Entity.hpp"
+#include <vector>
 
 namespace ECS
 {
@@ -16,6 +18,7 @@ namespace ECS
     {
         public:
             unsigned int hardness;
+            std::vector<Entity*> entitiesCollided = {};
             CollisionComponent(unsigned int hardness);
     };
 } // namespace ECS
