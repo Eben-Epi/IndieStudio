@@ -6,3 +6,10 @@
 */
 
 #include "CollisionSystem.hpp"
+
+ECS::CollisionSystem::CollisionSystem(ECS::ECSCore &core):
+    System("Collision", core)
+{}
+
+void ECS::CollisionSystem::updateEntity(ECS::Entity &entity)
+{}

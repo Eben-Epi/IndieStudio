@@ -80,7 +80,7 @@ add_executable(
 	src/irrlicht/Irrlicht.cpp
 	src/irrlicht/Irrlicht.hpp
 	src/irrlicht/Animations.hpp
-)
+		src/ecs/Systems/PositionSystem.cpp src/ecs/Systems/PositionSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 
