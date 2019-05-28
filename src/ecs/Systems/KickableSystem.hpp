@@ -11,9 +11,9 @@
 
 namespace ECS {
     class KickableSystem : public System {
-    protected:
-        std::vector<std::string> _dependencies = {"Movable", "Collision"};
     public:
+        explicit KickableSystem(ECSCore &);
+
         void updateEntity(Entity &entity) override;
     };
 }

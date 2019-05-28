@@ -8,6 +8,11 @@
 #include "../Components/HealthComponent.hpp"
 #include "../Components/EphemeralComponent.hpp"
 
+ECS::EphemeralSystem::EphemeralSystem(ECS::ECSCore &core) :
+	System("Ephemeral", core)
+{
+}
+
 void ECS::EphemeralSystem::updateEntity(ECS::Entity &entity)
 {
     auto ec = reinterpret_cast<EphemeralComponent &>(entity.getComponentByName("Ephemeral"));

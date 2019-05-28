@@ -10,12 +10,12 @@
 
 namespace ECS
 {
-	SystemFactory::SystemFactory(const ECS::ECSCore &core) :
+	SystemFactory::SystemFactory(ECS::ECSCore &core) :
 		_core(core)
 	{
 	}
 
-	std::map<std::string, std::function<System *(const ECS::ECSCore &core)>> SystemFactory::_functions = {
+	std::map<std::string, std::function<System *(ECS::ECSCore &core)>> SystemFactory::_functions = {
 
 	};
 

@@ -22,10 +22,10 @@ namespace ECS
 
 	protected:
 		std::vector<std::string>_dependencies;
-		const ECSCore		&_core;
+		ECSCore			&_core;
 
 	public:
-		explicit System(std::string &&name, const ECSCore &core);
+		explicit System(std::string &&name, ECSCore &core);
 
 		std::string	getName() const;
 		void		checkDependencies(Entity &entity);
