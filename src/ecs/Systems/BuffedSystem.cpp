@@ -9,3 +9,6 @@
 ECS::BuffedSystem::BuffedSystem(ECS::ECSCore &core):
     System("Buffed", core)
 {}
+
+void ECS::BuffedSystem::updateEntity(ECS::Entity &entity)
+{}
