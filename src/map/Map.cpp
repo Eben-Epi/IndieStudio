@@ -44,7 +44,7 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
         else {
             randNum = rand_device() % 100;
             if (randNum < brickRatio)
-                reinterpret_cast<ECS::PositionComponent &>(this->_core.makeEntity("Brick").getComponentByName("Position")).pos = {(double)(i / sizeMap.x), (double)(i % sizeMap.x)};
+                reinterpret_cast<ECS::PositionComponent &>(this->_core.makeEntity("Brick").getComponentByName("Position")).pos = {(double)(i % sizeMap.x), (double)(i / sizeMap.x)};
         }
     }
 }
