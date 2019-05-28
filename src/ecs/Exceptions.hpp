@@ -38,6 +38,16 @@ namespace ECS
 	public:
 		explicit NoSuchSystemException(const std::string &msg) : ECSException(msg) {};
 	};
+
+	class MissingDependenciesException : public ECSException {
+	public:
+		explicit MissingDependenciesException(const std::string &msg) : ECSException(msg) {};
+	};
+
+	class InvalidStateException : public ECSException {
+	public:
+		explicit InvalidStateException(const std::string &msg) : ECSException(msg) {};
+	};
 }
 
 #endif //BOMBERMAN_EXCEPTIONS_HPP
