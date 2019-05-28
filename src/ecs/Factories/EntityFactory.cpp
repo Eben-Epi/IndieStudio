@@ -6,6 +6,7 @@
 */
 
 #include "EntityFactory.hpp"
+#include "../Exceptions.hpp"
 #include "../Ressources.hpp"
 
 namespace ECS
@@ -15,21 +16,25 @@ namespace ECS
 	{
 	}
 
-	std::map<std::string, std::function<Entity *(const Ressources &ressources)>> EntityFactory::_functions = {
+	std::map<std::string, std::function<Entity *(const Ressources &ressources, unsigned id)>> EntityFactory::_functions = {
 
 	};
 
-	std::unique_ptr<Entity> EntityFactory::build(const std::string &name) const
+	std::unique_ptr<Entity> EntityFactory::build(const std::string &name, unsigned id) const
 	{
-		return std::unique_ptr<Entity>(EntityFactory::_functions[name](this->_ressources));
+		try {
+			return std::unique_ptr<Entity>(EntityFactory::_functions[name](this->_ressources, id));
+		} catch (std::bad_function_call &) {
+			throw NoSuchEntityException("Cannot build entity called " + name);
+		}
 	}
 
-	std::vector<std::unique_ptr<Entity>> EntityFactory::buildAll() const
+	std::vector<std::unique_ptr<Entity>> EntityFactory::buildAll(unsigned startId) const
 	{
 		std::vector<std::unique_ptr<Entity>> vec{EntityFactory::_functions.size()};
 
 		for (auto &fun : EntityFactory::_functions)
-			vec.emplace_back(fun.second(this->_ressources));
+			vec.emplace_back(fun.second(this->_ressources, startId++));
 		return vec;
 	}
 }

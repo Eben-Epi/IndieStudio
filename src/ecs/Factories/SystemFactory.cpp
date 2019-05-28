@@ -6,6 +6,7 @@
 */
 
 #include "SystemFactory.hpp"
+#include "../Exceptions.hpp"
 
 namespace ECS
 {
@@ -20,7 +21,11 @@ namespace ECS
 
 	std::unique_ptr<System> SystemFactory::build(std::string &&name) const
 	{
-		return std::unique_ptr<System>(SystemFactory::_functions[name](this->_core));
+		try {
+			return std::unique_ptr<System>(SystemFactory::_functions[name](this->_core));
+		} catch (std::bad_function_call &) {
+			throw NoSuchSystemException("Cannot create system called " + name);
+		}
 	}
 
 	std::vector<std::unique_ptr<System>> SystemFactory::buildAll() const

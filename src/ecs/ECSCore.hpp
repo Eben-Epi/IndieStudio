@@ -19,6 +19,7 @@ namespace ECS
 {
 	class ECSCore {
 	private:
+		unsigned				_lastEntityId;
 		Ressources				_ressources;
 		SystemFactory				_systemFactory;
 		EntityFactory				_entityFactory;
