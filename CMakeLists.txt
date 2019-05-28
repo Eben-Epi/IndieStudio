@@ -9,7 +9,7 @@ set(CMAKE_MODULE_PATH
 
 add_executable(
 	bomberman
-	main.cpp
+	src/core/main.cpp
 	src/ecs/ECSCore.cpp
 	src/ecs/ECSCore.hpp
 	src/ecs/System.cpp
@@ -53,7 +53,11 @@ add_executable(
 	src/ecs/Factories/EntityFactory.hpp
 	src/ecs/Factories/SystemFactory.cpp
 	src/ecs/Factories/SystemFactory.hpp
-	src/ecs/Ressources.hpp src/irrlicht/Irrlicht.cpp src/irrlicht/Irrlicht.hpp src/irrlicht/Animations.hpp)
+	src/ecs/Ressources.hpp
+	src/irrlicht/Irrlicht.cpp
+	src/irrlicht/Irrlicht.hpp
+	src/irrlicht/Animations.hpp
+)
 
 find_package(Irrlicht REQUIRED)
 
