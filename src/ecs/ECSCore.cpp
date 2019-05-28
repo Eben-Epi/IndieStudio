@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
-** EcsCore.cpp
+** ECSCore.cpp
 */
 
 #include <iostream>
-#include "EcsCore.hpp"
+#include "ECSCore.hpp"
 #include "Exceptions.hpp"
 
 namespace ECS
@@ -18,7 +18,7 @@ namespace ECS
 	{
 	}
 
-	Entity &ECSCore::getEntityById(unsigned id)
+	Entity &ECSCore::getEntityById(unsigned id) const
 	{
 		for (auto &entity : this->_entities)
 			if (entity->getId() == id)
@@ -26,7 +26,7 @@ namespace ECS
 		throw NoSuchEntity("Cannot find any entity with id " + std::to_string(id));
 	}
 
-	System &ECSCore::getSystem(const std::string &name)
+	System &ECSCore::getSystem(const std::string &name) const
 	{
 		for (auto &system : this->_systems)
 			if (system->getName() == name)
@@ -34,7 +34,7 @@ namespace ECS
 		throw NoSuchSystem("Cannot find any system with name " + name);
 	}
 
-	std::vector<Entity *> ECSCore::getEntitiesByName(const std::string &name)
+	std::vector<Entity *> ECSCore::getEntitiesByName(const std::string &name) const
 	{
 		std::vector<Entity *> found;
 
@@ -44,7 +44,7 @@ namespace ECS
 		return found;
 	}
 
-	std::vector<Entity *> ECSCore::getEntitiesByComponent(const std::string &name)
+	std::vector<Entity *> ECSCore::getEntitiesByComponent(const std::string &name) const
 	{
 		std::vector<Entity *> found;
 
@@ -52,6 +52,12 @@ namespace ECS
 			if (entity->hasComponent(name))
 				found.push_back(&*entity);
 		return found;
+	}
+
+	Entity &ECSCore::makeEntity(const std::string &name)
+	{
+		this->_entities.push_back(this->_entityFactory.build(name));
+		return *this->_entities.back();
 	}
 
 	void ECSCore::update()
@@ -69,5 +75,8 @@ namespace ECS
 				}
 			}
 		}
+		for (auto it = this->_entities.begin(); it < this->_entities.end(); it++)
+			while ((*it)->isDestroyed())
+				this->_entities.erase(it);
 	}
 }
