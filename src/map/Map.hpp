@@ -22,6 +22,8 @@ namespace Map {
 
         ~Map();
 
+        void update();
+
         void generateMap(unsigned sizeMap, unsigned brickRatio);
 
     };
