@@ -9,6 +9,7 @@
 #define INDIESTUDIO_MAP_HPP
 
 #include "../ecs/ECSCore.hpp"
+#include "../ecs/data/Vector2.hpp"
 
 namespace Map {
 
@@ -21,7 +22,7 @@ namespace Map {
         Map(const ECS::Ressources &ressources);
         ~Map() = default;
         void update();
-        void generateMap(unsigned sizeMap, unsigned brickRatio);
+        void generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio);
 
     };
 }
