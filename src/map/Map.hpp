@@ -8,8 +8,11 @@
 #ifndef INDIESTUDIO_MAP_HPP
 #define INDIESTUDIO_MAP_HPP
 
+#define TILESIZE 64
+
 #include "../ecs/ECSCore.hpp"
 #include "../ecs/data/Vector2.hpp"
+
 
 namespace Map {
 
