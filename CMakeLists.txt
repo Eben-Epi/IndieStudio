@@ -23,9 +23,7 @@ add_executable(
 	src/ecs/Components/BombDropperComponent.hpp
 	src/ecs/Components/BreakableComponent.cpp
 	src/ecs/Components/BreakableComponent.hpp
-	src/ecs/Components/DirectionComponent.cpp
-	src/ecs/Components/DirectionComponent.hpp
-	src/ecs/Components/DisplayableComponent.cpp
+		src/ecs/Components/DisplayableComponent.cpp
 	src/ecs/Components/DisplayableComponent.hpp
 	src/ecs/Components/HealthComponent.cpp
 	src/ecs/Components/HealthComponent.hpp
@@ -65,7 +63,7 @@ add_executable(
 	src/ecs/Factories/EntityFactory.hpp
 	src/ecs/Factories/SystemFactory.cpp
 	src/ecs/Factories/SystemFactory.hpp
-	src/ecs/Ressources.hpp)
+	src/ecs/Ressources.hpp src/ecs/Systems/KickableSystem.cpp src/ecs/Systems/KickableSystem.hpp src/ecs/Systems/EphemeralSystem.cpp src/ecs/Systems/EphemeralSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 

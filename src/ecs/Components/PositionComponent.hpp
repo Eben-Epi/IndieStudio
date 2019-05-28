@@ -15,9 +15,9 @@ namespace ECS
 {
 	class PositionComponent : public Component {
 	public:
-		IndieStudio::Point pos;
+		IndieStudio::PointF pos;
 		IndieStudio::Vector2<unsigned int> size;
-		PositionComponent(IndieStudio::Point pos, IndieStudio::Vector2<unsigned int> size);
+		PositionComponent(IndieStudio::PointF pos, IndieStudio::Vector2<unsigned int> size);
 	};
 } // namespace ECS
 

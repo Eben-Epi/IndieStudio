@@ -16,7 +16,8 @@ namespace IndieStudio
         T y;
     };
 
-    typedef Vector2<int> Point;
+    typedef Vector2<int> PointI;
+    typedef Vector2<double> PointF;
 }; // namespace ECS
 
 #endif
