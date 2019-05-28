@@ -14,6 +14,10 @@ Map::Map::Map(const ECS::Ressources &ressources) : _core(ressources)
 
 }
 
+void Map::Map::update() {
+    this->_core.update();
+}
+
 std::vector<unsigned> generateAirBlocksPos(unsigned sizeMap)
 {
     unsigned maxSize = sizeMap * sizeMap;
