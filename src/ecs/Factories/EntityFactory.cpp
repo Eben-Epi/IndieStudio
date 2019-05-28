@@ -19,12 +19,12 @@ namespace ECS
 
 	};
 
-	std::unique_ptr<Entity> EntityFactory::build(const std::string &name)
+	std::unique_ptr<Entity> EntityFactory::build(const std::string &name) const
 	{
 		return std::unique_ptr<Entity>(EntityFactory::_functions[name](this->_ressources));
 	}
 
-	std::vector<std::unique_ptr<Entity>> EntityFactory::buildAll()
+	std::vector<std::unique_ptr<Entity>> EntityFactory::buildAll() const
 	{
 		std::vector<std::unique_ptr<Entity>> vec{EntityFactory::_functions.size()};
 

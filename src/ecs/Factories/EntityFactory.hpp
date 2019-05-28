@@ -25,8 +25,8 @@ namespace ECS
 	public:
 		explicit EntityFactory(const Ressources &ressources);
 
-		std::unique_ptr<Entity> build(const std::string &name);
-		std::vector<std::unique_ptr<Entity>> buildAll();
+		std::unique_ptr<Entity> build(const std::string &name) const;
+		std::vector<std::unique_ptr<Entity>> buildAll() const;
 	};
 }
 

@@ -10,8 +10,8 @@ set(CMAKE_MODULE_PATH
 add_executable(
 	bomberman
 	main.cpp
-	src/ecs/EcsCore.cpp
-	src/ecs/EcsCore.hpp
+	src/ecs/ECSCore.cpp
+	src/ecs/ECSCore.hpp
 	src/ecs/System.cpp
 	src/ecs/System.hpp
 	src/ecs/Component.cpp
@@ -57,7 +57,7 @@ add_executable(
 	src/map/Map.hpp
 	src/map/Map.cpp)
 
-find_package(Irrlicht)
+find_package(Irrlicht REQUIRED)
 
 target_link_libraries(
 	bomberman
