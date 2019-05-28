@@ -12,9 +12,8 @@
 
 namespace ECS {
     class EphemeralSystem : public System {
-    protected:
-        std::vector<std::string> _dependencies = {"Health"};
     public:
+        EphemeralSystem(ECSCore &core);
         void updateEntity(Entity &entity) override;
     };
 }

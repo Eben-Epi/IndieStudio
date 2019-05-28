@@ -9,6 +9,12 @@
 #include "../Components/CollisionComponent.hpp"
 #include "../Components/MovableComponent.hpp"
 
+ECS::KickableSystem::KickableSystem(ECS::ECSCore &core) :
+	System("Kickable", core)
+{
+	this->_dependencies = {"Movable", "Collision"};
+}
+
 void ECS::KickableSystem::updateEntity(ECS::Entity &entity)
 {
     auto collision = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));

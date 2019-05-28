@@ -12,8 +12,9 @@
 
 namespace ECS {
     class HealthSystem : public System {
-
     public:
+    	HealthSystem(ECSCore &);
+
         void updateEntity(Entity &entity) override;
     };
 }
