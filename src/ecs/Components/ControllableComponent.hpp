@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** IndieStudio
 ** File description:
-** ControllerComponent.hpp
+** ControllableComponent.hpp
 */
 
 #ifndef CONTROLLERCOMPONENT_HPP
@@ -12,10 +12,10 @@
 
 namespace ECS
 {
-    class ControllerComponent : public Component
+    class ControllableComponent : public Component
     {
         public:
-            ControllerComponent();
+            ControllableComponent();
     };
 } // namespace ECS
 
