@@ -16,7 +16,7 @@ namespace Irrlicht
 		_window(sf::VideoMode(640, 640), "Irrlicht"),
 		_lastId(0)
 	{
-		this->_window.setFramerateLimit(30);
+		this->_window.setFramerateLimit(FRAME_RATE);
 	}
 
 	unsigned Irrlicht::registerEntity(const std::string &name)

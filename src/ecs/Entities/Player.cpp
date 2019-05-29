@@ -15,10 +15,10 @@
 
 ECS::Player::Player(unsigned id, const Ressources &ressources) :
 	Entity(id, "Player", {
-		new HealthComponent(1),
-		new MovableComponent(5),
-		new ControllableComponent(*ressources.inputs.at(id)),
 		new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
+		new HealthComponent(1),
+		new ControllableComponent(*ressources.inputs.at(id)),
+		new MovableComponent(5),
 		new DisplayableComponent("Player", ressources)
 	})
 {
