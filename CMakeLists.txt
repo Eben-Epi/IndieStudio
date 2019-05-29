@@ -84,6 +84,8 @@ add_executable(
 	src/irrlicht/Animations.hpp
 	src/ecs/Entities/Brick.cpp
 	src/ecs/Entities/Brick.hpp
+	src/ecs/Entities/Wall.cpp
+	src/ecs/Entities/Wall.hpp
 )
 
 find_package(Irrlicht REQUIRED)

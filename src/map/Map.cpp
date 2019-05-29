@@ -25,13 +25,13 @@ std::vector<unsigned> XPairYPairSidesWallGenerator(ECS::Vector2<unsigned> sizeMa
     bool xShift = false;
     std::vector<unsigned> wallPos;
 
-    for (unsigned i = 0; i < maxSize; ++i) {
-        if ((maxSize / sizeMap.x) < sizeMap.y / 2)
+    for (unsigned j = 0; j < maxSize; ++j) {
+        if ((j / sizeMap.x) >= sizeMap.y / 2)
             yShift = true;
-        if ((maxSize % sizeMap.x) < sizeMap.x / 2)
+        if ((j % sizeMap.x) >= sizeMap.x / 2)
             xShift = true;
-        if ((maxSize / sizeMap.x + yShift) % 2 == 1 && (maxSize % sizeMap.x + xShift) % 2 == 1)
-            wallPos.push_back(i);
+        if ((j / sizeMap.x + yShift) % 2 == 1 && (j % sizeMap.x + xShift) % 2 == 1)
+            wallPos.push_back(j);
         yShift = false;
         xShift = false;
     }
@@ -43,9 +43,9 @@ std::vector<unsigned> XImpairYImpairSidesWallGenerator(ECS::Vector2<unsigned> si
     unsigned maxSize = sizeMap.x * sizeMap.y;
     std::vector<unsigned> wallPos;
 
-    for (unsigned i = 0; i < maxSize; ++i) {
-        if ((maxSize / sizeMap.x) % 2 == 1 && (maxSize % sizeMap.x) % 2 == 1)
-            wallPos.push_back(i);
+    for (unsigned j = 0; j < maxSize; ++j) {
+        if ((j / sizeMap.x) % 2 == 1 && (j % sizeMap.x) % 2 == 1)
+            wallPos.push_back(j);
     }
     return (wallPos);
 }
@@ -56,11 +56,11 @@ std::vector<unsigned> XPairYImpairSidesWallGenerator(ECS::Vector2<unsigned> size
     bool xShift = false;
     std::vector<unsigned> wallPos;
 
-    for (unsigned i = 0; i < maxSize; ++i) {
-        if ((maxSize % sizeMap.x) < sizeMap.x / 2)
+    for (unsigned j = 0; j < maxSize; ++j) {
+        if ((j % sizeMap.x) >= sizeMap.x / 2)
             xShift = true;
-        if ((maxSize / sizeMap.x) % 2 == 1 && (maxSize % sizeMap.x + xShift) % 2 == 1)
-            wallPos.push_back(i);
+        if ((j / sizeMap.x) % 2 == 1 && (j % sizeMap.x + xShift) % 2 == 1)
+            wallPos.push_back(j);
         xShift = false;
     }
     return (wallPos);
@@ -72,19 +72,19 @@ std::vector<unsigned> XImpairYPairSidesWallGenerator(ECS::Vector2<unsigned> size
     bool yShift = false;
     std::vector<unsigned> wallPos;
 
-    for (unsigned i = 0; i < maxSize; ++i) {
-        if ((maxSize / sizeMap.x) < sizeMap.y / 2)
+    for (unsigned j = 0; j < maxSize; ++j) {
+        if ((j / sizeMap.x) >= sizeMap.y / 2)
             yShift = true;
-        if ((maxSize / sizeMap.x + yShift) % 2 == 1 && (maxSize % sizeMap.x) % 2 == 1)
-            wallPos.push_back(i);
+        if ((j / sizeMap.x + yShift) % 2 == 1 && (j % sizeMap.x) % 2 == 1)
+            wallPos.push_back(j);
         yShift = false;
     }
     return (wallPos);
 }
 std::vector<unsigned> generateWallBlocksPos(ECS::Vector2<unsigned> sizeMap)
 {
-    bool pairX = sizeMap.x + 1 % 2;
-    bool pairY = sizeMap.y + 1 % 2;
+    bool pairX = (sizeMap.x + 1) % 2;
+    bool pairY = (sizeMap.y + 1) % 2;
 
     switch (pairX + (pairY * 2)) {
         case 1:
@@ -107,8 +107,8 @@ std::vector<unsigned> generateAirBlocksPos(ECS::Vector2<unsigned> sizeMap)
     unsigned maxSizeDM = maxSize - doubleSize;
     std::vector<unsigned> airPos;
 
-    airPos = {0, 1, sizeMap.x - 2, sizeMap.x - 1, sizeMap.x, sizeMap.x + 1, doubleSize - 2, doubleSize - 1,
-        maxSizeDM, maxSizeDM + 1, maxSizeM - 2, maxSizeM - 1, maxSizeM, maxSizeM + 1, maxSize - 2, maxSize - 1};
+    airPos = {0, 1, sizeMap.x - 2, sizeMap.x - 1, sizeMap.x, doubleSize - 1,
+        maxSizeDM, maxSizeM - 1, maxSizeM, maxSizeM + 1, maxSize - 2, maxSize - 1};
     return (airPos);
 }
 
@@ -125,11 +125,11 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
     unsigned int randNum;
     ECS::Point position;
 
-    setEntityComponentPosition(this->_core.makeEntity("Player"), {0, 0});
+    //setEntityComponentPosition(this->_core.makeEntity("Player"), {0, 0});
     for (int i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)
             airBlocksPos.erase(airBlocksPos.begin());
-        else  {
+        else {
             position = {(double)((i % sizeMap.x) * TILESIZE), (double)((i / sizeMap.x) * TILESIZE)};
             if (!wallBlocksPos.empty() && wallBlocksPos[0] == i) {
                 setEntityComponentPosition(this->_core.makeEntity("Wall"), position);
