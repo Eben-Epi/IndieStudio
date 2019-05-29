@@ -10,27 +10,30 @@
 
 #include <irrlicht/irrlicht.h>
 #include <irrlicht/Keycodes.h>
+#include <irrlicht/ILogger.h>
+#include <irrlicht/irrString.h>
+#include <irrlicht/IEventReceiver.h>
+#include "../irrlicht/Irrlicht.hpp"
+
 #include <vector>
 
-namespace input
+namespace Input
 {
-    class Input
-    {
-        public:
-            Input();
-            ~Input();
-            virtual std::vector<input::Action> getNextAction() = 0;
-
-        private:
-    };
-
     enum Action {
         UP,
         DOWN,
         LEFT,
         RIGHT,
         ACTION,
-        ULT
+        ULT,
+        NB_OF_ACTIONS
+    };
+    class Input
+    {
+        public:
+            virtual std::vector<Action> getActions() = 0;
+
+        private:
     };
 }
 

@@ -5,12 +5,26 @@
 ** Keyboard.cpp
 */
 
-#include "Keybord.hpp"
+#include "Keyboard.hpp"
+#include <iostream>
 
-input::Keyborad::Keyborad() {}
+Input::Keyborad::Keyborad(Irrlicht::Irrlicht &irrlicht, std::vector<irr::EKEY_CODE> &&keys) :
+    _irrlicht(irrlicht),
+    _keys(keys)
+{
+    if (keys.size() != NB_OF_ACTIONS)
+        throw std::exception();//MYSUPEREXCPETION
+}
 
-input::Keyborad::~Keyborad() {}
+Input::Keyborad::~Keyborad() {}
 
-std::vector<input::Action> input::Keyborad::getNextAction() {return(std::vector{input::Action::ACTION});}
+std::vector<Input::Action> Input::Keyborad::getActions() {
+    std::vector<Action> actions;
 
-void input::Keyborad::changeKey(input::Action, irr::EKEY_CODE) {}
+    for (unsigned i = 0; i < this->_keys.size(); i++)
+        if (this->_irrlicht.isKeyPressed(this->_keys[i]))
+            actions.push_back(static_cast<Action>(i));
+    return (actions);
+}
+
+void Input::Keyborad::changeKey(Action, irr::EKEY_CODE) {}

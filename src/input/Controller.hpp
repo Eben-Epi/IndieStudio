@@ -10,15 +10,15 @@
 
 #include "Input.hpp"
 
-namespace input
+namespace Input
 {
     class Controller : public Input
     {
         public:
             Controller();
             ~Controller();
-            std::vector<input::Action> getNextAction();
-            void changeKey(input::Action, irr::EKEY_CODE); //keyCode -> controller Key Code
+            std::vector<Action> getActions();
+            void changeKey(Action, irr::EKEY_CODE); //keyCode -> controller Key Code
 
         private:
     };

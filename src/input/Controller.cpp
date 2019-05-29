@@ -7,10 +7,13 @@
 
 #include "Controller.hpp"
 
-input::Controller::Controller() {}
+Input::Controller::Controller() {}
 
-input::Controller::~Controller() {}
+Input::Controller::~Controller() {}
 
-std::vector<input::Action> input::Controller::getNextAction() {return(std::vector{input::Action::ACTION});}
+std::vector<Input::Action> Input::Controller::getActions() {
+    std::vector<Action> Actions;
+    return(Actions);
+}
 
-void input::Controller::changeKey(input::Action, irr::EKEY_CODE) {}
+void Input::Controller::changeKey(Action, irr::EKEY_CODE) {}
