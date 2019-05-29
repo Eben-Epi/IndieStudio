@@ -11,6 +11,12 @@
 #include "../Systems/CollisionSystem.hpp"
 #include "../Systems/DisplayableSystem.hpp"
 #include "../Systems/PositionSystem.hpp"
+#include "../Systems/MovableSystem.hpp"
+#include "../Systems/KickableSystem.hpp"
+#include "../Systems/EphemeralSystem.hpp"
+#include "../Systems/ControllableSystem.hpp"
+#include "../Systems/BuffedSystem.hpp"
+#include "../Systems/BombDropperSystem.hpp"
 
 namespace ECS
 {
@@ -20,9 +26,15 @@ namespace ECS
 	}
 
 	std::map<std::string, std::function<System *(ECS::ECSCore &core)>> SystemFactory::_functions = {
-		{"Health", [](ECS::ECSCore &core) { return new HealthSystem(core); }},
+		{"BombDropper", [](ECS::ECSCore &core) { return new BombDropperSystem(core); }},
+		{"Buffed", [](ECS::ECSCore &core) { return new BuffedSystem(core); }},
 		{"Collision", [](ECS::ECSCore &core) { return new CollisionSystem(core); }},
+		{"Controllable", [](ECS::ECSCore &core) { return new ControllableSystem(core); }},
 		{"Displayable", [](ECS::ECSCore &core) { return new DisplayableSystem(core); }},
+		{"Ephemeral", [](ECS::ECSCore &core) { return new EphemeralSystem(core); }},
+		{"Health", [](ECS::ECSCore &core) { return new HealthSystem(core); }},
+		{"Kickable", [](ECS::ECSCore &core) { return new KickableSystem(core); }},
+		{"Movable", [](ECS::ECSCore &core) { return new MovableSystem(core); }},
 		{"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }}
 	};
 

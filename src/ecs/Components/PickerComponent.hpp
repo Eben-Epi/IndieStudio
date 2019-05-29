@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** IndieStudio
+** ECS
 ** File description:
 ** PicherComponent.hpp
 */

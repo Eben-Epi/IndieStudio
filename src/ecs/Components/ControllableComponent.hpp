@@ -1,21 +1,23 @@
 /*
 ** EPITECH PROJECT, 2018
-** IndieStudio
+** ECS
 ** File description:
-** ControllerComponent.hpp
+** ControllableComponent.hpp
 */
 
 #ifndef CONTROLLERCOMPONENT_HPP
 #define CONTROLLERCOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../../input/Input.hpp"
 
 namespace ECS
 {
-    class ControllerComponent : public Component
+    class ControllableComponent : public Component
     {
         public:
-            ControllerComponent();
+    	    Input::Input &input;
+            ControllableComponent(Input::Input &);
     };
 } // namespace ECS
 
