@@ -8,6 +8,7 @@
 #include "../Components/MovableComponent.hpp"
 #include "../Components/PositionComponent.hpp"
 #include "../data/Directions.hpp"
+#include "../../config.hpp"
 
 ECS::MovableSystem::MovableSystem(ECS::ECSCore &core):
     System("Movable", core)
@@ -21,7 +22,7 @@ void ECS::MovableSystem::updateEntity(ECS::Entity &entity)
     auto pc = reinterpret_cast<PositionComponent&>(entity.getComponentByName("Position"));
 
     if (mc.speed > 0) {
-        mc.speed += mc.maxSpeed;
+        mc.speed += mc.maxSpeed / (FRAME_RATE / 2);
         mc.speed = mc.speed <= mc.maxSpeed ?: mc.maxSpeed;
         if (mc.dir & ECS::Directions::RIGHT)
             pc.pos.x += mc.speed;
