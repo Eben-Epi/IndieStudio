@@ -25,6 +25,13 @@ namespace Irrlicht
 		return this->_lastId++;
 	}
 
+	void Irrlicht::deleteEntity(unsigned id)
+	{
+		for (auto it = this->_entities.begin(); it < this->_entities.end(); it++)
+			if (it->id == id)
+				this->_entities.erase(it);
+	}
+
 	void Irrlicht::setAnimation(unsigned entity, Animations anim)
 	{
 		for (auto &ent : this->_entities)
