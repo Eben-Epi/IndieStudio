@@ -6,5 +6,6 @@
 */
 #include "BlockComponent.hpp"
 
-ECS::BlockComponent::BlockComponent()
+ECS::BlockComponent::BlockComponent() :
+	Component("Block")
 {}

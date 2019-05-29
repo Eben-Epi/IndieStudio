@@ -24,7 +24,7 @@ void ECS::BlockSystem::updateEntity(ECS::Entity &entity)
         if (!i->hasComponent("Movable"))
             continue;
         auto &icc = reinterpret_cast<PositionComponent &>(i->getComponentByName("Collision"));
-        if (cc.hardness <= cc.passthough)
+        if (cc.hardness <= cc.passThrough)
             continue;
         auto &ipc = reinterpret_cast<PositionComponent &>(i->getComponentByName("Position"));
         auto &imc = reinterpret_cast<MovableComponent &>(i->getComponentByName("Movable"));

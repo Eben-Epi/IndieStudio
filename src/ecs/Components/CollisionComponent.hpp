@@ -18,9 +18,9 @@ namespace ECS
     {
         public:
             unsigned int hardness;
-            unsigned int passthough;
+            unsigned int passThrough;
             std::vector<Entity*> entitiesCollided = {};
-            CollisionComponent(unsigned int hardness);
+            CollisionComponent(unsigned int hardness, unsigned int pass);
     };
 } // namespace ECS
 

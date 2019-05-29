@@ -5,6 +5,7 @@
 ** CollisionSystem.cpp
 */
 
+#include <iostream>
 #include "CollisionSystem.hpp"
 #include "../ECSCore.hpp"
 #include "../Components/CollisionComponent.hpp"
@@ -22,7 +23,7 @@ void ECS::CollisionSystem::updateEntity(ECS::Entity &entity)
 	auto &disp = reinterpret_cast<DisplayableComponent &>(entity.getComponentByName("Displayable"));
 
 	col.entitiesCollided = {};
-	for (auto &ent : this->_core.getEntitiesByComponent("Collision")) {
+	for (auto &ent : this->_core.getEntitiesByComponent("Movable")) {
 		if (ent->getId() == entity.getId())
 			continue;
 
