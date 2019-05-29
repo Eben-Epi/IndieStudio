@@ -11,12 +11,14 @@
 #include "../Components/DisplayableComponent.hpp"
 #include "../Components/ControllableComponent.hpp"
 #include "../Components/MovableComponent.hpp"
+#include "../Components/CollisionComponent.hpp"
 #include "../../config.hpp"
 
 ECS::Player::Player(unsigned id, const Ressources &ressources) :
 	Entity(id, "Player", {
 		new HealthComponent(1),
 		new MovableComponent(5),
+		new CollisionComponent(0, 0),
 		new ControllableComponent(*ressources.inputs.at(id)),
 		new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
 		new DisplayableComponent("Player", ressources)

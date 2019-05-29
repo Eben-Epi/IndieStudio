@@ -48,17 +48,18 @@ namespace ECS
 
 	std::vector<Entity *> ECSCore::getEntitiesByComponent(const std::string &name) const
 	{
-		std::vector<Entity *> found;
-
-		for (auto &entity : this->_entities)
-			if (entity->hasComponent(name))
-				found.push_back(&*entity);
-		return found;
+		try {
+			return this->_components.at(name);
+		} catch (std::out_of_range &) {
+			return {};
+		}
 	}
 
 	Entity &ECSCore::makeEntity(const std::string &name)
 	{
 		this->_entities.push_back(this->_entityFactory.build(name, this->_lastEntityId++));
+		for (auto &comp : this->_entities.back()->getComponents())
+			this->_components[comp->getName()].push_back(&*this->_entities.back());
 		return *this->_entities.back();
 	}
 
