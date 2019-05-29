@@ -9,9 +9,10 @@
 
 namespace ECS
 {
-    MovableComponent::MovableComponent(float maxSpeed) :
+    MovableComponent::MovableComponent(float maxSpeed):
     	Component("Movable"),
-      	speed(0),
+		dir(IndieStudio::Directions::UP),
+		speed(0),
     	maxSpeed(maxSpeed)
     {
     }

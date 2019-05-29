@@ -14,8 +14,10 @@ namespace ECS
 	ECSCore::ECSCore(const ECS::Ressources &ressources) :
 		_ressources(ressources),
 		_systemFactory(*this),
-		_entityFactory(ressources)
+		_entityFactory(ressources),
+		_lastEntityId(0)
 	{
+		this->_systems = this->_systemFactory.buildAll();
 	}
 
 	Entity &ECSCore::getEntityById(unsigned id) const
@@ -23,7 +25,7 @@ namespace ECS
 		for (auto &entity : this->_entities)
 			if (entity->getId() == id)
 				return *entity;
-		throw NoSuchEntity("Cannot find any entity with id " + std::to_string(id));
+		throw NoSuchEntityException("Cannot find any entity with id " + std::to_string(id));
 	}
 
 	System &ECSCore::getSystem(const std::string &name) const
@@ -31,7 +33,7 @@ namespace ECS
 		for (auto &system : this->_systems)
 			if (system->getName() == name)
 				return *system;
-		throw NoSuchSystem("Cannot find any system with name " + name);
+		throw NoSuchSystemException("Cannot find any system with name " + name);
 	}
 
 	std::vector<Entity *> ECSCore::getEntitiesByName(const std::string &name) const
@@ -56,7 +58,7 @@ namespace ECS
 
 	Entity &ECSCore::makeEntity(const std::string &name)
 	{
-		this->_entities.push_back(this->_entityFactory.build(name));
+		this->_entities.push_back(this->_entityFactory.build(name, this->_lastEntityId++));
 		return *this->_entities.back();
 	}
 
@@ -65,9 +67,18 @@ namespace ECS
 		for (auto &entity : this->_entities) {
 			for (auto &comp : entity->getComponents()) {
 				try {
-					this->getSystem(comp->getName()).updateEntity(*entity);
-				} catch (NoSuchSystem &e) {
-					std::cerr << e.what() << ", but is required by a component of entity n°";
+					auto &system = this->getSystem(comp->getName());
+
+					system.checkDependencies(*entity);
+					system.updateEntity(*entity);
+				} catch (NoSuchSystemException &e) {
+					std::cerr << e.what() << ", but is required by " + comp->getName() + "Component of entity n°";
+					std::cerr << std::to_string(entity->getId());
+					std::cerr << " '" + entity->getName() + "'";
+					std::cerr << std::endl;
+					throw;
+				} catch (MissingDependenciesException &e) {
+					std::cerr << e.what() << ", but is required by " + comp->getName() + "Component of entity n°";
 					std::cerr << std::to_string(entity->getId());
 					std::cerr << " '" + entity->getName() + "'";
 					std::cerr << std::endl;
@@ -78,5 +89,11 @@ namespace ECS
 		for (auto it = this->_entities.begin(); it < this->_entities.end(); it++)
 			while ((*it)->isDestroyed())
 				this->_entities.erase(it);
+	}
+
+	void ECSCore::reset()
+	{
+		this->_entities.erase(this->_entities.begin(), this->_entities.end());
+		this->_lastEntityId = 0;
 	}
 }

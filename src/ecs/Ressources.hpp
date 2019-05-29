@@ -9,10 +9,12 @@
 #define BOMBERMAN_RESSOURCES_HPP
 
 
+#include "../irrlicht/Irrlicht.hpp"
+
 namespace ECS
 {
 	struct Ressources {
-
+		Irrlicht::Irrlicht	&screen;
 	};
 }
 

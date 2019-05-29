@@ -9,9 +9,10 @@
 
 namespace ECS
 {
-	PositionComponent::PositionComponent(Point pos) :
+	PositionComponent::PositionComponent(IndieStudio::PointF pos, IndieStudio::Vector2<unsigned int> size) :
 		Component("Position"),
-		pos(pos)
+		pos(pos),
+		size(size)
 	{
 	}
 }
