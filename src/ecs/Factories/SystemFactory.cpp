@@ -17,7 +17,7 @@
 #include "../Systems/ControllableSystem.hpp"
 #include "../Systems/BuffedSystem.hpp"
 #include "../Systems/BombDropperSystem.hpp"
-#include "../Systems/BlockSystem.hpp"
+#include "../Systems/BlockedSystem.hpp"
 
 namespace ECS
 {
@@ -37,7 +37,7 @@ namespace ECS
 		{"Kickable", [](ECS::ECSCore &core) { return new KickableSystem(core); }},
 		{"Movable", [](ECS::ECSCore &core) { return new MovableSystem(core); }},
 		{"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }},
-		{"Block", [](ECS::ECSCore &core) { return new BlockSystem(core); }}
+		{"Block", [](ECS::ECSCore &core) { return new BlockedSystem(core); }}
 	};
 
 	std::unique_ptr<System> SystemFactory::build(std::string &&name) const

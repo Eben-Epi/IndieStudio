@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
-** BlockComponent.hpp
+** BlockedComponent.hpp
 */
 #ifndef BOMBERMAN_BLOCKCOMPONENT_HPP
 #define BOMBERMAN_BLOCKCOMPONENT_HPP
@@ -10,9 +10,9 @@
 #include "../Component.hpp"
 
 namespace ECS {
-    class BlockComponent : public Component {
+    class BlockedComponent : public Component {
     public:
-        BlockComponent();
+        BlockedComponent();
     };
 }
 

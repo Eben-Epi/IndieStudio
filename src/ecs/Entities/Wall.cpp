@@ -9,14 +9,13 @@
 #include "../Components/CollisionComponent.hpp"
 #include "../Components/PositionComponent.hpp"
 #include "../Components/DisplayableComponent.hpp"
-#include "../Components/BlockComponent.hpp"
+#include "../Components/BlockedComponent.hpp"
 #include "../../config.hpp"
 
 ECS::Wall::Wall(unsigned id, const Ressources &ressources) :
     Entity(id, "Wall", {
         new DisplayableComponent("Wall", ressources),
         new CollisionComponent(1, 0),
-        new BlockComponent(),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE})
     })
 {

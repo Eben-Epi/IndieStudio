@@ -13,6 +13,7 @@
 #include "../Components/MovableComponent.hpp"
 #include "../Components/CollisionComponent.hpp"
 #include "../../config.hpp"
+#include "../Components/BlockedComponent.hpp"
 
 ECS::Player::Player(unsigned id, const Ressources &ressources) :
 	Entity(id, "Player", {
@@ -21,6 +22,7 @@ ECS::Player::Player(unsigned id, const Ressources &ressources) :
 		new HealthComponent(1),
 		new MovableComponent(5),
 		new CollisionComponent(0, 0),
+		new BlockedComponent(),
 		new ControllableComponent(*ressources.inputs.at(id))
 	})
 {
