@@ -14,10 +14,10 @@
 
 ECS::Wall::Wall(unsigned id, const Ressources &ressources) :
     Entity(id, "Wall", {
+        new DisplayableComponent("Wall", ressources),
         new CollisionComponent(1, 0),
         new BlockComponent(),
-        new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
-        new DisplayableComponent("Wall", ressources)
+        new PositionComponent({0, 0}, {TILESIZE, TILESIZE})
     })
 {
 }
