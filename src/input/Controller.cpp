@@ -21,11 +21,9 @@ Input::Controller::~Controller() {}
 std::vector<Input::Action> Input::Controller::getActions() { //does not work
     std::vector<Action> actions;
     int action;
-    while (1) {
     for (unsigned i = 0; i < this->_keys.size(); i++) {
-        action = this->_irrlicht.isJoystickButtonPressed(_id, this->_keys[i]);
-        std::cout << action << std::endl;
-    }
+        if (this->_irrlicht.isJoystickButtonPressed(_id, this->_keys[i]))
+            actions.push_back(static_cast<Action>(i));
     }
     return (actions);
 }
