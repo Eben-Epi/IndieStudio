@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
-** BlockedSytem.cpp
+** BlockedSystem.cpp
 */
 #include "BlockedSystem.hpp"
 #include "../Components/CollisionComponent.hpp"
@@ -10,13 +10,13 @@
 #include "../Components/MovableComponent.hpp"
 #include "../../config.hpp"
 
-ECS::BlockedSytem::BlockedSytem(ECS::ECSCore &core):
+ECS::BlockedSystem::BlockedSystem(ECS::ECSCore &core):
     System("Block", core)
 {
     this->_dependencies = {"Collision", "Position"};
 }
 
-void ECS::BlockedSytem::updateEntity(ECS::Entity &entity)
+void ECS::BlockedSystem::updateEntity(ECS::Entity &entity)
 {
     auto &entity_hitbox = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
 
@@ -24,7 +24,7 @@ void ECS::BlockedSytem::updateEntity(ECS::Entity &entity)
         auto &entity_pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
         auto &entity_mov = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
         auto &wall_hitbox = reinterpret_cast<CollisionComponent &>(wall->getComponentByName("Collision"));
-        if (wall_hitbox.hardness <= entity_hitbox.passthough)
+        if (wall_hitbox.hardness <= entity_hitbox.passThrough)
             continue;
         int relative_x = static_cast<int>(entity_pos.pos.x) % TILESIZE;
         int relative_y = static_cast<int>(entity_pos.pos.y) % TILESIZE;

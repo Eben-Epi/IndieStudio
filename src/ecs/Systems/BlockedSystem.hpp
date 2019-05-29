@@ -2,20 +2,20 @@
 ** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
-** BlockedSytem.hpp
+** BlockedSystem.hpp
 */
-#ifndef BOMBERMAN_BlockedSytem_HPP
-#define BOMBERMAN_BlockedSytem_HPP
+#ifndef BOMBERMAN_BlockedSystem_HPP
+#define BOMBERMAN_BlockedSystem_HPP
 
 #include "../System.hpp"
 
 namespace ECS {
-    class BlockedSytem : public System {
+    class BlockedSystem : public System {
     public:
-        BlockedSytem(ECSCore &core);
+        BlockedSystem(ECSCore &core);
         void updateEntity(Entity &entity) override;
     };
 }
 
 
-#endif //BOMBERMAN_BlockedSytem_HPP
+#endif //BOMBERMAN_BlockedSystem_HPP
