@@ -21,6 +21,7 @@ namespace ECS
 		std::string		spriteId;
 		Irrlicht::Animations	animation;
 		explicit DisplayableComponent(std::string &&striteId, const Ressources &ressources);
+		~DisplayableComponent();
 	};
 }
 

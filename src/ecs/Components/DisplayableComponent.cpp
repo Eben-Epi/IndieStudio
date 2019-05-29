@@ -19,4 +19,9 @@ namespace ECS
 		animation(Irrlicht::IDLE)
 	{
 	}
+
+	DisplayableComponent::~DisplayableComponent()
+	{
+		this->screen.deleteEntity(this->entityId);
+	}
 }
