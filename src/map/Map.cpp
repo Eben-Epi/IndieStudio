@@ -8,6 +8,7 @@
 #include <random>
 #include "Map.hpp"
 #include "../ecs/Components/PositionComponent.hpp"
+#include "MapException.hpp"
 
 Map::Map::Map(const ECS::Ressources &ressources) : _core(ressources)
 {
@@ -125,7 +126,10 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
     unsigned int randNum;
     ECS::Point position;
 
+    if (sizeMap.x < 4 || sizeMap.y < 4)
+        throw MapException("Map is too small in x or in y (< 4).");
     //setEntityComponentPosition(this->_core.makeEntity("Player"), {0, 0});
+    //setWallArenaAround();
     for (int i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)
             airBlocksPos.erase(airBlocksPos.begin());
