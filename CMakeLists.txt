@@ -84,7 +84,7 @@ add_executable(
 	src/irrlicht/Animations.hpp
 	src/ecs/Entities/Brick.cpp
 	src/ecs/Entities/Brick.hpp
-)
+		src/ecs/Systems/MovableSystem.cpp src/ecs/Systems/MovableSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 
