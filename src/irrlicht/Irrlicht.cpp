@@ -143,4 +143,14 @@ namespace Irrlicht
 			return false;
 		}
 	}
+
+	bool Irrlicht::isJoystickButtonPressed(unsigned id, unsigned button)
+	{
+		return sf::Joystick::isButtonPressed(id, button);
+	}
+
+	float Irrlicht::getJoystickAxisPosition(unsigned id, unsigned axis)
+	{
+		return sf::Joystick::getAxisPosition(id, static_cast<sf::Joystick::Axis>(axis));
+	}
 }
