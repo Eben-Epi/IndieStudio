@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** IndieStudio
+** ECS
 ** File description:
 ** PositionComponent.hpp
 */
@@ -15,9 +15,9 @@ namespace ECS
 {
 	class PositionComponent : public Component {
 	public:
-		IndieStudio::PointF pos;
-		IndieStudio::Vector2<unsigned int> size;
-		PositionComponent(IndieStudio::PointF pos, IndieStudio::Vector2<unsigned int> size);
+		ECS::PointF pos;
+		ECS::Vector2<unsigned int> size;
+		PositionComponent(ECS::PointF pos, ECS::Vector2<unsigned int> size);
 	};
 } // namespace ECS
 

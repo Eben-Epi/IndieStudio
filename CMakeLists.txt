@@ -92,6 +92,10 @@ add_executable(
 	src/input/Input.hpp
 	src/input/Keyboard.cpp
 	src/input/Keyboard.hpp
+	src/ecs/Entities/Brick.cpp
+	src/ecs/Entities/Brick.hpp
+	src/ecs/Entities/Wall.cpp
+	src/ecs/Entities/Wall.hpp
 )
 
 find_package(Irrlicht REQUIRED)
