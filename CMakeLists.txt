@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.11)
 
 project(bomberman)
 
@@ -87,6 +87,11 @@ add_executable(
 	src/irrlicht/Animations.hpp
 	src/map/Map.hpp
 	src/map/Map.cpp
+	src/input/Controller.cpp
+	src/input/Controller.hpp
+	src/input/Input.hpp
+	src/input/Keyboard.cpp
+	src/input/Keyboard.hpp
 )
 
 find_package(Irrlicht REQUIRED)
