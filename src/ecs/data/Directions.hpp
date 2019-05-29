@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** IndieStudio
+** ECS
 ** File description:
 ** Directions.hpp
 */
@@ -8,7 +8,7 @@
 #ifndef DIRECTIONS_HPP
 #define DIRECTIONS_HPP
 
-namespace IndieStudio
+namespace ECS
 {
     enum Directions
     {

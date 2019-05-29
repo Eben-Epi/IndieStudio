@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** IndieStudio
+** ECS
 ** File description:
 ** KickerComponent.hpp
 */

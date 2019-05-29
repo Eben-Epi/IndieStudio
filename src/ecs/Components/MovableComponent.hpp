@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** IndieStudio
+** ECS
 ** File description:
 ** MovableComponent.hpp
 */
@@ -16,7 +16,7 @@ namespace ECS
     class MovableComponent : public Component
     {
         public:
-            IndieStudio::Directions dir;
+            ECS::Directions dir;
             float speed;
             float maxSpeed;
             MovableComponent(float maxSpeed);

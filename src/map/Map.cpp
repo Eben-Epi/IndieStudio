@@ -112,20 +112,33 @@ std::vector<unsigned> generateAirBlocksPos(ECS::Vector2<unsigned> sizeMap)
     return (airPos);
 }
 
+void setEntityComponentPosition(ECS::Entity &entity, ECS::Point pos)
+{
+    reinterpret_cast<ECS::PositionComponent &>(entity.getComponentByName("Position")).pos = pos;
+}
+
 void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
 {
-    std::vector<std::string> terrainByStr;
     std::vector<unsigned> airBlocksPos = generateAirBlocksPos(sizeMap);
+    std::vector<unsigned> wallBlocksPos = generateWallBlocksPos(sizeMap);
     std::random_device rand_device;
     unsigned int randNum;
+    ECS::Point position;
 
+    setEntityComponentPosition(this->_core.makeEntity("Player"), {0, 0});
     for (int i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)
             airBlocksPos.erase(airBlocksPos.begin());
-        else {
-            randNum = rand_device() % 100;
-            if (randNum < brickRatio)
-                reinterpret_cast<ECS::PositionComponent &>(this->_core.makeEntity("Brick").getComponentByName("Position")).pos = {(double)((i % sizeMap.x) * TILESIZE), (double)((i / sizeMap.x) * TILESIZE)};
+        else  {
+            position = {(double)((i % sizeMap.x) * TILESIZE), (double)((i / sizeMap.x) * TILESIZE)};
+            if (!wallBlocksPos.empty() && wallBlocksPos[0] == i) {
+                setEntityComponentPosition(this->_core.makeEntity("Wall"), position);
+                wallBlocksPos.erase(wallBlocksPos.begin());
+            } else {
+                randNum = rand_device() % 100;
+                if (randNum < brickRatio)
+                    setEntityComponentPosition(this->_core.makeEntity("Brick"), position);
+            }
         }
     }
 }

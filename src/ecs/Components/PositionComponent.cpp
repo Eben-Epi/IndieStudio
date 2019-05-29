@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** IndieStudio
+** ECS
 ** File description:
 ** PositionComponent.cpp
 */
@@ -9,7 +9,7 @@
 
 namespace ECS
 {
-	PositionComponent::PositionComponent(IndieStudio::PointF pos, IndieStudio::Vector2<unsigned int> size) :
+	PositionComponent::PositionComponent(ECS::PointF pos, ECS::Vector2<unsigned int> size) :
 		Component("Position"),
 		pos(pos),
 		size(size)
