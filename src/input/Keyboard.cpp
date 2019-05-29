@@ -6,9 +6,8 @@
 */
 
 #include "Keyboard.hpp"
-#include <iostream>
 
-Input::Keyborad::Keyborad(Irrlicht::Irrlicht &irrlicht, std::vector<irr::EKEY_CODE> &&keys) :
+Input::Keyboard::Keyboard(Irrlicht::Irrlicht &irrlicht, std::vector<irr::EKEY_CODE> &&keys) :
     _irrlicht(irrlicht),
     _keys(keys)
 {
@@ -16,9 +15,9 @@ Input::Keyborad::Keyborad(Irrlicht::Irrlicht &irrlicht, std::vector<irr::EKEY_CO
         throw std::exception();//MYSUPEREXCPETION
 }
 
-Input::Keyborad::~Keyborad() {}
+Input::Keyboard::~Keyboard() {}
 
-std::vector<Input::Action> Input::Keyborad::getActions() {
+std::vector<Input::Action> Input::Keyboard::getActions() {
     std::vector<Action> actions;
 
     for (unsigned i = 0; i < this->_keys.size(); i++)
@@ -27,4 +26,4 @@ std::vector<Input::Action> Input::Keyborad::getActions() {
     return (actions);
 }
 
-void Input::Keyborad::changeKey(Action, irr::EKEY_CODE) {}
+void Input::Keyboard::changeKey(Action, irr::EKEY_CODE) {}

@@ -14,7 +14,7 @@
 #include <irrlicht/irrString.h>
 #include <irrlicht/IEventReceiver.h>
 #include "../irrlicht/Irrlicht.hpp"
-
+#include <iostream>
 #include <vector>
 
 namespace Input
