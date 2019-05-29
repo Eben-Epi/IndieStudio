@@ -98,7 +98,7 @@ add_executable(
 	src/ecs/Entities/Wall.hpp
 	src/ecs/Entities/Player.cpp
 	src/ecs/Entities/Player.hpp
-)
+        src/ecs/Systems/BlockSystem.cpp src/ecs/Systems/BlockSystem.hpp src/ecs/Components/BlockComponent.cpp src/ecs/Components/BlockComponent.hpp)
 
 find_package(Irrlicht REQUIRED)
 
