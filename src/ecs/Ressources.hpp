@@ -9,12 +9,14 @@
 #define BOMBERMAN_RESSOURCES_HPP
 
 
+#include "../input/Input.hpp"
 #include "../irrlicht/Irrlicht.hpp"
 
 namespace ECS
 {
 	struct Ressources {
-		Irrlicht::Irrlicht	&screen;
+		Irrlicht::Irrlicht			   &screen;
+		std::vector<std::unique_ptr<Input::Input>> &inputs;
 	};
 }
 

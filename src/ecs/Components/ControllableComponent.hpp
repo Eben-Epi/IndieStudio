@@ -9,13 +9,15 @@
 #define CONTROLLERCOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../../input/Input.hpp"
 
 namespace ECS
 {
     class ControllableComponent : public Component
     {
         public:
-            ControllableComponent();
+    	    Input::Input &input;
+            ControllableComponent(Input::Input &);
     };
 } // namespace ECS
 

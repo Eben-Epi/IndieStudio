@@ -9,9 +9,9 @@
 
 namespace ECS
 {
-    ControllableComponent::ControllableComponent() :
-        Component("Controllable")
+    ControllableComponent::ControllableComponent(Input::Input &input) :
+        Component("Controllable"),
+        input(input)
     {
-
     }
 }

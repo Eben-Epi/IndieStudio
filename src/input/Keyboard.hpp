@@ -12,11 +12,11 @@
 
 namespace Input
 {
-    class Keyborad : public Input
+    class Keyboard : public Input
     {
         public:
-            Keyborad(Irrlicht::Irrlicht &, std::vector<irr::EKEY_CODE> &&);
-            ~Keyborad();
+            Keyboard(Irrlicht::Irrlicht &, std::vector<irr::EKEY_CODE> &&);
+            ~Keyboard();
             std::vector<Action> getActions();
             void changeKey(Action, irr::EKEY_CODE);
 
