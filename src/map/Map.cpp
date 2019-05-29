@@ -125,7 +125,7 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
     unsigned int randNum;
     ECS::Point position;
 
-    //setEntityComponentPosition(this->_core.makeEntity("Player"), {0, 0});
+    setEntityComponentPosition(this->_core.makeEntity("Player"), {0, 0});
     for (int i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)
             airBlocksPos.erase(airBlocksPos.begin());

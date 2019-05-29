@@ -5,6 +5,7 @@
 ** ControllableSystem.cpp
 */
 
+#include <iostream>
 #include "ControllableSystem.hpp"
 #include "../Components/PositionComponent.hpp"
 #include "../Components/MovableComponent.hpp"

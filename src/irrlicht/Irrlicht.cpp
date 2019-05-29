@@ -92,7 +92,7 @@ namespace Irrlicht
 		size{TILESIZE, TILESIZE}
 	{
 		if (name == "Player") {
-			this->color = 0x0e1670;
+			this->color = 0x0e16FF;
 			this->size = {
 				static_cast<unsigned>(TILESIZE * 0.75),
 				static_cast<unsigned>(TILESIZE * 0.75)
