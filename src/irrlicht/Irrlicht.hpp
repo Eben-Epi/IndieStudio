@@ -12,6 +12,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <irrlicht/Keycodes.h>
 #include "Animations.hpp"
 #include "../ecs/Entity.hpp"
 #include "../ecs/data/Vector2.hpp"
@@ -49,6 +50,7 @@ namespace Irrlicht
 		bool areColliding(unsigned entity1, unsigned entity2);
 		void setAnimation(unsigned entity, Animations anim);
 		void setPosition(unsigned entity, float x, float y);
+		bool isKeyPressed(irr::EKEY_CODE key);
 		void display();
 		bool isEnd();
 	};
