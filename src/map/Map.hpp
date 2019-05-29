@@ -25,6 +25,7 @@ namespace Map {
         ~Map() = default;
         void update();
         void generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio);
+        void setArenaWallAround(ECS::Vector2<unsigned> sizeMap);
 
     };
 }
