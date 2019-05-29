@@ -16,7 +16,7 @@ namespace Irrlicht
 		_window(sf::VideoMode(640, 640), "Irrlicht"),
 		_lastId(0)
 	{
-		this->_window.setFramerateLimit(30);
+		this->_window.setFramerateLimit(FRAME_RATE);
 	}
 
 	unsigned Irrlicht::registerEntity(const std::string &name)
@@ -101,8 +101,8 @@ namespace Irrlicht
 		if (name == "Player") {
 			this->color = 0x0e16FF;
 			this->size = {
-				static_cast<unsigned>(TILESIZE * 0.75),
-				static_cast<unsigned>(TILESIZE * 0.75)
+				static_cast<unsigned>(TILESIZE - TILESIZE / 8),
+				static_cast<unsigned>(TILESIZE - TILESIZE / 8)
 			};
 		} else if (name == "Wall")
 			this->color = 0x8b2020;
@@ -126,8 +126,6 @@ namespace Irrlicht
 
 	bool Irrlicht::isKeyPressed(irr::EKEY_CODE key)
 	{
-		sf::Keyboard::Key code;
-
 		switch (key) {
 		case irr::KEY_KEY_Z:
 			return sf::Keyboard::isKeyPressed(sf::Keyboard::Z);
