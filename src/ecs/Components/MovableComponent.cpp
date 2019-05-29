@@ -10,10 +10,10 @@
 namespace ECS
 {
     MovableComponent::MovableComponent(float maxSpeed):
-    	Component("Movable"),
-		dir(0b00001000),
-		speed(0),
-    	maxSpeed(maxSpeed)
+        Component("Movable"),
+        dir(UP),
+        speed(0),
+        maxSpeed(maxSpeed)
     {
     }
 }
