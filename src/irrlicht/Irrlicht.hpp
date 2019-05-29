@@ -47,6 +47,7 @@ namespace Irrlicht
 		Irrlicht();
 
 		unsigned registerEntity(const std::string &name);
+		void deleteEntity(unsigned id);
 		bool areColliding(unsigned entity1, unsigned entity2);
 		void setAnimation(unsigned entity, Animations anim);
 		void setPosition(unsigned entity, float x, float y);
