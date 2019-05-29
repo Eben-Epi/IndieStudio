@@ -9,9 +9,10 @@
 
 namespace ECS
 {
-    CollisionComponent::CollisionComponent(unsigned int hardness) :
+    CollisionComponent::CollisionComponent(unsigned int hardness, unsigned int pass):
     	Component("Collision"),
-    	hardness(hardness)
+    	hardness(hardness),
+        passthough(pass)
     {
     }
 }

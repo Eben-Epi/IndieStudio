@@ -23,6 +23,9 @@ void ECS::BlockSystem::updateEntity(ECS::Entity &entity)
     for (auto &i : cc.entitiesCollided) {
         if (!i->hasComponent("Movable"))
             continue;
+        auto &icc = reinterpret_cast<PositionComponent &>(i->getComponentByName("Collision"));
+        if (cc.hardness <= cc.passthough)
+            continue;
         auto &ipc = reinterpret_cast<PositionComponent &>(i->getComponentByName("Position"));
         auto &imc = reinterpret_cast<MovableComponent &>(i->getComponentByName("Movable"));
         int relative_x = static_cast<int>(ipc.pos.x) % TILESIZE;
