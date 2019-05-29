@@ -16,7 +16,7 @@ namespace ECS
     class MovableComponent : public Component
     {
         public:
-            ECS::Directions dir;
+            unsigned char dir;
             float speed;
             float maxSpeed;
             MovableComponent(float maxSpeed);

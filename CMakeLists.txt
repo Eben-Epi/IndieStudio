@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.11)
 
 project(bomberman)
 
@@ -8,6 +8,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/packages)
 
 add_executable(
 	bomberman
+	src/config.hpp
 	src/core/main.cpp
 	src/ecs/ECSCore.cpp
 	src/ecs/ECSCore.hpp
@@ -49,17 +50,16 @@ add_executable(
 	src/ecs/Components/PickerComponent.hpp
 	src/ecs/Components/ExplodeComponent.cpp
 	src/ecs/Components/ExplodeComponent.hpp
-	src/ecs/Components/ControllerComponent.cpp
-	src/ecs/Components/ControllerComponent.hpp
+	src/ecs/Components/ControllableComponent.cpp
+	src/ecs/Components/ControllableComponent.hpp
 	src/ecs/Components/EphemeralComponent.cpp
 	src/ecs/Components/EphemeralComponent.hpp
 	src/ecs/Factories/EntityFactory.cpp
 	src/ecs/Factories/EntityFactory.hpp
 	src/ecs/Factories/SystemFactory.cpp
 	src/ecs/Factories/SystemFactory.hpp
-	src/ecs/Ressources.hpp
-	src/map/Map.hpp
-	src/map/Map.cpp
+	src/ecs/Entities/Brick.cpp
+	src/ecs/Entities/Brick.hpp
 	src/ecs/Systems/KickableSystem.cpp
 	src/ecs/Systems/KickableSystem.hpp
 	src/ecs/Systems/EphemeralSystem.cpp
@@ -78,14 +78,26 @@ add_executable(
 	src/ecs/Systems/BuffedSystem.hpp
 	src/ecs/Systems/PositionSystem.cpp
 	src/ecs/Systems/PositionSystem.hpp
-	src/config.hpp
+	src/ecs/Systems/MovableSystem.cpp
+	src/ecs/Systems/MovableSystem.hpp
+	src/ecs/Systems/ControllableSystem.cpp
+	src/ecs/Systems/ControllableSystem.hpp
 	src/irrlicht/Irrlicht.cpp
 	src/irrlicht/Irrlicht.hpp
 	src/irrlicht/Animations.hpp
+	src/map/Map.hpp
+	src/map/Map.cpp
+	src/input/Controller.cpp
+	src/input/Controller.hpp
+	src/input/Input.hpp
+	src/input/Keyboard.cpp
+	src/input/Keyboard.hpp
 	src/ecs/Entities/Brick.cpp
 	src/ecs/Entities/Brick.hpp
 	src/ecs/Entities/Wall.cpp
 	src/ecs/Entities/Wall.hpp
+	src/ecs/Entities/Player.cpp
+	src/ecs/Entities/Player.hpp
 )
 
 find_package(Irrlicht REQUIRED)
