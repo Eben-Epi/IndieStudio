@@ -15,8 +15,8 @@ ECS::EphemeralSystem::EphemeralSystem(ECS::ECSCore &core) :
 
 void ECS::EphemeralSystem::updateEntity(ECS::Entity &entity)
 {
-    auto ec = reinterpret_cast<EphemeralComponent &>(entity.getComponentByName("Ephemeral"));
-    auto hc = reinterpret_cast<HealthComponent &>(entity.getComponentByName("Health"));
+    auto &ec = reinterpret_cast<EphemeralComponent &>(entity.getComponentByName("Ephemeral"));
+    auto &hc = reinterpret_cast<HealthComponent &>(entity.getComponentByName("Health"));
 
     if (ec.timeLeft > 0)
         ec.timeLeft -= 1;
