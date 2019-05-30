@@ -45,17 +45,28 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
         {(double)pc.size.x, (double)(TILESIZE * (exc.range * 2 + 1))}
     };
     ECS::ExplosionObstructionLocation location;
+    const std::vector<Entity *> &walls = this->_core.getEntitiesByName("Wall");
+    const std::vector<Entity *> &bricks = this->_core.getEntitiesByName("Brick");
 
     if (hc.health == 0 && entity.getName() == "Bomb") {
-        const std::vector<Entity *> &entitiesByName = this->_core.getEntitiesByComponent("Position");
-        for (Entity *e : entitiesByName) {
-            if ((e->getName() == "Wall" || e->getName() == "Brick") && (location = isOnExplosionWay(posAndSize, reinterpret_cast<PositionComponent &>(e->getComponentByName("Position")).pos, pc.pos)) != NO_OBS) {
+        for (Entity *e : walls) {
+            if ((location = isOnExplosionWay(posAndSize, reinterpret_cast<PositionComponent &>(e->getComponentByName("Position")).pos, pc.pos)) != NO_OBS) {
                 switch (location) {
                     case WEST_OBS:
-                        if (e->getName() == "Brick")
-                            posAndSize[0] = {reinterpret_cast<PositionComponent &>(e->getComponentByName("Position")).pos.x, pc.pos.y};
-                        else
-                            posAndSize[0] = {reinterpret_cast<PositionComponent &>(e->getComponentByName("Position")).pos.x + TILESIZE, pc.pos.y};
+                        if (posAndSize[0].x < reinterpret_cast<PositionComponent &>(e->getComponentByName("Position")).pos.x + TILESIZE)
+                            posAndSize[0].x = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position")).pos.x + TILESIZE;
+                        //TODO EAST, SOUTH, NORTH OBSTRUCITONS
+                    default:
+                        break;
+                }
+            }
+        }
+        for (Entity *e : bricks) {
+            if ((location = isOnExplosionWay(posAndSize, reinterpret_cast<PositionComponent &>(e->getComponentByName("Position")).pos, pc.pos)) != NO_OBS) {
+                switch (location) {
+                    case WEST_OBS:
+                        if (posAndSize[0].x < reinterpret_cast<PositionComponent &>(e->getComponentByName("Position")).pos.x)
+                            posAndSize[0].x = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position")).pos.x;
                         //TODO EAST, SOUTH, NORTH OBSTRUCITONS
                     default:
                         break;
@@ -63,7 +74,7 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
             }
         }
 
-        //TODO explode according to the terrain : walls cannot be passed through, bricks die and explosion pass through one,
+        //TODO explode according to the terrain : walls cannot be passed through, bricks die and explosion pass through one : change PositionComponent of Explosion Frame by posAndSize's one
 
         PositionComponent &efHPos = reinterpret_cast<ECS::PositionComponent &>(this->_core.makeEntity("ExplosionFrame").getComponentByName("Position"));
         efHPos.pos = {pc.pos.x - (TILESIZE * exc.range), pc.pos.y};
