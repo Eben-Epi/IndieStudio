@@ -15,7 +15,7 @@
 ECS::Brick::Brick(unsigned id, const Ressources &ressources) :
 	Entity(id, "Brick", {
 		new HealthComponent(1),
-		new CollisionComponent(1),
+		new CollisionComponent(1, 0),
 		new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
 		new DisplayableComponent("Brick", ressources)
 	})

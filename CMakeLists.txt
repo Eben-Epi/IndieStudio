@@ -82,8 +82,6 @@ add_executable(
 	src/ecs/Systems/MovableSystem.hpp
 	src/ecs/Systems/ControllableSystem.cpp
 	src/ecs/Systems/ControllableSystem.hpp
-	src/ecs/Systems/ExplodeSystem.cpp
-	src/ecs/Systems/ExplodeSystem.hpp
 	src/irrlicht/Irrlicht.cpp
 	src/irrlicht/Irrlicht.hpp
 	src/irrlicht/Animations.hpp
@@ -103,7 +101,13 @@ add_executable(
 	src/ecs/Systems/BlockSystem.cpp
 	src/ecs/Systems/BlockSystem.hpp
 	src/ecs/Components/BlockComponent.cpp
-	src/ecs/Components/BlockComponent.hpp)
+	src/ecs/Components/BlockComponent.hpp
+	src/ecs/Systems/ExplodeSystem.cpp
+	src/ecs/Systems/ExplodeSystem.hpp
+	src/ecs/Entities/ExplosionFrame.cpp
+	src/ecs/Entities/ExplosionFrame.hpp
+	src/ecs/Entities/Bomb.cpp
+	src/ecs/Entities/Bomb.hpp)
 
 find_package(Irrlicht REQUIRED)
 

@@ -1,14 +1,22 @@
-//
-// Created by jmartin on 5/30/19.
-//
+/*
+** EPITECH PROJECT, 2019
+** bomberman
+** File description:
+** ExplosionFrame.hpp
+*/
 
 #ifndef BOMBERMAN_EXPLOSIONFRAME_HPP
 #define BOMBERMAN_EXPLOSIONFRAME_HPP
 
+#include "../Entity.hpp"
+#include "../Ressources.hpp"
 
-class ExplosionFrame {
-
-};
+namespace ECS {
+    class ExplosionFrame : public Entity {
+    public :
+        explicit ExplosionFrame(unsigned id, const Ressources &ressources);
+    };
+}
 
 
 #endif //BOMBERMAN_EXPLOSIONFRAME_HPP
