@@ -9,6 +9,7 @@
 
 
 #include "../System.hpp"
+#include "../data/Vector2.hpp"
 
 namespace ECS {
     enum ExplosionObstructionLocation {
@@ -23,6 +24,7 @@ namespace ECS {
     public:
         ExplodeSystem(ECSCore &core);
         void updateEntity(Entity &entity) override;
+        ECS::ExplosionObstructionLocation isOnExplosionWay(std::vector<ECS::Vector2<double>> &posAndSize, ECS::Point &pos, ECS::PointF BombPos);
     };
 }
 
