@@ -24,7 +24,7 @@ void ECS::CollisionSystem::updateEntity(ECS::Entity &entity)
 	auto &disp = reinterpret_cast<DisplayableComponent &>(entity.getComponentByName("Displayable"));
 
 	col.entitiesCollided = {};
-	for (auto &ent : this->_core.getEntitiesByComponent("Movable")) {
+	for (auto &ent : this->_core.getEntitiesByComponent("Collision")) {
 
 		auto &pc = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
 		auto &ipc = reinterpret_cast<PositionComponent &>(ent->getComponentByName("Position"));
