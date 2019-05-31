@@ -98,7 +98,7 @@ add_executable(
 	src/ecs/Entities/Wall.hpp
 	src/ecs/Entities/Player.cpp
 	src/ecs/Entities/Player.hpp
-		src/ecs/Systems/BlockedSystem.cpp src/ecs/Systems/BlockedSystem.hpp src/ecs/Components/BlockedComponent.cpp src/ecs/Components/BlockedComponent.hpp)
+		src/ecs/Systems/BlockedSystem.cpp src/ecs/Systems/BlockedSystem.hpp src/ecs/Components/BlockedComponent.cpp src/ecs/Components/BlockedComponent.hpp src/ecs/Components/ColliderComponent.cpp src/ecs/Components/ColliderComponent.hpp src/ecs/Systems/ColliderSystem.cpp src/ecs/Systems/ColliderSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 

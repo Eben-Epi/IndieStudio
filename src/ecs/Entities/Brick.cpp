@@ -7,7 +7,7 @@
 
 #include "Brick.hpp"
 #include "../Components/HealthComponent.hpp"
-#include "../Components/CollisionComponent.hpp"
+#include "../Components/ColliderComponent.hpp"
 #include "../Components/PositionComponent.hpp"
 #include "../Components/DisplayableComponent.hpp"
 #include "../Components/BlockedComponent.hpp"
@@ -17,7 +17,7 @@ ECS::Brick::Brick(unsigned id, const Ressources &ressources) :
 	Entity(id, "Brick", {
 		new HealthComponent(1),
 		new DisplayableComponent("Brick", ressources),
-		new CollisionComponent(1, 0),
+		new ColliderComponent(1),
 		new PositionComponent({0, 0}, {TILESIZE, TILESIZE})
 	})
 {
