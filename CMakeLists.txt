@@ -107,7 +107,11 @@ add_executable(
 	src/ecs/Entities/ExplosionFrame.cpp
 	src/ecs/Entities/ExplosionFrame.hpp
 	src/ecs/Entities/Bomb.cpp
-	src/ecs/Entities/Bomb.hpp)
+	src/ecs/Entities/Bomb.hpp
+	src/ecs/Components/OnCollisionDamageDealerComponent.cpp
+	src/ecs/Components/OnCollisionDamageDealerComponent.hpp
+	src/ecs/Systems/OnCollisionDamageDealerSystem.cpp
+	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 
