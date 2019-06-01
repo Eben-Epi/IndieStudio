@@ -16,4 +16,5 @@ ECS::OnCollisionDamageDealerSystem::OnCollisionDamageDealerSystem(ECS::ECSCore &
 void ECS::OnCollisionDamageDealerSystem::updateEntity(ECS::Entity &entity)
 {
     //TODO DealDamage Colliding with objects
+
 }

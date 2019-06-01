@@ -23,7 +23,7 @@ ECS::Bomb::Bomb(unsigned id, const Ressources &ressources) :
         new DisplayableComponent("Bomb", ressources),
         new EphemeralComponent(300),
         new KickableComponent(),
-        new ExplodeComponent(1)
+        new ExplodeComponent(1, 1)
     })
 {
 }

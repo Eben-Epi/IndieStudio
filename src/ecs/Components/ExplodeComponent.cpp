@@ -12,7 +12,7 @@ namespace ECS
     ExplodeComponent::ExplodeComponent(unsigned int range, unsigned int strength) :
         Component("Controller"),
         range(range),
-        strength(strength),
+        strength(strength)
     {
     }
 }
