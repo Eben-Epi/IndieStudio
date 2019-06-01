@@ -115,7 +115,13 @@ add_executable(
 	src/ecs/Components/OnCollisionDamageDealerComponent.cpp
 	src/ecs/Components/OnCollisionDamageDealerComponent.hpp
 	src/ecs/Systems/OnCollisionDamageDealerSystem.cpp
-	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp)
+	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp
+	src/ecs/Systems/PickerSystem.cpp
+	src/ecs/Systems/PickerSystem.hpp
+	src/ecs/Systems/PowerUpSystem.cpp
+    src/ecs/Systems/PowerUpSystem.hpp
+	src/ecs/Systems/PickableSystem.cpp
+	src/ecs/Systems/PickableSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 
