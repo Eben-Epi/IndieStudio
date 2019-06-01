@@ -98,7 +98,24 @@ add_executable(
 	src/ecs/Entities/Wall.hpp
 	src/ecs/Entities/Player.cpp
 	src/ecs/Entities/Player.hpp
-		src/ecs/Systems/BlockedSystem.cpp src/ecs/Systems/BlockedSystem.hpp src/ecs/Components/BlockedComponent.cpp src/ecs/Components/BlockedComponent.hpp src/ecs/Components/ColliderComponent.cpp src/ecs/Components/ColliderComponent.hpp src/ecs/Systems/ColliderSystem.cpp src/ecs/Systems/ColliderSystem.hpp)
+	src/ecs/Components/ColliderComponent.cpp
+	src/ecs/Components/ColliderComponent.hpp
+	src/ecs/Systems/ColliderSystem.cpp
+	src/ecs/Systems/ColliderSystem.hpp
+	src/ecs/Systems/BlockedSystem.cpp
+	src/ecs/Systems/BlockedSystem.hpp
+	src/ecs/Components/BlockedComponent.cpp
+	src/ecs/Components/BlockedComponent.hpp
+	src/ecs/Systems/ExplodeSystem.cpp
+	src/ecs/Systems/ExplodeSystem.hpp
+	src/ecs/Entities/ExplosionFrame.cpp
+	src/ecs/Entities/ExplosionFrame.hpp
+	src/ecs/Entities/Bomb.cpp
+	src/ecs/Entities/Bomb.hpp
+	src/ecs/Components/OnCollisionDamageDealerComponent.cpp
+	src/ecs/Components/OnCollisionDamageDealerComponent.hpp
+	src/ecs/Systems/OnCollisionDamageDealerSystem.cpp
+	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 

@@ -16,7 +16,8 @@ namespace ECS
     {
         public:
             unsigned int range;
-            ExplodeComponent(unsigned int range);
+            unsigned int strength;
+            ExplodeComponent(unsigned int range, unsigned int strength);
     };
 } // namespace ECS
 

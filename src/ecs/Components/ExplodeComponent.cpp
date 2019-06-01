@@ -9,9 +9,10 @@
 
 namespace ECS
 {
-    ExplodeComponent::ExplodeComponent(unsigned int range) :
+    ExplodeComponent::ExplodeComponent(unsigned int range, unsigned int strength) :
         Component("Controller"),
-        range(range)
+        range(range),
+        strength(strength)
     {
     }
 }

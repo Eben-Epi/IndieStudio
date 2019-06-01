@@ -15,7 +15,7 @@
 ECS::Wall::Wall(unsigned id, const Ressources &ressources) :
     Entity(id, "Wall", {
         new DisplayableComponent("Wall", ressources),
-	new ColliderComponent(2),
+        new ColliderComponent(2),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE})
     })
 {
