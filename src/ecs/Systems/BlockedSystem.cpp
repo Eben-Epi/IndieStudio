@@ -40,28 +40,39 @@ void ECS::BlockedSystem::updateEntity(ECS::Entity &entity)
         switch (block_id) {
         case 0:
         case 5:
-            // UP LEFT
+            entity_pos.pos.y -= MIN(relative_x, relative_y);
+            entity_pos.pos.x -= MIN(relative_x, relative_y);
+            break;
         case 1:
         case 2:
-            // UP
+            entity_pos.pos.y -= relative_y;
+            entity_pos.pos.x += TILESIZE - MAX(relative_x, relative_y);
+            break;
         case 3:
         case 6:
-            // UP RIGHT
+            entity_pos.pos.y -= MIN(relative_x, relative_y);
+            break;
         case 4:
         case 8:
-            // LEFT
+            entity_pos.pos.x -= relative_x;
+            break;
         case 7:
         case 11:
-            // RIGHT
+            entity_pos.pos.x += TILESIZE - relative_x;
+            break;
         case 9:
         case 12:
-            // DOWN LEFT
+            entity_pos.pos.y += PLAYERSIZE - MAX(relative_x, relative_y);
+            entity_pos.pos.x -= MIN(relative_x, relative_y);
+            break;
         case 13:
         case 14:
-            // DOWN
+            entity_pos.pos.y += PLAYERSIZE - relative_y;
+            break;
         case 10:
         case 15:
-            // DOWN RIGHT
+            entity_pos.pos.y += PLAYERSIZE - MAX(relative_x, relative_y);
+            entity_pos.pos.x += TILESIZE - MAX(relative_x, relative_y);
             break;
         default:
             throw ECSException("[BlockedSystem] The impossible Occurred: block_id must be >= 0 and <= 15 but it was " + std::to_string(block_id));
