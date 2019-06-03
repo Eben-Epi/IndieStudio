@@ -9,6 +9,12 @@
 
 #include "../System.hpp"
 
+#define FIRST_QUARTILE(x, y) ((y - x) / 4 + x)
+#define THIRD_QUARTILE(x, y) (y - FIRST_QUARTILE(x, y))
+
+
+
+
 namespace ECS {
     class BlockedSystem : public System {
     public:

@@ -28,18 +28,18 @@ namespace ECS
 	}
 
 	std::map<std::string, std::function<System *(ECS::ECSCore &core)>> SystemFactory::_functions = {
-		{"BombDropper", [](ECS::ECSCore &core) { return new BombDropperSystem(core); }},
-		{"Buffed", [](ECS::ECSCore &core) { return new BuffedSystem(core); }},
-		{"Collision", [](ECS::ECSCore &core) { return new CollisionSystem(core); }},
-		{"Controllable", [](ECS::ECSCore &core) { return new ControllableSystem(core); }},
-		{"Displayable", [](ECS::ECSCore &core) { return new DisplayableSystem(core); }},
-		{"Ephemeral", [](ECS::ECSCore &core) { return new EphemeralSystem(core); }},
-		{"Health", [](ECS::ECSCore &core) { return new HealthSystem(core); }},
-		{"Kickable", [](ECS::ECSCore &core) { return new KickableSystem(core); }},
-		{"Movable", [](ECS::ECSCore &core) { return new MovableSystem(core); }},
-		{"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }},
-		{"Block", [](ECS::ECSCore &core) { return new BlockedSystem(core); }},
-		{"Collider", [](ECS::ECSCore &core) { return new ColliderSystem(core); }}
+        {"Blocked", [](ECS::ECSCore &core) { return new BlockedSystem(core); }},
+        {"BombDropper", [](ECS::ECSCore &core) { return new BombDropperSystem(core); }},
+        {"Buffed", [](ECS::ECSCore &core) { return new BuffedSystem(core); }},
+        {"Collider", [](ECS::ECSCore &core) { return new ColliderSystem(core); }},
+        {"Collision", [](ECS::ECSCore &core) { return new CollisionSystem(core); }},
+        {"Controllable", [](ECS::ECSCore &core) { return new ControllableSystem(core); }},
+        {"Displayable", [](ECS::ECSCore &core) { return new DisplayableSystem(core); }},
+        {"Ephemeral", [](ECS::ECSCore &core) { return new EphemeralSystem(core); }},
+        {"Health", [](ECS::ECSCore &core) { return new HealthSystem(core); }},
+        {"Kickable", [](ECS::ECSCore &core) { return new KickableSystem(core); }},
+        {"Movable", [](ECS::ECSCore &core) { return new MovableSystem(core); }},
+        {"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }}
 	};
 
 	std::unique_ptr<System> SystemFactory::build(std::string &&name) const

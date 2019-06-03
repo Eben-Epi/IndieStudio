@@ -7,5 +7,5 @@
 #include "BlockedComponent.hpp"
 
 ECS::BlockedComponent::BlockedComponent() :
-	Component("Block")
+	Component("Blocked")
 {}
