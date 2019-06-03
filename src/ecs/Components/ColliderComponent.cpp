@@ -8,7 +8,8 @@
 #include "ColliderComponent.hpp"
 
 ECS::ColliderComponent::ColliderComponent(unsigned hardness) :
-	Component("Collider")
+	Component("Collider"),
+	hardness(hardness)
 {
 
 }
