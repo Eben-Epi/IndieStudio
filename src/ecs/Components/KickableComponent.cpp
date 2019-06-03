@@ -5,6 +5,7 @@
 ** KickableComponent.cpp
 */
 
+#include <iostream>
 #include "KickableComponent.hpp"
 
 namespace ECS
@@ -12,5 +13,10 @@ namespace ECS
     KickableComponent::KickableComponent()
     : Component("KickableComponent")
     {
+    }
+
+    std::ostream& KickableComponent::serialize(std::ostream &stream) const
+    {
+    	return stream;
     }
 }

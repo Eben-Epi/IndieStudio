@@ -13,6 +13,7 @@ namespace ECS {
     class BlockedComponent : public Component {
     public:
         BlockedComponent();
+	std::ostream &serialize(std::ostream &stream) const override;
     };
 }
 

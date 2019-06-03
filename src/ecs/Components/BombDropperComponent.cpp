@@ -5,6 +5,7 @@
 ** BombDropperComponent.cpp
 */
 
+#include <iostream>
 #include "BombDropperComponent.hpp"
 
 namespace ECS
@@ -15,5 +16,10 @@ namespace ECS
 		timeToExplode(timeToExplode),
 		range(range)
 	{
+	}
+
+	std::ostream &BombDropperComponent::serialize(std::ostream &stream) const
+	{
+		return stream << max << ' ' << timeToExplode << ' ' << range;
 	}
 }

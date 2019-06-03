@@ -5,6 +5,7 @@
 ** EphemeralComponent.cpp
 */
 
+#include <iostream>
 #include "EphemeralComponent.hpp"
 
 namespace ECS
@@ -13,5 +14,10 @@ namespace ECS
 		Component("Ephemeral"),
 		timeLeft(timeLeft)
 	{
+	}
+
+	std::ostream& EphemeralComponent::serialize(std::ostream &stream) const
+	{
+		return stream << timeLeft;
 	}
 }

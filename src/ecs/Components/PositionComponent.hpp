@@ -18,6 +18,7 @@ namespace ECS
 		ECS::PointF pos;
 		ECS::Vector2<unsigned int> size;
 		PositionComponent(ECS::PointF pos, ECS::Vector2<unsigned int> size);
+		std::ostream &serialize(std::ostream &stream) const override;
 	};
 } // namespace ECS
 

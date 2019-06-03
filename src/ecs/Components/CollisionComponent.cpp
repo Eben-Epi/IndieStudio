@@ -5,6 +5,7 @@
 ** SolidComponent.cpp
 */
 
+#include <iostream>
 #include "CollisionComponent.hpp"
 
 namespace ECS
@@ -13,5 +14,10 @@ namespace ECS
     	Component("Collision"),
         passThrough(pass)
     {
+    }
+
+    std::ostream& CollisionComponent::serialize(std::ostream &stream) const
+    {
+    	return stream << passThrough;
     }
 }

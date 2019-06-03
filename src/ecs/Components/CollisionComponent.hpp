@@ -20,6 +20,7 @@ namespace ECS
             unsigned int passThrough;
             std::vector<Entity*> entitiesCollided = {};
             explicit CollisionComponent(unsigned int pass);
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 

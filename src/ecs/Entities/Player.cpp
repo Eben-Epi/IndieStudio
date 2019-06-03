@@ -25,7 +25,7 @@ ECS::Player::Player(unsigned id, const Ressources &ressources) :
 		new CollisionComponent(0),
 		new ColliderComponent(0),
 		new BlockedComponent(),
-		new ControllableComponent(*ressources.inputs.at(id))
+		new ControllableComponent(*ressources.inputs.at(id), id)
 	})
 {
 }

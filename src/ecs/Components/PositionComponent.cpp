@@ -5,6 +5,7 @@
 ** PositionComponent.cpp
 */
 
+#include <iostream>
 #include "PositionComponent.hpp"
 
 namespace ECS
@@ -14,5 +15,10 @@ namespace ECS
 		pos(pos),
 		size(size)
 	{
+	}
+
+	std::ostream& PositionComponent::serialize(std::ostream &stream) const
+	{
+		return stream << pos.x << ' ' << pos.y << ' ' << size.x << ' ' << size.y;
 	}
 }

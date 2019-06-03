@@ -5,6 +5,7 @@
 ** PowerUpComponent.cpp
 */
 
+#include <iostream>
 #include "PowerUpComponent.hpp"
 
 namespace ECS
@@ -17,5 +18,10 @@ namespace ECS
     	kick(kick),
     	hardness(hardness)
     {
+    }
+
+    std::ostream& PowerUpComponent::serialize(std::ostream &stream) const
+    {
+    	return stream << health << ' ' << speed << ' ' << nbBomb << ' ' << kick << ' ' << hardness;
     }
 }

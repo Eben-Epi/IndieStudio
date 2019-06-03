@@ -5,9 +5,10 @@
 ** Displayable.cpp
 */
 
-#include "../../irrlicht/Animations.hpp"
+
 #include "DisplayableComponent.hpp"
 #include "../Ressources.hpp"
+#include "../../irrlicht/Animations.hpp"
 
 namespace ECS
 {
@@ -23,5 +24,10 @@ namespace ECS
 	DisplayableComponent::~DisplayableComponent()
 	{
 		this->screen.deleteEntity(this->entityId);
+	}
+
+	std::ostream& DisplayableComponent::serialize(std::ostream &stream) const
+	{
+		return stream << spriteId << ' ' << animation;
 	}
 }
