@@ -4,6 +4,7 @@
 ** File description:
 ** BlockedSystem.cpp
 */
+#include <cmath>
 #include "BlockedSystem.hpp"
 #include "../Components/CollisionComponent.hpp"
 #include "../Components/PositionComponent.hpp"
@@ -29,9 +30,11 @@ void ECS::BlockedSystem::updateEntity(ECS::Entity &entity)
         if (wall_hitbox.hardness <= entity_hitbox.passThrough)
             continue;
 
-        int relative_x = static_cast<int>(entity_pos.pos.x) % TILESIZE;
-        int relative_y = static_cast<int>(entity_pos.pos.y) % TILESIZE;
-        while ((relative_x >= 0 && relative_x < TILESIZE) || (relative_y >= 0 && relative_y < TILESIZE)) {
+        double relative_x = fmod(entity_pos.pos.x, TILESIZE);
+        double relative_y = fmod(entity_pos.pos.y, TILESIZE);
+        while ((relative_x >= 0 && relative_x <= TILESIZE && entity_mov.dir & (RIGHT | LEFT))
+            || (relative_y >= 0 && relative_y <= TILESIZE && entity_mov.dir & (UP | DOWN))) {
+            printf("[DEBUG] Collision at: x: %f y: %f rx: %f ry: %f TILESET: %d d: %d\n", entity_pos.pos.x, entity_pos.pos.y, relative_x, relative_y, TILESIZE, entity_mov.dir);
             if (entity_mov.dir & UP) {
                 entity_pos.pos.y += 1;
                 relative_y += 1;

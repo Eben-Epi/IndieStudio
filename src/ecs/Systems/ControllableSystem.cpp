@@ -33,7 +33,7 @@ namespace ECS
 			case Input::ACTION_DOWN:
 			case Input::ACTION_LEFT:
 			case Input::ACTION_RIGHT:
-				newDir += 1U << action;
+				newDir = 1U << action;
 				break;
 			default:
 				break;
