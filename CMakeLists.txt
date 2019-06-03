@@ -28,8 +28,8 @@ add_executable(
 	src/ecs/Components/DisplayableComponent.hpp
 	src/ecs/Components/HealthComponent.cpp
 	src/ecs/Components/HealthComponent.hpp
-	src/ecs/Components/ItemContainerComponent.cpp
-	src/ecs/Components/ItemContainerComponent.hpp
+		src/ecs/Components/EntityDropperComponent.cpp
+		src/ecs/Components/EntityDropperComponent.hpp
 	src/ecs/Components/KickableComponent.cpp
 	src/ecs/Components/KickableComponent.hpp
 	src/ecs/Components/KickerComponent.cpp
@@ -129,7 +129,9 @@ add_executable(
 	src/ecs/Systems/PowerUpPickedSystem.cpp
 	src/ecs/Systems/PowerUpPickedSystem.hpp
 	src/ecs/Systems/KickerSystem.cpp
-	src/ecs/Systems/KickerSystem.hpp)
+	src/ecs/Systems/KickerSystem.hpp
+		src/ecs/Systems/EntityDropperSystem.cpp
+		src/ecs/Systems/EntityDropperSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 

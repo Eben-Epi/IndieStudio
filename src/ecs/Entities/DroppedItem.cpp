@@ -16,7 +16,7 @@
 #include "../Components/PowerUpPickedComponent.hpp"
 
 ECS::DroppedItem::DroppedItem(unsigned id, const Ressources &ressources) :
-    Entity(id, "Brick", {
+    Entity(id, "DroppedItem", {
         new HealthComponent(1),
         new DisplayableComponent("DroppedItem", ressources),
         new ColliderComponent(0),
@@ -26,4 +26,6 @@ ECS::DroppedItem::DroppedItem(unsigned id, const Ressources &ressources) :
         new PowerUpPickedComponent()
     })
 {
+    //TODO Changed Dropped item by Drop"NomDEL'entity" : eg. -> BonusBomb PowerUp(0, 1, false, 0, 0) ( un truc comme ça )
+    //TODO certains bonus sont ephémères
 }
