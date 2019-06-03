@@ -10,7 +10,7 @@
 namespace ECS
 {
     ItemContainerComponent::ItemContainerComponent() :
-    	Component("Itemcontainer")
+    	Component("ItemContainer")
     {
     }
 }

@@ -9,6 +9,7 @@
 #define PICKERCOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../Entity.hpp"
 
 namespace ECS
 {

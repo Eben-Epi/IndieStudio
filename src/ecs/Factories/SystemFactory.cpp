@@ -19,6 +19,13 @@
 #include "../Systems/BombDropperSystem.hpp"
 #include "../Systems/BlockedSystem.hpp"
 #include "../Systems/ColliderSystem.hpp"
+#include "../Systems/KickerSystem.hpp"
+#include "../Systems/PickerSystem.hpp"
+#include "../Systems/PickableSystem.hpp"
+#include "../Systems/ExplodeSystem.hpp"
+#include "../Systems/OnCollisionDamageDealerSystem.hpp"
+#include "../Systems/PowerUpPickedSystem.hpp"
+#include "../Systems/PowerUpSystem.hpp"
 
 namespace ECS
 {
@@ -39,7 +46,14 @@ namespace ECS
 		{"Movable", [](ECS::ECSCore &core) { return new MovableSystem(core); }},
 		{"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }},
 		{"Block", [](ECS::ECSCore &core) { return new BlockedSystem(core); }},
-		{"Collider", [](ECS::ECSCore &core) { return new ColliderSystem(core); }}
+		{"Collider", [](ECS::ECSCore &core) { return new ColliderSystem(core); }},
+		{"Kicker", [](ECS::ECSCore &core) { return new KickerSystem(core); }},
+		{"Pickable", [](ECS::ECSCore &core) { return new PickableSystem(core); }},
+		{"Picker", [](ECS::ECSCore &core) { return new PickerSystem(core); }},
+		{"Explode", [](ECS::ECSCore &core) { return new ExplodeSystem(core); }},
+		{"OnCollisionDamageDealer", [](ECS::ECSCore &core) { return new OnCollisionDamageDealerSystem(core); }},
+		{"PowerUp", [](ECS::ECSCore &core) { return new PowerUpSystem(core); }},
+		{"PowerUpPicked", [](ECS::ECSCore &core) { return new PowerUpPickedSystem(core); }}
 	};
 
 	std::unique_ptr<System> SystemFactory::build(std::string &&name) const

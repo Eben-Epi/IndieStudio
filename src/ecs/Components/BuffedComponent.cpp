@@ -10,7 +10,7 @@
 namespace ECS
 {
     BuffedComponent::BuffedComponent(unsigned int health, float speed, unsigned int nbBomb, bool kick, unsigned int hardness) :
-    	Component("PowerUp"),
+    	Component("Buffed"),
     	health(health),
     	speed(speed),
     	nbBomb(nbBomb),

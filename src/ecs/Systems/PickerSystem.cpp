@@ -7,11 +7,11 @@
 
 #include "PickerSystem.hpp"
 #include "../Components/CollisionComponent.hpp"
+#include "../Components/PickableComponent.hpp"
 
 ECS::PickerSystem::PickerSystem(ECS::ECSCore &core):
     System("Picker", core)
 {
-    this->_dependencies = {"Collision"};
 }
 
 void ECS::PickerSystem::updateEntity(ECS::Entity &entity)
@@ -19,8 +19,9 @@ void ECS::PickerSystem::updateEntity(ECS::Entity &entity)
     CollisionComponent &cc = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
 
     for (Entity *entityCollided : cc.entitiesCollided) {
-        if (entityCollided->hasComponent("Pickable") && entityCollided->hasComponent("PowerUp"));
-            //reinterpret_cast<DisplayableComponent &> entityCollided->getComponentByName("Displayable")
-            //TODO set properties of the item to the player : the player must have PowerUpComponent
+        if (entityCollided->hasComponent("Pickable")) {
+            reinterpret_cast<PickableComponent &>(entityCollided->getComponentByName("Pickable")).pickedBy = &entity;
+            break;
+        }
     }
 }

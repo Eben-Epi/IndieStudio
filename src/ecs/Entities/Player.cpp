@@ -15,6 +15,8 @@
 #include "../../config.hpp"
 #include "../Components/BlockedComponent.hpp"
 #include "../Components/ColliderComponent.hpp"
+#include "../Components/PowerUpPickedComponent.hpp"
+#include "../Components/PickerComponent.hpp"
 
 ECS::Player::Player(unsigned id, const Ressources &ressources) :
 	Entity(id, "Player", {
@@ -25,7 +27,8 @@ ECS::Player::Player(unsigned id, const Ressources &ressources) :
 		new CollisionComponent(0),
 		new ColliderComponent(0),
 		new BlockedComponent(),
-		new ControllableComponent(*ressources.inputs.at(id))
+		new ControllableComponent(*ressources.inputs.at(id)),
+		new PickerComponent()
 	})
 {
 }

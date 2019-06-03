@@ -121,7 +121,15 @@ add_executable(
 	src/ecs/Systems/PowerUpSystem.cpp
     src/ecs/Systems/PowerUpSystem.hpp
 	src/ecs/Systems/PickableSystem.cpp
-	src/ecs/Systems/PickableSystem.hpp)
+	src/ecs/Systems/PickableSystem.hpp
+	src/ecs/Entities/DroppedItem.cpp
+	src/ecs/Entities/DroppedItem.hpp
+	src/ecs/Components/PowerUpPickedComponent.cpp
+	src/ecs/Components/PowerUpPickedComponent.hpp
+	src/ecs/Systems/PowerUpPickedSystem.cpp
+	src/ecs/Systems/PowerUpPickedSystem.hpp
+	src/ecs/Systems/KickerSystem.cpp
+	src/ecs/Systems/KickerSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 

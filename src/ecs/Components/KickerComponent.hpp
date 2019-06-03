@@ -14,6 +14,7 @@ namespace ECS
 {
     class KickerComponent : public Component {
         public:
+            bool canKick = false;
             KickerComponent();
     };
 } // namespace ECS
