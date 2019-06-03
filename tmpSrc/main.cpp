@@ -82,10 +82,7 @@ int main()
 	guienv->addStaticText(L"Dab très fort sur l'Irrlicht Engine", rect<s32>(10,10,200,25), true);
 
 	IAnimatedMesh *mesh = smgr->getMesh("media/sydney.md2");
-//	IAnimatedMesh *mesh = smgr->getMesh("/home/hstanislas/Desktop/cube.dae");
-//	IAnimatedMesh *mesh();
-	if (!mesh)
-	{
+	if (!mesh) {
 		device->drop();
 		return 1;
 	}
@@ -107,8 +104,11 @@ int main()
 	bool isDead = false;
 	unsigned int tmpCount = 0;
 	bool isDroppingBomb = false;
+	unsigned int timeBomb = 0;
+	IAnimatedMeshSceneNode *bomb(smgr->addAnimatedMeshSceneNode(smgr->getMesh("/home/hstanislas/Desktop/sphere.dae"), nullptr, 0, vector3df(-100, 0, 0), vector3df(0, 0, 0), vector3df(3, 3, 3)));
+	bomb->setMaterialTexture(0, driver->getTexture("/home/hstanislas/Desktop/orange.bmp"));
 
-	while(device->run()) {
+	while (device->run()) {
 		driver->beginScene(true, true, SColor(255, 100, 101, 140));
 
 		anim_direction[0] = receiver.IsKeyDown(irr::KEY_UP);
@@ -120,6 +120,10 @@ int main()
 
 		if (isDroppingBomb && tmpCount == 0)
 			isDroppingBomb = false;
+		if (timeBomb == 0 && bomb != nullptr)
+			bomb->setPosition(vector3df(-100, 0, 0));
+
+		vector3df nodePos = node->getPosition();
 
 		if (anim_direction[4] && tmpCount == 0) {
 			if (isDead)
@@ -127,13 +131,17 @@ int main()
 			else
 				isDead = true;
 			tmpCount = 30;
-		} else if (anim_direction[5] && tmpCount == 0) {
+		} else if (anim_direction[5] && tmpCount == 0 && timeBomb == 0) {
 			if (!isDroppingBomb) {
 				isDroppingBomb = true;
-				tmpCount = 100;
+				tmpCount = 70;
+				bomb->setPosition(vector3df(nodePos.X, -25, nodePos.Z));
+				timeBomb = 250;
 			}
 		} else if (tmpCount > 0)
 			tmpCount--;
+		if (timeBomb > 0)
+			timeBomb--;
 
 		if (isDead) {
 			if (tmp_anim != scene::EMAT_BOOM) {
@@ -146,7 +154,6 @@ int main()
 				tmp_anim = scene::EMAT_CROUCH_STAND;
 			}
 		} else {
-			vector3df nodePos = node->getPosition();
 			if(anim_direction[0]) {
 				tmp_direction.Y = -90;
 				nodePos.Z += 1;
