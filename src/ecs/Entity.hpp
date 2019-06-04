@@ -31,15 +31,11 @@ namespace ECS
 		bool hasComponent(const std::string &name) const;
 		Component &getComponentByName(const std::string &name) const;
 		std::vector<std::unique_ptr<Component>> &getComponents();
-		/*Component &addComponent(Component *component);
-
-		template<typename type, typename... Args>
-		type &addComponent(Args... args) {
-			this->_components.emplace_back(new type(args...));
-			return *this->_components.back();
-		}*/
+		std::ostream	&serialize(std::ostream &stream) const;
 	};
 }
+
+std::ostream	&operator<<(std::ostream &stream, const ECS::Entity &component);
 
 
 #endif //BOMBERMAN_ENTITY_HPP

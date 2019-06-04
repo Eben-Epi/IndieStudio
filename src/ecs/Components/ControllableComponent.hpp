@@ -10,14 +10,18 @@
 
 #include "../Component.hpp"
 #include "../../input/Input.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
     class ControllableComponent : public Component
     {
         public:
+    	    unsigned inputNbr;
     	    Input::Input &input;
-            ControllableComponent(Input::Input &);
+            ControllableComponent(Input::Input &, unsigned);
+            ControllableComponent(const Ressources &ressources, std::istream &stream);
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 

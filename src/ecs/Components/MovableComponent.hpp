@@ -10,6 +10,7 @@
 
 #include "../Component.hpp"
 #include "../data/Directions.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
@@ -20,6 +21,8 @@ namespace ECS
             float speed;
             float maxSpeed;
             MovableComponent(float maxSpeed);
+            MovableComponent(const Ressources &ressources, std::istream &stream);
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 

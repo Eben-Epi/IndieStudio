@@ -48,17 +48,18 @@ namespace ECS
 
 	std::vector<Entity *> ECSCore::getEntitiesByComponent(const std::string &name) const
 	{
-		std::vector<Entity *> found;
-
-		for (auto &entity : this->_entities)
-			if (entity->hasComponent(name))
-				found.push_back(&*entity);
-		return found;
+		try {
+			return this->_components.at(name);
+		} catch (std::out_of_range &) {
+			return {};
+		}
 	}
 
 	Entity &ECSCore::makeEntity(const std::string &name)
 	{
 		this->_entities.push_back(this->_entityFactory.build(name, this->_lastEntityId++));
+		for (auto &comp : this->_entities.back()->getComponents())
+			this->_components[comp->getName()].push_back(&*this->_entities.back());
 		return *this->_entities.back();
 	}
 
@@ -96,4 +97,17 @@ namespace ECS
 		this->_entities.erase(this->_entities.begin(), this->_entities.end());
 		this->_lastEntityId = 0;
 	}
+
+	std::ostream& ECSCore::serialize(std::ostream &stream) const
+	{
+		stream << "SerializedECSCore" << std::endl;
+		for (auto &entity : this->_entities)
+			stream << *entity << std::endl;
+		return stream << "EndOfRecord";
+	}
+}
+
+std::ostream &operator<<(std::ostream &stream, const ECS::ECSCore &core)
+{
+	return core.serialize(stream);
 }

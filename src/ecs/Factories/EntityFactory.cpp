@@ -11,6 +11,9 @@
 #include "../Entities/Brick.hpp"
 #include "../Entities/Wall.hpp"
 #include "../Entities/Player.hpp"
+#include "../Entities/Bomb.hpp"
+#include "../Entities/ExplosionFrame.hpp"
+#include "../Entities/DroppedItem.hpp"
 
 namespace ECS
 {

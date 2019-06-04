@@ -9,12 +9,16 @@
 #define KICKERCOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
     class KickerComponent : public Component {
         public:
+            bool canKick = false;
             KickerComponent();
+            KickerComponent(const Ressources &ressources, std::istream &stream);
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 

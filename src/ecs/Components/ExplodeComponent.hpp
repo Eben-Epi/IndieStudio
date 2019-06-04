@@ -9,6 +9,7 @@
 #define EXPLODECOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
@@ -16,7 +17,10 @@ namespace ECS
     {
         public:
             unsigned int range;
-            ExplodeComponent(unsigned int range);
+            unsigned int strength;
+            ExplodeComponent(unsigned int range, unsigned int strength);
+            ExplodeComponent(const Ressources &ressources, std::istream &stream);
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 

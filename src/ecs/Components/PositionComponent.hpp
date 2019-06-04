@@ -10,6 +10,7 @@
 
 #include "../Component.hpp"
 #include "../data/Vector2.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
@@ -18,6 +19,8 @@ namespace ECS
 		ECS::PointF pos;
 		ECS::Vector2<unsigned int> size;
 		PositionComponent(ECS::PointF pos, ECS::Vector2<unsigned int> size);
+		PositionComponent(const Ressources &ressources, std::istream &stream);
+		std::ostream &serialize(std::ostream &stream) const override;
 	};
 } // namespace ECS
 

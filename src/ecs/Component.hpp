@@ -18,9 +18,12 @@ namespace ECS
 
 	public:
 		Component(std::string &&name);
-		std::string	getName() const;
+		std::string		getName() const;
+		virtual std::ostream	&serialize(std::ostream &stream) const = 0;
 	};
 }
+
+std::ostream	&operator<<(std::ostream &stream, const ECS::Component &component);
 
 
 #endif //BOMBERMAN_COMPONENT_HPP

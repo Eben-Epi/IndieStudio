@@ -48,6 +48,11 @@ namespace ECS
 	public:
 		explicit InvalidStateException(const std::string &msg) : ECSException(msg) {};
 	};
+
+	class InvalidSerializedStringException : public ECSException {
+	public:
+		explicit InvalidSerializedStringException(const std::string &msg) : ECSException(msg) {};
+	};
 }
 
 #endif //BOMBERMAN_EXCEPTIONS_HPP

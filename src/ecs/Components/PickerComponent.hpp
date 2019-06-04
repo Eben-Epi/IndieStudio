@@ -9,6 +9,7 @@
 #define PICKERCOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
@@ -16,6 +17,8 @@ namespace ECS
     {
         public:
             PickerComponent();
+            PickerComponent(const Ressources &ressources, std::istream &stream);
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 

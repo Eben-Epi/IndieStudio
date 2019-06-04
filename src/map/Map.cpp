@@ -8,6 +8,7 @@
 #include <random>
 #include "Map.hpp"
 #include "../ecs/Components/PositionComponent.hpp"
+#include "MapException.hpp"
 
 Map::Map::Map(const ECS::Ressources &ressources) : _core(ressources)
 {
@@ -117,6 +118,18 @@ void setEntityComponentPosition(ECS::Entity &entity, ECS::Point pos)
     reinterpret_cast<ECS::PositionComponent &>(entity.getComponentByName("Position")).pos = pos;
 }
 
+void Map::Map::setArenaWallAround(ECS::Vector2<unsigned> sizeMap)
+{
+    for (int i = -1; i < (int)sizeMap.x + 1; ++i) {
+        setEntityComponentPosition(this->_core.makeEntity("Wall"), {(double)(i * TILESIZE), -1 * TILESIZE});
+        setEntityComponentPosition(this->_core.makeEntity("Wall"), {(double)(i * TILESIZE), (double)(sizeMap.y * TILESIZE)});
+    }
+    for (int i = 0; i < (int)sizeMap.y; ++i) {
+        setEntityComponentPosition(this->_core.makeEntity("Wall"), {-1 * TILESIZE, (double)(i * TILESIZE)});
+        setEntityComponentPosition(this->_core.makeEntity("Wall"), {(double)(sizeMap.x * TILESIZE), (double)(i * TILESIZE)});
+    }
+}
+
 void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
 {
     std::vector<unsigned> airBlocksPos = generateAirBlocksPos(sizeMap);
@@ -125,7 +138,10 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
     unsigned int randNum;
     ECS::Point position;
 
-    setEntityComponentPosition(this->_core.makeEntity("Player"), {0, 0});
+    if (sizeMap.x < 4 || sizeMap.y < 4)
+        throw MapException("Map is too small in x or in y (< 4).");
+    setEntityComponentPosition(this->_core.makeEntity("Player"), {TILESIZE / 16., TILESIZE / 16.});
+    setArenaWallAround(sizeMap);
     for (int i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)
             airBlocksPos.erase(airBlocksPos.begin());
@@ -141,4 +157,14 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
             }
         }
     }
+}
+
+std::ostream& Map::Map::serialize(std::ostream &stream) const
+{
+    return stream << this->_core;
+}
+
+std::ostream &operator<<(std::ostream &stream, const Map::Map &map)
+{
+    return map.serialize(stream);
 }

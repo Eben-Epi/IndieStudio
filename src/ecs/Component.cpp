@@ -5,6 +5,7 @@
 ** Component.cpp
 */
 
+#include <iostream>
 #include "Component.hpp"
 
 namespace ECS
@@ -18,4 +19,9 @@ namespace ECS
 	{
 		return this->_name;
 	}
+}
+
+std::ostream	&operator<<(std::ostream &stream, const ECS::Component &component)
+{
+	return component.serialize(stream);
 }

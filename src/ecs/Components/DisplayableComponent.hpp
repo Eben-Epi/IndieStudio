@@ -20,7 +20,11 @@ namespace ECS
 		unsigned		entityId;
 		std::string		spriteId;
 		Irrlicht::Animations	animation;
+
 		explicit DisplayableComponent(std::string &&striteId, const Ressources &ressources);
+		DisplayableComponent(const Ressources &ressources, std::istream &stream);
+		~DisplayableComponent();
+		std::ostream &serialize(std::ostream &stream) const override;
 	};
 }
 

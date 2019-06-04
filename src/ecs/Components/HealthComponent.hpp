@@ -9,6 +9,7 @@
 #define HEALTHCOPONENT_HPP
 
 #include "../Component.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
@@ -17,6 +18,8 @@ namespace ECS
         public:
             unsigned int health;
             HealthComponent(unsigned int health);
+            HealthComponent(const Ressources &ressources, std::istream &stream);
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 
