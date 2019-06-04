@@ -26,12 +26,7 @@ namespace ECS
     {
 	    std::string terminator;
 
-	    stream >> this->health;
-	    stream >> this->speed;
-	    stream >> this->nbBomb;
-	    stream >> this->kick;
-	    stream >> this->hardness;
-	    stream >> terminator;
+	    stream >> health >> speed >> nbBomb >> kick >> hardness >> terminator;
 	    if (terminator != "EndOfComponent")
 		    throw InvalidSerializedStringException("The component terminator was not found");
     }

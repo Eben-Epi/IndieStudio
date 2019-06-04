@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "PickableComponent.hpp"
+#include "../Exceptions.hpp"
 
 namespace ECS
 {
@@ -19,5 +20,15 @@ namespace ECS
     std::ostream& PickableComponent::serialize(std::ostream &stream) const
     {
     	return stream << " EndOfComponent";
+    }
+
+    PickableComponent::PickableComponent(const ECS::Ressources &, std::istream &stream) :
+	    PickableComponent()
+    {
+        std::string terminator;
+
+        stream >> terminator;
+        if (terminator != "EndOfComponent")
+            throw InvalidSerializedStringException("The component terminator was not found");
     }
 }
