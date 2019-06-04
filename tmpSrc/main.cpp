@@ -120,7 +120,7 @@ int main()
 
 		if (isDroppingBomb && tmpCount == 0)
 			isDroppingBomb = false;
-		if (timeBomb == 0 && bomb != nullptr)
+		if (timeBomb == 0)
 			bomb->setPosition(vector3df(-100, 0, 0));
 
 		vector3df nodePos = node->getPosition();
@@ -132,12 +132,10 @@ int main()
 				isDead = true;
 			tmpCount = 30;
 		} else if (anim_direction[5] && tmpCount == 0 && timeBomb == 0) {
-			if (!isDroppingBomb) {
 				isDroppingBomb = true;
 				tmpCount = 70;
 				bomb->setPosition(vector3df(nodePos.X, -25, nodePos.Z));
 				timeBomb = 250;
-			}
 		} else if (tmpCount > 0)
 			tmpCount--;
 		if (timeBomb > 0)
