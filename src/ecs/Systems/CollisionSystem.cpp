@@ -30,7 +30,6 @@ void ECS::CollisionSystem::updateEntity(ECS::Entity &entity)
 		if (ent->getId() == entity.getId())
 			continue;
 
-		auto &ipc = reinterpret_cast<PositionComponent &>(ent->getComponentByName("Position"));
 		auto &disp2 = reinterpret_cast<DisplayableComponent &>(ent->getComponentByName("Displayable"));
 		auto &pos = reinterpret_cast<PositionComponent &>(ent->getComponentByName("Position"));
 

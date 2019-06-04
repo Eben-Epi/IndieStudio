@@ -57,7 +57,7 @@ std::vector<unsigned> XImpairYImpairSidesWallGenerator(ECS::Vector2<unsigned> si
 std::vector<unsigned> XPairYImpairSidesWallGenerator(ECS::Vector2<unsigned> sizeMap)
 {
     unsigned maxSize = sizeMap.x * sizeMap.y;
-    bool xShift = false;
+    bool xShift;
     std::vector<unsigned> wallPos;
 
     for (unsigned j = 0; j < maxSize; ++j) {
@@ -71,7 +71,7 @@ std::vector<unsigned> XPairYImpairSidesWallGenerator(ECS::Vector2<unsigned> size
 std::vector<unsigned> XImpairYPairSidesWallGenerator(ECS::Vector2<unsigned> sizeMap)
 {
     unsigned maxSize = sizeMap.x * sizeMap.y;
-    bool yShift = false;
+    bool yShift;
     std::vector<unsigned> wallPos;
 
     for (unsigned j = 0; j < maxSize; ++j) {

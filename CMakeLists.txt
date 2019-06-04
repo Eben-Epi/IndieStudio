@@ -166,7 +166,10 @@ add_executable(
 	src/ecs/Entities/DroppedBonusRange.hpp
 	src/ecs/Factories/ComponentFactory.cpp
 	src/ecs/Factories/ComponentFactory.hpp
-	src/ecs/data/NumericValue.hpp)
+	src/ecs/data/NumericValue.hpp
+	src/input/error/Errors.cpp
+	src/input/error/Errors.hpp
+)
 
 find_package(Irrlicht REQUIRED)
 
