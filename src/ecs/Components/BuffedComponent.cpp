@@ -22,12 +22,7 @@ namespace ECS
     }
 
     BuffedComponent::BuffedComponent(const ECS::Ressources &, std::istream &stream) :
-	    Component("Blocked"),
-	    health(0),
-	    speed(0),
-	    nbBomb(0),
-	    kick(0),
-	    hardness(0)
+        BuffedComponent(0, 0.f, 0, false, 0)
     {
 	    std::string terminator;
 

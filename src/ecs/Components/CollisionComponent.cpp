@@ -23,8 +23,7 @@ namespace ECS
     }
 
     CollisionComponent::CollisionComponent(const ECS::Ressources &, std::istream &stream) :
-	    Component("Blocked"),
-	    passThrough(0)
+        CollisionComponent(0)
     {
 	    std::string terminator;
 

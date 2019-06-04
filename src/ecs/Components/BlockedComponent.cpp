@@ -14,7 +14,7 @@ ECS::BlockedComponent::BlockedComponent() :
 {}
 
 ECS::BlockedComponent::BlockedComponent(const ECS::Ressources &, std::istream &stream) :
-	Component("Blocked")
+	BlockedComponent()
 {
 	std::string terminator;
 

@@ -75,9 +75,6 @@ void ECS::BlockedSystem::updateEntity(ECS::Entity &entity)
             entity_pos.pos.y += MIN(TILESIZE - relative_x, TILESIZE - relative_y) + .1; // rdown
             entity_pos.pos.x += MIN(TILESIZE - relative_x, TILESIZE - relative_y) + .1; // rright
             break;
-        default:
-            dprintf(2, "[BlockedSystem] The impossible Occurred: block_id must be >= 0 and <= 15 but it was %d\n", block_id);
-            //throw ECSException("[BlockedSystem] The impossible Occurred: block_id must be >= 0 and <= 15 but it was " + std::to_string(block_id));
         }
     }
 }

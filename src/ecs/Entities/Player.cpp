@@ -22,6 +22,7 @@ ECS::Player::Player(unsigned id, const Ressources &ressources) :
 		new DisplayableComponent("Player", ressources),
 		new HealthComponent(1),
 		new MovableComponent(5),
+<<<<<<< HEAD
 		new CollisionComponent(0),
 		new ColliderComponent(0),
 		new BlockedComponent(),
@@ -29,3 +30,14 @@ ECS::Player::Player(unsigned id, const Ressources &ressources) :
 	})
 {
 }
+=======
+        new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
+        new HealthComponent(1),
+		new PickerComponent(),
+        new CollisionComponent(0),
+        new ColliderComponent(0),
+        new BlockedComponent(),
+        new DisplayableComponent("Player", ressources)
+    })
+{}
+>>>>>>> 53cdaf24025816843fa4a252a1286c62f6222105
