@@ -17,6 +17,8 @@ void ECS::CurseSystem::updateEntity(ECS::Entity &entity)
 
     if (cc.timeLeft > 0)
         cc.timeLeft -= 1;
-    else if (cc.timeLeft == 0)
+    else if (cc.timeLeft == 0) {
         cc.effect = CurseComponent::NONE;
+        cc.timeLeft = -1;
+    }
 }

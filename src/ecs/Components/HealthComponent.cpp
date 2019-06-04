@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "HealthComponent.hpp"
+#include "../Exceptions.hpp"
 
 namespace ECS
 {
@@ -23,11 +24,21 @@ namespace ECS
 	}
 
 	bool HealthComponent::takeDamage(int damage, unsigned int invulnerability_given)
+    {
+        if (this->invunerabilityTimeLeft)
+            return false;
+        this->health -= damage;
+        this->invunerabilityTimeLeft = invulnerability_given;
+        return true;
+    }
+
+	HealthComponent::HealthComponent(const ECS::Ressources &, std::istream &stream) :
+		HealthComponent(0)
 	{
-		if (this->invunerabilityTimeLeft)
-			return false;
-		this->health -= damage;
-		this->invunerabilityTimeLeft = invulnerability_given;
-		return true;
+		std::string terminator;
+
+		stream >> health  >> terminator;
+		if (terminator != "EndOfComponent")
+			throw InvalidSerializedStringException("The component terminator was not found");
 	}
 }

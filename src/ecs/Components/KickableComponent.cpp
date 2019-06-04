@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "KickableComponent.hpp"
+#include "../Exceptions.hpp"
 
 namespace ECS
 {
@@ -18,5 +19,15 @@ namespace ECS
     std::ostream& KickableComponent::serialize(std::ostream &stream) const
     {
     	return stream << "EndOfComponent";
+    }
+
+    KickableComponent::KickableComponent(const ECS::Ressources &ressources, std::istream &stream) :
+	    KickableComponent()
+    {
+	    std::string terminator;
+
+	    stream >> terminator;
+	    if (terminator != "EndOfComponent")
+		    throw InvalidSerializedStringException("The component terminator was not found");
     }
 }

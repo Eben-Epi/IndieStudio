@@ -23,7 +23,7 @@ namespace ECS
     }
 
     ControllableComponent::ControllableComponent(const ECS::Ressources &ressources, std::istream &stream) :
-        Component("Blocked"),
+        Component("Controllable"),
         inputNbr([&stream]() {
         	unsigned nbr;
         	stream >> nbr;

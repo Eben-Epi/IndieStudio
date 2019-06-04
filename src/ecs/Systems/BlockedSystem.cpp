@@ -24,7 +24,7 @@ void ECS::BlockedSystem::updateEntity(ECS::Entity &entity)
     auto &entity_hitbox = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
 
     for (auto &wall : entity_hitbox.entitiesCollided) {
-        auto &entity_pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
+    	auto &entity_pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
         auto &entity_mov = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
         auto &wall_hitbox = reinterpret_cast<ColliderComponent &>(wall->getComponentByName("Collider"));
         auto &wall_pos = reinterpret_cast<PositionComponent &>(wall->getComponentByName("Position"));

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "MovableComponent.hpp"
+#include "../Exceptions.hpp"
 
 namespace ECS
 {
@@ -21,5 +22,15 @@ namespace ECS
     std::ostream& MovableComponent::serialize(std::ostream &stream) const
     {
     	return stream << dir << ' ' << speed << ' ' << maxSpeed << " EndOfComponent";
+    }
+
+    MovableComponent::MovableComponent(const ECS::Ressources &, std::istream &stream) :
+	    MovableComponent(0)
+    {
+	    std::string terminator;
+
+	    stream >> dir >> speed >> maxSpeed >> terminator;
+	    if (terminator != "EndOfComponent")
+		    throw InvalidSerializedStringException("The component terminator was not found");
     }
 }

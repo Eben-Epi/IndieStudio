@@ -33,7 +33,7 @@ namespace ECS
 	}
 
 	DisplayableComponent::DisplayableComponent(const ECS::Ressources &ressources, std::istream &stream) :
-		Component("Blocked"),
+		Component("Displayable"),
 		screen(ressources.screen),
 		entityId(0),
 		spriteId(""),
@@ -42,11 +42,9 @@ namespace ECS
 		std::string terminator;
 		unsigned val;
 
-		stream >> this->spriteId;
+		stream >> this->spriteId >> val >> terminator;
 		this->entityId = this->screen.registerEntity(spriteId);
-		stream >> val;
 		this->animation = static_cast<Irrlicht::Animations>(val);
-		stream >> terminator;
 		if (terminator != "EndOfComponent")
 			throw InvalidSerializedStringException("The component terminator was not found");
 	}

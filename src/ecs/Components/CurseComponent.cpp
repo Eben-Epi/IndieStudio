@@ -12,8 +12,8 @@
 
 ECS::CurseComponent::CurseComponent():
     Component("Curse"),
-    effect(ULTRASPEED),
-    timeLeft(60 * 10)
+    effect(NONE),
+    timeLeft(-1)
 {}
 
 ECS::CurseComponent::CurseComponent(const ECS::Ressources &ressources, std::istream &stream):

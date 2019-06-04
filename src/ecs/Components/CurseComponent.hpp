@@ -8,6 +8,7 @@
 #define BOMBERMAN_CURSECOMPONENT_HPP
 
 #include "../Ressources.hpp"
+#include "../Component.hpp"
 
 #define IS_CURSED(entity, curse) (entity.hasComponent("Curse") && reinterpret_cast<CurseComponent &>(entity.getComponentByName("Curse")).effect == curse)
 

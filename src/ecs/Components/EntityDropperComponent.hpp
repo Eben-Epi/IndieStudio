@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2019
 ** ECS
 ** File description:
-** ItemDropperComponent.hpp
+** EntityDropperComponent.hpp
 */
 
-#ifndef ITEMCONTAINERCOMPONENT_HPP
-#define ITEMCONTAINERCOMPONENT_HPP
+#ifndef ENTITYDROPPERCOMPONENT_HPP
+#define ENTITYDROPPERCOMPONENT_HPP
 
 #include "../Component.hpp"
 #include "../Entity.hpp"

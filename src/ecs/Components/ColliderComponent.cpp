@@ -26,8 +26,7 @@ ECS::ColliderComponent::ColliderComponent(const ECS::Ressources &, std::istream 
 {
 	std::string terminator;
 
-	stream >> this->hardness;
-	stream >> terminator;
+	stream >> hardness >> terminator;
 	if (terminator != "EndOfComponent")
 		throw InvalidSerializedStringException("The component terminator was not found");
 }

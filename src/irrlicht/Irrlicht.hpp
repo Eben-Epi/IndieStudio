@@ -13,8 +13,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <irrlicht/Keycodes.h>
+#include <irrlicht/IEventReceiver.h>
 #include "Animations.hpp"
-#include "../ecs/Entity.hpp"
 #include "../ecs/data/Vector2.hpp"
 
 #define TRANSFORM_COLOR_TO_SFML_COLOR(color) sf::Color(static_cast<sf::Uint8>(color >> 16), static_cast<sf::Uint8>(color >> 8), static_cast<sf::Uint8>(color))
@@ -52,6 +52,8 @@ namespace Irrlicht
 		void setAnimation(unsigned entity, Animations anim);
 		void setPosition(unsigned entity, float x, float y);
 		bool isKeyPressed(irr::EKEY_CODE key);
+		bool isJoystickButtonPressed(unsigned id, unsigned button);
+		float getJoystickAxisPosition(unsigned id, unsigned axis);
 		void display();
 		bool isEnd();
 	};
