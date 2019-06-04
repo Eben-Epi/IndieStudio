@@ -34,9 +34,13 @@ namespace ECS
 		std::vector<Entity *> getEntitiesByComponent(const std::string &name) const;
 		System &getSystem(const std::string &name) const;
 		Entity &makeEntity(const std::string &name);
+		std::ostream &serialize(std::ostream &stream) const;
 		void update();
 		void reset();
 	};
 }
+
+std::ostream &operator<<(std::ostream &stream, const ECS::ECSCore &core);
+
 
 #endif //BOMBERMAN_ECSCORE_HPP

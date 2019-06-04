@@ -5,6 +5,7 @@
 ** MovableComponent.cpp
 */
 
+#include <iostream>
 #include "MovableComponent.hpp"
 
 namespace ECS
@@ -15,5 +16,10 @@ namespace ECS
         speed(0),
         maxSpeed(maxSpeed)
     {
+    }
+
+    std::ostream& MovableComponent::serialize(std::ostream &stream) const
+    {
+    	return stream << dir << ' ' << speed << ' ' << maxSpeed << " EndOfComponent";
     }
 }

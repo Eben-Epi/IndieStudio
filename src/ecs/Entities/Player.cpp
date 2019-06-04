@@ -18,7 +18,7 @@
 
 ECS::Player::Player(unsigned id, const Ressources &ressources) :
 	Entity(id, "Player", {
-		new ControllableComponent(*ressources.inputs.at(id)),
+		new ControllableComponent(*ressources.inputs.at(id), id),
 		new MovableComponent(5),
         new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
         new HealthComponent(1),
@@ -27,5 +27,4 @@ ECS::Player::Player(unsigned id, const Ressources &ressources) :
         new BlockedComponent(),
         new DisplayableComponent("Player", ressources)
     })
-{
-}
+{}

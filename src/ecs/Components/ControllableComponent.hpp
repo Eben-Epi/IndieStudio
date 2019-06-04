@@ -16,8 +16,10 @@ namespace ECS
     class ControllableComponent : public Component
     {
         public:
+    	    unsigned inputNbr;
     	    Input::Input &input;
-            ControllableComponent(Input::Input &);
+            ControllableComponent(Input::Input &, unsigned);
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 

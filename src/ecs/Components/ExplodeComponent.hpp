@@ -18,6 +18,7 @@ namespace ECS
             unsigned int range;
             unsigned int strength;
             ExplodeComponent(unsigned int range, unsigned int strength);
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 

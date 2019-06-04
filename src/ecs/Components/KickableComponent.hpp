@@ -16,6 +16,7 @@ namespace ECS
     {
         public:
             KickableComponent();
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 

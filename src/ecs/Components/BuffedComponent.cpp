@@ -5,6 +5,7 @@
 ** BuffedComponent.cpp
 */
 
+#include <iostream>
 #include "BuffedComponent.hpp"
 
 namespace ECS
@@ -17,5 +18,10 @@ namespace ECS
     	kick(kick),
     	hardness(hardness)
     {
+    }
+
+    std::ostream& BuffedComponent::serialize(std::ostream &stream) const
+    {
+    	return stream << health << ' ' << speed << ' ' << nbBomb << ' ' << kick << ' ' << hardness << " EndOfComponent";
     }
 }

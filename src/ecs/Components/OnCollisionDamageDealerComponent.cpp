@@ -5,6 +5,7 @@
 ** OnCollisionDamageDealerComponent.cpp
 */
 
+#include <iostream>
 #include "OnCollisionDamageDealerComponent.hpp"
 
 namespace ECS
@@ -13,5 +14,10 @@ namespace ECS
         Component("OnCollisionDamageDealer"),
         damage(damage)
     {
+    }
+
+    std::ostream& OnCollisionDamageDealerComponent::serialize(std::ostream &stream) const
+    {
+    	return stream << damage << " EndOfComponent";
     }
 }

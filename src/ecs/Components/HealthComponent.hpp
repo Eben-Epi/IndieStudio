@@ -17,6 +17,7 @@ namespace ECS
         public:
             unsigned int health;
             HealthComponent(unsigned int health);
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 

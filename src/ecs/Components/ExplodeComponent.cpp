@@ -5,6 +5,7 @@
 ** ExplodeComponent.cpp
 */
 
+#include <iostream>
 #include "ExplodeComponent.hpp"
 
 namespace ECS
@@ -14,5 +15,10 @@ namespace ECS
         range(range),
         strength(strength)
     {
+    }
+
+    std::ostream& ExplodeComponent::serialize(std::ostream &stream) const
+    {
+    	return stream << range << ' ' << strength << " EndOfComponent";
     }
 }

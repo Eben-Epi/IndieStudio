@@ -5,6 +5,7 @@
 ** ColliderComponent.cpp
 */
 
+#include <iostream>
 #include "ColliderComponent.hpp"
 
 ECS::ColliderComponent::ColliderComponent(unsigned hardness) :
@@ -12,4 +13,9 @@ ECS::ColliderComponent::ColliderComponent(unsigned hardness) :
 	hardness(hardness)
 {
 
+}
+
+std::ostream& ECS::ColliderComponent::serialize(std::ostream &stream) const
+{
+	return stream << hardness << " EndOfComponent";
 }

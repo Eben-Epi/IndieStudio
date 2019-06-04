@@ -17,6 +17,7 @@ namespace ECS
 	public:
 		unsigned int hardness;
 		explicit ColliderComponent(unsigned hardness);
+		std::ostream &serialize(std::ostream &stream) const override;
 	};
 }
 

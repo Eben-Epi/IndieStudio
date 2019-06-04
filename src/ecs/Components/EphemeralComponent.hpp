@@ -14,9 +14,10 @@ namespace ECS
 {
 	class EphemeralComponent : public Component
 	{
-		public:
-			unsigned int timeLeft;
-			EphemeralComponent(unsigned int timeLeft);
+	public:
+		unsigned int timeLeft;
+		EphemeralComponent(unsigned int timeLeft);
+		std::ostream &serialize(std::ostream &stream) const override;
 	};
 } // namespace ECS
 
