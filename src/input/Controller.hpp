@@ -12,15 +12,19 @@
 
 namespace Input
 {
-    class Controller : public Input
+    class Controller : public Input 
     {
         public:
-            Controller();
+            Controller(Irrlicht::Irrlicht &, std::vector<unsigned> &&, unsigned);
             ~Controller();
             std::vector<Action> getActions();
-            void changeKey(Action, irr::EKEY_CODE); //keyCode -> controller Key Code
+            void changeKey(Action, unsigned); //keyCode -> controller Key Code
 
         private:
+            Irrlicht::Irrlicht &_irrlicht;
+            irr::SEvent *_event;
+            std::vector<unsigned> _keys;
+            unsigned _id;
     };
 }
 

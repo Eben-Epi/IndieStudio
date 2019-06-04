@@ -142,6 +142,8 @@ add_executable(
 	src/input/Input.hpp
 	src/input/Keyboard.cpp
 	src/input/Keyboard.hpp
+	src/input/error/Errors.cpp
+	src/input/error/Errors.hpp
 )
 
 find_package(Irrlicht REQUIRED)

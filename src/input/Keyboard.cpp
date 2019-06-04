@@ -6,14 +6,13 @@
 */
 
 #include "Keyboard.hpp"
-#include <iostream>
 
 Input::Keyboard::Keyboard(Irrlicht::Irrlicht &irrlicht, std::vector<irr::EKEY_CODE> &&keys) :
     _irrlicht(irrlicht),
     _keys(keys)
 {
     if (keys.size() != NB_OF_ACTIONS)
-        throw std::exception();//MYSUPEREXCPETION
+        throw KeyboardErrors();
 }
 
 Input::Keyboard::~Keyboard() {}
