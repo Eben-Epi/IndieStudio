@@ -22,19 +22,15 @@ void Map::Map::update() {
 std::vector<unsigned> XPairYPairSidesWallGenerator(ECS::Vector2<unsigned> sizeMap)
 {
     unsigned maxSize = sizeMap.x * sizeMap.y;
-    bool yShift = false;
-    bool xShift = false;
+    bool yShift;
+    bool xShift;
     std::vector<unsigned> wallPos;
 
     for (unsigned j = 0; j < maxSize; ++j) {
-        if ((j / sizeMap.x) >= sizeMap.y / 2)
-            yShift = true;
-        if ((j % sizeMap.x) >= sizeMap.x / 2)
-            xShift = true;
-        if ((j / sizeMap.x + yShift) % 2 == 1 && (j % sizeMap.x + xShift) % 2 == 1)
+        yShift = (j / sizeMap.x) >= sizeMap.y / 2;
+        xShift = (j % sizeMap.x) >= sizeMap.x / 2;
+        if ((j / sizeMap.x + yShift) % 2  && (j % sizeMap.x + xShift) % 2 )
             wallPos.push_back(j);
-        yShift = false;
-        xShift = false;
     }
     return (wallPos);
 }
@@ -58,11 +54,9 @@ std::vector<unsigned> XPairYImpairSidesWallGenerator(ECS::Vector2<unsigned> size
     std::vector<unsigned> wallPos;
 
     for (unsigned j = 0; j < maxSize; ++j) {
-        if ((j % sizeMap.x) >= sizeMap.x / 2)
-            xShift = true;
+        xShift = (j % sizeMap.x) >= sizeMap.x / 2;
         if ((j / sizeMap.x) % 2 == 1 && (j % sizeMap.x + xShift) % 2 == 1)
             wallPos.push_back(j);
-        xShift = false;
     }
     return (wallPos);
 }
@@ -74,11 +68,9 @@ std::vector<unsigned> XImpairYPairSidesWallGenerator(ECS::Vector2<unsigned> size
     std::vector<unsigned> wallPos;
 
     for (unsigned j = 0; j < maxSize; ++j) {
-        if ((j / sizeMap.x) >= sizeMap.y / 2)
-            yShift = true;
+        yShift = (j / sizeMap.x) >= sizeMap.y / 2;
         if ((j / sizeMap.x + yShift) % 2 == 1 && (j % sizeMap.x) % 2 == 1)
             wallPos.push_back(j);
-        yShift = false;
     }
     return (wallPos);
 }
@@ -139,7 +131,7 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
     ECS::Point position;
 
     if (sizeMap.x < 4 || sizeMap.y < 4)
-        throw MapException("Map is too small in x or in y (< 4).");
+        throw MapTooSmallException("Map is too small in x or in y (< 4).");
     setEntityComponentPosition(this->_core.makeEntity("Player"), {TILESIZE / 16., TILESIZE / 16.});
     setArenaWallAround(sizeMap);
     for (int i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {

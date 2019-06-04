@@ -56,38 +56,32 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
                     if (eCC.hardness == exc.strength && posAndSize[0].x < ePC.pos.x) {
                         posAndSize[1].x = posAndSize[1].x - (ePC.pos.x - posAndSize[0].x);
                         posAndSize[0].x = ePC.pos.x;
-                        break;
                     } else if (eCC.hardness > exc.strength && posAndSize[0].x < ePC.pos.x + TILESIZE) {
                         posAndSize[1].x = posAndSize[1].x - ((ePC.pos.x + TILESIZE) - posAndSize[0].x);
                         posAndSize[0].x = ePC.pos.x + TILESIZE;
-                        break;
                     }
+                    break;
                 case EAST_OBS:
-                    if (eCC.hardness == exc.strength && posAndSize[0].x + posAndSize[1].x - TILESIZE > ePC.pos.x) {
+                    if (eCC.hardness == exc.strength && posAndSize[0].x + posAndSize[1].x - TILESIZE > ePC.pos.x)
                         posAndSize[1].x = posAndSize[1].x - ((posAndSize[0].x + posAndSize[1].x - TILESIZE) - ePC.pos.x);
-                        break;
-                    } else if (eCC.hardness > exc.strength && posAndSize[0].x + posAndSize[1].x > ePC.pos.x) {
+                    else if (eCC.hardness > exc.strength && posAndSize[0].x + posAndSize[1].x > ePC.pos.x)
                         posAndSize[1].x = posAndSize[1].x - ((posAndSize[0].x + posAndSize[1].x) - ePC.pos.x);
-                        break;
-                    }
+                    break;
                 case NORTH_OBS:
                     if (eCC.hardness == exc.strength && posAndSize[2].y < ePC.pos.y) {
                         posAndSize[3].y = posAndSize[3].y - (ePC.pos.y - posAndSize[2].y);
                         posAndSize[2].y = ePC.pos.y;
-                        break;
                     } else if (eCC.hardness > exc.strength && posAndSize[2].y < ePC.pos.y + TILESIZE) {
                         posAndSize[3].y = posAndSize[3].y - ((ePC.pos.y + TILESIZE) - posAndSize[2].y);
                         posAndSize[2].y = ePC.pos.y + TILESIZE;
-                        break;
                     }
+                    break;
                 case SOUTH_OBS:
-                    if (eCC.hardness == exc.strength && posAndSize[2].y + posAndSize[3].y - TILESIZE > ePC.pos.y) {
+                    if (eCC.hardness == exc.strength && posAndSize[2].y + posAndSize[3].y - TILESIZE > ePC.pos.y)
                         posAndSize[3].y = posAndSize[3].y - ((posAndSize[2].y + posAndSize[3].y - TILESIZE) - ePC.pos.y);
-                        break;
-                    } else if (eCC.hardness > exc.strength && posAndSize[2].y + posAndSize[3].y > ePC.pos.y) {
+                    else if (eCC.hardness > exc.strength && posAndSize[2].y + posAndSize[3].y > ePC.pos.y)
                         posAndSize[3].y = posAndSize[3].y - ((posAndSize[2].y + posAndSize[3].y) - ePC.pos.y);
-                        break;
-                    }
+                    break;
                 default:
                     break;
             }
