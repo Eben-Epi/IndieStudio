@@ -7,13 +7,6 @@
 #include <irrlicht/driverChoice.h>
 
 
-using namespace irr;
-using namespace core;
-using namespace scene;
-using namespace video;
-using namespace io;
-using namespace gui;
-
 #ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
 #pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
@@ -22,8 +15,8 @@ using namespace gui;
 #include "screen.hpp"
 
 Irrlicht::screen::screen(int width, int height, int colorDepth) { //TODO FULLSCREEN, SET WINDOW SIZE AND TYPE, ENABLE VSYNC
-    this->_driverType = EDT_OPENGL;
-    this->_device = createDevice(_driverType, dimension2d<u32>(width, height), colorDepth,
+    this->_driverType = irr::video::EDT_OPENGL;
+    this->_device = irr::createDevice(_driverType, irr::core::dimension2d<irr::u32>(width, height), colorDepth,
                                  false, false, false, nullptr);
     this->_smgr = _device->getSceneManager();
     this->_driver = _device->getVideoDriver();
@@ -35,7 +28,7 @@ int Irrlicht::screen::display () { //TODO COLOR SCENE
     while(this->_device->run()) {
         if (this->_device->isWindowActive())
         {
-            this->_driver->beginScene(true, true, video::SColor(255,200,200,200));
+            this->_driver->beginScene(true, true, irr::video::SColor(255,200,200,200));
             this->_smgr->drawAll();
             this->_driver->endScene();
 
@@ -43,7 +36,7 @@ int Irrlicht::screen::display () { //TODO COLOR SCENE
 
             if (lastFPS != fps)
             {
-                core::stringw str = "Indie Studio [";
+                irr::core::stringw str = "Indie Studio [";
                 str += this->_driver->getName();
                 str += "] FPS:";
                 str += fps;
