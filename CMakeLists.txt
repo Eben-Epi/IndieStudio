@@ -140,7 +140,7 @@ add_executable(
 	src/ecs/Entities/DroppedBonusKick.hpp
 	src/ecs/Entities/DroppedBonusHardness.cpp
 	src/ecs/Entities/DroppedBonusHardness.hpp
-)
+        src/ecs/Components/CurseComponent.cpp src/ecs/Components/CurseComponent.hpp src/ecs/Systems/CurseSystem.cpp src/ecs/Systems/CurseSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 

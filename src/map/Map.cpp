@@ -153,7 +153,8 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
             } else {
                 randNum = rand_device() % 100;
                 if (randNum < brickRatio)
-                    setEntityComponentPosition(this->_core.makeEntity("Brick"), position);
+                    //setEntityComponentPosition(this->_core.makeEntity("Brick"), position);
+                    false;
             }
         }
     }
