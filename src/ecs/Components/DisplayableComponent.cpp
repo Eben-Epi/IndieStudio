@@ -33,7 +33,7 @@ namespace ECS
 	}
 
 	DisplayableComponent::DisplayableComponent(const ECS::Ressources &ressources, std::istream &stream) :
-		Component("Blocked"),
+		Component("Displayable"),
 		screen(ressources.screen),
 		entityId(0),
 		spriteId(""),

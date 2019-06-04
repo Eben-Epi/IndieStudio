@@ -37,7 +37,12 @@ namespace ECS
 		{"Collider", [](const Ressources &ressources, std::istream &stream) { return new ColliderComponent(ressources, stream); }}
 	};
 
-	std::unique_ptr<Component> ComponentFactory::build(const std::string &name, std::ostream &stream) const
+	ComponentFactory::ComponentFactory(const ECS::Ressources &ressources) :
+		_ressources(ressources)
+	{
+	}
+
+	std::unique_ptr<Component> ComponentFactory::build(const std::string &name, std::istream &stream) const
 	{
 		try {
 			return std::unique_ptr<Component>(ComponentFactory::_functions[name](this->_ressources, stream));

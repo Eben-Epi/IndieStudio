@@ -15,6 +15,11 @@ Map::Map::Map(const ECS::Ressources &ressources) : _core(ressources)
 
 }
 
+Map::Map::Map(const ECS::Ressources &ressources, std::istream &stream) :
+    _core(ressources, stream)
+{
+}
+
 void Map::Map::update() {
     this->_core.update();
 }
