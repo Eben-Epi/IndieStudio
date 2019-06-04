@@ -8,11 +8,13 @@
 #define BOMBERMAN_BLOCKCOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS {
     class BlockedComponent : public Component {
     public:
         BlockedComponent();
+        BlockedComponent(const Ressources &ressources, std::istream &stream);
 	std::ostream &serialize(std::ostream &stream) const override;
     };
 }

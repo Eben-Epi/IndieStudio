@@ -10,6 +10,7 @@
 
 
 #include "../Component.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
@@ -17,6 +18,7 @@ namespace ECS
 	public:
 		unsigned int hardness;
 		explicit ColliderComponent(unsigned hardness);
+		ColliderComponent(const Ressources &ressources, std::istream &stream);
 		std::ostream &serialize(std::ostream &stream) const override;
 	};
 }

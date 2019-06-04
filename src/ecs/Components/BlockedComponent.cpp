@@ -7,10 +7,21 @@
 
 #include <iostream>
 #include "BlockedComponent.hpp"
+#include "../Exceptions.hpp"
 
 ECS::BlockedComponent::BlockedComponent() :
-	Component("Block")
+	Component("Blocked")
 {}
+
+ECS::BlockedComponent::BlockedComponent(const ECS::Ressources &, std::istream &stream) :
+	Component("Blocked")
+{
+	std::string terminator;
+
+	stream >> terminator;
+	if (terminator != "EndOfComponent")
+		throw InvalidSerializedStringException("The component terminator was not found");
+}
 
 std::ostream &ECS::BlockedComponent::serialize(std::ostream &stream) const
 {

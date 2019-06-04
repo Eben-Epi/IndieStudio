@@ -115,7 +115,7 @@ add_executable(
 	src/ecs/Components/OnCollisionDamageDealerComponent.cpp
 	src/ecs/Components/OnCollisionDamageDealerComponent.hpp
 	src/ecs/Systems/OnCollisionDamageDealerSystem.cpp
-	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp)
+	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp src/ecs/Factories/ComponentFactory.cpp src/ecs/Factories/ComponentFactory.hpp)
 
 find_package(Irrlicht REQUIRED)
 

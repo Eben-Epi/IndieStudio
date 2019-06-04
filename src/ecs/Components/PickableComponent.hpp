@@ -9,6 +9,7 @@
 #define PICKABLECOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
@@ -16,6 +17,7 @@ namespace ECS
     {
         public:
             PickableComponent();
+            PickableComponent(const Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS

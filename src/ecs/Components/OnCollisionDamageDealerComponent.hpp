@@ -9,6 +9,7 @@
 #define BOMBERMAN_ONCOLLISIONDAMAGEDEALERCOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
@@ -17,6 +18,7 @@ namespace ECS
     public:
         int damage;
         OnCollisionDamageDealerComponent(int damage);
+        OnCollisionDamageDealerComponent(const Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
     };
 }

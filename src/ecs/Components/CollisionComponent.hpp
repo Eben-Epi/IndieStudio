@@ -10,6 +10,7 @@
 
 #include "../Component.hpp"
 #include "../Entity.hpp"
+#include "../Ressources.hpp"
 #include <vector>
 
 namespace ECS
@@ -20,6 +21,7 @@ namespace ECS
             unsigned int passThrough;
             std::vector<Entity*> entitiesCollided = {};
             explicit CollisionComponent(unsigned int pass);
+            CollisionComponent(const Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
