@@ -11,6 +11,7 @@
 #define FRAME_RATE 60
 
 #define TILESIZE 32
+#define PLAYERSIZE (TILESIZE - TILESIZE / 8)
 
 #define FRAME_TIME 1 / FRAME_RATE
 

@@ -10,12 +10,14 @@
 
 #include "../Component.hpp"
 #include "../Ressources.hpp"
+#include "../Entity.hpp"
 
 namespace ECS
 {
     class PickableComponent : public Component
     {
         public:
+            Entity *pickedBy = nullptr;
             PickableComponent();
             PickableComponent(const Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;

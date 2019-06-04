@@ -17,7 +17,7 @@
 #include "../Components/ColliderComponent.hpp"
 
 ECS::Bomb::Bomb(unsigned id, const Ressources &ressources) :
-    Entity(id, "Brick", {
+    Entity(id, "Bomb", {
         new HealthComponent(1),
         new ColliderComponent(2),
         new CollisionComponent(0),

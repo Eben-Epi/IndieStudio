@@ -11,7 +11,7 @@
 namespace ECS
 {
     KickableComponent::KickableComponent()
-    : Component("KickableComponent")
+    : Component("Kickable")
     {
     }
 
