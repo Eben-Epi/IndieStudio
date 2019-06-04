@@ -130,8 +130,18 @@ add_executable(
 	src/ecs/Systems/PowerUpPickedSystem.hpp
 	src/ecs/Systems/KickerSystem.cpp
 	src/ecs/Systems/KickerSystem.hpp
-		src/ecs/Systems/EntityDropperSystem.cpp
-		src/ecs/Systems/EntityDropperSystem.hpp)
+    src/ecs/Systems/EntityDropperSystem.cpp
+    src/ecs/Systems/EntityDropperSystem.hpp
+    src/ecs/Entities/DroppedBonusHealth.cpp
+	src/ecs/Entities/DroppedBonusHealth.hpp
+	src/ecs/Entities/DroppedBonusSpeed.cpp
+	src/ecs/Entities/DroppedBonusSpeed.hpp
+	src/ecs/Entities/DroppedBonusBomb.cpp
+	src/ecs/Entities/DroppedBonusBomb.hpp
+	src/ecs/Entities/DroppedBonusKick.cpp
+	src/ecs/Entities/DroppedBonusKick.hpp
+	src/ecs/Entities/DroppedBonusHardness.cpp
+	src/ecs/Entities/DroppedBonusHardness.hpp)
 
 find_package(Irrlicht REQUIRED)
 

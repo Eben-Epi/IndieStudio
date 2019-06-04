@@ -33,9 +33,11 @@ void ECS::PowerUpPickedSystem::updateEntity(ECS::Entity &entity)
         KickerComponent &kickerComponent = reinterpret_cast<KickerComponent &>(entity.getComponentByName("Kicker"));
         if (entity.hasComponent("Kicker") && pucI.kick)
             reinterpret_cast<KickerComponent &>(entity.getComponentByName("Kicker")).canKick = pucI.kick;
-        if (entity.hasComponent("BombDropper"))
+        if (entity.hasComponent("BombDropper")) {
             reinterpret_cast<BombDropperComponent &>(entity.getComponentByName("BombDropper")).max += pucI.nbBomb;
-        if (entity.hasComponent("Movable"))
-            reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable")).speed += pucI.speed;
+            reinterpret_cast<BombDropperComponent &>(entity.getComponentByName("BombDropper")).range += pucI.range;
+        }
+        if (entity.hasComponent("Movable") && pucI.speed == 1)
+            reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable")).speed = pucI.speed;
     }
 }

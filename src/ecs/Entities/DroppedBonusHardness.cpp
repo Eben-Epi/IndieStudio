@@ -2,10 +2,10 @@
 ** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
-** DroppedItem.cpp
+** DroppedBonusHardness.cpp
 */
 
-#include "DroppedItem.hpp"
+#include "DroppedBonusHardness.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../Components/DisplayableComponent.hpp"
 #include "../Components/ColliderComponent.hpp"
@@ -15,17 +15,17 @@
 #include "../Components/PickableComponent.hpp"
 #include "../Components/PowerUpPickedComponent.hpp"
 
-ECS::DroppedItem::DroppedItem(unsigned id, const Ressources &ressources) :
-    Entity(id, "DroppedItem", {
+ECS::DroppedBonusHardness::DroppedBonusHardness(unsigned id, const Ressources &ressources) :
+    Entity(id, "DroppedBonusHardness", {
         new HealthComponent(1),
-        new DisplayableComponent("DroppedItem", ressources),
+        new DisplayableComponent("DroppedBonusHardness", ressources),
         new ColliderComponent(0),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
-        new PowerUpComponent({}),
+        new PowerUpComponent({
+            std::pair<std::string, NumericValue>("Hardness", 1)
+        }),
         new PickableComponent(),
         new PowerUpPickedComponent()
     })
 {
-    //TODO Changed Dropped item by Drop"NomDEL'entity" : eg. -> BonusBomb PowerUp(0, 1, false, 0, 0) ( un truc comme ça )
-    //TODO certains bonus sont ephémères
 }
