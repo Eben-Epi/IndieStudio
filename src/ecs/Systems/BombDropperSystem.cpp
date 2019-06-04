@@ -13,8 +13,9 @@ ECS::BombDropperSystem::BombDropperSystem(ECS::ECSCore &core):
 
 void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 {
-    if (1) { // TODO: get input
-      //  this->_core.makeEntity("Bomb");
-
-    }
+  ECS::BombDropperComponent &bomb = reinterpret_cast<ECS::BombDropperComponent &>(entity.getComponentByName("BombDropper"));
+  if (bomb.max >= bomb.bombs.size())
+    return;
+  else
+    bomb.bombs.push_back(reinterpret_cast<ECS::Entity &>(this->_core.makeEntity("Bomb")));
 }
