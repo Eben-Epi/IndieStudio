@@ -1,16 +1,22 @@
 /*
 ** EPITECH PROJECT, 2019
-** IndieStudio
+** ECS
 ** File description:
 ** KickableComponent.cpp
 */
 
+#include <iostream>
 #include "KickableComponent.hpp"
 
 namespace ECS
 {
     KickableComponent::KickableComponent()
-    : Component("KickableComponent")
+    : Component("Kickable")
     {
+    }
+
+    std::ostream& KickableComponent::serialize(std::ostream &stream) const
+    {
+    	return stream << "EndOfComponent";
     }
 }

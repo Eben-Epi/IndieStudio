@@ -1,21 +1,29 @@
 /*
 ** EPITECH PROJECT, 2019
-** IndieStudio
+** ECS
 ** File description:
 ** PowerUpComponent.cpp
 */
 
+#include <iostream>
 #include "PowerUpComponent.hpp"
 
 namespace ECS
 {
-    PowerUpComponent::PowerUpComponent(unsigned int health, float speed, unsigned int nbBomb, bool kick, unsigned int hardness) :
+    PowerUpComponent::PowerUpComponent(std::map<std::string, NumericValue> map) :
     	Component("PowerUp"),
-    	health(health),
-    	speed(speed),
-    	nbBomb(nbBomb),
-    	kick(kick),
-    	hardness(hardness)
+    	health(map["Health"]),
+    	speed(map["Speed"]),
+    	nbBomb(map["Bomb"]),
+    	kick(map["Kick"]),
+    	hardness(map["Hardness"]),
+    	range(map["Range"])
     {
+
+    }
+
+    std::ostream& PowerUpComponent::serialize(std::ostream &stream) const
+    {
+    	return stream << health << ' ' << speed << ' ' << nbBomb << ' ' << kick << ' ' << hardness << "EndOfComponent";
     }
 }

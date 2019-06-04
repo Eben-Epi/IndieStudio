@@ -28,7 +28,7 @@ then
 namespace ECS {
     class $NAME : public System {
     public:
-	$NAME(ECSCore &core);
+        $NAME(ECSCore &core);
         void updateEntity(Entity &entity) override;
     };
 }

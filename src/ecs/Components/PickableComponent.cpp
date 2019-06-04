@@ -1,10 +1,11 @@
 /*
 ** EPITECH PROJECT, 2018
-** IndieStudio
+** ECS
 ** File description:
 ** PickableComponent.cpp
 */
 
+#include <iostream>
 #include "PickableComponent.hpp"
 
 namespace ECS
@@ -13,5 +14,10 @@ namespace ECS
         Component("Pickable")
     {
 
+    }
+
+    std::ostream& PickableComponent::serialize(std::ostream &stream) const
+    {
+    	return stream << " EndOfComponent";
     }
 }

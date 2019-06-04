@@ -5,6 +5,7 @@
 ** Entity.cpp
 */
 
+#include <iostream>
 #include "Entity.hpp"
 #include "Exceptions.hpp"
 
@@ -62,9 +63,16 @@ namespace ECS
 		this->_destroy = true;
 	}
 
-	/*Component &Entity::addComponent(ECS::Component *component)
+	std::ostream& Entity::serialize(std::ostream &stream) const
 	{
-		this->_components.emplace_back(component);
-		return *this->_components.back();
-	}*/
+		stream << this->_id << ' ' << this->_name << std::endl;
+		for (auto &comp : this->_components)
+			stream << '\t' << comp->getName() << ' ' << *comp << std::endl;
+		return stream << "EndOfEntity";
+	}
+}
+
+std::ostream	&operator<<(std::ostream &stream, const ECS::Entity &entity)
+{
+	return entity.serialize(stream);
 }

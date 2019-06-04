@@ -11,6 +11,21 @@
 #include "../Systems/CollisionSystem.hpp"
 #include "../Systems/DisplayableSystem.hpp"
 #include "../Systems/PositionSystem.hpp"
+#include "../Systems/MovableSystem.hpp"
+#include "../Systems/KickableSystem.hpp"
+#include "../Systems/EphemeralSystem.hpp"
+#include "../Systems/ControllableSystem.hpp"
+#include "../Systems/BuffedSystem.hpp"
+#include "../Systems/BombDropperSystem.hpp"
+#include "../Systems/BlockedSystem.hpp"
+#include "../Systems/ColliderSystem.hpp"
+#include "../Systems/KickerSystem.hpp"
+#include "../Systems/PickerSystem.hpp"
+#include "../Systems/PickableSystem.hpp"
+#include "../Systems/ExplodeSystem.hpp"
+#include "../Systems/OnCollisionDamageDealerSystem.hpp"
+#include "../Systems/PowerUpPickedSystem.hpp"
+#include "../Systems/PowerUpSystem.hpp"
 
 namespace ECS
 {
@@ -20,10 +35,24 @@ namespace ECS
 	}
 
 	std::map<std::string, std::function<System *(ECS::ECSCore &core)>> SystemFactory::_functions = {
-		{"Health", [](ECS::ECSCore &core) { return new HealthSystem(core); }},
+		{"Blocked", [](ECS::ECSCore &core) { return new BlockedSystem(core); }},
+		{"BombDropper", [](ECS::ECSCore &core) { return new BombDropperSystem(core); }},
+		{"Buffed", [](ECS::ECSCore &core) { return new BuffedSystem(core); }},
+		{"Collider", [](ECS::ECSCore &core) { return new ColliderSystem(core); }},
 		{"Collision", [](ECS::ECSCore &core) { return new CollisionSystem(core); }},
+		{"Controllable", [](ECS::ECSCore &core) { return new ControllableSystem(core); }},
 		{"Displayable", [](ECS::ECSCore &core) { return new DisplayableSystem(core); }},
-		{"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }}
+		{"Ephemeral", [](ECS::ECSCore &core) { return new EphemeralSystem(core); }},
+		{"Explode", [](ECS::ECSCore &core) { return new ExplodeSystem(core); }},
+		{"Health", [](ECS::ECSCore &core) { return new HealthSystem(core); }},
+		{"Kickable", [](ECS::ECSCore &core) { return new KickableSystem(core); }},
+		{"Kicker", [](ECS::ECSCore &core) { return new KickerSystem(core); }},
+		{"Movable", [](ECS::ECSCore &core) { return new MovableSystem(core); }},
+		{"Pickable", [](ECS::ECSCore &core) { return new PickableSystem(core); }},
+		{"Picker", [](ECS::ECSCore &core) { return new PickerSystem(core); }},
+		{"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }},
+		{"PowerUp", [](ECS::ECSCore &core) { return new PowerUpSystem(core); }},
+		{"PowerUpPicked", [](ECS::ECSCore &core) { return new PowerUpPickedSystem(core); }}
 	};
 
 	std::unique_ptr<System> SystemFactory::build(std::string &&name) const

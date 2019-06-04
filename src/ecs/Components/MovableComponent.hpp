@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** IndieStudio
+** ECS
 ** File description:
 ** MovableComponent.hpp
 */
@@ -10,16 +10,19 @@
 
 #include "../Component.hpp"
 #include "../data/Directions.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
     class MovableComponent : public Component
     {
         public:
-            IndieStudio::Directions dir;
+            unsigned char dir;
             float speed;
             float maxSpeed;
             MovableComponent(float maxSpeed);
+            MovableComponent(const Ressources &ressources, std::istream &stream);
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 
