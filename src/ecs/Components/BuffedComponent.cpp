@@ -22,6 +22,6 @@ namespace ECS
 
     std::ostream& BuffedComponent::serialize(std::ostream &stream) const
     {
-    	return stream << health << ' ' << speed << ' ' << nbBomb << ' ' << kick << ' ' << hardness;
+    	return stream << health << ' ' << speed << ' ' << nbBomb << ' ' << kick << ' ' << hardness << " EndOfComponent";
     }
 }

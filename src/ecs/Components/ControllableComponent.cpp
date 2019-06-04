@@ -18,6 +18,6 @@ namespace ECS
 
     std::ostream& ControllableComponent::serialize(std::ostream &stream) const
     {
-    	return stream << inputNbr;
+    	return stream << inputNbr << " EndOfComponent";
     }
 }

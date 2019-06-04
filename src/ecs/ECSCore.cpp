@@ -97,4 +97,17 @@ namespace ECS
 		this->_entities.erase(this->_entities.begin(), this->_entities.end());
 		this->_lastEntityId = 0;
 	}
+
+	std::ostream& ECSCore::serialize(std::ostream &stream) const
+	{
+		stream << "SerializedECSCore" << std::endl;
+		for (auto &entity : this->_entities)
+			stream << *entity << std::endl;
+		return stream << "EndOfRecord";
+	}
+}
+
+std::ostream &operator<<(std::ostream &stream, const ECS::ECSCore &core)
+{
+	return core.serialize(stream);
 }

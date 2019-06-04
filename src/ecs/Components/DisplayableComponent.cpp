@@ -28,6 +28,6 @@ namespace ECS
 
 	std::ostream& DisplayableComponent::serialize(std::ostream &stream) const
 	{
-		return stream << spriteId << ' ' << animation;
+		return stream << spriteId << ' ' << animation << " EndOfComponent";
 	}
 }

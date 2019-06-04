@@ -19,6 +19,6 @@ namespace ECS
 
     std::ostream& ExplodeComponent::serialize(std::ostream &stream) const
     {
-    	return stream << range << ' ' << strength;
+    	return stream << range << ' ' << strength << " EndOfComponent";
     }
 }

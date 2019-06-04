@@ -14,5 +14,5 @@ ECS::BlockedComponent::BlockedComponent() :
 
 std::ostream &ECS::BlockedComponent::serialize(std::ostream &stream) const
 {
-	return stream;
+	return stream << "EndOfComponent";
 }

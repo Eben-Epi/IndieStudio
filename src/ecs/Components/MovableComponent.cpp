@@ -20,6 +20,6 @@ namespace ECS
 
     std::ostream& MovableComponent::serialize(std::ostream &stream) const
     {
-    	return stream << dir << ' ' << speed << ' ' << maxSpeed;
+    	return stream << dir << ' ' << speed << ' ' << maxSpeed << " EndOfComponent";
     }
 }

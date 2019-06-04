@@ -18,6 +18,6 @@ namespace ECS
 
     std::ostream& OnCollisionDamageDealerComponent::serialize(std::ostream &stream) const
     {
-    	return stream << damage;
+    	return stream << damage << " EndOfComponent";
     }
 }

@@ -20,6 +20,6 @@ namespace ECS
 
 	std::ostream &BombDropperComponent::serialize(std::ostream &stream) const
 	{
-		return stream << max << ' ' << timeToExplode << ' ' << range;
+		return stream << max << ' ' << timeToExplode << ' ' << range << " EndOfComponent";
 	}
 }

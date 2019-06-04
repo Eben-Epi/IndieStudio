@@ -18,6 +18,6 @@ namespace ECS
 
 	std::ostream& EphemeralComponent::serialize(std::ostream &stream) const
 	{
-		return stream << timeLeft;
+		return stream << timeLeft << " EndOfComponent";
 	}
 }

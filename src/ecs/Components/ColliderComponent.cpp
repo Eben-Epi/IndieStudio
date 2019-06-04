@@ -17,5 +17,5 @@ ECS::ColliderComponent::ColliderComponent(unsigned hardness) :
 
 std::ostream& ECS::ColliderComponent::serialize(std::ostream &stream) const
 {
-	return stream << hardness;
+	return stream << hardness << " EndOfComponent";
 }

@@ -23,5 +23,7 @@ namespace ECS
 	};
 }
 
+std::ostream	&operator<<(std::ostream &stream, const ECS::Component &component);
+
 
 #endif //BOMBERMAN_COMPONENT_HPP

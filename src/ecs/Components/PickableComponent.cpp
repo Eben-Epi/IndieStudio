@@ -18,6 +18,6 @@ namespace ECS
 
     std::ostream& PickableComponent::serialize(std::ostream &stream) const
     {
-    	return stream;
+    	return stream << " EndOfComponent";
     }
 }

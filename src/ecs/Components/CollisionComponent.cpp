@@ -18,6 +18,6 @@ namespace ECS
 
     std::ostream& CollisionComponent::serialize(std::ostream &stream) const
     {
-    	return stream << passThrough;
+    	return stream << passThrough << " EndOfComponent";
     }
 }

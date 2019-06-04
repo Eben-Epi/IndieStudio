@@ -146,3 +146,13 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
         }
     }
 }
+
+std::ostream& Map::Map::serialize(std::ostream &stream) const
+{
+    return stream << this->_core;
+}
+
+std::ostream &operator<<(std::ostream &stream, const Map::Map &map)
+{
+    return map.serialize(stream);
+}

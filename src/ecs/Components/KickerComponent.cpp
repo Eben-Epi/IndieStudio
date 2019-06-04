@@ -17,6 +17,6 @@ namespace ECS
 
     std::ostream& KickerComponent::serialize(std::ostream &stream) const
     {
-    	return stream;
+    	return stream << "EndOfComponent";
     }
 }

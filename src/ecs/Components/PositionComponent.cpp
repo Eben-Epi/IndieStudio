@@ -19,6 +19,6 @@ namespace ECS
 
 	std::ostream& PositionComponent::serialize(std::ostream &stream) const
 	{
-		return stream << pos.x << ' ' << pos.y << ' ' << size.x << ' ' << size.y;
+		return stream << pos.x << ' ' << pos.y << ' ' << size.x << ' ' << size.y << " EndOfComponent";
 	}
 }

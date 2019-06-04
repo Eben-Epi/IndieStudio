@@ -18,6 +18,6 @@ namespace ECS
 
 	std::ostream& HealthComponent::serialize(std::ostream &stream) const
 	{
-		return stream << health;
+		return stream << health << " EndOfComponent";
 	}
 }
