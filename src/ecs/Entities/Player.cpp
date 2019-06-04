@@ -31,4 +31,3 @@ ECS::Player::Player(unsigned id, const Ressources &ressources) :
         new DisplayableComponent("Player", ressources)
     })
 {}
->>>>>>> bce87bcaae8f65741f135fabcc487c0eda92b0c3
