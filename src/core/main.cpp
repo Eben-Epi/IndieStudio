@@ -40,6 +40,7 @@ int main()
 	ECS::Ressources	res{screen, inputs};
 	Map::Map	*map = loadMap(res, "save.txt");
 
+	map.generateMap({20, 20}, 70, {{"Bonus", 0}});
 	while (!screen.isEnd()) {
 		map->update();
 		screen.display();

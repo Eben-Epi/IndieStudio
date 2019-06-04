@@ -2,12 +2,13 @@
 ** EPITECH PROJECT, 2019
 ** ECS
 ** File description:
-** ItemDropperComponent.hpp
+** EntityDropperComponent.hpp
 */
 
 #ifndef ITEMCONTAINERCOMPONENT_HPP
 #define ITEMCONTAINERCOMPONENT_HPP
 
+#include <iostream>
 #include "../Component.hpp"
 #include "../Entity.hpp"
 
@@ -18,6 +19,7 @@ namespace ECS
         public:
             std::vector<std::string> items;
             EntityDropperComponent();
+            std::ostream &serialize(std::ostream &stream) const override;
     };
 }
 
