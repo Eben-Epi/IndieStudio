@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** IndieStudio
+** ECS
 ** File description:
 ** EphemeralComponent.hpp
 */
@@ -9,14 +9,17 @@
 #define EPHEMERALCOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../Ressources.hpp"
 
 namespace ECS
 {
 	class EphemeralComponent : public Component
 	{
-		public:
-			unsigned int timeLeft;
-			EphemeralComponent(unsigned int timeLeft);
+	public:
+		unsigned int timeLeft;
+		EphemeralComponent(unsigned int timeLeft);
+		EphemeralComponent(const Ressources &ressources, std::istream &stream);
+		std::ostream &serialize(std::ostream &stream) const override;
 	};
 } // namespace ECS
 

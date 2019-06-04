@@ -17,7 +17,7 @@ ECS::KickableSystem::KickableSystem(ECS::ECSCore &core) :
 
 void ECS::KickableSystem::updateEntity(ECS::Entity &entity)
 {
-    auto collision = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
+    auto &collision = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
 
     for (Entity *i : collision.entitiesCollided) {
         if (i->hasComponent("Kicker")) {

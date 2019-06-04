@@ -1,10 +1,11 @@
 /*
 ** EPITECH PROJECT, 2018
-** IndieStudio
+** ECS
 ** File description:
 ** PickerComponent.cpp
 */
 
+#include <iostream>
 #include "PickerComponent.hpp"
 
 namespace ECS
@@ -13,5 +14,10 @@ namespace ECS
         Component("Picker")
     {
 
+    }
+
+    std::ostream& PickerComponent::serialize(std::ostream &stream) const
+    {
+    	return stream << "EndOfComponent";
     }
 }

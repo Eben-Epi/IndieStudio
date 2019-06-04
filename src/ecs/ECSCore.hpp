@@ -19,12 +19,13 @@ namespace ECS
 {
 	class ECSCore {
 	private:
-		unsigned				_lastEntityId;
-		Ressources				_ressources;
-		SystemFactory				_systemFactory;
-		EntityFactory				_entityFactory;
-		std::vector<std::unique_ptr<System>>	_systems;
-		std::vector<std::unique_ptr<Entity>>	_entities;
+		unsigned					_lastEntityId;
+		Ressources					_ressources;
+		SystemFactory					_systemFactory;
+		EntityFactory					_entityFactory;
+		std::vector<std::unique_ptr<System>>		_systems;
+		std::vector<std::unique_ptr<Entity>>		_entities;
+		std::map<std::string, std::vector<Entity *>>	_components;
 
 	public:
 		explicit ECSCore(const Ressources &ressources);
@@ -33,9 +34,13 @@ namespace ECS
 		std::vector<Entity *> getEntitiesByComponent(const std::string &name) const;
 		System &getSystem(const std::string &name) const;
 		Entity &makeEntity(const std::string &name);
+		std::ostream &serialize(std::ostream &stream) const;
 		void update();
 		void reset();
 	};
 }
+
+std::ostream &operator<<(std::ostream &stream, const ECS::ECSCore &core);
+
 
 #endif //BOMBERMAN_ECSCORE_HPP

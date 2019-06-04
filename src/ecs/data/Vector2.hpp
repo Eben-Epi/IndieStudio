@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** IndieStudio
+** ECS
 ** File description:
 ** Vector2.hpp
 */
@@ -14,22 +14,18 @@ namespace ECS
     struct Vector2 {
         T x;
         T y;
+
+        template <typename type>
+        Vector2<T> &operator=(Vector2<type> &vec) {
+            this->x = vec.x;
+            this->y = vec.y;
+            return *this;
+        }
     };
 
     typedef Vector2<double> PointF;
     typedef Vector2<double> Point;
 }; // namespace ECS
 
-namespace IndieStudio
-{
-    template <typename T>
-    struct Vector2 {
-        T x;
-        T y;
-    };
-
-    typedef Vector2<double> PointF;
-    typedef Vector2<double> Point;
-}; // namespace ECS
 
 #endif

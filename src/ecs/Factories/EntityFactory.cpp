@@ -9,6 +9,11 @@
 #include "../Exceptions.hpp"
 #include "../Ressources.hpp"
 #include "../Entities/Brick.hpp"
+#include "../Entities/Wall.hpp"
+#include "../Entities/Player.hpp"
+#include "../Entities/Bomb.hpp"
+#include "../Entities/ExplosionFrame.hpp"
+#include "../Entities/DroppedItem.hpp"
 
 namespace ECS
 {
@@ -18,7 +23,9 @@ namespace ECS
 	}
 
 	std::map<std::string, std::function<Entity *(const Ressources &ressources, unsigned id)>> EntityFactory::_functions = {
-		{"Brick", [](const Ressources &ressources, unsigned id) { return new Brick(id, ressources); }}
+		{"Brick", [](const Ressources &ressources, unsigned id) { return new Brick(id, ressources); }},
+		{"Wall", [](const Ressources &ressources, unsigned id) { return new Wall(id, ressources);}},
+		{"Player", [](const Ressources &ressources, unsigned id) { return new Player(id, ressources);}}
 	};
 
 	std::unique_ptr<Entity> EntityFactory::build(const std::string &name, unsigned id) const

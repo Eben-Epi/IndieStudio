@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.11)
 
 project(bomberman)
 
@@ -8,6 +8,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/packages)
 
 add_executable(
 	bomberman
+	src/config.hpp
 	src/core/main.cpp
 	src/ecs/ECSCore.cpp
 	src/ecs/ECSCore.hpp
@@ -27,8 +28,8 @@ add_executable(
 	src/ecs/Components/DisplayableComponent.hpp
 	src/ecs/Components/HealthComponent.cpp
 	src/ecs/Components/HealthComponent.hpp
-	src/ecs/Components/ItemContainerComponent.cpp
-	src/ecs/Components/ItemContainerComponent.hpp
+	src/ecs/Components/EntityDropperComponent.cpp
+	src/ecs/Components/EntityDropperComponent.hpp
 	src/ecs/Components/KickableComponent.cpp
 	src/ecs/Components/KickableComponent.hpp
 	src/ecs/Components/KickerComponent.cpp
@@ -49,17 +50,16 @@ add_executable(
 	src/ecs/Components/PickerComponent.hpp
 	src/ecs/Components/ExplodeComponent.cpp
 	src/ecs/Components/ExplodeComponent.hpp
-	src/ecs/Components/ControllerComponent.cpp
-	src/ecs/Components/ControllerComponent.hpp
+	src/ecs/Components/ControllableComponent.cpp
+	src/ecs/Components/ControllableComponent.hpp
 	src/ecs/Components/EphemeralComponent.cpp
 	src/ecs/Components/EphemeralComponent.hpp
 	src/ecs/Factories/EntityFactory.cpp
 	src/ecs/Factories/EntityFactory.hpp
 	src/ecs/Factories/SystemFactory.cpp
 	src/ecs/Factories/SystemFactory.hpp
-	src/ecs/Ressources.hpp
-	src/map/Map.hpp
-	src/map/Map.cpp
+	src/ecs/Entities/Brick.cpp
+	src/ecs/Entities/Brick.hpp
 	src/ecs/Systems/KickableSystem.cpp
 	src/ecs/Systems/KickableSystem.hpp
 	src/ecs/Systems/EphemeralSystem.cpp
@@ -78,12 +78,68 @@ add_executable(
 	src/ecs/Systems/BuffedSystem.hpp
 	src/ecs/Systems/PositionSystem.cpp
 	src/ecs/Systems/PositionSystem.hpp
-	src/config.hpp
+	src/ecs/Systems/MovableSystem.cpp
+	src/ecs/Systems/MovableSystem.hpp
+	src/ecs/Systems/ControllableSystem.cpp
+	src/ecs/Systems/ControllableSystem.hpp
 	src/irrlicht/Irrlicht.cpp
 	src/irrlicht/Irrlicht.hpp
 	src/irrlicht/Animations.hpp
+	src/map/Map.hpp
+	src/map/Map.cpp
+	src/input/Controller.cpp
+	src/input/Controller.hpp
+	src/input/Input.hpp
+	src/input/Keyboard.cpp
+	src/input/Keyboard.hpp
 	src/ecs/Entities/Brick.cpp
 	src/ecs/Entities/Brick.hpp
+	src/ecs/Entities/Wall.cpp
+	src/ecs/Entities/Wall.hpp
+	src/ecs/Entities/Player.cpp
+	src/ecs/Entities/Player.hpp
+	src/ecs/Components/ColliderComponent.cpp
+	src/ecs/Components/ColliderComponent.hpp
+	src/ecs/Systems/ColliderSystem.cpp
+	src/ecs/Systems/ColliderSystem.hpp
+	src/ecs/Systems/BlockedSystem.cpp
+	src/ecs/Systems/BlockedSystem.hpp
+	src/ecs/Components/BlockedComponent.cpp
+	src/ecs/Components/BlockedComponent.hpp
+	src/ecs/Systems/ExplodeSystem.cpp
+	src/ecs/Systems/ExplodeSystem.hpp
+	src/ecs/Entities/ExplosionFrame.cpp
+	src/ecs/Entities/ExplosionFrame.hpp
+	src/ecs/Entities/Bomb.cpp
+	src/ecs/Entities/Bomb.hpp
+	src/ecs/Components/OnCollisionDamageDealerComponent.cpp
+	src/ecs/Components/OnCollisionDamageDealerComponent.hpp
+	src/ecs/Systems/PickerSystem.cpp
+	src/ecs/Systems/PickerSystem.hpp
+	src/ecs/Systems/PowerUpSystem.cpp
+    	src/ecs/Systems/PowerUpSystem.hpp
+	src/ecs/Systems/PickableSystem.cpp
+	src/ecs/Systems/PickableSystem.hpp
+	src/ecs/Entities/DroppedItem.cpp
+	src/ecs/Entities/DroppedItem.hpp
+	src/ecs/Components/PowerUpPickedComponent.cpp
+	src/ecs/Components/PowerUpPickedComponent.hpp
+	src/ecs/Systems/PowerUpPickedSystem.cpp
+	src/ecs/Systems/PowerUpPickedSystem.hpp
+	src/ecs/Systems/KickerSystem.cpp
+	src/ecs/Systems/KickerSystem.hpp
+	src/ecs/Systems/EntityDropperSystem.cpp
+	src/ecs/Systems/EntityDropperSystem.hpp
+	src/ecs/Entities/DroppedBonusHealth.cpp
+	src/ecs/Entities/DroppedBonusHealth.hpp
+	src/ecs/Entities/DroppedBonusSpeed.cpp
+	src/ecs/Entities/DroppedBonusSpeed.hpp
+	src/ecs/Entities/DroppedBonusBomb.cpp
+	src/ecs/Entities/DroppedBonusBomb.hpp
+	src/ecs/Entities/DroppedBonusKick.cpp
+	src/ecs/Entities/DroppedBonusKick.hpp
+	src/ecs/Entities/DroppedBonusHardness.cpp
+	src/ecs/Entities/DroppedBonusHardness.hpp
 )
 
 find_package(Irrlicht REQUIRED)

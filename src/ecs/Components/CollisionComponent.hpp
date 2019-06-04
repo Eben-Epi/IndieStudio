@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** IndieStudio
+** ECS
 ** File description:
 ** SolidComponent.hpp
 */
@@ -10,6 +10,7 @@
 
 #include "../Component.hpp"
 #include "../Entity.hpp"
+#include "../Ressources.hpp"
 #include <vector>
 
 namespace ECS
@@ -17,9 +18,11 @@ namespace ECS
     class CollisionComponent : public Component
     {
         public:
-            unsigned int hardness;
+            unsigned int passThrough;
             std::vector<Entity*> entitiesCollided = {};
-            CollisionComponent(unsigned int hardness);
+            explicit CollisionComponent(unsigned int pass);
+            CollisionComponent(const Ressources &ressources, std::istream &stream);
+	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
 
