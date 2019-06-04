@@ -12,8 +12,8 @@ Input::Controller::Controller(Irrlicht::Irrlicht &irrlicht, std::vector<unsigned
     _keys(keys),
     _id(id)
 {
-//    if (keys.size() != NB_OF_ACTIONS)
-//        throw std::exception();//MYSUPEREXCPETION
+    if (keys.size() != NB_OF_ACTIONS)
+        throw ControllerErrors(); // la condition est pas bonne , enfin je croit, je revienderais dessu quand je retournerais sur les inputs
 }
 
 Input::Controller::~Controller() {}

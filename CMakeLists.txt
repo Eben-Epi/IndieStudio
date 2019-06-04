@@ -98,6 +98,8 @@ add_executable(
 	src/ecs/Entities/Wall.hpp
 	src/ecs/Entities/Player.cpp
 	src/ecs/Entities/Player.hpp
+	src/input/error/Errors.cpp
+	src/input/error/Errors.hpp
 )
 
 find_package(Irrlicht REQUIRED)

@@ -12,7 +12,7 @@ Input::Keyboard::Keyboard(Irrlicht::Irrlicht &irrlicht, std::vector<irr::EKEY_CO
     _keys(keys)
 {
     if (keys.size() != NB_OF_ACTIONS)
-        throw std::exception();//MYSUPEREXCPETION
+        throw KeyboardErrors();
 }
 
 Input::Keyboard::~Keyboard() {}

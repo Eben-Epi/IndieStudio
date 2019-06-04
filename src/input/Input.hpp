@@ -14,6 +14,7 @@
 #include <irrlicht/irrString.h>
 #include <irrlicht/IEventReceiver.h>
 #include "../irrlicht/Irrlicht.hpp"
+#include "./error/Errors.hpp"
 #include <iostream>
 #include <vector>
 
