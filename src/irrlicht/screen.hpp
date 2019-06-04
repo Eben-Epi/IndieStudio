@@ -20,7 +20,7 @@ namespace Irrlicht
     public:
         unsigned id;
         ECS::Point pos;
-        scene::IAnimatedMesh* mesh;
+        irr::scene::IAnimatedMesh* mesh;
         Animations anim;
         ECS::Vector2<unsigned> size;
         Color color;
@@ -31,8 +31,8 @@ namespace Irrlicht
     class Irrlicht {
     private:
         std::vector<IrrEntity> _entities;
-        IrrlichtDevice *_device;
-        E_DRIVER_TYPE driverType; // TODO differenciate OpenGL and Dx9 when running under win32/64 or GNU/UNIX
+        irr::IrrlichtDevice *_device;
+        irr::video::E_DRIVER_TYPE driverType; // TODO differenciate OpenGL and Dx9 when running under win32/64 or GNU/UNIX
         unsigned _lastId;
 
         void drawRect(ECS::Point pos, ECS::Vector2<unsigned> size, Color color = 0xFFFFFF, bool filled = false);
@@ -48,21 +48,29 @@ namespace Irrlicht
     };
     class screen {
     public:
-        screen(int width = 640, int height = 480, int colorDepth = 16);
+        screen(int width = 640, int height = 480, int colorDepth = 32, bool fullscreen = false, bool vsync = true);
         ~screen() = default;
 
         //MEMBER FUNCTIONS
         int display();
+        bool setFullscreen(bool fullscreen);
+        bool setVsync(bool vsync);
+        bool setWindowSize(int width, int height);
 
         //PROPERTIES
-        IrrlichtDevice* _device;
-        IVideoDriver* _driver;
-        ISceneManager* _smgr;
+        irr::IrrlichtDevice* _device;
+        irr::video::IVideoDriver* _driver;
+        irr::scene::ISceneManager* _smgr;
 
 
     private:
         std::vector<IrrEntity> _entities;
-        E_DRIVER_TYPE _driverType; // TODO differenciate OpenGL and Dx9 when running under win32/64 or GNU/UNIX
+        irr::video::E_DRIVER_TYPE _driverType; // TODO differenciate OpenGL and Dx9 when running under win32/64 or GNU/UNIX
+        int _width;
+        int _height;
+        int _colorDepth;
+        bool _fullscreen;
+        bool _vsync;
         //unsigned _lastId;
 
         //void drawRect(ECS::Point pos, ECS::Vector2<unsigned> size, Color color = 0xFFFFFF, bool filled = false);
