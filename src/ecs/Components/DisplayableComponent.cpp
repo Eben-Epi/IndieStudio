@@ -9,6 +9,7 @@
 #include "DisplayableComponent.hpp"
 #include "../Ressources.hpp"
 #include "../../irrlicht/Animations.hpp"
+#include "../Exceptions.hpp"
 
 namespace ECS
 {
@@ -29,5 +30,24 @@ namespace ECS
 	std::ostream& DisplayableComponent::serialize(std::ostream &stream) const
 	{
 		return stream << spriteId << ' ' << animation << " EndOfComponent";
+	}
+
+	DisplayableComponent::DisplayableComponent(const ECS::Ressources &ressources, std::istream &stream) :
+		Component("Blocked"),
+		screen(ressources.screen),
+		entityId(0),
+		spriteId(""),
+		animation(Irrlicht::IDLE)
+	{
+		std::string terminator;
+		unsigned val;
+
+		stream >> this->spriteId;
+		this->entityId = this->screen.registerEntity(spriteId);
+		stream >> val;
+		this->animation = static_cast<Irrlicht::Animations>(val);
+		stream >> terminator;
+		if (terminator != "EndOfComponent")
+			throw InvalidSerializedStringException("The component terminator was not found");
 	}
 }
