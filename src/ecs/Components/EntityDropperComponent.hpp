@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** ECS
 ** File description:
-** ItemContainerComponent.hpp
+** ItemDropperComponent.hpp
 */
 
 #ifndef ITEMCONTAINERCOMPONENT_HPP
@@ -13,11 +13,11 @@
 
 namespace ECS
 {
-    class ItemContainerComponent : public Component
+    class EntityDropperComponent : public Component
     {
         public:
-            std::vector<Entity> items;
-            ItemContainerComponent();
+            std::vector<std::string> items;
+            EntityDropperComponent();
     };
 }
 

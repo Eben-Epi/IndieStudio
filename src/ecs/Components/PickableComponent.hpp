@@ -9,12 +9,14 @@
 #define PICKABLECOMPONENT_HPP
 
 #include "../Component.hpp"
+#include "../Entity.hpp"
 
 namespace ECS
 {
     class PickableComponent : public Component
     {
         public:
+            Entity *pickedBy = nullptr;
             PickableComponent();
 	    std::ostream &serialize(std::ostream &stream) const override;
     };

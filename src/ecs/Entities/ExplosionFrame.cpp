@@ -12,6 +12,8 @@
 #include "../Components/EphemeralComponent.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../Components/OnCollisionDamageDealerComponent.hpp"
+#include "../Components/CollisionComponent.hpp"
+#include "../Components/ColliderComponent.hpp"
 
 ECS::ExplosionFrame::ExplosionFrame(unsigned id, const Ressources &ressources) :
     Entity(id, "ExplosionFrame", {
@@ -19,6 +21,8 @@ ECS::ExplosionFrame::ExplosionFrame(unsigned id, const Ressources &ressources) :
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
         new DisplayableComponent("ExplosionFrame", ressources),
         new EphemeralComponent(60),
+        new ColliderComponent(0),
+        new CollisionComponent(0),
         new OnCollisionDamageDealerComponent(1)
     })
 {

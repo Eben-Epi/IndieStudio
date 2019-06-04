@@ -14,6 +14,7 @@ namespace ECS
 {
     class KickerComponent : public Component {
         public:
+            bool canKick = false;
             KickerComponent();
 	    std::ostream &serialize(std::ostream &stream) const override;
     };

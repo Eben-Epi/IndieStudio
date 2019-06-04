@@ -15,6 +15,8 @@
 #include "../../config.hpp"
 #include "../Components/BlockedComponent.hpp"
 #include "../Components/ColliderComponent.hpp"
+#include "../Components/PowerUpPickedComponent.hpp"
+#include "../Components/PickerComponent.hpp"
 
 ECS::Player::Player(unsigned id, const Ressources &ressources) :
 	Entity(id, "Player", {
@@ -22,9 +24,11 @@ ECS::Player::Player(unsigned id, const Ressources &ressources) :
 		new MovableComponent(5),
         new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
         new HealthComponent(1),
+		new PickerComponent(),
         new CollisionComponent(0),
         new ColliderComponent(0),
         new BlockedComponent(),
         new DisplayableComponent("Player", ressources)
     })
 {}
+>>>>>>> bce87bcaae8f65741f135fabcc487c0eda92b0c3

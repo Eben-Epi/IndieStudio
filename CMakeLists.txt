@@ -28,8 +28,8 @@ add_executable(
 	src/ecs/Components/DisplayableComponent.hpp
 	src/ecs/Components/HealthComponent.cpp
 	src/ecs/Components/HealthComponent.hpp
-	src/ecs/Components/ItemContainerComponent.cpp
-	src/ecs/Components/ItemContainerComponent.hpp
+		src/ecs/Components/EntityDropperComponent.cpp
+		src/ecs/Components/EntityDropperComponent.hpp
 	src/ecs/Components/KickableComponent.cpp
 	src/ecs/Components/KickableComponent.hpp
 	src/ecs/Components/KickerComponent.cpp
@@ -115,7 +115,33 @@ add_executable(
 	src/ecs/Components/OnCollisionDamageDealerComponent.cpp
 	src/ecs/Components/OnCollisionDamageDealerComponent.hpp
 	src/ecs/Systems/OnCollisionDamageDealerSystem.cpp
-	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp)
+	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp
+	src/ecs/Systems/PickerSystem.cpp
+	src/ecs/Systems/PickerSystem.hpp
+	src/ecs/Systems/PowerUpSystem.cpp
+    src/ecs/Systems/PowerUpSystem.hpp
+	src/ecs/Systems/PickableSystem.cpp
+	src/ecs/Systems/PickableSystem.hpp
+	src/ecs/Entities/DroppedItem.cpp
+	src/ecs/Entities/DroppedItem.hpp
+	src/ecs/Components/PowerUpPickedComponent.cpp
+	src/ecs/Components/PowerUpPickedComponent.hpp
+	src/ecs/Systems/PowerUpPickedSystem.cpp
+	src/ecs/Systems/PowerUpPickedSystem.hpp
+	src/ecs/Systems/KickerSystem.cpp
+	src/ecs/Systems/KickerSystem.hpp
+    src/ecs/Systems/EntityDropperSystem.cpp
+    src/ecs/Systems/EntityDropperSystem.hpp
+    src/ecs/Entities/DroppedBonusHealth.cpp
+	src/ecs/Entities/DroppedBonusHealth.hpp
+	src/ecs/Entities/DroppedBonusSpeed.cpp
+	src/ecs/Entities/DroppedBonusSpeed.hpp
+	src/ecs/Entities/DroppedBonusBomb.cpp
+	src/ecs/Entities/DroppedBonusBomb.hpp
+	src/ecs/Entities/DroppedBonusKick.cpp
+	src/ecs/Entities/DroppedBonusKick.hpp
+	src/ecs/Entities/DroppedBonusHardness.cpp
+	src/ecs/Entities/DroppedBonusHardness.hpp)
 
 find_package(Irrlicht REQUIRED)
 

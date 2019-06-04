@@ -82,10 +82,12 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
                     break;
             }
         }
-        PositionComponent &efHPos = reinterpret_cast<ECS::PositionComponent &>(this->_core.makeEntity("ExplosionFrame").getComponentByName("Position"));
+        Entity &horizontalEF = this->_core.makeEntity("ExplosionFrame");
+        Entity &verticalEF = this->_core.makeEntity("ExplosionFrame");
+        PositionComponent &efHPos = reinterpret_cast<ECS::PositionComponent &>(horizontalEF.getComponentByName("Position"));
         efHPos.pos = posAndSize[0];
         efHPos.size = posAndSize[1];
-        PositionComponent &efVPos = reinterpret_cast<ECS::PositionComponent &>(this->_core.makeEntity("ExplosionFrame").getComponentByName("Position"));
+        PositionComponent &efVPos = reinterpret_cast<ECS::PositionComponent &>(verticalEF.getComponentByName("Position"));
         efVPos.pos = posAndSize[2];
         efVPos.size = posAndSize[3];
     }
