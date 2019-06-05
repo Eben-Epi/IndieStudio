@@ -19,6 +19,7 @@ namespace ECS
         public:
             std::vector<std::string> items;
             EntityDropperComponent();
+            EntityDropperComponent(const Ressources &ressources, std::istream &stream);
             std::ostream &serialize(std::ostream &stream) const override;
     };
 }

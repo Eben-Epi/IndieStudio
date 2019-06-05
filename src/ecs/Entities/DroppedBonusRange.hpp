@@ -8,6 +8,7 @@
 #ifndef BOMBERMAN_DROPPEDBONUSRANGE_HPP
 #define BOMBERMAN_DROPPEDBONUSRANGE_HPP
 
+
 #include "../Entity.hpp"
 #include "../Ressources.hpp"
 
@@ -18,6 +19,5 @@ namespace ECS
         explicit DroppedBonusRange(unsigned id, const Ressources &ressources);
     };
 }
-
 
 #endif //BOMBERMAN_DROPPEDBONUSRANGE_HPP

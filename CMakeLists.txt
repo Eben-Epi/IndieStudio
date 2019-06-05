@@ -60,6 +60,8 @@ add_executable(
 	src/ecs/Components/BlockedComponent.hpp
 	src/ecs/Components/OnCollisionDamageDealerComponent.cpp
 	src/ecs/Components/OnCollisionDamageDealerComponent.hpp
+	src/ecs/Systems/OnCollisionDamageDealerSystem.cpp
+	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp
 	src/ecs/Components/PowerUpPickedComponent.cpp
 	src/ecs/Components/PowerUpPickedComponent.hpp
 	src/ecs/Factories/ComponentFactory.cpp
@@ -68,8 +70,6 @@ add_executable(
 	src/ecs/Factories/EntityFactory.hpp
 	src/ecs/Factories/SystemFactory.cpp
 	src/ecs/Factories/SystemFactory.hpp
-	src/ecs/Entities/Brick.cpp
-	src/ecs/Entities/Brick.hpp
 	src/ecs/Entities/Brick.cpp
 	src/ecs/Entities/Brick.hpp
 	src/ecs/Entities/Wall.cpp
@@ -92,6 +92,8 @@ add_executable(
 	src/ecs/Entities/DroppedBonusKick.hpp
 	src/ecs/Entities/DroppedBonusHardness.cpp
 	src/ecs/Entities/DroppedBonusHardness.hpp
+	src/ecs/Entities/DroppedBonusRange.cpp
+	src/ecs/Entities/DroppedBonusRange.hpp
 	src/ecs/Systems/KickableSystem.cpp
 	src/ecs/Systems/KickableSystem.hpp
 	src/ecs/Systems/EphemeralSystem.cpp
@@ -104,8 +106,6 @@ add_executable(
 	src/ecs/Systems/CollisionSystem.hpp
 	src/ecs/Systems/DisplayableSystem.cpp
 	src/ecs/Systems/DisplayableSystem.hpp
-	src/ecs/Systems/HealthSystem.cpp
-	src/ecs/Systems/HealthSystem.hpp
 	src/ecs/Systems/BuffedSystem.cpp
 	src/ecs/Systems/BuffedSystem.hpp
 	src/ecs/Systems/PositionSystem.cpp
@@ -116,8 +116,6 @@ add_executable(
 	src/ecs/Systems/ControllableSystem.hpp
 	src/ecs/Systems/PowerUpPickedSystem.cpp
 	src/ecs/Systems/PowerUpPickedSystem.hpp
-	src/ecs/Systems/KickerSystem.cpp
-	src/ecs/Systems/KickerSystem.hpp
 	src/ecs/Systems/EntityDropperSystem.cpp
 	src/ecs/Systems/EntityDropperSystem.hpp
 	src/ecs/Systems/ColliderSystem.cpp
@@ -132,26 +130,10 @@ add_executable(
 	src/ecs/Systems/PowerUpSystem.hpp
 	src/ecs/Systems/PickableSystem.cpp
 	src/ecs/Systems/PickableSystem.hpp
-	src/ecs/Entities/DroppedItem.cpp
-	src/ecs/Entities/DroppedItem.hpp
-	src/ecs/Components/PowerUpPickedComponent.cpp
-	src/ecs/Components/PowerUpPickedComponent.hpp
-	src/ecs/Systems/PowerUpPickedSystem.cpp
-	src/ecs/Systems/PowerUpPickedSystem.hpp
-	src/ecs/Systems/KickerSystem.cpp
-	src/ecs/Systems/KickerSystem.hpp
-	src/ecs/Systems/EntityDropperSystem.cpp
-	src/ecs/Systems/EntityDropperSystem.hpp
-	src/ecs/Entities/DroppedBonusHealth.cpp
-	src/ecs/Entities/DroppedBonusHealth.hpp
-	src/ecs/Entities/DroppedBonusSpeed.cpp
-	src/ecs/Entities/DroppedBonusSpeed.hpp
-	src/ecs/Entities/DroppedBonusBomb.cpp
-	src/ecs/Entities/DroppedBonusBomb.hpp
-	src/ecs/Entities/DroppedBonusKick.cpp
-	src/ecs/Entities/DroppedBonusKick.hpp
-	src/ecs/Entities/DroppedBonusHardness.cpp
-	src/ecs/Entities/DroppedBonusHardness.hpp src/ecs/Components/CurseComponent.cpp src/ecs/Components/CurseComponent.hpp src/ecs/Systems/CurseSystem.cpp src/ecs/Systems/CurseSystem.hpp
+	src/ecs/Components/CurseComponent.cpp
+	src/ecs/Components/CurseComponent.hpp
+	src/ecs/Systems/CurseSystem.cpp
+	src/ecs/Systems/CurseSystem.hpp
 	src/irrlicht/Irrlicht.cpp
 	src/irrlicht/Irrlicht.hpp
 	src/irrlicht/Animations.hpp
@@ -162,30 +144,8 @@ add_executable(
 	src/input/Input.hpp
 	src/input/Keyboard.cpp
 	src/input/Keyboard.hpp
-	src/ecs/Entities/DroppedItem.cpp
-	src/ecs/Entities/DroppedItem.hpp
-	src/ecs/Components/PowerUpPickedComponent.cpp
-	src/ecs/Components/PowerUpPickedComponent.hpp
-	src/ecs/Systems/PowerUpPickedSystem.cpp
-	src/ecs/Systems/PowerUpPickedSystem.hpp
 	src/ecs/Systems/KickerSystem.cpp
 	src/ecs/Systems/KickerSystem.hpp
-	src/ecs/Systems/EntityDropperSystem.cpp
-	src/ecs/Systems/EntityDropperSystem.hpp
-	src/ecs/Entities/DroppedBonusHealth.cpp
-	src/ecs/Entities/DroppedBonusHealth.hpp
-	src/ecs/Entities/DroppedBonusSpeed.cpp
-	src/ecs/Entities/DroppedBonusSpeed.hpp
-	src/ecs/Entities/DroppedBonusBomb.cpp
-	src/ecs/Entities/DroppedBonusBomb.hpp
-	src/ecs/Entities/DroppedBonusKick.cpp
-	src/ecs/Entities/DroppedBonusKick.hpp
-	src/ecs/Entities/DroppedBonusHardness.cpp
-	src/ecs/Entities/DroppedBonusHardness.hpp
-	src/ecs/Entities/DroppedBonusRange.cpp
-	src/ecs/Entities/DroppedBonusRange.hpp
-	src/ecs/Factories/ComponentFactory.cpp
-	src/ecs/Factories/ComponentFactory.hpp
 	src/ecs/data/NumericValue.hpp
 	src/input/error/Errors.cpp
 	src/input/error/Errors.hpp
