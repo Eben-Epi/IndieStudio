@@ -24,7 +24,7 @@ void ECS::BlockedSystem::updateEntity(ECS::Entity &entity)
     auto &entity_hitbox = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
 
     for (auto &wall : entity_hitbox.entitiesCollided) {
-        auto &entity_pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
+    	auto &entity_pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
         auto &entity_mov = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
         auto &wall_hitbox = reinterpret_cast<ColliderComponent &>(wall->getComponentByName("Collider"));
         auto &wall_pos = reinterpret_cast<PositionComponent &>(wall->getComponentByName("Position"));
@@ -36,6 +36,18 @@ void ECS::BlockedSystem::updateEntity(ECS::Entity &entity)
         double relative_y = entity_pos.pos.y - wall_pos.pos.y;
         if (relative_x < -28.f || relative_x >= 32.f || relative_y < -28.f || relative_y >= 32.f)
             continue;
+
+        /* block_id represent which zone of the block the player collide, block_id use value like that (in hexa)
+         *  +-+-+-+-+
+         *  |0|1|2|3|    0 and 5 : UP LEFT
+         *  +-+-+-+-+    1 and 2 : UP
+         *  |4|5|6|7|    3 and 6 : UP RIGHT
+         *  +-+-+-+-+    4 and 8 : LEFT
+         *  |8|9|A|B|    7 and B : RIGHT
+         *  +-+-+-+-+    9 and C : DOWN LEFT
+         *  |C|D|E|F|    D and E : DOWN
+         *  +-+-+-+-+    A and F : DOWN RIGHT*/
+
         char block_id = (static_cast<int>((4*(relative_y - -PLAYERSIZE) / (TILESIZE - -PLAYERSIZE))) << 2)
                         + (static_cast<int>((4*(relative_x - -PLAYERSIZE) / (TILESIZE - -PLAYERSIZE))));
         switch (block_id) {

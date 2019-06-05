@@ -12,6 +12,7 @@
 #include <vector>
 #include <memory>
 #include "Component.hpp"
+#include "Ressources.hpp"
 
 namespace ECS
 {
@@ -24,6 +25,7 @@ namespace ECS
 
 	public:
 		Entity(unsigned id, std::string &&name, std::vector<Component *> &&components);
+		Entity(const Ressources &ressources, std::istream &stream);
 		void destroy();
 		bool isDestroyed();
 		unsigned getId() const;

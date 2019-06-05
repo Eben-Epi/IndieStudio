@@ -54,12 +54,44 @@ add_executable(
 	src/ecs/Components/ControllableComponent.hpp
 	src/ecs/Components/EphemeralComponent.cpp
 	src/ecs/Components/EphemeralComponent.hpp
+	src/ecs/Components/ColliderComponent.cpp
+	src/ecs/Components/ColliderComponent.hpp
+	src/ecs/Components/BlockedComponent.cpp
+	src/ecs/Components/BlockedComponent.hpp
+	src/ecs/Components/OnCollisionDamageDealerComponent.cpp
+	src/ecs/Components/OnCollisionDamageDealerComponent.hpp
+	src/ecs/Components/PowerUpPickedComponent.cpp
+	src/ecs/Components/PowerUpPickedComponent.hpp
+	src/ecs/Factories/ComponentFactory.cpp
+	src/ecs/Factories/ComponentFactory.hpp
 	src/ecs/Factories/EntityFactory.cpp
 	src/ecs/Factories/EntityFactory.hpp
 	src/ecs/Factories/SystemFactory.cpp
 	src/ecs/Factories/SystemFactory.hpp
 	src/ecs/Entities/Brick.cpp
 	src/ecs/Entities/Brick.hpp
+	src/ecs/Entities/Brick.cpp
+	src/ecs/Entities/Brick.hpp
+	src/ecs/Entities/Wall.cpp
+	src/ecs/Entities/Wall.hpp
+	src/ecs/Entities/Player.cpp
+	src/ecs/Entities/Player.hpp
+	src/ecs/Entities/ExplosionFrame.cpp
+	src/ecs/Entities/ExplosionFrame.hpp
+	src/ecs/Entities/Bomb.cpp
+	src/ecs/Entities/Bomb.hpp
+	src/ecs/Entities/DroppedItem.cpp
+	src/ecs/Entities/DroppedItem.hpp
+	src/ecs/Entities/DroppedBonusHealth.cpp
+	src/ecs/Entities/DroppedBonusHealth.hpp
+	src/ecs/Entities/DroppedBonusSpeed.cpp
+	src/ecs/Entities/DroppedBonusSpeed.hpp
+	src/ecs/Entities/DroppedBonusBomb.cpp
+	src/ecs/Entities/DroppedBonusBomb.hpp
+	src/ecs/Entities/DroppedBonusKick.cpp
+	src/ecs/Entities/DroppedBonusKick.hpp
+	src/ecs/Entities/DroppedBonusHardness.cpp
+	src/ecs/Entities/DroppedBonusHardness.hpp
 	src/ecs/Systems/KickableSystem.cpp
 	src/ecs/Systems/KickableSystem.hpp
 	src/ecs/Systems/EphemeralSystem.cpp
@@ -82,44 +114,22 @@ add_executable(
 	src/ecs/Systems/MovableSystem.hpp
 	src/ecs/Systems/ControllableSystem.cpp
 	src/ecs/Systems/ControllableSystem.hpp
-	src/irrlicht/Irrlicht.cpp
-	src/irrlicht/Irrlicht.hpp
-	src/irrlicht/Animations.hpp
-	src/map/Map.hpp
-	src/map/Map.cpp
-	src/input/Controller.cpp
-	src/input/Controller.hpp
-	src/input/Input.hpp
-	src/input/Keyboard.cpp
-	src/input/Keyboard.hpp
-	src/ecs/Entities/Brick.cpp
-	src/ecs/Entities/Brick.hpp
-	src/ecs/Entities/Wall.cpp
-	src/ecs/Entities/Wall.hpp
-	src/ecs/Entities/Player.cpp
-	src/ecs/Entities/Player.hpp
-	src/input/error/Errors.cpp
-	src/input/error/Errors.hpp
-	src/ecs/Components/ColliderComponent.cpp
-	src/ecs/Components/ColliderComponent.hpp
+	src/ecs/Systems/PowerUpPickedSystem.cpp
+	src/ecs/Systems/PowerUpPickedSystem.hpp
+	src/ecs/Systems/KickerSystem.cpp
+	src/ecs/Systems/KickerSystem.hpp
+	src/ecs/Systems/EntityDropperSystem.cpp
+	src/ecs/Systems/EntityDropperSystem.hpp
 	src/ecs/Systems/ColliderSystem.cpp
 	src/ecs/Systems/ColliderSystem.hpp
 	src/ecs/Systems/BlockedSystem.cpp
 	src/ecs/Systems/BlockedSystem.hpp
-	src/ecs/Components/BlockedComponent.cpp
-	src/ecs/Components/BlockedComponent.hpp
 	src/ecs/Systems/ExplodeSystem.cpp
 	src/ecs/Systems/ExplodeSystem.hpp
-	src/ecs/Entities/ExplosionFrame.cpp
-	src/ecs/Entities/ExplosionFrame.hpp
-	src/ecs/Entities/Bomb.cpp
-	src/ecs/Entities/Bomb.hpp
-	src/ecs/Components/OnCollisionDamageDealerComponent.cpp
-	src/ecs/Components/OnCollisionDamageDealerComponent.hpp
 	src/ecs/Systems/PickerSystem.cpp
 	src/ecs/Systems/PickerSystem.hpp
 	src/ecs/Systems/PowerUpSystem.cpp
-    	src/ecs/Systems/PowerUpSystem.hpp
+	src/ecs/Systems/PowerUpSystem.hpp
 	src/ecs/Systems/PickableSystem.cpp
 	src/ecs/Systems/PickableSystem.hpp
 	src/ecs/Entities/DroppedItem.cpp
@@ -141,7 +151,19 @@ add_executable(
 	src/ecs/Entities/DroppedBonusKick.cpp
 	src/ecs/Entities/DroppedBonusKick.hpp
 	src/ecs/Entities/DroppedBonusHardness.cpp
-	src/ecs/Entities/DroppedBonusHardness.hpp
+	src/ecs/Entities/DroppedBonusHardness.hpp src/ecs/Components/CurseComponent.cpp src/ecs/Components/CurseComponent.hpp src/ecs/Systems/CurseSystem.cpp src/ecs/Systems/CurseSystem.hpp
+	src/irrlicht/Irrlicht.cpp
+	src/irrlicht/Irrlicht.hpp
+	src/irrlicht/Animations.hpp
+	src/map/Map.hpp
+	src/map/Map.cpp
+	src/input/Controller.cpp
+	src/input/Controller.hpp
+	src/input/Input.hpp
+	src/input/Keyboard.cpp
+	src/input/Keyboard.hpp
+	src/input/error/Errors.cpp
+	src/input/error/Errors.hpp
 )
 
 find_package(Irrlicht REQUIRED)

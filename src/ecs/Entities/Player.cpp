@@ -15,12 +15,14 @@
 #include "../Components/BlockedComponent.hpp"
 #include "../Components/ColliderComponent.hpp"
 #include "../../config.hpp"
+#include "../Components/CurseComponent.hpp"
 
 ECS::Player::Player(unsigned id, const Ressources &ressources) :
 	Entity(id, "Player", {
 		new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
 		new HealthComponent(1),
-		new MovableComponent(5),
+		new CurseComponent(),
+		new MovableComponent(2.5),
 		new CollisionComponent(0),
 		new ColliderComponent(0),
 		new BlockedComponent(),

@@ -24,10 +24,7 @@ namespace ECS
 	{
 		std::string terminator;
 
-		stream >> this->max;
-		stream >> this->timeToExplode;
-		stream >> this->range;
-		stream >> terminator;
+		stream >> max >> timeToExplode >> range >> terminator;
 		if (terminator != "EndOfComponent")
 			throw InvalidSerializedStringException("The component terminator was not found");
 	}

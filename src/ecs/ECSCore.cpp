@@ -20,6 +20,30 @@ namespace ECS
 		this->_systems = this->_systemFactory.buildAll();
 	}
 
+	ECSCore::ECSCore(const ECS::Ressources &ressources, std::istream &stream) :
+		ECSCore(ressources)
+	{
+		std::string value;
+
+		stream >> value;
+		if (value != "SerializedECSCore")
+			throw InvalidSerializedStringException("Core header is invalid");
+		for (stream >> value; value != "EndOfRecord"; stream >> value) {
+			if (value != "Entity")
+				throw InvalidSerializedStringException("Entity header is invalid");
+
+			auto entity = new Entity{ressources, stream};
+
+			try {
+				this->getEntityById(entity->getId());
+				throw InvalidSerializedStringException("Two entities have the same ID");
+			} catch (NoSuchEntityException &) {}
+			this->_entities.emplace_back(entity);
+			for (auto &comp : this->_entities.back()->getComponents())
+				this->_components[comp->getName()].push_back(&*this->_entities.back());
+		}
+	}
+
 	Entity &ECSCore::getEntityById(unsigned id) const
 	{
 		for (auto &entity : this->_entities)
@@ -102,7 +126,7 @@ namespace ECS
 	{
 		stream << "SerializedECSCore" << std::endl;
 		for (auto &entity : this->_entities)
-			stream << *entity << std::endl;
+			stream << "Entity " << *entity << std::endl;
 		return stream << "EndOfRecord";
 	}
 }

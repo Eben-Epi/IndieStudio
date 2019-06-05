@@ -27,8 +27,7 @@ namespace ECS
     {
 	    std::string terminator;
 
-	    stream >> this->passThrough;
-	    stream >> terminator;
+	    stream >> passThrough >> terminator;
 	    if (terminator != "EndOfComponent")
 		    throw InvalidSerializedStringException("The component terminator was not found");
     }
