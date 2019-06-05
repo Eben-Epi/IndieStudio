@@ -1,5 +1,6 @@
 #include <irrlicht/irrlicht.h>
 #include <iostream>
+#include <vector>
 
 using namespace irr;
 using namespace core;
@@ -78,7 +79,7 @@ int main()
 	IVideoDriver* driver = device->getVideoDriver();
 	ISceneManager* smgr = device->getSceneManager();
 	IGUIEnvironment* guienv = device->getGUIEnvironment();
-	
+
 	guienv->addStaticText(L"Dab très fort sur l'Irrlicht Engine", rect<s32>(10,10,200,25), true);
 
 	IAnimatedMesh *mesh = smgr->getMesh("media/sydney.md2");
@@ -99,8 +100,9 @@ int main()
 	EMD2_ANIMATION_TYPE tmp_anim = scene::EMAT_STAND;
 	vector3df tmp_direction(0, 0, 0);
 
-	bool anim_direction[] = {false, false, false, false, false, false};
+	std::vector<bool> anim_direction = {false, false, false, false, false, false};
 	// {Up, Down, Left, Right, Dead, Bomb}
+	std::vector<irr::EKEY_CODE> keys = {irr::KEY_UP, irr::KEY_DOWN, irr::KEY_LEFT, irr::KEY_RIGHT, irr::KEY_KEY_D, irr::KEY_KEY_B};
 	bool isDead = false;
 	unsigned int tmpCount = 0;
 	bool isDroppingBomb = false;
@@ -111,12 +113,8 @@ int main()
 	while (device->run()) {
 		driver->beginScene(true, true, SColor(255, 100, 101, 140));
 
-		anim_direction[0] = receiver.IsKeyDown(irr::KEY_UP);
-		anim_direction[1] = receiver.IsKeyDown(irr::KEY_DOWN);
-		anim_direction[2] = receiver.IsKeyDown(irr::KEY_LEFT);
-		anim_direction[3] = receiver.IsKeyDown(irr::KEY_RIGHT);
-		anim_direction[4] = receiver.IsKeyDown(irr::KEY_KEY_D);
-		anim_direction[5] = receiver.IsKeyDown(irr::KEY_KEY_B);
+		for (unsigned int i = 0; i < anim_direction.size(); i++)
+			anim_direction[i] = receiver.IsKeyDown(keys[i]);
 
 		if (isDroppingBomb && tmpCount == 0)
 			isDroppingBomb = false;
