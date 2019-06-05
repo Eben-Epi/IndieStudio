@@ -1,0 +1,3 @@
+/home/hstanislas/Tek2/IndieStudio/Build/CMakeFiles/rebuild_cache.dir
+/home/hstanislas/Tek2/IndieStudio/Build/CMakeFiles/bomberman.dir
+/home/hstanislas/Tek2/IndieStudio/Build/CMakeFiles/edit_cache.dir

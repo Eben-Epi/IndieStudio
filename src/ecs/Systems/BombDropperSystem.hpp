@@ -16,7 +16,7 @@ namespace ECS {
     class BombDropperSystem : public System {
     public:
         BombDropperSystem(ECSCore &core);
-        void updateEntity(Entity &entity) override; //can i put a bomb
+        void updateEntity(Entity &entity) override;
     };
 }
 
