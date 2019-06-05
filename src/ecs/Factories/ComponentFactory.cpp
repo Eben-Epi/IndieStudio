@@ -20,6 +20,7 @@
 #include "../Components/ColliderComponent.hpp"
 #include "../Exceptions.hpp"
 #include "../Components/CurseComponent.hpp"
+#include "../Components/UltimeComponent.hpp"
 
 namespace ECS 
 {
@@ -36,7 +37,8 @@ namespace ECS
 		{"Movable", [](const Ressources &ressources, std::istream &stream) { return new MovableComponent(ressources, stream); }},
 		{"Position", [](const Ressources &ressources, std::istream &stream) { return new PositionComponent(ressources, stream); }},
 		{"Blocked", [](const Ressources &ressources, std::istream &stream) { return new BlockedComponent(ressources, stream); }},
-		{"Collider", [](const Ressources &ressources, std::istream &stream) { return new ColliderComponent(ressources, stream); }}
+		{"Collider", [](const Ressources &ressources, std::istream &stream) { return new ColliderComponent(ressources, stream); }},
+		{"Ultime", [](const Ressources &ressources, std::istream &stream) { return new UltimeComponent(ressources, stream); }}
 	};
 
 	ComponentFactory::ComponentFactory(const ECS::Ressources &ressources) :

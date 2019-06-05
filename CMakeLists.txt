@@ -164,7 +164,9 @@ add_executable(
 	src/input/Keyboard.hpp
 	src/input/error/Errors.cpp
 	src/input/error/Errors.hpp
-)
+	src/ecs/Systems/OnCollisionDamageDealerSystem.cpp
+	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp
+		src/ecs/Components/UltimeComponent.cpp src/ecs/Components/UltimeComponent.hpp src/ecs/Systems/UltimeSystem.cpp src/ecs/Systems/UltimeSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 

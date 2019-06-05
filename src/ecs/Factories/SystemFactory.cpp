@@ -27,6 +27,7 @@
 #include "../Systems/OnCollisionDamageDealerSystem.hpp"
 #include "../Systems/PowerUpPickedSystem.hpp"
 #include "../Systems/PowerUpSystem.hpp"
+#include "../Systems/UltimeSystem.hpp"
 
 namespace ECS
 {
@@ -54,7 +55,8 @@ namespace ECS
 		{"Picker", [](ECS::ECSCore &core) { return new PickerSystem(core); }},
 		{"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }},
 		{"PowerUp", [](ECS::ECSCore &core) { return new PowerUpSystem(core); }},
-		{"PowerUpPicked", [](ECS::ECSCore &core) { return new PowerUpPickedSystem(core); }}
+		{"PowerUpPicked", [](ECS::ECSCore &core) { return new PowerUpPickedSystem(core); }},
+		{"Ultime", [](ECS::ECSCore &core) { return new UltimeSystem(core); }}
 	};
 
 	std::unique_ptr<System> SystemFactory::build(std::string &&name) const
