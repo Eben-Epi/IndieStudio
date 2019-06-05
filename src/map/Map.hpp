@@ -28,7 +28,7 @@ namespace Map {
         Map(const ECS::Ressources &ressources, std::istream &stream);
         ~Map() = default;
         void update();
-        void generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::map<std::string, ECS::NumericValue> ratiosBonus);
+        void generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::map<std::string, ECS::NumericValue> ratiosBonus = {{"Bonus", 0}});
         std::ostream &serialize(std::ostream &stream) const;
         void setArenaWallAround(ECS::Vector2<unsigned> sizeMap);
     };
