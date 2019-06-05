@@ -152,18 +152,16 @@ add_executable(
 	src/ecs/Entities/DroppedBonusKick.hpp
 	src/ecs/Entities/DroppedBonusHardness.cpp
 	src/ecs/Entities/DroppedBonusHardness.hpp src/ecs/Components/CurseComponent.cpp src/ecs/Components/CurseComponent.hpp src/ecs/Systems/CurseSystem.cpp src/ecs/Systems/CurseSystem.hpp
-	src/irrlicht/Irrlicht.cpp
-	src/irrlicht/Irrlicht.hpp
 	src/irrlicht/Animations.hpp
 	src/map/Map.hpp
 	src/map/Map.cpp
-	src/input/Controller.cpp
-	src/input/Controller.hpp
-	src/input/Input.hpp
-	src/input/Keyboard.cpp
-	src/input/Keyboard.hpp
-	src/input/error/Errors.cpp
-	src/input/error/Errors.hpp
+	src/irrlicht/gameEngine/input/Controller.cpp
+	src/irrlicht/gameEngine/input/Controller.hpp
+	src/irrlicht/gameEngine/input/Input.hpp
+	src/irrlicht/gameEngine/input/Keyboard.cpp
+	src/irrlicht/gameEngine/input/Keyboard.hpp
+	src/irrlicht/gameEngine/input/error/Errors.cpp
+	src/irrlicht/gameEngine/input/error/Errors.hpp
 	src/irrlicht/screen/screen.cpp
 	src/irrlicht/screen/screen.hpp
 	src/irrlicht/screen/gameScenes/gameScene.cpp

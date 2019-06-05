@@ -12,6 +12,7 @@
 
 namespace Irrlicht {
     class gameScene {
+    public:
         explicit gameScene(screen);
 
         ~gameScene() = default;

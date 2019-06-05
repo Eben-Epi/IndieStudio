@@ -15,11 +15,11 @@
 namespace Irrlicht {
     class irrEntity {
     public:
-        irrEntity(const std::string &name, irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255), std::string texturePath = nullptr);
+        irrEntity(const std::string &name, unsigned id, irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255), std::string texturePath = nullptr);
 
         //PROPERTIES
         const std::string &_meshPath;
-        // TODO unsigned _id;
+        unsigned _id;
         ECS::Point _pos;
         Animations _anim;
         ECS::Vector2<unsigned> _size;

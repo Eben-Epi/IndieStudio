@@ -14,14 +14,16 @@
 #include "../Animations.hpp"
 #include "../../ecs/Entity.hpp"
 #include "../../ecs/data/Vector2.hpp"
+#include "irrEntity/irrEntity.hpp"
 
 namespace Irrlicht {
 
     class gameEngine {
+    public:
         gameEngine();
         ~gameEngine() = default;
 
-        unsigned registerEntity(const std::string &name);
+        void registerEntity(const std::string &name);
         void deleteEntity(unsigned id);
         bool areColliding(unsigned entity1, unsigned entity2);
         void setAnimation(unsigned entity, Animations anim);
@@ -29,11 +31,9 @@ namespace Irrlicht {
         bool isKeyPressed(irr::EKEY_CODE key);
         bool isJoystickButtonPressed(unsigned id, unsigned button);
         float getJoystickAxisPosition(unsigned id, unsigned axis);
-        void display();
-        bool isEnd();
-        void createMesh();
+        // TODO void createMesh() or cube;
 
-        std::vector<IrrEntity> _entities;
+        std::vector<irrEntity> _entities;
     };
 }
 

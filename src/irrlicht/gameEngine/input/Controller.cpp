@@ -6,9 +6,10 @@
 */
 
 #include "Controller.hpp"
+#include "../../screen/gameScenes/gameScene.hpp"
 
-Input::Controller::Controller(Irrlicht::Irrlicht &irrlicht, std::vector<unsigned> &&keys, unsigned id) :
-    _irrlicht(irrlicht),
+Input::Controller::Controller(Irrlicht::gameScene &scene, std::vector<unsigned> &&keys, unsigned id) :
+    _scene(scene),
     _keys(keys),
     _id(id)
 {
@@ -22,7 +23,7 @@ std::vector<Input::Action> Input::Controller::getActions() { //does not work
     std::vector<Action> actions;
     int action;
     for (unsigned i = 0; i < this->_keys.size(); i++) {
-        if (this->_irrlicht.isJoystickButtonPressed(_id, this->_keys[i]))
+        if (this->_scene._gameEngine.isJoystickButtonPressed(_id, this->_keys[i]))
             actions.push_back(static_cast<Action>(i));
     }
     return (actions);
