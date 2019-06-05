@@ -2,26 +2,19 @@
 #include <iostream>
 #include <vector>
 
-using namespace irr;
-using namespace core;
-using namespace scene;
-using namespace video;
-using namespace io;
-using namespace gui;
-
-class MyEventReceiver : public IEventReceiver
+class MyEventReceiver : public irr::IEventReceiver
 {
 	public:
 
 		MyEventReceiver()
 		{
 			KeyEvent = false;
-			for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
+			for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
 				KeyIsDown[i] = false;
 		}
 
 		// This is the one method that we have to implement
-		virtual bool OnEvent(const SEvent& event)
+		virtual bool OnEvent(const irr::SEvent &event)
 		{
 			// Remember whether each key is down or up
 			if (event.EventType == irr::EET_KEY_INPUT_EVENT) {
@@ -34,19 +27,18 @@ class MyEventReceiver : public IEventReceiver
 		}
 
 		// This is used to check whether a key is being held down
-		virtual bool IsKeyDown(EKEY_CODE keyCode) const
+		virtual bool IsKeyDown(irr::EKEY_CODE keyCode) const
 		{
 			return KeyIsDown[keyCode];
 		}
 
 		// WARNING ! This function return the first occurence of true
 		// so only one key pressed
-		EMD2_ANIMATION_TYPE keyPressed() const
+		irr::scene::EMD2_ANIMATION_TYPE keyPressed() const
 		{
-			for (u32 i=0; i < KEY_KEY_CODES_COUNT; ++i) {
+			for (irr::u32 i=0; i < irr::KEY_KEY_CODES_COUNT; ++i)
 				if (KeyIsDown[i])
-					return (EMD2_ANIMATION_TYPE)i;
-			}
+					return (irr::scene::EMD2_ANIMATION_TYPE)i;
 		}
 
 		bool isKeyEvent() const
@@ -56,7 +48,7 @@ class MyEventReceiver : public IEventReceiver
 
 	private:
 		// We use this array to store the current state of each key
-		bool KeyIsDown[KEY_KEY_CODES_COUNT];
+		bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
 		bool KeyEvent;
 };
 
@@ -69,36 +61,36 @@ int main()
 {
 	MyEventReceiver receiver;
 
-	IrrlichtDevice *device = createDevice( video::EDT_SOFTWARE, dimension2d<u32>(640, 480), 16, false, false, false, &receiver);
+	irr::IrrlichtDevice *device = createDevice(irr::video::EDT_SOFTWARE, irr::core::dimension2d<irr::u32>(640, 480), 16, false, false, false, &receiver);
 
 	if (!device)
 		return 1;
 
 //	device->setWindowCaption(L"Irrlicht Engine");
 
-	IVideoDriver* driver = device->getVideoDriver();
-	ISceneManager* smgr = device->getSceneManager();
-	IGUIEnvironment* guienv = device->getGUIEnvironment();
+	irr::video::IVideoDriver *driver = device->getVideoDriver();
+	irr::scene::ISceneManager *smgr = device->getSceneManager();
+	irr::gui::IGUIEnvironment* guienv = device->getGUIEnvironment();
 
-	guienv->addStaticText(L"Dab très fort sur l'Irrlicht Engine", rect<s32>(10,10,200,25), true);
+	guienv->addStaticText(L"Dab très fort sur l'Irrlicht Engine", irr::core::rect<irr::s32>(10, 10, 200, 25), true);
 
-	IAnimatedMesh *mesh = smgr->getMesh("media/sydney.md2");
+	irr::scene::IAnimatedMesh *mesh = smgr->getMesh("media/sydney.md2");
 	if (!mesh) {
 		device->drop();
 		return 1;
 	}
-	IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode(mesh);
+	irr::scene::IAnimatedMeshSceneNode *node = smgr->addAnimatedMeshSceneNode(mesh);
 
 	if (node) {
-		node->setMaterialFlag(EMF_LIGHTING, false);
-		node->setMD2Animation(scene::EMAT_STAND);
+		node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+		node->setMD2Animation(irr::scene::EMAT_STAND);
 		node->setMaterialTexture( 0, driver->getTexture("media/sydney.bmp") );
 	}
 
-	smgr->addCameraSceneNode(0, vector3df(0,60,-40), vector3df(0,15,0));
+	smgr->addCameraSceneNode(0, irr::core::vector3df(0, 60, -40), irr::core::vector3df(0, 15, 0));
 
-	EMD2_ANIMATION_TYPE tmp_anim = scene::EMAT_STAND;
-	vector3df tmp_direction(0, 0, 0);
+	irr::scene::EMD2_ANIMATION_TYPE tmp_anim = irr::scene::EMAT_STAND;
+	irr::core::vector3df tmp_direction(0, 0, 0);
 
 	std::vector<bool> anim_direction = {false, false, false, false, false, false};
 	// {Up, Down, Left, Right, Dead, Bomb}
@@ -107,11 +99,11 @@ int main()
 	unsigned int tmpCount = 0;
 	bool isDroppingBomb = false;
 	unsigned int timeBomb = 0;
-	IAnimatedMeshSceneNode *bomb(smgr->addAnimatedMeshSceneNode(smgr->getMesh("/home/hstanislas/Desktop/sphere.dae"), nullptr, 0, vector3df(-100, 0, 0), vector3df(0, 0, 0), vector3df(3, 3, 3)));
+	irr::scene::IAnimatedMeshSceneNode *bomb(smgr->addAnimatedMeshSceneNode(smgr->getMesh("/home/hstanislas/Desktop/sphere.dae"), nullptr, 0, irr::core::vector3df(-100, 0, 0), irr::core::vector3df(0, 0, 0), irr::core::vector3df(3, 3, 3)));
 	bomb->setMaterialTexture(0, driver->getTexture("/home/hstanislas/Desktop/orange.bmp"));
 
 	while (device->run()) {
-		driver->beginScene(true, true, SColor(255, 100, 101, 140));
+		driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
 
 		for (unsigned int i = 0; i < anim_direction.size(); i++)
 			anim_direction[i] = receiver.IsKeyDown(keys[i]);
@@ -119,9 +111,9 @@ int main()
 		if (isDroppingBomb && tmpCount == 0)
 			isDroppingBomb = false;
 		if (timeBomb == 0)
-			bomb->setPosition(vector3df(-100, 0, 0));
+			bomb->setPosition(irr::core::vector3df(-100, 0, 0));
 
-		vector3df nodePos = node->getPosition();
+		irr::core::vector3df nodePos = node->getPosition();
 
 		if (anim_direction[4] && tmpCount == 0) {
 			if (isDead)
@@ -132,7 +124,7 @@ int main()
 		} else if (anim_direction[5] && tmpCount == 0 && timeBomb == 0) {
 				isDroppingBomb = true;
 				tmpCount = 70;
-				bomb->setPosition(vector3df(nodePos.X, -25, nodePos.Z));
+				bomb->setPosition(irr::core::vector3df(nodePos.X, -25, nodePos.Z));
 				timeBomb = 250;
 		} else if (tmpCount > 0)
 			tmpCount--;
@@ -140,14 +132,14 @@ int main()
 			timeBomb--;
 
 		if (isDead) {
-			if (tmp_anim != scene::EMAT_BOOM) {
-				node->setMD2Animation(scene::EMAT_BOOM);
-				tmp_anim = scene::EMAT_BOOM;
+			if (tmp_anim != irr::scene::EMAT_BOOM) {
+				node->setMD2Animation(irr::scene::EMAT_BOOM);
+				tmp_anim = irr::scene::EMAT_BOOM;
 			}
 		} else if (isDroppingBomb) {
-			if (tmp_anim != scene::EMAT_CROUCH_STAND) {
-				node->setMD2Animation(scene::EMAT_CROUCH_STAND);
-				tmp_anim = scene::EMAT_CROUCH_STAND;
+			if (tmp_anim != irr::scene::EMAT_CROUCH_STAND) {
+				node->setMD2Animation(irr::scene::EMAT_CROUCH_STAND);
+				tmp_anim = irr::scene::EMAT_CROUCH_STAND;
 			}
 		} else {
 			if(anim_direction[0]) {
@@ -168,28 +160,22 @@ int main()
 			node->setRotation(tmp_direction);
 
 			if(anim_direction[0] || anim_direction[1] || anim_direction[2] || anim_direction[3]) {
-				if(tmp_anim != scene::EMAT_RUN) {
-					node->setMD2Animation(scene::EMAT_RUN);
-					tmp_anim = scene::EMAT_RUN;
+				if(tmp_anim != irr::scene::EMAT_RUN) {
+					node->setMD2Animation(irr::scene::EMAT_RUN);
+					tmp_anim = irr::scene::EMAT_RUN;
 				}
 			} else {
-				if(tmp_anim != scene::EMAT_STAND) {
-					node->setMD2Animation(scene::EMAT_STAND);
-					tmp_anim = scene::EMAT_STAND;
+				if(tmp_anim != irr::scene::EMAT_STAND) {
+					node->setMD2Animation(irr::scene::EMAT_STAND);
+					tmp_anim = irr::scene::EMAT_STAND;
 				}
 			}
-			// if (new_user_anim != user_anim) {
-			// 	node->setMD2Animation(new_user_anim);
-			// 	user_anim = new_user_anim;
-			// }
 		}
 
 			smgr->drawAll();
 			guienv->drawAll();
-
 			driver->endScene();
 	}
-
 	device->drop();
 	return 0;
 }
