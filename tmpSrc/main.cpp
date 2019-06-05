@@ -99,8 +99,8 @@ int main()
 	unsigned int tmpCount = 0;
 	bool isDroppingBomb = false;
 	unsigned int timeBomb = 0;
-	irr::scene::IAnimatedMeshSceneNode *bomb(smgr->addAnimatedMeshSceneNode(smgr->getMesh("/home/hstanislas/Desktop/sphere.dae"), nullptr, 0, irr::core::vector3df(-100, 0, 0), irr::core::vector3df(0, 0, 0), irr::core::vector3df(3, 3, 3)));
-	bomb->setMaterialTexture(0, driver->getTexture("/home/hstanislas/Desktop/orange.bmp"));
+	irr::scene::IAnimatedMeshSceneNode *bomb(smgr->addAnimatedMeshSceneNode(smgr->getMesh("./media/skull.dae"), nullptr, 0, irr::core::vector3df(-100, 0, 0), irr::core::vector3df(0, 0, 0), irr::core::vector3df(5, 5, 5)));
+	bomb->setMaterialTexture(0, driver->getTexture("./media/orange.bmp"));
 
 	while (device->run()) {
 		driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
