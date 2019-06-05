@@ -6,9 +6,9 @@
 #define BOMBERMAN_SCREEN_HPP
 
 #include <string>
-#include "Animations.hpp"
-#include "../ecs/Entity.hpp"
-#include "../ecs/data/Vector2.hpp"
+#include "../Animations.hpp"
+#include "../../ecs/Entity.hpp"
+#include "../../ecs/data/Vector2.hpp"
 
 //#define TRANSFORM_COLOR_TO_SFML_COLOR(color) sf::Color(static_cast<sf::Uint8>(color >> 16), static_cast<sf::Uint8>(color >> 8), static_cast<sf::Uint8>(color))
 
@@ -52,7 +52,7 @@ namespace Irrlicht
         ~screen() = default;
 
         //MEMBER FUNCTIONS
-        int display();
+        int display(irr::scene::ISceneManager *, irr::gui::IGUIEnvironment *);
         bool setFullscreen(bool fullscreen);
         bool setVsync(bool vsync);
         bool setWindowSize(int width, int height);
@@ -60,7 +60,6 @@ namespace Irrlicht
         //PROPERTIES
         irr::IrrlichtDevice* _device;
         irr::video::IVideoDriver* _driver;
-        irr::scene::ISceneManager* _smgr;
 
 
     private:

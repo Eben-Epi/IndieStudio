@@ -164,6 +164,18 @@ add_executable(
 	src/input/Keyboard.hpp
 	src/input/error/Errors.cpp
 	src/input/error/Errors.hpp
+	src/irrlicht/screen/screen.cpp
+	src/irrlicht/screen/screen.hpp
+	src/irrlicht/screen/gameScenes/gameScene.cpp
+	src/irrlicht/screen/gameScenes/gameScene.hpp
+	src/irrlicht/gameEngine/gameEngine.cpp
+	src/irrlicht/gameEngine/gameEngine.hpp
+	src/irrlicht/gameEngine/irrEntity/irrEntity.cpp
+	src/irrlicht/gameEngine/irrEntity/irrEntity.hpp
+	src/irrlicht/screen/gameScenes/game/game.cpp
+	src/irrlicht/screen/gameScenes/game/game.hpp
+	src/irrlicht/screen/gameScenes/menu/menu.cpp
+	src/irrlicht/screen/gameScenes/menu/menu.hpp
 )
 
 find_package(Irrlicht REQUIRED)
