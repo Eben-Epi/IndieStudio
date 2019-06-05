@@ -24,7 +24,7 @@ namespace ECS
 	public:
 		explicit ComponentFactory(const Ressources &ressources);
 
-		std::unique_ptr<Component> build(const std::string &name, std::ostream &stream) const;
+		std::unique_ptr<Component> build(const std::string &name, std::istream &stream) const;
 	};
 }
 

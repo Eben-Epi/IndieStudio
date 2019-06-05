@@ -17,27 +17,42 @@
 ECS::PowerUpPickedSystem::PowerUpPickedSystem(ECS::ECSCore &core):
     System("PowerUpPicked", core)
 {
-    this->_dependencies = {"Collision", "Pickable"};
+    this->_dependencies = {"Collision", "Pickable", "Health"};
 }
 
 void ECS::PowerUpPickedSystem::updateEntity(ECS::Entity &entity)
 {
     auto &pickable = reinterpret_cast<PickableComponent &>(entity.getComponentByName("Pickable"));
     if (pickable.pickedBy != nullptr) {
-        reinterpret_cast<HealthComponent &>(pickable.pickedBy->getComponentByName("Health")).health = 0;
+        HealthComponent &hc = reinterpret_cast<HealthComponent &>(entity.getComponentByName("Health"));
         PowerUpComponent &pucI = reinterpret_cast<PowerUpComponent &>(pickable.pickedBy->getComponentByName("PowerUp"));
-        if (entity.hasComponent("Health"))
-            reinterpret_cast<HealthComponent &>(entity.getComponentByName("Health")).health += pucI.health;
-        if (entity.hasComponent("Collider"))
-            reinterpret_cast<ColliderComponent &>(entity.getComponentByName("Collider")).hardness += pucI.hardness;
-        KickerComponent &kickerComponent = reinterpret_cast<KickerComponent &>(entity.getComponentByName("Kicker"));
-        if (entity.hasComponent("Kicker") && pucI.kick)
-            reinterpret_cast<KickerComponent &>(entity.getComponentByName("Kicker")).canKick = pucI.kick;
-        if (entity.hasComponent("BombDropper")) {
-            reinterpret_cast<BombDropperComponent &>(entity.getComponentByName("BombDropper")).max += pucI.nbBomb;
-            reinterpret_cast<BombDropperComponent &>(entity.getComponentByName("BombDropper")).range += pucI.range;
+
+        hc.health = 0;
+        if (pickable.pickedBy->hasComponent("Health")) {
+            auto &tphc = reinterpret_cast<HealthComponent &>(pickable.pickedBy->getComponentByName("Health"));
+
+            tphc.health += pucI.health;
         }
-        if (entity.hasComponent("Movable") && pucI.speed == 1)
-            reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable")).speed = pucI.speed;
+        if (pickable.pickedBy->hasComponent("Collider")) {
+            auto &cc = reinterpret_cast<ColliderComponent &>(pickable.pickedBy->getComponentByName("Collider"));
+
+            cc.hardness += pucI.hardness;
+        }
+        if (pickable.pickedBy->hasComponent("Kicker") && pucI.kick) {
+            auto &kc = reinterpret_cast<KickerComponent &>(pickable.pickedBy->getComponentByName("Kicker"));
+
+            kc.canKick = pucI.kick;
+        }
+        if (pickable.pickedBy->hasComponent("BombDropper")) {
+            auto &bdc = reinterpret_cast<BombDropperComponent &>(pickable.pickedBy->getComponentByName("BombDropper"));
+
+            bdc.max += pucI.nbBomb;
+            bdc.range += pucI.range;
+        }
+        if (pickable.pickedBy->hasComponent("Movable") && pucI.speed == 1) {
+            auto &mc = reinterpret_cast<MovableComponent &>(pickable.pickedBy->getComponentByName("Movable"));
+
+            mc.speed = pucI.speed;
+        }
     }
 }

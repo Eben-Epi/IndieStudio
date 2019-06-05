@@ -1,8 +1,27 @@
 #include <iostream>
+#include <fstream>
 #include "irrlicht/Keycodes.h"
 #include "../irrlicht/Irrlicht.hpp"
 #include "../map/Map.hpp"
 #include "../input/Keyboard.hpp"
+#include "../ecs/Exceptions.hpp"
+
+Map::Map *loadMap(const ECS::Ressources &res, std::string path)
+{
+	std::ifstream stream(path);
+
+	try {
+		if (stream.is_open())
+			return new Map::Map{res, stream};
+	} catch (ECS::InvalidSerializedStringException &e) {
+		std::cerr << "The saved map is invalid " << e.what() << std::endl;
+	}
+
+	auto map = new Map::Map{res};
+
+	map->generateMap({20, 20}, 70);
+	return map;
+}
 
 int main()
 {
@@ -19,12 +38,14 @@ int main()
 		})
 	);
 	ECS::Ressources	res{screen, inputs};
-	Map::Map	map{res};
+	Map::Map	*map = loadMap(res, "save.txt");
 
-	map.generateMap({20, 20}, 70);
 	while (!screen.isEnd()) {
-		map.update();
+		map->update();
 		screen.display();
 	}
+	std::ofstream	stream("save.txt");
+	stream << *map << std::endl;
+	delete map;
 	return EXIT_SUCCESS;
 }

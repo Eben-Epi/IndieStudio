@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** ECS
 ** File description:
-** ItemDropperComponent.cpp
+** EntityDropperComponent.cpp
 */
 
 #include "EntityDropperComponent.hpp"

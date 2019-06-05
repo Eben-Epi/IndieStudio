@@ -19,6 +19,7 @@
 #include "../Systems/BombDropperSystem.hpp"
 #include "../Systems/BlockedSystem.hpp"
 #include "../Systems/ColliderSystem.hpp"
+#include "../Systems/CurseSystem.hpp"
 #include "../Systems/KickerSystem.hpp"
 #include "../Systems/PickerSystem.hpp"
 #include "../Systems/PickableSystem.hpp"
@@ -41,6 +42,7 @@ namespace ECS
 		{"Collider", [](ECS::ECSCore &core) { return new ColliderSystem(core); }},
 		{"Collision", [](ECS::ECSCore &core) { return new CollisionSystem(core); }},
 		{"Controllable", [](ECS::ECSCore &core) { return new ControllableSystem(core); }},
+		{"Curse", [](ECS::ECSCore &core) { return new CurseSystem(core); }},
 		{"Displayable", [](ECS::ECSCore &core) { return new DisplayableSystem(core); }},
 		{"Ephemeral", [](ECS::ECSCore &core) { return new EphemeralSystem(core); }},
 		{"Explode", [](ECS::ECSCore &core) { return new ExplodeSystem(core); }},

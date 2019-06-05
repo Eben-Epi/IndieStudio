@@ -15,7 +15,6 @@
 #include <irrlicht/Keycodes.h>
 #include <irrlicht/IEventReceiver.h>
 #include "Animations.hpp"
-#include "../ecs/Entity.hpp"
 #include "../ecs/data/Vector2.hpp"
 
 #define TRANSFORM_COLOR_TO_SFML_COLOR(color) sf::Color(static_cast<sf::Uint8>(color >> 16), static_cast<sf::Uint8>(color >> 8), static_cast<sf::Uint8>(color))

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "PowerUpComponent.hpp"
+#include "../Exceptions.hpp"
 
 namespace ECS
 {
@@ -25,5 +26,15 @@ namespace ECS
     std::ostream& PowerUpComponent::serialize(std::ostream &stream) const
     {
     	return stream << health << ' ' << speed << ' ' << nbBomb << ' ' << kick << ' ' << hardness << "EndOfComponent";
+    }
+
+    PowerUpComponent::PowerUpComponent(const ECS::Ressources &ressources, std::istream &stream) :
+	    PowerUpComponent({})
+    {
+	    std::string terminator;
+
+	    stream >> health >> speed >> nbBomb >> kick >> hardness >> terminator;
+	    if (terminator != "EndOfComponent")
+		    throw InvalidSerializedStringException("The component terminator was not found");
     }
 }

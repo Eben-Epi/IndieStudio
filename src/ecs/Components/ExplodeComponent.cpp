@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "ExplodeComponent.hpp"
+#include "../Exceptions.hpp"
 
 namespace ECS
 {
@@ -20,5 +21,15 @@ namespace ECS
     std::ostream& ExplodeComponent::serialize(std::ostream &stream) const
     {
     	return stream << range << ' ' << strength << " EndOfComponent";
+    }
+
+    ExplodeComponent::ExplodeComponent(const ECS::Ressources &, std::istream &stream) :
+	    ExplodeComponent(0, 0)
+    {
+	    std::string terminator;
+
+	    stream >> range >> strength >> terminator;
+	    if (terminator != "EndOfComponent")
+		    throw InvalidSerializedStringException("The component terminator was not found");
     }
 }
