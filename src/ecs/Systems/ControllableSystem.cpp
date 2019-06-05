@@ -10,6 +10,7 @@
 #include "../Components/PositionComponent.hpp"
 #include "../Components/MovableComponent.hpp"
 #include "../Components/ControllableComponent.hpp"
+#include "../Components/CurseComponent.hpp"
 
 namespace ECS
 {
@@ -40,7 +41,10 @@ namespace ECS
 			}
 		}
 		if (newDir) {
-			mov.dir = newDir;
+			if (IS_CURSED(entity, CurseComponent::REVERSECONTROL))
+				mov.dir = (newDir << 2) | (newDir >> 2);
+			else
+				mov.dir = newDir;
 			mov.speed = mov.speed > 0 ? mov.speed : mov.maxSpeed / 2;
 		} else
 			mov.speed = 0;

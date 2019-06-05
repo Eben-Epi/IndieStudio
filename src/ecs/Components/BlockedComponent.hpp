@@ -15,7 +15,7 @@ namespace ECS {
     public:
         BlockedComponent();
         BlockedComponent(const Ressources &ressources, std::istream &stream);
-	std::ostream &serialize(std::ostream &stream) const override;
+        std::ostream &serialize(std::ostream &stream) const override;
     };
 }
 

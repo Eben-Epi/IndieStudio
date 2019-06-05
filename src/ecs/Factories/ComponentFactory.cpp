@@ -19,6 +19,7 @@
 #include "../Components/BlockedComponent.hpp"
 #include "../Components/ColliderComponent.hpp"
 #include "../Exceptions.hpp"
+#include "../Components/CurseComponent.hpp"
 
 namespace ECS 
 {
@@ -26,6 +27,7 @@ namespace ECS
 		{"BombDropper", [](const Ressources &ressources, std::istream &stream) { return new BombDropperComponent(ressources, stream); }},
 		{"Buffed", [](const Ressources &ressources, std::istream &stream) { return new BuffedComponent(ressources, stream); }},
 		{"Collision", [](const Ressources &ressources, std::istream &stream) { return new CollisionComponent(ressources, stream); }},
+		{"Curse", [](const Ressources &ressources, std::istream &stream) { return new CurseComponent(ressources, stream); }},
 		{"Controllable", [](const Ressources &ressources, std::istream &stream) { return new ControllableComponent(ressources, stream); }},
 		{"Displayable", [](const Ressources &ressources, std::istream &stream) { return new DisplayableComponent(ressources, stream); }},
 		{"Ephemeral", [](const Ressources &ressources, std::istream &stream) { return new EphemeralComponent(ressources, stream); }},

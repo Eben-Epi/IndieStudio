@@ -17,7 +17,7 @@ namespace ECS
 {
 	class BombDropperComponent : public Component {
 	public:
-		std::vector<Entity> bombs;
+		std::vector<Entity *> bombs;
 		unsigned int max;
 		float timeToExplode;
 		unsigned int range;

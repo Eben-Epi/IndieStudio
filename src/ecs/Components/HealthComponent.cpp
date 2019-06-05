@@ -13,7 +13,8 @@ namespace ECS
 {
 	HealthComponent::HealthComponent(unsigned int health) :
 		Component("Health"),
-		health(health)
+		health(health),
+		invunerabilityTimeLeft(0)
 	{
 	}
 
@@ -21,6 +22,15 @@ namespace ECS
 	{
 		return stream << health << " EndOfComponent";
 	}
+
+	bool HealthComponent::takeDamage(int damage, unsigned int invulnerability_given)
+    {
+        if (this->invunerabilityTimeLeft)
+            return false;
+        this->health -= damage;
+        this->invunerabilityTimeLeft = invulnerability_given;
+        return true;
+    }
 
 	HealthComponent::HealthComponent(const ECS::Ressources &, std::istream &stream) :
 		HealthComponent(0)

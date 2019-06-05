@@ -9,6 +9,7 @@
 #include "../Components/PositionComponent.hpp"
 #include "../data/Directions.hpp"
 #include "../../config.hpp"
+#include "../Components/CurseComponent.hpp"
 
 ECS::MovableSystem::MovableSystem(ECS::ECSCore &core):
     System("Movable", core)
@@ -23,7 +24,12 @@ void ECS::MovableSystem::updateEntity(ECS::Entity &entity)
 
     if (mc.speed > 0) {
         mc.speed += mc.maxSpeed / (FRAME_RATE / 2);
-        mc.speed = mc.speed <= mc.maxSpeed ? mc.speed : mc.maxSpeed;
+        if (IS_CURSED(entity, CurseComponent::ULTRASPEED))
+            mc.speed = 16;
+        else if (IS_CURSED(entity, CurseComponent::ULTRASLOW))
+            mc.speed = 0.8;
+        else
+            mc.speed = (mc.speed <= mc.maxSpeed ? mc.speed : mc.maxSpeed);
         if (mc.dir & ECS::Directions::RIGHT)
             pc.pos.x += mc.speed;
         if (mc.dir & ECS::Directions::LEFT)

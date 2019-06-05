@@ -132,6 +132,26 @@ add_executable(
 	src/ecs/Systems/PowerUpSystem.hpp
 	src/ecs/Systems/PickableSystem.cpp
 	src/ecs/Systems/PickableSystem.hpp
+	src/ecs/Entities/DroppedItem.cpp
+	src/ecs/Entities/DroppedItem.hpp
+	src/ecs/Components/PowerUpPickedComponent.cpp
+	src/ecs/Components/PowerUpPickedComponent.hpp
+	src/ecs/Systems/PowerUpPickedSystem.cpp
+	src/ecs/Systems/PowerUpPickedSystem.hpp
+	src/ecs/Systems/KickerSystem.cpp
+	src/ecs/Systems/KickerSystem.hpp
+	src/ecs/Systems/EntityDropperSystem.cpp
+	src/ecs/Systems/EntityDropperSystem.hpp
+	src/ecs/Entities/DroppedBonusHealth.cpp
+	src/ecs/Entities/DroppedBonusHealth.hpp
+	src/ecs/Entities/DroppedBonusSpeed.cpp
+	src/ecs/Entities/DroppedBonusSpeed.hpp
+	src/ecs/Entities/DroppedBonusBomb.cpp
+	src/ecs/Entities/DroppedBonusBomb.hpp
+	src/ecs/Entities/DroppedBonusKick.cpp
+	src/ecs/Entities/DroppedBonusKick.hpp
+	src/ecs/Entities/DroppedBonusHardness.cpp
+	src/ecs/Entities/DroppedBonusHardness.hpp src/ecs/Components/CurseComponent.cpp src/ecs/Components/CurseComponent.hpp src/ecs/Systems/CurseSystem.cpp src/ecs/Systems/CurseSystem.hpp
 	src/irrlicht/Irrlicht.cpp
 	src/irrlicht/Irrlicht.hpp
 	src/irrlicht/Animations.hpp

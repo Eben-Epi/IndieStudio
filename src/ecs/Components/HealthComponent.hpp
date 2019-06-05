@@ -10,6 +10,7 @@
 
 #include "../Component.hpp"
 #include "../Ressources.hpp"
+#include "../../config.hpp"
 
 namespace ECS
 {
@@ -17,6 +18,8 @@ namespace ECS
     {
         public:
             unsigned int health;
+            int invunerabilityTimeLeft;
+            bool takeDamage(int damage=1, unsigned invulnerability_given=FRAME_RATE);
             HealthComponent(unsigned int health);
             HealthComponent(const Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;

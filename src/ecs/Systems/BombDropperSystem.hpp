@@ -9,6 +9,8 @@
 #define BOMBERMAN_BOMBDROPPERSYSTEM_HPP
 
 #include "../System.hpp"
+#include "../Components/BombDropperComponent.hpp"
+#include "../Entities/Bomb.hpp"
 
 namespace ECS {
     class BombDropperSystem : public System {
