@@ -121,7 +121,7 @@ int main()
 			else
 				isDead = true;
 			tmpCount = 30;
-		} else if (anim_direction[5] && tmpCount == 0 && timeBomb == 0) {
+		} else if (anim_direction[5] && tmpCount == 0 && timeBomb == 0 && !isDead) {
 				isDroppingBomb = true;
 				tmpCount = 70;
 				bomb->setPosition(irr::core::vector3df(nodePos.X, -25, nodePos.Z));
