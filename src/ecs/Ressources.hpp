@@ -9,8 +9,8 @@
 #define BOMBERMAN_RESSOURCES_HPP
 
 
-#include "../irrlicht/GameEngine/Input/Input.hpp"
-#include "../irrlicht/Screen/GameScenes/GameScene.hpp"
+#include "../irrlicht/GameScene/Input/Input.hpp"
+#include "../irrlicht/GameScene/GameScene.hpp"
 
 namespace ECS
 {

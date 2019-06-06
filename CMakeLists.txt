@@ -151,29 +151,27 @@ add_executable(
 	src/ecs/Entities/DroppedBonusKick.cpp
 	src/ecs/Entities/DroppedBonusKick.hpp
 	src/ecs/Entities/DroppedBonusHardness.cpp
-	src/ecs/Entities/DroppedBonusHardness.hpp src/ecs/Components/CurseComponent.cpp src/ecs/Components/CurseComponent.hpp src/ecs/Systems/CurseSystem.cpp src/ecs/Systems/CurseSystem.hpp
+	src/ecs/Entities/DroppedBonusHardness.hpp
+	src/ecs/Components/CurseComponent.cpp
+	src/ecs/Components/CurseComponent.hpp
+	src/ecs/Systems/CurseSystem.cpp
+	src/ecs/Systems/CurseSystem.hpp
 	src/irrlicht/Animations.hpp
 	src/map/Map.hpp
 	src/map/Map.cpp
-	src/irrlicht/GameEngine/Input/Controller.cpp
-	src/irrlicht/GameEngine/Input/Controller.hpp
-	src/irrlicht/GameEngine/Input/Input.hpp
-	src/irrlicht/GameEngine/Input/Keyboard.cpp
-	src/irrlicht/GameEngine/Input/Keyboard.hpp
-	src/irrlicht/GameEngine/Input/Error/Errors.cpp
-	src/irrlicht/GameEngine/Input/Error/Errors.hpp
+	src/irrlicht/GameScene/Input/Controller.cpp
+	src/irrlicht/GameScene/Input/Controller.hpp
+	src/irrlicht/GameScene/Input/Input.hpp
+	src/irrlicht/GameScene/Input/Keyboard.cpp
+	src/irrlicht/GameScene/Input/Keyboard.hpp
+	src/irrlicht/GameScene/Input/Error/Errors.cpp
+	src/irrlicht/GameScene/Input/Error/Errors.hpp
 	src/irrlicht/Screen/Screen.cpp
 	src/irrlicht/Screen/Screen.hpp
-	src/irrlicht/Screen/GameScenes/GameScene.cpp
-	src/irrlicht/Screen/GameScenes/GameScene.hpp
-	src/irrlicht/GameEngine/GameEngine.cpp
-	src/irrlicht/GameEngine/GameEngine.hpp
-	src/irrlicht/GameEngine/IrrEntity/IrrEntity.cpp
-	src/irrlicht/GameEngine/IrrEntity/IrrEntity.hpp
-	src/irrlicht/Screen/GameScenes/Game/Game.cpp
-	src/irrlicht/Screen/GameScenes/Game/Game.hpp
-	src/irrlicht/Screen/GameScenes/Menu/Menu.cpp
-	src/irrlicht/Screen/GameScenes/Menu/Menu.hpp
+	src/irrlicht/GameScene/GameScene.cpp
+	src/irrlicht/GameScene/GameScene.hpp
+	src/irrlicht/GameScene/IrrEntity/IrrEntity.cpp
+	src/irrlicht/GameScene/IrrEntity/IrrEntity.hpp
 )
 
 find_package(Irrlicht REQUIRED)

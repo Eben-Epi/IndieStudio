@@ -9,7 +9,7 @@
 #define CONTROLLERCOMPONENT_HPP
 
 #include "../Component.hpp"
-#include "../../irrlicht/GameEngine/Input/Input.hpp"
+#include "../../irrlicht/GameScene/Input/Input.hpp"
 #include "../Ressources.hpp"
 
 namespace ECS

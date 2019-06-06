@@ -16,7 +16,7 @@ namespace ECS
 {
 	class DisplayableComponent : public Component {
 	public:
-		Irrlicht::GameEngine	&gameEngine;
+		Irrlicht::GameScene	&gameScene;
 		unsigned		entityId;
 		std::string		spriteId;
 		Irrlicht::Animations	animation;

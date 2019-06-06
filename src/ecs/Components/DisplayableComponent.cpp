@@ -15,8 +15,8 @@ namespace ECS
 {
 	DisplayableComponent::DisplayableComponent(std::string &&spriteId, const Ressources &ressources) :
 		Component("Displayable"),
-		gameEngine(ressources.gameScene.gameEngine),
-		entityId(this->gameEngine.registerEntity(spriteId)),
+		gameScene(ressources.gameScene),
+		entityId(this->gameScene.registerEntity(spriteId)),
 		spriteId(spriteId),
 		animation(Irrlicht::IDLE)
 	{
@@ -24,7 +24,7 @@ namespace ECS
 
 	DisplayableComponent::~DisplayableComponent()
 	{
-		this->gameEngine.deleteEntity(this->entityId);
+		this->gameScene.deleteEntity(this->entityId);
 	}
 
 	std::ostream& DisplayableComponent::serialize(std::ostream &stream) const
@@ -34,7 +34,7 @@ namespace ECS
 
 	DisplayableComponent::DisplayableComponent(const ECS::Ressources &ressources, std::istream &stream) :
 		Component("Displayable"),
-		gameEngine(ressources.gameScene.gameEngine),
+		gameScene(ressources.gameScene),
 		entityId(0),
 		spriteId(""),
 		animation(Irrlicht::IDLE)
@@ -43,7 +43,7 @@ namespace ECS
 		unsigned val;
 
 		stream >> this->spriteId >> val >> terminator;
-		this->entityId = this->gameEngine.registerEntity(spriteId);
+		this->entityId = this->gameScene.registerEntity(spriteId);
 		this->animation = static_cast<Irrlicht::Animations>(val);
 		if (terminator != "EndOfComponent")
 			throw InvalidSerializedStringException("The component terminator was not found");

@@ -2,9 +2,12 @@
 #include <fstream>
 #include "irrlicht/Keycodes.h"
 #include "../irrlicht/Screen/Screen.hpp"
+#include "../irrlicht/GameScene/GameScene.hpp"
 #include "../map/Map.hpp"
-#include "../irrlicht/GameEngine/Input/Keyboard.hpp"
+#include "../irrlicht/GameScene/Input/Keyboard.hpp"
 #include "../ecs/Exceptions.hpp"
+//#include "windows.h"
+//#include <cstdio>
 
 Map::Map *loadMap(const ECS::Ressources &res, std::string path)
 {
@@ -25,30 +28,39 @@ Map::Map *loadMap(const ECS::Ressources &res, std::string path)
 
 int main()
 {
-//    AllocConsole();
-//    freopen("CONOUT$", "w", stdout);
-	Irrlicht::Screen screen(640, 480);
-	Irrlicht::GameScene menu(screen);
-	std::vector<std::unique_ptr<Input::Input>> inputs;
-	inputs.emplace_back(
-		new Irrlicht::Keyboard(menu, {
-			irr::KEY_KEY_Z,
-			irr::KEY_KEY_Q,
-			irr::KEY_KEY_S,
-			irr::KEY_KEY_D,
-			irr::KEY_SPACE,
-			irr::KEY_KEY_A,
-		})
-	);
-	ECS::Ressources	res{menu, inputs};
-	Map::Map	*map = loadMap(res, "save.txt");
+//    try {
+//        AllocConsole();
+//        freopen("CONOUT$", "w", stdout);
+//        freopen("CONOUT$", "w", stderr);
+//        freopen("CONIN$", "r", stdin);
+    Irrlicht::Screen screen(1920, 1080, 32, false, false);
+    screen.addGameScene("Game");
+    std::vector<std::unique_ptr<Input::Input>> inputs;
+    if (!screen.setCurrentGameScene("Game"))
+        return EXIT_FAILURE;
+    inputs.emplace_back(
+            new Irrlicht::Keyboard(screen.getCurrentGameScene(), {
+                    irr::KEY_KEY_Z,
+                    irr::KEY_KEY_Q,
+                    irr::KEY_KEY_S,
+                    irr::KEY_KEY_D,
+                    irr::KEY_SPACE,
+                    irr::KEY_KEY_A,
+            })
+    );
+    ECS::Ressources res{screen.getCurrentGameScene(), inputs};
+    Map::Map *map = loadMap(res, "save.txt");
 
-	while (screen.display()) {
-		map->update();
-		menu.update();
-	}
-	std::ofstream	stream("save.txt");
-	stream << *map << std::endl;
-	delete map;
-	return EXIT_SUCCESS;
+    while (screen.display()) {
+        map->update();
+    }
+    std::ofstream stream("save.txt");
+    stream << *map << std::endl;
+    delete map;
+    return EXIT_SUCCESS;
+//    } catch (std::exception &e) {
+//        std::cerr << "Error: " << e.what() << std::endl;
+//        system("pause");
+//        return EXIT_FAILURE;
+//    }
 }

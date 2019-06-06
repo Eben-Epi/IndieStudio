@@ -26,10 +26,13 @@ namespace Irrlicht
 
         //MEMBER FUNCTIONS
         bool display();
+        GameScene &getCurrentGameScene();
+        bool setCurrentGameScene(unsigned id);
+        bool setCurrentGameScene(const std::string &name);
         bool setFullscreen(bool fullscreen);
         bool setVsync(bool vsync);
         bool setWindowSize(int width, int height);
-
+        unsigned addGameScene(const std::string &name);
 
     private:
         irr::video::E_DRIVER_TYPE _driverType; // TODO differenciate OpenGL and Dx9 when running under win32/64 or GNU/UNIX
@@ -38,12 +41,15 @@ namespace Irrlicht
         int _colorDepth;
         bool _fullscreen;
         bool _vsync;
-        std::vector<GameScene *> scenes;
+        unsigned _currentSceneId;
+        unsigned _lastSceneId;
+        std::vector<std::unique_ptr<GameScene>> _scenes;
 
         //PROPERTIES
         irr::IrrlichtDevice* _device;
         irr::video::IVideoDriver* _driver;
-        //unsigned _lastId;
+        irr::gui::IGUIEnvironment* _guienv;
+        irr::scene::ISceneManager* _smgr;
 
         //void drawRect(ECS::Point pos, ECS::Vector2<unsigned> size, Color color = 0xFFFFFF, bool filled = false);
 
