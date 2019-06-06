@@ -155,25 +155,25 @@ add_executable(
 	src/irrlicht/Animations.hpp
 	src/map/Map.hpp
 	src/map/Map.cpp
-		src/irrlicht/GameEngine/Input/Controller.cpp
-		src/irrlicht/GameEngine/Input/Controller.hpp
-		src/irrlicht/GameEngine/Input/Input.hpp
-		src/irrlicht/GameEngine/Input/Keyboard.cpp
-		src/irrlicht/GameEngine/Input/Keyboard.hpp
-		src/irrlicht/GameEngine/Input/Error/Errors.cpp
-		src/irrlicht/GameEngine/Input/Error/Errors.hpp
+	src/irrlicht/GameEngine/Input/Controller.cpp
+	src/irrlicht/GameEngine/Input/Controller.hpp
+	src/irrlicht/GameEngine/Input/Input.hpp
+	src/irrlicht/GameEngine/Input/Keyboard.cpp
+	src/irrlicht/GameEngine/Input/Keyboard.hpp
+	src/irrlicht/GameEngine/Input/Error/Errors.cpp
+	src/irrlicht/GameEngine/Input/Error/Errors.hpp
 	src/irrlicht/Screen/Screen.cpp
 	src/irrlicht/Screen/Screen.hpp
-		src/irrlicht/Screen/GameScenes/GameScene.cpp
-		src/irrlicht/Screen/GameScenes/GameScene.hpp
-		src/irrlicht/GameEngine/GameEngine.cpp
-		src/irrlicht/GameEngine/GameEngine.hpp
-        src/irrlicht/GameEngine/irrEntity/IrrEntity.cpp
-        src/irrlicht/GameEngine/irrEntity/IrrEntity.hpp
-		src/irrlicht/Screen/GameScenes/Game/Game.cpp
-		src/irrlicht/Screen/GameScenes/Game/Game.hpp
-		src/irrlicht/Screen/GameScenes/Menu/Menu.cpp
-		src/irrlicht/Screen/GameScenes/Menu/Menu.hpp
+	src/irrlicht/Screen/GameScenes/GameScene.cpp
+	src/irrlicht/Screen/GameScenes/GameScene.hpp
+	src/irrlicht/GameEngine/GameEngine.cpp
+	src/irrlicht/GameEngine/GameEngine.hpp
+	src/irrlicht/GameEngine/IrrEntity/IrrEntity.cpp
+	src/irrlicht/GameEngine/IrrEntity/IrrEntity.hpp
+	src/irrlicht/Screen/GameScenes/Game/Game.cpp
+	src/irrlicht/Screen/GameScenes/Game/Game.hpp
+	src/irrlicht/Screen/GameScenes/Menu/Menu.cpp
+	src/irrlicht/Screen/GameScenes/Menu/Menu.hpp
 )
 
 find_package(Irrlicht REQUIRED)

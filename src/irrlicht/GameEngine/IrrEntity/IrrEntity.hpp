@@ -15,7 +15,7 @@
 namespace Irrlicht {
     class IrrEntity {
     public:
-        IrrEntity(const std::string &name, unsigned id, irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255), std::string texturePath = nullptr);
+        IrrEntity(const std::string &name, unsigned id, irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255), std::string texturePath = "");
 
         //PROPERTIES
         std::string _meshPath;

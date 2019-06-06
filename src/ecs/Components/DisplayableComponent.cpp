@@ -15,7 +15,7 @@ namespace ECS
 {
 	DisplayableComponent::DisplayableComponent(std::string &&spriteId, const Ressources &ressources) :
 		Component("Displayable"),
-		gameEngine(ressources.gameScene._gameEngine),
+		gameEngine(ressources.gameScene.gameEngine),
 		entityId(this->gameEngine.registerEntity(spriteId)),
 		spriteId(spriteId),
 		animation(Irrlicht::IDLE)
@@ -34,7 +34,7 @@ namespace ECS
 
 	DisplayableComponent::DisplayableComponent(const ECS::Ressources &ressources, std::istream &stream) :
 		Component("Displayable"),
-		gameEngine(ressources.gameScene._gameEngine),
+		gameEngine(ressources.gameScene.gameEngine),
 		entityId(0),
 		spriteId(""),
 		animation(Irrlicht::IDLE)

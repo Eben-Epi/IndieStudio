@@ -6,7 +6,7 @@
 */
 
 #include "Controller.hpp"
-#include "../../Screen/gameScenes/GameScene.hpp"
+#include "../../Screen/GameScenes/GameScene.hpp"
 
 Irrlicht::Controller::Controller(GameScene &scene, std::vector<unsigned> &&keys, unsigned id) :
     _scene(scene),
@@ -25,7 +25,7 @@ std::vector<Input::Action> Irrlicht::Controller::getActions() { //does not work
     std::vector<::Input::Action> actions;
 
     for (unsigned i = 0; i < this->_keys.size(); i++) {
-        if (this->_scene._gameEngine.isJoystickButtonPressed(_id, this->_keys[i]))
+        if (this->_scene.gameEngine.isJoystickButtonPressed(_id, this->_keys[i]))
             actions.push_back(static_cast<::Input::Action>(i));
     }
     return (actions);

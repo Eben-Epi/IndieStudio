@@ -14,7 +14,7 @@
 #include "../Animations.hpp"
 #include "../../ecs/Entity.hpp"
 #include "../../ecs/data/Vector2.hpp"
-#include "irrEntity/IrrEntity.hpp"
+#include "IrrEntity/IrrEntity.hpp"
 
 namespace Irrlicht {
 

@@ -22,31 +22,23 @@ Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen,
 }
 
 
-void Irrlicht::Screen::display(irr::scene::ISceneManager *smgr, irr::gui::IGUIEnvironment *guienv) { //TODO COLOR SCENE
-    int lastFPS = -1;
+bool Irrlicht::Screen::display() { //TODO COLOR SCENE
     if (this->_device->isWindowActive())
     {
         this->_driver->beginScene(true, true, irr::video::SColor(255,200,200,200));
-        if (smgr != nullptr)
-            smgr->drawAll();
-        if (guienv != nullptr)
-            guienv->drawAll();
         this->_driver->endScene();
 
         int fps = this->_driver->getFPS();
 
-        if (lastFPS != fps)
-        {
-            irr::core::stringw str = "Indie Studio [";
-            str += this->_driver->getName();
-            str += "] FPS:";
-            str += fps;
+        irr::core::stringw str = WINDOW_NAME" [";
+        str += this->_driver->getName();
+        str += "] FPS:";
+        str += fps;
 
-            this->_device->setWindowCaption(str.c_str());
-            lastFPS = fps;
-        }
+        this->_device->setWindowCaption(str.c_str());
     } else
         this->_device->yield();
+    return this->_device->run();
 }
 
 bool Irrlicht::Screen::setFullscreen(bool fullscreen) {

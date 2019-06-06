@@ -41,11 +41,9 @@ int main()
 		})
 	);
 	ECS::Ressources	res{menu, inputs};
-	std::cout << "oui" << std::endl;
 	Map::Map	*map = loadMap(res, "save.txt");
-	std::cout << "non" << std::endl;
 
-	while (!menu._window._device->run()) {
+	while (screen.display()) {
 		map->update();
 		menu.update();
 	}

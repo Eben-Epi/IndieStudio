@@ -22,7 +22,7 @@ std::vector<Input::Action> Irrlicht::Keyboard::getActions() {
     std::vector<::Input::Action> actions;
 
     for (unsigned i = 0; i < this->_keys.size(); i++)
-        if (this->_scene._gameEngine.isKeyPressed(this->_keys[i]))
+        if (this->_scene.gameEngine.isKeyPressed(this->_keys[i]))
             actions.push_back(static_cast<::Input::Action>(i));
     return (actions);
 }

@@ -15,7 +15,7 @@
 namespace ECS
 {
 	struct Ressources {
-		Irrlicht::GameScene			  &gameScene;
+		Irrlicht::GameScene                        &gameScene;
 		std::vector<std::unique_ptr<Input::Input>> &inputs;
 	};
 }

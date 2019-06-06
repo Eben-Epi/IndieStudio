@@ -13,7 +13,7 @@
 #include <irrlicht/ILogger.h>
 #include <irrlicht/irrString.h>
 #include <irrlicht/IEventReceiver.h>
-#include "./error/Errors.hpp"
+#include "./Error/Errors.hpp"
 #include <iostream>
 #include <vector>
 

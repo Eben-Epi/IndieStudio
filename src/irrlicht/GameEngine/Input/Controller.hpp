@@ -9,8 +9,8 @@
 #define CONTROLLER_HPP
 
 #include "Input.hpp"
-#include "../../screen/Screen.hpp"
-#include "../../Screen/gameScenes/GameScene.hpp"
+#include "../../Screen/Screen.hpp"
+#include "../../Screen/GameScenes/GameScene.hpp"
 
 namespace Irrlicht
 {
