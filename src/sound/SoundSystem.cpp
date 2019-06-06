@@ -107,6 +107,7 @@ namespace Sound
 		if (this->_background)
 			this->stopSound(*this->_background);
 		this->_background.reset(new std::string(id));
+		this->playSound(id);
 	}
 
 	SoundState SoundSystem::getState(const std::string &id)

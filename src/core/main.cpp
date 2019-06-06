@@ -45,7 +45,7 @@ int main()
 			res.soundSystem.loadSound(sound_name);
 		res.soundSystem.setLoop("battle_music", true);
 
-		res.soundSystem.playSound("battle_music"); // tmp
+		res.soundSystem.setBackgroundMusic("battle_music"); // tmp
 		while (!screen.isEnd()) {
 			map->update();
 			screen.display();
