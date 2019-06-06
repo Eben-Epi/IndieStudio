@@ -21,9 +21,7 @@ ECS::DroppedBonusHardness::DroppedBonusHardness(unsigned id, const Ressources &r
         new DisplayableComponent("DroppedBonusHardness", ressources),
         new ColliderComponent(0),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
-        new PowerUpComponent({
-            std::pair<std::string, NumericValue>("Hardness", 1)
-        }),
+        new PowerUpComponent({{"Hardness", 1}}),
         new PickableComponent(),
         new PowerUpPickedComponent()
     })

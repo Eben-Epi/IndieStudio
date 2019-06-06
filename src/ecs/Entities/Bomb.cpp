@@ -23,9 +23,10 @@ ECS::Bomb::Bomb(unsigned id, const Ressources &ressources) :
         new ColliderComponent(2),
         new CollisionComponent(0),
         new MovableComponent(0),
-        new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
+        new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
         new DisplayableComponent("Bomb", ressources),
         new EphemeralComponent(300),
+        new MovableComponent(2),
         new KickableComponent(),
         new ExplodeComponent(1, 1)
     })

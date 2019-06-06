@@ -9,6 +9,8 @@
 #include "Map.hpp"
 #include "../ecs/Components/PositionComponent.hpp"
 #include "MapException.hpp"
+#include "../ecs/Components/EntityDropperComponent.hpp"
+#include "../ecs/Components/PowerUpComponent.hpp"
 
 Map::Map::Map(const ECS::Ressources &ressources) : _core(ressources)
 {
@@ -34,7 +36,7 @@ std::vector<unsigned> XPairYPairSidesWallGenerator(ECS::Vector2<unsigned> sizeMa
     for (unsigned j = 0; j < maxSize; ++j) {
         yShift = (j / sizeMap.x) >= sizeMap.y / 2;
         xShift = (j % sizeMap.x) >= sizeMap.x / 2;
-        if ((j / sizeMap.x + yShift) % 2  && (j % sizeMap.x + xShift) % 2 )
+        if ((j / sizeMap.x + yShift) % 2 && (j % sizeMap.x + xShift) % 2)
             wallPos.push_back(j);
     }
     return (wallPos);
@@ -46,7 +48,7 @@ std::vector<unsigned> XImpairYImpairSidesWallGenerator(ECS::Vector2<unsigned> si
     std::vector<unsigned> wallPos;
 
     for (unsigned j = 0; j < maxSize; ++j) {
-        if ((j / sizeMap.x) % 2 == 1 && (j % sizeMap.x) % 2 == 1)
+        if ((j / sizeMap.x) % 2 && (j % sizeMap.x) % 2)
             wallPos.push_back(j);
     }
     return (wallPos);
@@ -55,12 +57,12 @@ std::vector<unsigned> XImpairYImpairSidesWallGenerator(ECS::Vector2<unsigned> si
 std::vector<unsigned> XPairYImpairSidesWallGenerator(ECS::Vector2<unsigned> sizeMap)
 {
     unsigned maxSize = sizeMap.x * sizeMap.y;
-    bool xShift = false;
+    bool xShift;
     std::vector<unsigned> wallPos;
 
     for (unsigned j = 0; j < maxSize; ++j) {
         xShift = (j % sizeMap.x) >= sizeMap.x / 2;
-        if ((j / sizeMap.x) % 2 == 1 && (j % sizeMap.x + xShift) % 2 == 1)
+        if ((j / sizeMap.x) % 2 && (j % sizeMap.x + xShift) % 2)
             wallPos.push_back(j);
     }
     return (wallPos);
@@ -69,12 +71,12 @@ std::vector<unsigned> XPairYImpairSidesWallGenerator(ECS::Vector2<unsigned> size
 std::vector<unsigned> XImpairYPairSidesWallGenerator(ECS::Vector2<unsigned> sizeMap)
 {
     unsigned maxSize = sizeMap.x * sizeMap.y;
-    bool yShift = false;
+    bool yShift;
     std::vector<unsigned> wallPos;
 
     for (unsigned j = 0; j < maxSize; ++j) {
         yShift = (j / sizeMap.x) >= sizeMap.y / 2;
-        if ((j / sizeMap.x + yShift) % 2 == 1 && (j % sizeMap.x) % 2 == 1)
+        if ((j / sizeMap.x + yShift) % 2 && (j % sizeMap.x) % 2)
             wallPos.push_back(j);
     }
     return (wallPos);
@@ -112,7 +114,53 @@ std::vector<unsigned> generateAirBlocksPos(ECS::Vector2<unsigned> sizeMap)
 
 void setEntityComponentPosition(ECS::Entity &entity, ECS::Point pos)
 {
-    reinterpret_cast<ECS::PositionComponent &>(entity.getComponentByName("Position")).pos = pos;
+    ECS::PositionComponent &posComp = reinterpret_cast<ECS::PositionComponent &>(entity.getComponentByName("Position"));
+    posComp.pos = pos;
+}
+
+void setEntityDropperComponentInBrick(ECS::Entity &brick, double randNum, double brickBonusRatio, std::map<std::string, ECS::NumericValue> &ratiosBonus)
+{
+    ECS::EntityDropperComponent &entityDropper = reinterpret_cast<ECS::EntityDropperComponent &>(brick.getComponentByName("EntityDropper"));
+    double stacker = 0;
+    double tmp = 0;
+
+    if (randNum >= brickBonusRatio)
+        return;
+    tmp = (double)ratiosBonus["Health"] / 100. * brickBonusRatio;
+    if (randNum < tmp + stacker) {
+        entityDropper.items.emplace_back("DroppedBonusHealth");
+        return;
+    }
+    stacker += tmp;
+    tmp = (double)ratiosBonus["Speed"] / 100. * brickBonusRatio;
+    if (randNum < tmp + stacker) {
+        entityDropper.items.emplace_back("DroppedBonusSpeed");
+        return;
+    }
+    stacker += tmp;
+    tmp = (double)ratiosBonus["Bomb"] / 100. * brickBonusRatio;
+    if (randNum < tmp + stacker) {
+        entityDropper.items.emplace_back("DroppedBonusBomb");
+        return;
+    }
+    stacker += tmp;
+    tmp = (double)ratiosBonus["Kick"] / 100. * brickBonusRatio;
+    if (randNum < tmp + stacker) {
+        entityDropper.items.emplace_back("DroppedBonusKick");
+        return;
+    }
+    stacker += tmp;
+    tmp = (double)ratiosBonus["Hardness"] / 100. * brickBonusRatio;
+    if (randNum < tmp + stacker) {
+        entityDropper.items.emplace_back("DroppedBonusHardness");
+        return;
+    }
+    stacker += tmp;
+    tmp = (double)ratiosBonus["Range"] / 100. * brickBonusRatio;
+    if (randNum < tmp + stacker) {
+        entityDropper.items.emplace_back("DroppedBonusRange");
+        return;
+    }
 }
 
 void Map::Map::setArenaWallAround(ECS::Vector2<unsigned> sizeMap)
@@ -127,17 +175,18 @@ void Map::Map::setArenaWallAround(ECS::Vector2<unsigned> sizeMap)
     }
 }
 
-void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
+void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::map<std::string, ECS::NumericValue> ratiosBonus)
 {
     std::vector<unsigned> airBlocksPos = generateAirBlocksPos(sizeMap);
     std::vector<unsigned> wallBlocksPos = generateWallBlocksPos(sizeMap);
     std::random_device rand_device;
-    unsigned int randNum;
+    double randNum;
     ECS::Point position;
 
     if (sizeMap.x < 4 || sizeMap.y < 4)
         throw MapTooSmallException("Map is too small in x or in y (< 4).");
     setEntityComponentPosition(this->_core.makeEntity("Player"), {TILESIZE / 16., TILESIZE / 16.});
+    setEntityComponentPosition(this->_core.makeEntity("Bomb"), {(double)((sizeMap.x - 1) * TILESIZE) + TILESIZE / 16. , (double)((sizeMap.y - 1) * TILESIZE) + TILESIZE / 16.});
     setArenaWallAround(sizeMap);
     for (int i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)
@@ -149,9 +198,12 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio)
                 wallBlocksPos.erase(wallBlocksPos.begin());
             } else {
                 randNum = rand_device() % 100;
-                if (randNum < brickRatio)
-                    //setEntityComponentPosition(this->_core.makeEntity("Brick"), position);
-                    false;
+                if (randNum < brickRatio) {
+                    ECS::Entity &brick = this->_core.makeEntity("Brick");
+                    setEntityComponentPosition(brick, position);
+                    if (!ratiosBonus.empty() && (unsigned)ratiosBonus["Bonus"] > 0)
+                        setEntityDropperComponentInBrick(brick, randNum, (double)(ratiosBonus["Bonus"]) / 100. * brickRatio, ratiosBonus);
+                }
             }
         }
     }

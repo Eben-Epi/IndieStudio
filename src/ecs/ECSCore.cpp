@@ -112,8 +112,17 @@ namespace ECS
 			}
 		}
 		for (auto it = this->_entities.begin(); it < this->_entities.end(); it++)
-			while ((*it)->isDestroyed())
+			while ((*it)->isDestroyed()) {
+				for (auto &comp : (*it)->getComponents())
+					this->_components[comp->getName()].erase(
+						std::find(
+							this->_components[comp->getName()].begin(),
+							this->_components[comp->getName()].end(),
+							&**it
+						)
+					);
 				this->_entities.erase(it);
+			}
 	}
 
 	void ECSCore::reset()

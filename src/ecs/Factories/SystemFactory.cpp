@@ -28,6 +28,7 @@
 #include "../Systems/PowerUpPickedSystem.hpp"
 #include "../Systems/PowerUpSystem.hpp"
 #include "../Systems/UltimeSystem.hpp"
+#include "../Systems/EntityDropperSystem.hpp"
 
 namespace ECS
 {
@@ -45,12 +46,14 @@ namespace ECS
 		{"Controllable", [](ECS::ECSCore &core) { return new ControllableSystem(core); }},
 		{"Curse", [](ECS::ECSCore &core) { return new CurseSystem(core); }},
 		{"Displayable", [](ECS::ECSCore &core) { return new DisplayableSystem(core); }},
+		{"EntityDropper", [](ECS::ECSCore &core) { return new EntityDropperSystem(core); }},
 		{"Ephemeral", [](ECS::ECSCore &core) { return new EphemeralSystem(core); }},
 		{"Explode", [](ECS::ECSCore &core) { return new ExplodeSystem(core); }},
 		{"Health", [](ECS::ECSCore &core) { return new HealthSystem(core); }},
 		{"Kickable", [](ECS::ECSCore &core) { return new KickableSystem(core); }},
 		{"Kicker", [](ECS::ECSCore &core) { return new KickerSystem(core); }},
 		{"Movable", [](ECS::ECSCore &core) { return new MovableSystem(core); }},
+		{"OnCollisionDamageDealer", [](ECS::ECSCore &core) { return new OnCollisionDamageDealerSystem(core); }},
 		{"Pickable", [](ECS::ECSCore &core) { return new PickableSystem(core); }},
 		{"Picker", [](ECS::ECSCore &core) { return new PickerSystem(core); }},
 		{"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }},

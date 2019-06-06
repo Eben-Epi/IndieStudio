@@ -8,6 +8,7 @@
 #ifndef ENTITYDROPPERCOMPONENT_HPP
 #define ENTITYDROPPERCOMPONENT_HPP
 
+#include <iostream>
 #include "../Component.hpp"
 #include "../Entity.hpp"
 
@@ -18,6 +19,8 @@ namespace ECS
         public:
             std::vector<std::string> items;
             EntityDropperComponent();
+            EntityDropperComponent(const Ressources &ressources, std::istream &stream);
+            std::ostream &serialize(std::ostream &stream) const override;
     };
 }
 

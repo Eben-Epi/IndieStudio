@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** ECS
 ** File description:
-** ItemDropperSystem.hpp
+** EntityDropperSystem.hpp
 */
 
 #ifndef BOMBERMAN_ITEMDROPPERSYSTEM_HPP
