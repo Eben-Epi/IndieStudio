@@ -93,6 +93,8 @@ namespace Sound
 		this->playSound(id);
 		if (this->_background) {
 			this->pauseSound(*this->_background);
+			if (this->_bgThread.joinable())
+				this->_bgThread.detach();
 			this->_bgThread = std::thread{[this, id]() {
 				while (this->getState(id) == Playing)
 					std::this_thread::sleep_for(std::chrono::milliseconds(100));

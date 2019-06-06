@@ -28,6 +28,7 @@
 #include "../Systems/PowerUpPickedSystem.hpp"
 #include "../Systems/PowerUpSystem.hpp"
 #include "../Systems/UltimeSystem.hpp"
+#include "../Systems/UltInvincibilitySystem.hpp"
 
 namespace ECS
 {
@@ -56,7 +57,8 @@ namespace ECS
 		{"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }},
 		{"PowerUp", [](ECS::ECSCore &core) { return new PowerUpSystem(core); }},
 		{"PowerUpPicked", [](ECS::ECSCore &core) { return new PowerUpPickedSystem(core); }},
-		{"Ultime", [](ECS::ECSCore &core) { return new UltimeSystem(core); }}
+		{"Ultime", [](ECS::ECSCore &core) { return new UltimeSystem(core); }},
+		{"UltInvincibility", [](ECS::ECSCore &core) { return new UltInvincibilitySystem(core); }}
 	};
 
 	std::unique_ptr<System> SystemFactory::build(std::string &&name) const

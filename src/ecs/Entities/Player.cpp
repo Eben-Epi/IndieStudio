@@ -17,12 +17,14 @@
 #include "../../config.hpp"
 #include "../Components/CurseComponent.hpp"
 #include "../Components/UltimeComponent.hpp"
+#include "../Components/UltInvincibilityComponent.hpp"
 
 ECS::Player::Player(unsigned id, Ressources &ressources) :
 	Entity(id, "Player", {
 		new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
 		new HealthComponent(1),
 		new UltimeComponent(ressources.soundSystem),
+		new UltInvincibilityComponent(),
 		new CurseComponent(),
 		new MovableComponent(2.5),
 		new CollisionComponent(0),

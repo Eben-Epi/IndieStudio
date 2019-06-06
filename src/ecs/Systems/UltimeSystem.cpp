@@ -19,7 +19,7 @@ void ECS::UltimeSystem::updateEntity(ECS::Entity &entity)
     auto &uc = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
 
     if (uc.charge < 10000) {
-        uc.charge += 60 / FRAME_RATE;
+        uc.charge += ULTIME_POINT_PER_FRAME;
 
         if (uc.charge >= 10000) {
             uc.charge = 10000;

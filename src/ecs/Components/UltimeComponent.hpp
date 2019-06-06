@@ -15,6 +15,7 @@ namespace ECS {
     class UltimeComponent : public Component {
     public:
         unsigned charge;
+        bool castUlt;
         Sound::SoundSystem &soundSystem;
 
         UltimeComponent(Sound::SoundSystem &soundSystem);

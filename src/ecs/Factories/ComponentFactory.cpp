@@ -21,6 +21,7 @@
 #include "../Exceptions.hpp"
 #include "../Components/CurseComponent.hpp"
 #include "../Components/UltimeComponent.hpp"
+#include "../Components/UltInvincibilityComponent.hpp"
 
 namespace ECS 
 {
@@ -38,7 +39,8 @@ namespace ECS
 		{"Position", [](Ressources &ressources, std::istream &stream) { return new PositionComponent(ressources, stream); }},
 		{"Blocked", [](Ressources &ressources, std::istream &stream) { return new BlockedComponent(ressources, stream); }},
 		{"Collider", [](Ressources &ressources, std::istream &stream) { return new ColliderComponent(ressources, stream); }},
-		{"Ultime", [](Ressources &ressources, std::istream &stream) { return new UltimeComponent(ressources, stream); }}
+		{"Ultime", [](Ressources &ressources, std::istream &stream) { return new UltimeComponent(ressources, stream); }},
+		{"UltimeInvincibility", [](Ressources &ressources, std::istream &stream) { return new UltInvincibilityComponent(ressources, stream); }}
 	};
 
 	ComponentFactory::ComponentFactory(ECS::Ressources &ressources) :

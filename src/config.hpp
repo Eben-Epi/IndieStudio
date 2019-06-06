@@ -17,7 +17,8 @@
 
 const std::vector<std::string> sound_to_load = {
     "battle_music",
-    "ultimate_ready"
+    "ultimate_ready",
+    "starman"
 };
 
 #endif //BOMBERMAN_CONGIF_HPP

@@ -166,7 +166,7 @@ add_executable(
 	src/input/error/Errors.hpp
 	src/ecs/Systems/OnCollisionDamageDealerSystem.cpp
 	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp
-		src/ecs/Components/UltimeComponent.cpp src/ecs/Components/UltimeComponent.hpp src/ecs/Systems/UltimeSystem.cpp src/ecs/Systems/UltimeSystem.hpp src/sound/SoundSystem.cpp src/sound/SoundSystem.hpp src/sound/Exception.hpp)
+		src/ecs/Components/UltimeComponent.cpp src/ecs/Components/UltimeComponent.hpp src/ecs/Systems/UltimeSystem.cpp src/ecs/Systems/UltimeSystem.hpp src/sound/SoundSystem.cpp src/sound/SoundSystem.hpp src/sound/Exception.hpp src/ecs/Components/UltInvincibilityComponent.cpp src/ecs/Components/UltInvincibilityComponent.hpp src/ecs/Systems/UltInvincibilitySystem.cpp src/ecs/Systems/UltInvincibilitySystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 
