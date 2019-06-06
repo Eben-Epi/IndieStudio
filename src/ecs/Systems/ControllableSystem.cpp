@@ -18,7 +18,7 @@ namespace ECS
 	ControllableSystem::ControllableSystem(ECS::ECSCore &core) :
 		System("Controllable", core)
 	{
-		this->_dependencies = {"Movable", "Position"};
+		this->_dependencies = {"Movable", "Position", "BombDropper"};
 	}
 
 	void ControllableSystem::updateEntity(ECS::Entity &entity)
