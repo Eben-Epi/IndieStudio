@@ -61,35 +61,33 @@ int main()
 {
 	MyEventReceiver receiver;
 
-	irr::IrrlichtDevice *device = createDevice(irr::video::EDT_SOFTWARE, irr::core::dimension2d<irr::u32>(640, 480), 16, false, false, false, &receiver);
-
-	if (!device)
-		return 1;
+//	if (!device)
+//		return 1;
 
 //	device->setWindowCaption(L"Irrlicht Engine");
 
-	irr::video::IVideoDriver *driver = device->getVideoDriver();
-	irr::scene::ISceneManager *smgr = device->getSceneManager();
-	irr::gui::IGUIEnvironment* guienv = device->getGUIEnvironment();
+//	irr::video::IVideoDriver *driver = device->getVideoDriver();
+//	irr::scene::ISceneManager *smgr = device->getSceneManager();
+//	irr::gui::IGUIEnvironment* guienv = device->getGUIEnvironment();
+//
+//	guienv->addStaticText(L"Dab très fort sur l'Irrlicht Engine", irr::core::rect<irr::s32>(10, 10, 200, 25), true);
+//
+//	irr::scene::IAnimatedMesh *mesh = smgr->getMesh("media/sydney.md2");
+//	if (!mesh) {
+//		device->drop();
+//		return 1;
+//	}
+//	irr::scene::IAnimatedMeshSceneNode *node = smgr->addAnimatedMeshSceneNode(mesh);
 
-	guienv->addStaticText(L"Dab très fort sur l'Irrlicht Engine", irr::core::rect<irr::s32>(10, 10, 200, 25), true);
-
-	irr::scene::IAnimatedMesh *mesh = smgr->getMesh("media/sydney.md2");
-	if (!mesh) {
-		device->drop();
-		return 1;
-	}
-	irr::scene::IAnimatedMeshSceneNode *node = smgr->addAnimatedMeshSceneNode(mesh);
-
-	if (node) {
-		node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-		node->setMD2Animation(irr::scene::EMAT_STAND);
-		node->setMaterialTexture( 0, driver->getTexture("media/sydney.bmp") );
-	}
-
-	smgr->addCameraSceneNode(0, irr::core::vector3df(0, 60, -40), irr::core::vector3df(0, 15, 0));
-
-	irr::scene::EMD2_ANIMATION_TYPE tmp_anim = irr::scene::EMAT_STAND;
+//	if (node) {
+//		node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+//		node->setMD2Animation(irr::scene::EMAT_STAND);
+//		node->setMaterialTexture( 0, driver->getTexture("media/sydney.bmp") );
+//	}
+//
+//	smgr->addCameraSceneNode(0, irr::core::vector3df(0, 60, -40), irr::core::vector3df(0, 15, 0));
+//
+//	irr::scene::EMD2_ANIMATION_TYPE tmp_anim = irr::scene::EMAT_STAND;
 	irr::core::vector3df tmp_direction(0, 0, 0);
 
 	std::vector<bool> anim_direction = {false, false, false, false, false, false};

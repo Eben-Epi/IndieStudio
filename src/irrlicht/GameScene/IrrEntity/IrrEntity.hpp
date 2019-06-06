@@ -17,13 +17,14 @@ namespace Irrlicht {
     public:
         IrrEntity(const std::string &name, unsigned id, irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255), std::string texturePath = "");
 
-        //PROPERTIES
-        std::string _meshPath;
+    //PROPERTIES
         unsigned _id;
         ECS::Point _pos;
         Animations _anim;
         ECS::Vector2<unsigned> _size;
         irr::video::SColor _defaultColor;
+    private:
+        std::string _meshPath;
         irr::scene::IAnimatedMesh* _mesh;
         irr::scene::IAnimatedMeshSceneNode* _node;
         irr::scene::ISceneNode* _parent;

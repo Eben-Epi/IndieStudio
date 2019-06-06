@@ -2,8 +2,8 @@
 // Created by Eben on 05/06/2019.
 //
 
-#ifndef INDIE_GAMEENGINE_HPP
-#define INDIE_GAMEENGINE_HPP
+#ifndef INDIE_GAMESCENE_HPP
+#define INDIE_GAMESCENE_HPP
 
 #include <string>
 #include <irrlicht/Keycodes.h>
@@ -11,17 +11,21 @@
 #include <irrlicht/IVideoDriver.h>
 #include <irrlicht/irrlicht.h>
 #include <iostream>
-#include "../Animations.hpp"
 #include "../../ecs/Entity.hpp"
 #include "../../ecs/data/Vector2.hpp"
 #include "IrrEntity/IrrEntity.hpp"
 
 namespace Irrlicht {
 
-    class GameEngine {
+    class Screen;
+
+    class GameScene {
     public:
-        GameEngine();
-        ~GameEngine() = default;
+        GameScene(Screen &screen, std::string name, unsigned id);
+        ~GameScene() = default;
+
+
+        void update();
 
         unsigned int registerEntity(const std::string &name);
         void deleteEntity(unsigned id);
@@ -33,10 +37,16 @@ namespace Irrlicht {
         float getJoystickAxisPosition(unsigned id, unsigned axis);
         // TODO void createMesh() or cube;
 
+        const std::string sceneName;
+        const unsigned id;
+    private:
         std::vector<IrrEntity> _entities;
-        unsigned _entity_id;
+        unsigned _entities_id;
+        Screen &_window;
+        irr::scene::ISceneManager *_smgr;
+        irr::gui::IGUIEnvironment *_guienv;
     };
 }
 
 
-#endif //INDIE_GAMEENGINE_HPP
+#endif //INDIE_GAMESCENE_HPP

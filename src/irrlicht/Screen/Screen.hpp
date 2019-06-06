@@ -48,8 +48,8 @@ namespace Irrlicht
         //PROPERTIES
         irr::IrrlichtDevice* _device;
         irr::video::IVideoDriver* _driver;
-        irr::gui::IGUIEnvironment* _guienv;
-        irr::scene::ISceneManager* _smgr;
+        irr::gui::IGUIEnvironment* _guienv; //TODO GETTER SETTER
+        irr::scene::ISceneManager* _smgr; //TODO GETTER SETTER
 
         //void drawRect(ECS::Point pos, ECS::Vector2<unsigned> size, Color color = 0xFFFFFF, bool filled = false);
 

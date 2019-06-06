@@ -172,7 +172,8 @@ add_executable(
 	src/irrlicht/GameScene/GameScene.hpp
 	src/irrlicht/GameScene/IrrEntity/IrrEntity.cpp
 	src/irrlicht/GameScene/IrrEntity/IrrEntity.hpp
-)
+	src/irrlicht/EventReceiver/EventReceiver.cpp
+	src/irrlicht/EventReceiver/EventReceiver.hpp)
 
 find_package(Irrlicht REQUIRED)
 

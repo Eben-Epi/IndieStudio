@@ -1,14 +1,22 @@
+#include <utility>
+
 //
 // Created by Eben on 05/06/2019.
 //
 
-#include "GameEngine.hpp"
+#include "GameScene.hpp"
+#include "../Screen/Screen.hpp"
 
-Irrlicht::GameEngine::GameEngine() {
-    this->_entity_id = 0;
+Irrlicht::GameScene::GameScene(Screen &window, std::string name, unsigned id) :
+    _window(window),
+    sceneName(std::move(name)),
+    id(id)
+{
+    this->_guienv = nullptr;
+    this->_smgr = nullptr;
 }
 
-bool Irrlicht::GameEngine::isKeyPressed(irr::EKEY_CODE key) //a changer
+bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key) //a changer
 {
 //    switch (key) {
 //        case irr::KEY_KEY_Z:
@@ -22,36 +30,37 @@ bool Irrlicht::GameEngine::isKeyPressed(irr::EKEY_CODE key) //a changer
 //        case irr::KEY_SPACE:
 //            return sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
 //        default:
-            return false;
+//            return false;
 //    }
+    return (true);
 }
 
-unsigned int Irrlicht::GameEngine::registerEntity(const std::string &name)
+unsigned int Irrlicht::GameScene::registerEntity(const std::string &name)
 {
-    _entity_id++;
-    this->_entities.emplace_back(name, _entity_id);
-    return(_entity_id);
+    _entities_id++;
+    this->_entities.emplace_back(name, _entities_id);
+    return(_entities_id);
 }
 
-void Irrlicht::GameEngine::deleteEntity(unsigned id) {
+void Irrlicht::GameScene::deleteEntity(unsigned id) {
     for (auto it = this->_entities.begin(); it < this->_entities.end(); it++)//delete a special cube here
         if (it->_id == id)
             this->_entities.erase(it);
 }
 
-void Irrlicht::GameEngine::setAnimation(unsigned entity_id, Animations anim) {
+void Irrlicht::GameScene::setAnimation(unsigned entity_id, Animations anim) {
     for (auto &ent : this->_entities)
         if (ent._id == entity_id)
             ent._anim = anim;
 }
 
-void Irrlicht::GameEngine::setPosition(unsigned entity, float x, float y) {
+void Irrlicht::GameScene::setPosition(unsigned entity, float x, float y) {
         for (auto &ent : this->_entities)
             if (ent._id == entity)
                 ent._pos = {x, y};
 }
 
-bool Irrlicht::GameEngine::areColliding(unsigned entity1, unsigned entity2) {
+bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2) {
         std::vector<IrrEntity *> vec;
 
         for (auto &ent : this->_entities)
@@ -69,12 +78,15 @@ bool Irrlicht::GameEngine::areColliding(unsigned entity1, unsigned entity2) {
         );
 }
 
-bool Irrlicht::GameEngine::isJoystickButtonPressed(unsigned id, unsigned button)
+bool Irrlicht::GameScene::isJoystickButtonPressed(unsigned id, unsigned button)
 {
     return (false); //TODO Joystick::isButtonPressed(id, button);
 }
 
-float Irrlicht::GameEngine::getJoystickAxisPosition(unsigned id, unsigned axis)
+float Irrlicht::GameScene::getJoystickAxisPosition(unsigned id, unsigned axis)
 {
     return (false); //TODO sf::Joystick::getAxisPosition(id, static_cast<sf::Joystick::Axis>(axis));
+}
+
+void Irrlicht::GameScene::update() {
 }

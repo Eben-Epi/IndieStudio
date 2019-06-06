@@ -9,7 +9,7 @@
 #define KEYBOARD_HPP
 
 #include "Input.hpp"
-#include "../../Screen/GameScenes/GameScene.hpp"
+#include "../../GameScene/GameScene.hpp"
 
 namespace Irrlicht {
     class Keyboard : public Input::Input {
