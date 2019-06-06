@@ -29,6 +29,7 @@
 #include "../Systems/PowerUpSystem.hpp"
 #include "../Systems/UltimeSystem.hpp"
 #include "../Systems/EntityDropperSystem.hpp"
+#include "../Systems/MortalSystem.hpp"
 
 namespace ECS
 {
@@ -59,7 +60,8 @@ namespace ECS
 		{"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }},
 		{"PowerUp", [](ECS::ECSCore &core) { return new PowerUpSystem(core); }},
 		{"PowerUpPicked", [](ECS::ECSCore &core) { return new PowerUpPickedSystem(core); }},
-		{"Ultime", [](ECS::ECSCore &core) { return new UltimeSystem(core); }}
+		{"Ultime", [](ECS::ECSCore &core) { return new UltimeSystem(core); }},
+		{"Mortal", [](ECS::ECSCore &core) { return new MortalSystem(core); }}
 	};
 
 	std::unique_ptr<System> SystemFactory::build(std::string &&name) const

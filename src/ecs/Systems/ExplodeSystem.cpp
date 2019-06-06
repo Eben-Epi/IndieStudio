@@ -12,6 +12,7 @@
 #include "../ECSCore.hpp"
 #include "../../config.hpp"
 #include "../Components/ColliderComponent.hpp"
+#include "../Components/DisplayableComponent.hpp"
 
 ECS::ExplodeSystem::ExplodeSystem(ECS::ECSCore &core) :
     System("Explode", core)
@@ -100,10 +101,14 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
         Entity &horizontalEF = this->_core.makeEntity("ExplosionFrame");
         Entity &verticalEF = this->_core.makeEntity("ExplosionFrame");
         PositionComponent &efHPos = reinterpret_cast<ECS::PositionComponent &>(horizontalEF.getComponentByName("Position"));
+        auto &dc = reinterpret_cast<ECS::DisplayableComponent &>(horizontalEF.getComponentByName("Displayable"));
         efHPos.pos = posAndSize[0];
+        dc.screen.setPosition(dc.entityId, efHPos.pos.x, efHPos.pos.y);
         efHPos.size = posAndSize[1];
         PositionComponent &efVPos = reinterpret_cast<ECS::PositionComponent &>(verticalEF.getComponentByName("Position"));
+        auto &dcv = reinterpret_cast<ECS::DisplayableComponent &>(horizontalEF.getComponentByName("Displayable"));
         efVPos.pos = posAndSize[2];
+        dcv.screen.setPosition(dcv.entityId, efVPos.pos.x, efVPos.pos.y);
         efVPos.size = posAndSize[3];
         exc.exploded = true;
     }
