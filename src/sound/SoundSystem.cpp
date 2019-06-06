@@ -113,16 +113,25 @@ namespace Sound
 	{
 		try {
 			switch (this->_loadedSounds.at(id).sound.getStatus()) {
-			case sf::Sound::Stopped:
-				return ::Sound::Stopped;
-			case sf::Sound::Playing:
-				return ::Sound::Playing;
-			case sf::Sound::Paused:
-				return ::Sound::Paused;
+				case sf::Sound::Stopped:
+					return ::Sound::Stopped;
+				case sf::Sound::Playing:
+					return ::Sound::Playing;
+				case sf::Sound::Paused:
+					return ::Sound::Paused;
 			}
 		} catch (std::out_of_range &) {
 			throw InvalidSoundIdentifierException("No sound loaded has id " + id);
 		}
 		return ::Sound::Paused;
+	}
+
+	void SoundSystem::setVolume(const std::string &id, float volume)
+	{
+		try {
+			this->_loadedSounds.at(id).sound.setVolume(volume);
+		} catch (std::out_of_range &) {
+			throw InvalidSoundIdentifierException("No sound loaded has id " + id);
+		}
 	}
 }

@@ -29,13 +29,14 @@ namespace Sound
 		SoundSystem() = default;
 		~SoundSystem();
 		void loadSound(const std::string &id);
-		void destroySound(const std::string &id);
 		void playSound(const std::string &id);
-		void pauseSound(const std::string &id);
 		void stopSound(const std::string &id);
-		SoundState getState(const std::string &id);
 		bool isLooping(const std::string &id);
+		void pauseSound(const std::string &id);
+		void destroySound(const std::string &id);
+		SoundState getState(const std::string &id);
 		void setBackgroundMusic(const std::string &id);
+		void setVolume(const std::string &id, float volume);
 		void setLoop(const std::string &id, bool loop = true);
 		void playSoundOverBackgroundMusic(const std::string &id);
 
