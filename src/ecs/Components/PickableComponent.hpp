@@ -19,7 +19,7 @@ namespace ECS
         public:
             Entity *pickedBy = nullptr;
             PickableComponent();
-            PickableComponent(const Ressources &ressources, std::istream &stream);
+            PickableComponent(Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS

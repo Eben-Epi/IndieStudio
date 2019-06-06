@@ -15,4 +15,9 @@
 
 #define FRAME_TIME 1 / FRAME_RATE
 
+const std::vector<std::string> sound_to_load = {
+    "battle_music",
+    "ultimate_ready"
+};
+
 #endif //BOMBERMAN_CONGIF_HPP

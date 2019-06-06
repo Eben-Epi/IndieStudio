@@ -24,24 +24,24 @@
 
 namespace ECS 
 {
-	std::map<std::string, std::function<Component *(const Ressources &ressources, std::istream &stream)>> ComponentFactory::_functions = {
-		{"BombDropper", [](const Ressources &ressources, std::istream &stream) { return new BombDropperComponent(ressources, stream); }},
-		{"Buffed", [](const Ressources &ressources, std::istream &stream) { return new BuffedComponent(ressources, stream); }},
-		{"Collision", [](const Ressources &ressources, std::istream &stream) { return new CollisionComponent(ressources, stream); }},
-		{"Curse", [](const Ressources &ressources, std::istream &stream) { return new CurseComponent(ressources, stream); }},
-		{"Controllable", [](const Ressources &ressources, std::istream &stream) { return new ControllableComponent(ressources, stream); }},
-		{"Displayable", [](const Ressources &ressources, std::istream &stream) { return new DisplayableComponent(ressources, stream); }},
-		{"Ephemeral", [](const Ressources &ressources, std::istream &stream) { return new EphemeralComponent(ressources, stream); }},
-		{"Health", [](const Ressources &ressources, std::istream &stream) { return new HealthComponent(ressources, stream); }},
-		{"Kickable", [](const Ressources &ressources, std::istream &stream) { return new KickableComponent(ressources, stream); }},
-		{"Movable", [](const Ressources &ressources, std::istream &stream) { return new MovableComponent(ressources, stream); }},
-		{"Position", [](const Ressources &ressources, std::istream &stream) { return new PositionComponent(ressources, stream); }},
-		{"Blocked", [](const Ressources &ressources, std::istream &stream) { return new BlockedComponent(ressources, stream); }},
-		{"Collider", [](const Ressources &ressources, std::istream &stream) { return new ColliderComponent(ressources, stream); }},
-		{"Ultime", [](const Ressources &ressources, std::istream &stream) { return new UltimeComponent(ressources, stream); }}
+	std::map<std::string, std::function<Component *(Ressources &ressources, std::istream &stream)>> ComponentFactory::_functions = {
+		{"BombDropper", [](Ressources &ressources, std::istream &stream) { return new BombDropperComponent(ressources, stream); }},
+		{"Buffed", [](Ressources &ressources, std::istream &stream) { return new BuffedComponent(ressources, stream); }},
+		{"Collision", [](Ressources &ressources, std::istream &stream) { return new CollisionComponent(ressources, stream); }},
+		{"Curse", [](Ressources &ressources, std::istream &stream) { return new CurseComponent(ressources, stream); }},
+		{"Controllable", [](Ressources &ressources, std::istream &stream) { return new ControllableComponent(ressources, stream); }},
+		{"Displayable", [](Ressources &ressources, std::istream &stream) { return new DisplayableComponent(ressources, stream); }},
+		{"Ephemeral", [](Ressources &ressources, std::istream &stream) { return new EphemeralComponent(ressources, stream); }},
+		{"Health", [](Ressources &ressources, std::istream &stream) { return new HealthComponent(ressources, stream); }},
+		{"Kickable", [](Ressources &ressources, std::istream &stream) { return new KickableComponent(ressources, stream); }},
+		{"Movable", [](Ressources &ressources, std::istream &stream) { return new MovableComponent(ressources, stream); }},
+		{"Position", [](Ressources &ressources, std::istream &stream) { return new PositionComponent(ressources, stream); }},
+		{"Blocked", [](Ressources &ressources, std::istream &stream) { return new BlockedComponent(ressources, stream); }},
+		{"Collider", [](Ressources &ressources, std::istream &stream) { return new ColliderComponent(ressources, stream); }},
+		{"Ultime", [](Ressources &ressources, std::istream &stream) { return new UltimeComponent(ressources, stream); }}
 	};
 
-	ComponentFactory::ComponentFactory(const ECS::Ressources &ressources) :
+	ComponentFactory::ComponentFactory(ECS::Ressources &ressources) :
 		_ressources(ressources)
 	{
 	}

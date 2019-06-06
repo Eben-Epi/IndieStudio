@@ -18,7 +18,7 @@ namespace ECS
 	public:
 		unsigned int timeLeft;
 		EphemeralComponent(unsigned int timeLeft);
-		EphemeralComponent(const Ressources &ressources, std::istream &stream);
+		EphemeralComponent(Ressources &ressources, std::istream &stream);
 		std::ostream &serialize(std::ostream &stream) const override;
 	};
 } // namespace ECS

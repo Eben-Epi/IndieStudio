@@ -15,9 +15,10 @@ namespace ECS {
     class UltimeComponent : public Component {
     public:
         unsigned charge;
+        Sound::SoundSystem &soundSystem;
 
-        UltimeComponent();
-        UltimeComponent(const Ressources &ressources, std::istream &stream);
+        UltimeComponent(Sound::SoundSystem &soundSystem);
+        UltimeComponent(Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
 
         bool ultimeIsReady();

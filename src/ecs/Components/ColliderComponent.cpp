@@ -21,7 +21,7 @@ std::ostream& ECS::ColliderComponent::serialize(std::ostream &stream) const
 	return stream << hardness << " EndOfComponent";
 }
 
-ECS::ColliderComponent::ColliderComponent(const ECS::Ressources &, std::istream &stream) :
+ECS::ColliderComponent::ColliderComponent(ECS::Ressources &, std::istream &stream) :
 	ColliderComponent(0)
 {
 	std::string terminator;

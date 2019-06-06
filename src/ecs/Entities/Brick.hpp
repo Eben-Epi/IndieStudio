@@ -16,7 +16,7 @@ namespace ECS
 {
 	class Brick : public Entity {
 	public:
-		explicit Brick(unsigned id, const Ressources &ressources);
+		explicit Brick(unsigned id, Ressources &ressources);
 	};
 }
 

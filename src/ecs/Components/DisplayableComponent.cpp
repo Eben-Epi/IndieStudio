@@ -13,7 +13,7 @@
 
 namespace ECS
 {
-	DisplayableComponent::DisplayableComponent(std::string &&spriteId, const Ressources &ressources) :
+	DisplayableComponent::DisplayableComponent(std::string &&spriteId, Ressources &ressources) :
 		Component("Displayable"),
 		screen(ressources.screen),
 		entityId(this->screen.registerEntity(spriteId)),
@@ -32,7 +32,7 @@ namespace ECS
 		return stream << spriteId << ' ' << animation << " EndOfComponent";
 	}
 
-	DisplayableComponent::DisplayableComponent(const ECS::Ressources &ressources, std::istream &stream) :
+	DisplayableComponent::DisplayableComponent(ECS::Ressources &ressources, std::istream &stream) :
 		Component("Displayable"),
 		screen(ressources.screen),
 		entityId(0),

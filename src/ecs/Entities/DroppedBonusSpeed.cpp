@@ -15,7 +15,7 @@
 #include "../Components/PickableComponent.hpp"
 #include "../Components/PowerUpPickedComponent.hpp"
 
-ECS::DroppedBonusSpeed::DroppedBonusSpeed(unsigned id, const Ressources &ressources) :
+ECS::DroppedBonusSpeed::DroppedBonusSpeed(unsigned id, Ressources &ressources) :
     Entity(id, "DroppedBonusSpeed", {
         new HealthComponent(1),
         new DisplayableComponent("DroppedBonusSpeed", ressources),

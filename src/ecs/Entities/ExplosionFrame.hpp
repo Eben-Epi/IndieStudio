@@ -14,7 +14,7 @@
 namespace ECS {
     class ExplosionFrame : public Entity {
     public :
-        explicit ExplosionFrame(unsigned id, const Ressources &ressources);
+        explicit ExplosionFrame(unsigned id, Ressources &ressources);
     };
 }
 

@@ -16,7 +16,7 @@
 #include "../Components/ExplodeComponent.hpp"
 #include "../Components/ColliderComponent.hpp"
 
-ECS::Bomb::Bomb(unsigned id, const Ressources &ressources) :
+ECS::Bomb::Bomb(unsigned id, Ressources &ressources) :
     Entity(id, "Bomb", {
         new HealthComponent(1),
         new ColliderComponent(2),

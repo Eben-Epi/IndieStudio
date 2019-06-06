@@ -64,7 +64,7 @@ namespace ECS
 		this->_destroy = true;
 	}
 
-	Entity::Entity(const ECS::Ressources &ressources, std::istream &stream) :
+	Entity::Entity(ECS::Ressources &ressources, std::istream &stream) :
 		_destroy(false),
 		_id(0),
 		_name("")

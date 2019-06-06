@@ -10,12 +10,12 @@
 #include "../ecs/Components/PositionComponent.hpp"
 #include "MapException.hpp"
 
-Map::Map::Map(const ECS::Ressources &ressources) : _core(ressources)
+Map::Map::Map(ECS::Ressources &ressources) : _core(ressources)
 {
 
 }
 
-Map::Map::Map(const ECS::Ressources &ressources, std::istream &stream) :
+Map::Map::Map(ECS::Ressources &ressources, std::istream &stream) :
     _core(ressources, stream)
 {
 }

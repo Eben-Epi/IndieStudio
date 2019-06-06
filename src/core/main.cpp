@@ -6,7 +6,7 @@
 #include "../input/Keyboard.hpp"
 #include "../ecs/Exceptions.hpp"
 
-Map::Map *loadMap(const ECS::Ressources &res, std::string path)
+Map::Map *loadMap(ECS::Ressources &res, std::string path)
 {
 	std::ifstream stream(path);
 
@@ -37,9 +37,14 @@ int main()
 			irr::KEY_KEY_A,
 		})
 	);
-	ECS::Ressources	res{screen, inputs};
+	ECS::Ressources	res{screen, inputs, {}};
 	Map::Map	*map = loadMap(res, "save.txt");
 
+	for (auto &sound_name : sound_to_load)
+		res.soundSystem.loadSound(sound_name);
+	res.soundSystem.setLoop("battle_music", true);
+
+	res.soundSystem.playSound("battle_music"); // tmp
 	while (!screen.isEnd()) {
 		map->update();
 		screen.display();

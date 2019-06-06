@@ -16,7 +16,7 @@ namespace ECS
 {
 	class Player : public Entity {
 	public:
-		explicit Player(unsigned id, const Ressources &ressources);
+		explicit Player(unsigned id, Ressources &ressources);
 	};
 }
 

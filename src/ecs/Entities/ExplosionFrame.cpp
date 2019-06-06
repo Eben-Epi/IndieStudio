@@ -15,7 +15,7 @@
 #include "../Components/CollisionComponent.hpp"
 #include "../Components/ColliderComponent.hpp"
 
-ECS::ExplosionFrame::ExplosionFrame(unsigned id, const Ressources &ressources) :
+ECS::ExplosionFrame::ExplosionFrame(unsigned id, Ressources &ressources) :
     Entity(id, "ExplosionFrame", {
         new HealthComponent(1),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),

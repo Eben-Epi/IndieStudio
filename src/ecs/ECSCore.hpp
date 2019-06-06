@@ -28,8 +28,8 @@ namespace ECS
 		std::map<std::string, std::vector<Entity *>>	_components;
 
 	public:
-		explicit ECSCore(const Ressources &ressources);
-		explicit ECSCore(const ECS::Ressources &ressources, std::istream &stream);
+		explicit ECSCore(Ressources &ressources);
+		explicit ECSCore(ECS::Ressources &ressources, std::istream &stream);
 		Entity &getEntityById(unsigned id) const;
 		std::vector<Entity *> getEntitiesByName(const std::string &name) const;
 		std::vector<Entity *> getEntitiesByComponent(const std::string &name) const;

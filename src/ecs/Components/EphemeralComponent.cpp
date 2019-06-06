@@ -22,7 +22,7 @@ namespace ECS
 		return stream << timeLeft << " EndOfComponent";
 	}
 
-	EphemeralComponent::EphemeralComponent(const ECS::Ressources &, std::istream &stream) :
+	EphemeralComponent::EphemeralComponent(ECS::Ressources &, std::istream &stream) :
 		EphemeralComponent(0)
 	{
 		std::string terminator;

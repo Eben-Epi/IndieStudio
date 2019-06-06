@@ -17,16 +17,16 @@
 
 namespace ECS
 {
-	EntityFactory::EntityFactory(const ECS::Ressources &ressources) :
+	EntityFactory::EntityFactory(ECS::Ressources &ressources) :
 		_ressources(ressources)
 	{
 	}
 
-	std::map<std::string, std::function<Entity *(const Ressources &ressources, unsigned id)>> EntityFactory::_functions = {
-		{"Brick", [](const Ressources &ressources, unsigned id) { return new Brick(id, ressources); }},
-		{"Wall", [](const Ressources &ressources, unsigned id) { return new Wall(id, ressources); }},
-		{"Player", [](const Ressources &ressources, unsigned id) { return new Player(id, ressources); }},
-		{"Bomb", [](const Ressources &ressources, unsigned id) { return new Bomb(id, ressources); }}};
+	std::map<std::string, std::function<Entity *(Ressources &ressources, unsigned id)>> EntityFactory::_functions = {
+		{"Brick", [](Ressources &ressources, unsigned id) { return new Brick(id, ressources); }},
+		{"Wall", [](Ressources &ressources, unsigned id) { return new Wall(id, ressources); }},
+		{"Player", [](Ressources &ressources, unsigned id) { return new Player(id, ressources); }},
+		{"Bomb", [](Ressources &ressources, unsigned id) { return new Bomb(id, ressources); }}};
 
 	std::unique_ptr<Entity> EntityFactory::build(const std::string &name, unsigned id) const
 	{

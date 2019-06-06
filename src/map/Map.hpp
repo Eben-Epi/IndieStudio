@@ -22,8 +22,8 @@ namespace Map {
         ECS::ECSCore _core;
 
     public:
-        Map(const ECS::Ressources &ressources);
-        Map(const ECS::Ressources &ressources, std::istream &stream);
+        Map(ECS::Ressources &ressources);
+        Map(ECS::Ressources &ressources, std::istream &stream);
         ~Map() = default;
         void update();
         void generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio);

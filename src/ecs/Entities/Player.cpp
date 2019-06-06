@@ -18,11 +18,11 @@
 #include "../Components/CurseComponent.hpp"
 #include "../Components/UltimeComponent.hpp"
 
-ECS::Player::Player(unsigned id, const Ressources &ressources) :
+ECS::Player::Player(unsigned id, Ressources &ressources) :
 	Entity(id, "Player", {
 		new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
 		new HealthComponent(1),
-		new UltimeComponent(),
+		new UltimeComponent(ressources.soundSystem),
 		new CurseComponent(),
 		new MovableComponent(2.5),
 		new CollisionComponent(0),

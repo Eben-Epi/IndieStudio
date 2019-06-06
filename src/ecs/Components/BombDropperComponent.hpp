@@ -23,7 +23,7 @@ namespace ECS
 		unsigned int range;
 
 		explicit BombDropperComponent(unsigned max = 1, float timeToExplode = 5, unsigned range = 1);
-		BombDropperComponent(const Ressources &ressources, std::istream &stream);
+		BombDropperComponent(Ressources &ressources, std::istream &stream);
 		std::ostream &serialize(std::ostream &stream) const override;
 	};
 } // namespace ECS

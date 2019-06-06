@@ -16,9 +16,9 @@
 namespace ECS
 {
 	struct Ressources {
-		Sound::SoundSystem                         &soundSystem;
 		Irrlicht::Irrlicht                         &screen;
 		std::vector<std::unique_ptr<Input::Input>> &inputs;
+		Sound::SoundSystem                         soundSystem;
 	};
 }
 
