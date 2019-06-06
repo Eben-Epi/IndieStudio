@@ -9,10 +9,12 @@
 #define BOMBERMAN_SOUNDSYSTEM_HPP
 
 
-#include <string>
 #include <map>
+#include <memory>
+#include <string>
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
+#include <thread>
 
 namespace Sound
 {
@@ -25,13 +27,17 @@ namespace Sound
 	class SoundSystem {
 	public:
 		SoundSystem() = default;
-		void loadSound(const std::string &name);
+		~SoundSystem();
+		void loadSound(const std::string &id);
 		void destroySound(const std::string &id);
 		void playSound(const std::string &id);
 		void pauseSound(const std::string &id);
 		void stopSound(const std::string &id);
-		void setLoop(const std::string &id, bool loop = true);
+		SoundState getState(const std::string &id);
 		bool isLooping(const std::string &id);
+		void setBackgroundMusic(const std::string &id);
+		void setLoop(const std::string &id, bool loop = true);
+		void playSoundOverBackgroundMusic(const std::string &id);
 
 	private:
 		struct Sound {
@@ -39,6 +45,8 @@ namespace Sound
 			sf::SoundBuffer buffer;
 		};
 
+		std::thread                  _bgThread;
+		std::unique_ptr<std::string> _background;
 		std::map<std::string, Sound> _loadedSounds;
 	};
 }
