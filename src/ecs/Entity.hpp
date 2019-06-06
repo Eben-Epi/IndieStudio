@@ -12,10 +12,11 @@
 #include <vector>
 #include <memory>
 #include "Component.hpp"
-#include "Ressources.hpp"
 
 namespace ECS
 {
+    struct Ressources;
+
 	class Entity {
 	private:
 		bool _destroy;

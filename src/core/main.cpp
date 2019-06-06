@@ -1,9 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include "irrlicht/Keycodes.h"
-#include "../irrlicht/Irrlicht.hpp"
+#include "../irrlicht/Screen/Screen.hpp"
 #include "../map/Map.hpp"
-#include "../input/Keyboard.hpp"
+#include "../irrlicht/GameEngine/Input/Keyboard.hpp"
 #include "../ecs/Exceptions.hpp"
 
 Map::Map *loadMap(const ECS::Ressources &res, std::string path)
@@ -25,10 +25,13 @@ Map::Map *loadMap(const ECS::Ressources &res, std::string path)
 
 int main()
 {
-	Irrlicht::Irrlicht			   screen;
+//    AllocConsole();
+//    freopen("CONOUT$", "w", stdout);
+	Irrlicht::Screen screen(640, 480);
+	Irrlicht::GameScene menu(screen);
 	std::vector<std::unique_ptr<Input::Input>> inputs;
 	inputs.emplace_back(
-		new Input::Keyboard(screen, {
+		new Irrlicht::Keyboard(menu, {
 			irr::KEY_KEY_Z,
 			irr::KEY_KEY_Q,
 			irr::KEY_KEY_S,
@@ -37,12 +40,14 @@ int main()
 			irr::KEY_KEY_A,
 		})
 	);
-	ECS::Ressources	res{screen, inputs};
+	ECS::Ressources	res{menu, inputs};
+	std::cout << "oui" << std::endl;
 	Map::Map	*map = loadMap(res, "save.txt");
+	std::cout << "non" << std::endl;
 
-	while (!screen.isEnd()) {
+	while (!menu._window._device->run()) {
 		map->update();
-		screen.display();
+		menu.update();
 	}
 	std::ofstream	stream("save.txt");
 	stream << *map << std::endl;

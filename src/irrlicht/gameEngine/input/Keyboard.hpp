@@ -9,23 +9,25 @@
 #define KEYBOARD_HPP
 
 #include "Input.hpp"
-#include "../../screen/gameScenes/gameScene.hpp"
+#include "../../Screen/gameScenes/GameScene.hpp"
 
-namespace Input
-{
-    class Keyboard : public Input
-    {
-        public:
-            Keyboard(Irrlicht::gameScene &, std::vector<irr::EKEY_CODE> &&);
-            ~Keyboard();
-            std::vector<Action> getActions();
-            void changeKey(Action, irr::EKEY_CODE);
+namespace Irrlicht {
+    class Keyboard : public Input::Input {
+    public:
+        Keyboard(GameScene &, std::vector<irr::EKEY_CODE> &&);
 
-        private:
-            Irrlicht::gameScene &_scene;
-            irr::SEvent *_event;
-            std::vector<irr::EKEY_CODE> _keys;
+        ~Keyboard();
+
+        std::vector<::Input::Action> getActions();
+
+        void changeKey(::Input::Action, irr::EKEY_CODE);
+
+    private:
+        GameScene &_scene;
+        irr::SEvent *_event;
+        std::vector<irr::EKEY_CODE> _keys;
     };
 }
+
 
 #endif

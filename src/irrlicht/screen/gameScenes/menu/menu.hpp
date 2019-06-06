@@ -6,7 +6,7 @@
 #define INDIE_MENU_HPP
 
 namespace Irrlicht {
-    class menu {
+    class Menu {
 
     };
 }

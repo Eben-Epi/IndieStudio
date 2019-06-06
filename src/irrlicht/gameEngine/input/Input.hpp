@@ -17,8 +17,7 @@
 #include <iostream>
 #include <vector>
 
-namespace Input
-{
+namespace Input {
     enum Action {
         ACTION_UP,
         ACTION_LEFT,
@@ -28,12 +27,12 @@ namespace Input
         ACTION_ULT,
         NB_OF_ACTIONS
     };
-    class Input
-    {
-        public:
-            virtual std::vector<Action> getActions() = 0;
 
-        private:
+    class Input {
+    public:
+        virtual std::vector<Action> getActions() = 0;
+
+    private:
     };
 }
 

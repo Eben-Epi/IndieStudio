@@ -11,9 +11,9 @@
 #pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
 
-#include "screen.hpp"
+#include "Screen.hpp"
 
-Irrlicht::screen::screen(int width, int height, int colorDepth, bool fullscreen, bool vsync) : _width(width), _height(height), _colorDepth(colorDepth), _fullscreen(fullscreen), _vsync(vsync) { //TODO FULLSCREEN, SET WINDOW SIZE AND TYPE, ENABLE VSYNC
+Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen, bool vsync) : _width(width), _height(height), _colorDepth(colorDepth), _fullscreen(fullscreen), _vsync(vsync) { //TODO FULLSCREEN, SET WINDOW SIZE AND TYPE, ENABLE VSYNC
     this->_driverType = irr::video::EDT_OPENGL;
     this->_device = irr::createDevice(_driverType, irr::core::dimension2d<irr::u32>(_width, _height), _colorDepth,
                                  _fullscreen, false, _vsync, nullptr);
@@ -22,7 +22,7 @@ Irrlicht::screen::screen(int width, int height, int colorDepth, bool fullscreen,
 }
 
 
-int Irrlicht::screen::display(irr::scene::ISceneManager *smgr, irr::gui::IGUIEnvironment *guienv) { //TODO COLOR SCENE
+void Irrlicht::Screen::display(irr::scene::ISceneManager *smgr, irr::gui::IGUIEnvironment *guienv) { //TODO COLOR SCENE
     int lastFPS = -1;
     if (this->_device->isWindowActive())
     {
@@ -47,10 +47,9 @@ int Irrlicht::screen::display(irr::scene::ISceneManager *smgr, irr::gui::IGUIEnv
         }
     } else
         this->_device->yield();
-    return (0);
 }
 
-bool Irrlicht::screen::setFullscreen(bool fullscreen) {
+bool Irrlicht::Screen::setFullscreen(bool fullscreen) {
     if (_fullscreen == fullscreen)
         return (false);
     this->_device->closeDevice();
@@ -63,7 +62,7 @@ bool Irrlicht::screen::setFullscreen(bool fullscreen) {
     return (true);
 }
 
-bool Irrlicht::screen::setWindowSize(int width, int height) {
+bool Irrlicht::Screen::setWindowSize(int width, int height) {
     if (_width == width && _height == height)
         return (false);
     this->_device->closeDevice();
@@ -77,7 +76,7 @@ bool Irrlicht::screen::setWindowSize(int width, int height) {
     return (true);
 }
 
-bool Irrlicht::screen::setVsync(bool vsync) {
+bool Irrlicht::Screen::setVsync(bool vsync) {
     if (_vsync == vsync)
         return (false);
     this->_device->closeDevice();

@@ -5,10 +5,10 @@
 #ifndef INDIE_GAME_HPP
 #define INDIE_GAME_HPP
 
-#include "../gameScene.hpp"
+#include "../GameScene.hpp"
 
 namespace Irrlicht {
-    class game : public gameScene {
+    class Game : public GameScene {
 
     };
 }

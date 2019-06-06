@@ -27,7 +27,7 @@ namespace ECS
         template<typename type>
         operator type()
         {
-            return this->value;
+            return static_cast<type>(this->value);
         }
     };
 

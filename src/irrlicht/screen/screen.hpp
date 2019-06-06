@@ -7,20 +7,24 @@
 
 #include <string>
 #include "../Animations.hpp"
+#include "irrlicht/irrlicht.h"
 #include "../../ecs/Entity.hpp"
 #include "../../ecs/data/Vector2.hpp"
+
 
 //#define TRANSFORM_COLOR_TO_SFML_COLOR(color) sf::Color(static_cast<sf::Uint8>(color >> 16), static_cast<sf::Uint8>(color >> 8), static_cast<sf::Uint8>(color))
 
 namespace Irrlicht
 {
-    class screen {
+    class GameScene;
+
+    class Screen {
     public:
-        screen(int width = 640, int height = 480, int colorDepth = 32, bool fullscreen = false, bool vsync = true);
-        ~screen() = default;
+        explicit Screen(int width = 640, int height = 480, int colorDepth = 32, bool fullscreen = false, bool vsync = true);
+        ~Screen() = default;
 
         //MEMBER FUNCTIONS
-        int display(irr::scene::ISceneManager *, irr::gui::IGUIEnvironment *);
+        void display(irr::scene::ISceneManager *, irr::gui::IGUIEnvironment *);
         bool setFullscreen(bool fullscreen);
         bool setVsync(bool vsync);
         bool setWindowSize(int width, int height);
@@ -37,11 +41,12 @@ namespace Irrlicht
         int _colorDepth;
         bool _fullscreen;
         bool _vsync;
+        std::vector<GameScene *> scenes;
         //unsigned _lastId;
 
         //void drawRect(ECS::Point pos, ECS::Vector2<unsigned> size, Color color = 0xFFFFFF, bool filled = false);
 
-};
+    };
 }
 
 

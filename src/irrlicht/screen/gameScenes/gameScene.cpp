@@ -2,21 +2,22 @@
 // Created by Eben on 05/06/2019.
 //
 
-#include "gameScene.hpp"
+#include "GameScene.hpp"
+#include "../Screen.hpp"
 
-Irrlicht::gameScene::gameScene(screen window) : _window(window) {
+Irrlicht::GameScene::GameScene(Screen &window) : _window(window) {
     this->_guienv = nullptr;
     this->_smgr = nullptr;
 }
 
-void Irrlicht::gameScene::update() {
+void Irrlicht::GameScene::update() {
     this->_window.display(this->_smgr, this->_guienv);
 }
 
-void Irrlicht::gameScene::addSmgr() {
+void Irrlicht::GameScene::addSmgr() {
     this->_smgr = this->_window._device->getSceneManager();
 }
 
-void Irrlicht::gameScene::addGuiENV() {
+void Irrlicht::GameScene::addGuiENV() {
     this->_guienv = this->_window._device->getGUIEnvironment();
 }

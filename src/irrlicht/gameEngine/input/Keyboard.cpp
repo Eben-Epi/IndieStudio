@@ -7,23 +7,24 @@
 
 #include "Keyboard.hpp"
 
-Input::Keyboard::Keyboard(Irrlicht::gameScene &scene, std::vector<irr::EKEY_CODE> &&keys) :
+Irrlicht::Keyboard::Keyboard(GameScene &scene, std::vector<irr::EKEY_CODE> &&keys) :
     _scene(scene),
     _keys(keys)
 {
-    if (keys.size() != NB_OF_ACTIONS)
-        throw KeyboardErrors();
+//    if (keys.size() != Input::NB_OF_ACTIONS)
+//        throw KeyboardErrors();
+//      TODO THROW INVALID ARG
 }
 
-Input::Keyboard::~Keyboard() {}
+Irrlicht::Keyboard::~Keyboard() {}
 
-std::vector<Input::Action> Input::Keyboard::getActions() {
-    std::vector<Action> actions;
+std::vector<Input::Action> Irrlicht::Keyboard::getActions() {
+    std::vector<::Input::Action> actions;
 
     for (unsigned i = 0; i < this->_keys.size(); i++)
         if (this->_scene._gameEngine.isKeyPressed(this->_keys[i]))
-            actions.push_back(static_cast<Action>(i));
+            actions.push_back(static_cast<::Input::Action>(i));
     return (actions);
 }
 
-void Input::Keyboard::changeKey(Action, irr::EKEY_CODE) {}
+void Irrlicht::Keyboard::changeKey(::Input::Action, irr::EKEY_CODE) {}

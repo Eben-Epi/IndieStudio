@@ -155,25 +155,25 @@ add_executable(
 	src/irrlicht/Animations.hpp
 	src/map/Map.hpp
 	src/map/Map.cpp
-	src/irrlicht/gameEngine/input/Controller.cpp
-	src/irrlicht/gameEngine/input/Controller.hpp
-	src/irrlicht/gameEngine/input/Input.hpp
-	src/irrlicht/gameEngine/input/Keyboard.cpp
-	src/irrlicht/gameEngine/input/Keyboard.hpp
-	src/irrlicht/gameEngine/input/error/Errors.cpp
-	src/irrlicht/gameEngine/input/error/Errors.hpp
-	src/irrlicht/screen/screen.cpp
-	src/irrlicht/screen/screen.hpp
-	src/irrlicht/screen/gameScenes/gameScene.cpp
-	src/irrlicht/screen/gameScenes/gameScene.hpp
-	src/irrlicht/gameEngine/gameEngine.cpp
-	src/irrlicht/gameEngine/gameEngine.hpp
-	src/irrlicht/gameEngine/irrEntity/irrEntity.cpp
-	src/irrlicht/gameEngine/irrEntity/irrEntity.hpp
-	src/irrlicht/screen/gameScenes/game/game.cpp
-	src/irrlicht/screen/gameScenes/game/game.hpp
-	src/irrlicht/screen/gameScenes/menu/menu.cpp
-	src/irrlicht/screen/gameScenes/menu/menu.hpp
+		src/irrlicht/GameEngine/Input/Controller.cpp
+		src/irrlicht/GameEngine/Input/Controller.hpp
+		src/irrlicht/GameEngine/Input/Input.hpp
+		src/irrlicht/GameEngine/Input/Keyboard.cpp
+		src/irrlicht/GameEngine/Input/Keyboard.hpp
+		src/irrlicht/GameEngine/Input/Error/Errors.cpp
+		src/irrlicht/GameEngine/Input/Error/Errors.hpp
+	src/irrlicht/Screen/Screen.cpp
+	src/irrlicht/Screen/Screen.hpp
+		src/irrlicht/Screen/GameScenes/GameScene.cpp
+		src/irrlicht/Screen/GameScenes/GameScene.hpp
+		src/irrlicht/GameEngine/GameEngine.cpp
+		src/irrlicht/GameEngine/GameEngine.hpp
+        src/irrlicht/GameEngine/irrEntity/IrrEntity.cpp
+        src/irrlicht/GameEngine/irrEntity/IrrEntity.hpp
+		src/irrlicht/Screen/GameScenes/Game/Game.cpp
+		src/irrlicht/Screen/GameScenes/Game/Game.hpp
+		src/irrlicht/Screen/GameScenes/Menu/Menu.cpp
+		src/irrlicht/Screen/GameScenes/Menu/Menu.hpp
 )
 
 find_package(Irrlicht REQUIRED)
@@ -181,8 +181,5 @@ find_package(Irrlicht REQUIRED)
 target_link_libraries(
 	bomberman
 	Irrlicht
-	sfml-graphics
-	sfml-window
-	sfml-system
 )
 

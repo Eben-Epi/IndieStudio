@@ -7,15 +7,17 @@
 
 
 #include <irrlicht/ISceneManager.h>
-#include "../screen.hpp"
-#include "../../gameEngine/gameEngine.hpp"
+#include "../../gameEngine/GameEngine.hpp"
 
 namespace Irrlicht {
-    class gameScene {
-    public:
-        explicit gameScene(screen);
 
-        ~gameScene() = default;
+    class Screen;
+
+    class GameScene {
+    public:
+        explicit GameScene(Screen &);
+
+        ~GameScene() = default;
 
         //MEMBER FUNCTION
         void update();
@@ -23,10 +25,10 @@ namespace Irrlicht {
         void addGuiENV();
 
         //PROPERTIES
-        screen &_window;
+        Screen &_window;
         irr::scene::ISceneManager *_smgr;
         irr::gui::IGUIEnvironment *_guienv;
-        gameEngine _gameEngine;
+        GameEngine _gameEngine;
     };
 }
 

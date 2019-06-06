@@ -13,12 +13,12 @@
 #include "../../../ecs/data/Vector2.hpp"
 
 namespace Irrlicht {
-    class irrEntity {
+    class IrrEntity {
     public:
-        irrEntity(const std::string &name, unsigned id, irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255), std::string texturePath = nullptr);
+        IrrEntity(const std::string &name, unsigned id, irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255), std::string texturePath = nullptr);
 
         //PROPERTIES
-        const std::string &_meshPath;
+        std::string _meshPath;
         unsigned _id;
         ECS::Point _pos;
         Animations _anim;

@@ -25,7 +25,7 @@ void ECS::CollisionSystem::updateEntity(ECS::Entity &entity)
 	auto &pc = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
 
 	col.entitiesCollided = {};
-	disp.screen.setPosition(disp.entityId, pc.pos.x, pc.pos.y);
+	disp.gameEngine.setPosition(disp.entityId, pc.pos.x, pc.pos.y);
 	for (auto &ent : this->_core.getEntitiesByComponent("Collider")) {
 		if (ent->getId() == entity.getId())
 			continue;
@@ -33,8 +33,8 @@ void ECS::CollisionSystem::updateEntity(ECS::Entity &entity)
 		auto &disp2 = reinterpret_cast<DisplayableComponent &>(ent->getComponentByName("Displayable"));
 		auto &pos = reinterpret_cast<PositionComponent &>(ent->getComponentByName("Position"));
 
-		disp2.screen.setPosition(disp2.entityId, pos.pos.x, pos.pos.y);
-		if (disp.screen.areColliding(disp.entityId, disp2.entityId))
+		disp2.gameEngine.setPosition(disp2.entityId, pos.pos.x, pos.pos.y);
+		if (disp.gameEngine.areColliding(disp.entityId, disp2.entityId))
 			col.entitiesCollided.push_back(&*ent);
 	}
 }
