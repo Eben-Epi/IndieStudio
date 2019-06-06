@@ -186,6 +186,7 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
     if (sizeMap.x < 4 || sizeMap.y < 4)
         throw MapTooSmallException("Map is too small in x or in y (< 4).");
     setEntityComponentPosition(this->_core.makeEntity("Player"), {TILESIZE / 16., TILESIZE / 16.});
+    setEntityComponentPosition(this->_core.makeEntity("Bomb"), {(double)((sizeMap.x - 1) * TILESIZE) + TILESIZE / 16. , (double)((sizeMap.y - 1) * TILESIZE) + TILESIZE / 16.});
     setArenaWallAround(sizeMap);
     for (int i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)

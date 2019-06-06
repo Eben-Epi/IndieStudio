@@ -23,7 +23,7 @@ namespace ECS
 
 		explicit DisplayableComponent(std::string &&striteId, const Ressources &ressources);
 		DisplayableComponent(const Ressources &ressources, std::istream &stream);
-		~DisplayableComponent();
+		~DisplayableComponent() override;
 		std::ostream &serialize(std::ostream &stream) const override;
 	};
 }
