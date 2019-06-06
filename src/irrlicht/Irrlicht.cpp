@@ -135,8 +135,8 @@ namespace Irrlicht
 			return sf::Keyboard::isKeyPressed(sf::Keyboard::S);
 		case irr::KEY_KEY_D:
 			return sf::Keyboard::isKeyPressed(sf::Keyboard::D);
-		case irr::KEY_SPACE:
-			return sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+		case irr::KEY_KEY_M:
+			return sf::Keyboard::isKeyPressed(sf::Keyboard::M);
 		default:
 			return false;
 		}

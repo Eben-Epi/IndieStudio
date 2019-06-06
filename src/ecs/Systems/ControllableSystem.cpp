@@ -11,6 +11,7 @@
 #include "../Components/MovableComponent.hpp"
 #include "../Components/ControllableComponent.hpp"
 #include "../Components/CurseComponent.hpp"
+#include "../Components/BombDropperComponent.hpp"
 
 namespace ECS
 {
@@ -25,6 +26,7 @@ namespace ECS
 		auto &mov = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
 		auto &pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
 		auto &in = reinterpret_cast<ControllableComponent &>(entity.getComponentByName("Controllable"));
+		auto &bombDropper = reinterpret_cast<BombDropperComponent &>(entity.getComponentByName("BombDropper"));
 		auto actions = in.input.getActions();
 		unsigned char newDir = 0;
 
@@ -35,6 +37,9 @@ namespace ECS
 			case Input::ACTION_LEFT:
 			case Input::ACTION_RIGHT:
 				newDir = 1U << action;
+				break;
+			case Input::ACTION_ACTION:
+				bombDropper.dropBomb = true;
 				break;
 			default:
 				break;

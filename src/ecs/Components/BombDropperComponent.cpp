@@ -15,7 +15,8 @@ namespace ECS
 		Component ("BombDropper"),
 		max(max),
 		timeToExplode(timeToExplode),
-		range(range)
+		range(range),
+		dropBomb(false)
 	{
 	}
 

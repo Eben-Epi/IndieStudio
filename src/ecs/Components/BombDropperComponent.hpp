@@ -21,6 +21,7 @@ namespace ECS
 		unsigned int max;
 		float timeToExplode;
 		unsigned int range;
+		bool dropBomb;
 
 		explicit BombDropperComponent(unsigned max = 1, float timeToExplode = 5, unsigned range = 1);
 		BombDropperComponent(const Ressources &ressources, std::istream &stream);

@@ -33,7 +33,7 @@ int main()
 			irr::KEY_KEY_Q,
 			irr::KEY_KEY_S,
 			irr::KEY_KEY_D,
-			irr::KEY_SPACE,
+			irr::KEY_KEY_M,
 			irr::KEY_KEY_A,
 		})
 	);
