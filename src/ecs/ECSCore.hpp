@@ -20,7 +20,7 @@ namespace ECS
 	class ECSCore {
 	private:
 		unsigned					_lastEntityId;
-		Ressources					_ressources;
+		Ressources					&_ressources;
 		SystemFactory					_systemFactory;
 		EntityFactory					_entityFactory;
 		std::vector<std::unique_ptr<System>>		_systems;

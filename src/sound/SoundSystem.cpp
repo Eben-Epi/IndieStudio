@@ -123,5 +123,6 @@ namespace Sound
 		} catch (std::out_of_range &) {
 			throw InvalidSoundIdentifierException("No sound loaded has id " + id);
 		}
+		return ::Sound::Paused;
 	}
 }

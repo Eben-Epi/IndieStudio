@@ -25,32 +25,37 @@ Map::Map *loadMap(ECS::Ressources &res, std::string path)
 
 int main()
 {
-	Irrlicht::Irrlicht			   screen;
-	std::vector<std::unique_ptr<Input::Input>> inputs;
-	inputs.emplace_back(
-		new Input::Keyboard(screen, {
-			irr::KEY_KEY_Z,
-			irr::KEY_KEY_Q,
-			irr::KEY_KEY_S,
-			irr::KEY_KEY_D,
-			irr::KEY_SPACE,
-			irr::KEY_KEY_A,
-		})
-	);
-	ECS::Ressources	res{screen, inputs, {}};
-	Map::Map	*map = loadMap(res, "save.txt");
+	try {
+		Irrlicht::Irrlicht screen;
+		std::vector<std::unique_ptr<Input::Input>> inputs;
+		inputs.emplace_back(
+			new Input::Keyboard(screen, {
+				irr::KEY_KEY_Z,
+				irr::KEY_KEY_Q,
+				irr::KEY_KEY_S,
+				irr::KEY_KEY_D,
+				irr::KEY_SPACE,
+				irr::KEY_KEY_A,
+			})
+		);
+		ECS::Ressources res{screen, inputs, {}};
+		Map::Map *map = loadMap(res, "save.txt");
 
-	for (auto &sound_name : sound_to_load)
-		res.soundSystem.loadSound(sound_name);
-	res.soundSystem.setLoop("battle_music", true);
+		for (auto &sound_name : sound_to_load)
+			res.soundSystem.loadSound(sound_name);
+		res.soundSystem.setLoop("battle_music", true);
 
-	res.soundSystem.playSound("battle_music"); // tmp
-	while (!screen.isEnd()) {
-		map->update();
-		screen.display();
+		res.soundSystem.playSound("battle_music"); // tmp
+		while (!screen.isEnd()) {
+			map->update();
+			screen.display();
+		}
+		std::ofstream stream("save.txt");
+		stream << *map << std::endl;
+		delete map;
+	} catch (std::exception &e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+		return EXIT_FAILURE;
 	}
-	std::ofstream	stream("save.txt");
-	stream << *map << std::endl;
-	delete map;
 	return EXIT_SUCCESS;
 }
