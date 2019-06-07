@@ -12,12 +12,12 @@
 #include "../ecs/Components/EntityDropperComponent.hpp"
 #include "../ecs/Components/PowerUpComponent.hpp"
 
-Map::Map::Map(const ECS::Ressources &ressources) : _core(ressources)
+Map::Map::Map(ECS::Ressources &ressources) : _core(ressources)
 {
 
 }
 
-Map::Map::Map(const ECS::Ressources &ressources, std::istream &stream) :
+Map::Map::Map(ECS::Ressources &ressources, std::istream &stream) :
     _core(ressources, stream)
 {
 }

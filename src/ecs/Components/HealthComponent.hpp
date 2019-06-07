@@ -21,7 +21,7 @@ namespace ECS
             int invunerabilityTimeLeft;
             bool takeDamage(int damage=1, unsigned invulnerability_given=FRAME_RATE);
             HealthComponent(unsigned int health, unsigned unvulnerability = 0);
-            HealthComponent(const Ressources &ressources, std::istream &stream);
+            HealthComponent(Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS

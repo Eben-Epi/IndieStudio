@@ -28,7 +28,7 @@ namespace ECS {
         CurseEffect effect;
         int timeLeft;
         CurseComponent();
-        CurseComponent(const Ressources &ressources, std::istream &stream);
+        CurseComponent(Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
     };
 }

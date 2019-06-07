@@ -20,7 +20,7 @@ namespace ECS
 	{
 	}
 
-	BombDropperComponent::BombDropperComponent(const ECS::Ressources &, std::istream &stream) :
+	BombDropperComponent::BombDropperComponent(ECS::Ressources &, std::istream &stream) :
 		BombDropperComponent(0, 0, 0)
 	{
 		std::string terminator;

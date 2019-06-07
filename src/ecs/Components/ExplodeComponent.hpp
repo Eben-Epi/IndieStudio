@@ -20,7 +20,7 @@ namespace ECS
             unsigned int strength;
             bool exploded = false;
             ExplodeComponent(unsigned int range, unsigned int strength);
-            ExplodeComponent(const Ressources &ressources, std::istream &stream);
+            ExplodeComponent(Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS

@@ -7,9 +7,10 @@
 #include "UltimeComponent.hpp"
 #include "../Exceptions.hpp"
 
-ECS::UltimeComponent::UltimeComponent():
+ECS::UltimeComponent::UltimeComponent(Sound::SoundSystem &soundSystem):
     Component("Ultime"),
-    charge(0)
+    charge(0),
+    soundSystem(soundSystem)
 {}
 
 std::ostream& ECS::UltimeComponent::serialize(std::ostream &stream) const
@@ -17,8 +18,9 @@ std::ostream& ECS::UltimeComponent::serialize(std::ostream &stream) const
     return stream << this->charge << " EndOfComponent";
 }
 
-ECS::UltimeComponent::UltimeComponent(const ECS::Ressources &ressources, std::istream &stream):
-    Component("Ultime")
+ECS::UltimeComponent::UltimeComponent(ECS::Ressources &ressources, std::istream &stream):
+    Component("Ultime"),
+    soundSystem(ressources.soundSystem)
 {
     std::string terminator;
     std::string ult_name;

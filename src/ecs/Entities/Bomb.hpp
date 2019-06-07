@@ -15,7 +15,7 @@ namespace ECS
 {
     class Bomb : public Entity {
     public:
-        explicit Bomb(unsigned id, const Ressources &ressources);
+        explicit Bomb(unsigned id, Ressources &ressources);
     };
 }
 

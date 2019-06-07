@@ -19,11 +19,11 @@ namespace ECS
 {
 	class EntityFactory {
 	private:
-		const Ressources &_ressources;
-		static std::map<std::string, std::function<Entity *(const Ressources &ressources, unsigned id)>> _functions;
+		Ressources &_ressources;
+		static std::map<std::string, std::function<Entity *(Ressources &ressources, unsigned id)>> _functions;
 
 	public:
-		explicit EntityFactory(const Ressources &ressources);
+		explicit EntityFactory(Ressources &ressources);
 
 		std::unique_ptr<Entity> build(const std::string &name, unsigned id) const;
 		std::vector<std::unique_ptr<Entity>> buildAll(unsigned startId) const;

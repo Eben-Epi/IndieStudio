@@ -16,7 +16,7 @@ ECS::CurseComponent::CurseComponent():
     timeLeft(-1)
 {}
 
-ECS::CurseComponent::CurseComponent(const ECS::Ressources &ressources, std::istream &stream):
+ECS::CurseComponent::CurseComponent(ECS::Ressources &ressources, std::istream &stream):
     CurseComponent()
 {
     unsigned tmp;

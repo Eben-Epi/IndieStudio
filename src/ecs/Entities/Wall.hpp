@@ -16,7 +16,7 @@ namespace ECS
 {
     class Wall : public Entity {
     public:
-        explicit Wall(unsigned id, const Ressources &ressources);
+        explicit Wall(unsigned id, Ressources &ressources);
     };
 }
 

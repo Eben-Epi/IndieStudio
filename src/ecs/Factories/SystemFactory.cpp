@@ -30,6 +30,7 @@
 #include "../Systems/UltimeSystem.hpp"
 #include "../Systems/EntityDropperSystem.hpp"
 #include "../Systems/MortalSystem.hpp"
+#include "../Systems/UltInvincibilitySystem.hpp"
 
 namespace ECS
 {
@@ -61,7 +62,8 @@ namespace ECS
 		{"PowerUp", [](ECS::ECSCore &core) { return new PowerUpSystem(core); }},
 		{"PowerUpPicked", [](ECS::ECSCore &core) { return new PowerUpPickedSystem(core); }},
 		{"Ultime", [](ECS::ECSCore &core) { return new UltimeSystem(core); }},
-		{"Mortal", [](ECS::ECSCore &core) { return new MortalSystem(core); }}
+		{"Mortal", [](ECS::ECSCore &core) { return new MortalSystem(core); }},
+		{"UltInvincibility", [](ECS::ECSCore &core) { return new UltInvincibilitySystem(core); }}
 	};
 
 	std::unique_ptr<System> SystemFactory::build(std::string &&name) const

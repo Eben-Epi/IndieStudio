@@ -11,7 +11,7 @@
 
 namespace ECS
 {
-	ECSCore::ECSCore(const ECS::Ressources &ressources) :
+	ECSCore::ECSCore(ECS::Ressources &ressources) :
 		_ressources(ressources),
 		_systemFactory(*this),
 		_entityFactory(ressources),
@@ -20,7 +20,7 @@ namespace ECS
 		this->_systems = this->_systemFactory.buildAll();
 	}
 
-	ECSCore::ECSCore(const ECS::Ressources &ressources, std::istream &stream) :
+	ECSCore::ECSCore(ECS::Ressources &ressources, std::istream &stream) :
 		ECSCore(ressources)
 	{
 		std::string value;

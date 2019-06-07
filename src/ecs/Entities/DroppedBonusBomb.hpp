@@ -16,7 +16,7 @@ namespace ECS
 {
     class DroppedBonusBomb : public Entity {
     public:
-        explicit DroppedBonusBomb(unsigned id, const Ressources &ressources);
+        explicit DroppedBonusBomb(unsigned id, Ressources &ressources);
     };
 }
 

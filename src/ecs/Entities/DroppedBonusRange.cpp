@@ -15,7 +15,7 @@
 #include "../Components/PickableComponent.hpp"
 #include "../Components/PowerUpPickedComponent.hpp"
 
-ECS::DroppedBonusRange::DroppedBonusRange(unsigned id, const Ressources &ressources) :
+ECS::DroppedBonusRange::DroppedBonusRange(unsigned id, Ressources &ressources) :
     Entity(id, "DroppedBonusRange", {
         new HealthComponent(1),
         new DisplayableComponent("DroppedBonusRange", ressources),

@@ -25,7 +25,7 @@ namespace ECS
 
 	public:
 		Entity(unsigned id, std::string &&name, std::vector<Component *> &&components);
-		Entity(const Ressources &ressources, std::istream &stream);
+		Entity(Ressources &ressources, std::istream &stream);
 		void destroy();
 		bool isDestroyed();
 		unsigned getId() const;

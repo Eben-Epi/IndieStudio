@@ -23,23 +23,23 @@
 
 namespace ECS
 {
-	EntityFactory::EntityFactory(const ECS::Ressources &ressources) :
+	EntityFactory::EntityFactory(ECS::Ressources &ressources) :
 		_ressources(ressources)
 	{
 	}
 
-	std::map<std::string, std::function<Entity *(const Ressources &ressources, unsigned id)>> EntityFactory::_functions = {
-		{"Bomb", [](const Ressources &ressources, unsigned id) { return new Bomb(id, ressources); }},
-		{"Brick", [](const Ressources &ressources, unsigned id) { return new Brick(id, ressources); }},
-		{"DroppedBonusBomb", [](const Ressources &ressources, unsigned id) { return new DroppedBonusBomb(id, ressources); }},
-		{"DroppedBonusHardness", [](const Ressources &ressources, unsigned id) { return new DroppedBonusHardness(id, ressources); }},
-		{"DroppedBonusHealth", [](const Ressources &ressources, unsigned id) { return new DroppedBonusHealth(id, ressources); }},
-		{"DroppedBonusKick", [](const Ressources &ressources, unsigned id) { return new DroppedBonusKick(id, ressources); }},
-		{"DroppedBonusRange", [](const Ressources &ressources, unsigned id) { return new DroppedBonusRange(id, ressources); }},
-		{"DroppedBonusSpeed", [](const Ressources &ressources, unsigned id) { return new DroppedBonusSpeed(id, ressources); }},
-		{"ExplosionFrame", [](const Ressources &ressources, unsigned id) { return new ExplosionFrame(id, ressources); }},
-		{"Player", [](const Ressources &ressources, unsigned id) { return new Player(id, ressources); }},
-		{"Wall", [](const Ressources &ressources, unsigned id) { return new Wall(id, ressources); }}
+	std::map<std::string, std::function<Entity *(Ressources &ressources, unsigned id)>> EntityFactory::_functions = {
+		{"Bomb", [](Ressources &ressources, unsigned id) { return new Bomb(id, ressources); }},
+		{"Brick", [](Ressources &ressources, unsigned id) { return new Brick(id, ressources); }},
+		{"DroppedBonusBomb", [](Ressources &ressources, unsigned id) { return new DroppedBonusBomb(id, ressources); }},
+		{"DroppedBonusHardness", [](Ressources &ressources, unsigned id) { return new DroppedBonusHardness(id, ressources); }},
+		{"DroppedBonusHealth", [](Ressources &ressources, unsigned id) { return new DroppedBonusHealth(id, ressources); }},
+		{"DroppedBonusKick", [](Ressources &ressources, unsigned id) { return new DroppedBonusKick(id, ressources); }},
+		{"DroppedBonusRange", [](Ressources &ressources, unsigned id) { return new DroppedBonusRange(id, ressources); }},
+		{"DroppedBonusSpeed", [](Ressources &ressources, unsigned id) { return new DroppedBonusSpeed(id, ressources); }},
+		{"ExplosionFrame", [](Ressources &ressources, unsigned id) { return new ExplosionFrame(id, ressources); }},
+		{"Player", [](Ressources &ressources, unsigned id) { return new Player(id, ressources); }},
+		{"Wall", [](Ressources &ressources, unsigned id) { return new Wall(id, ressources); }}
 	};
 
 	std::unique_ptr<Entity> EntityFactory::build(const std::string &name, unsigned id) const

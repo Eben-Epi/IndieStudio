@@ -17,7 +17,7 @@
 #include "../Components/ColliderComponent.hpp"
 #include "../Components/MovableComponent.hpp"
 
-ECS::Bomb::Bomb(unsigned id, const Ressources &ressources) :
+ECS::Bomb::Bomb(unsigned id, Ressources &ressources) :
     Entity(id, "Bomb", {
         new HealthComponent(1),
         new ColliderComponent(2),
