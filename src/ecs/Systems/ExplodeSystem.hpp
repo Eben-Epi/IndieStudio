@@ -11,6 +11,8 @@
 #include "../System.hpp"
 #include "../data/Vector2.hpp"
 
+#define BETWEEN(min, value, max) (min <= value && value < max)
+
 namespace ECS {
     enum ExplosionObstructionLocation {
         NO_OBS,
