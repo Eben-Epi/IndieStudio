@@ -17,7 +17,7 @@
 Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen, bool vsync) : _width(width), _height(height), _colorDepth(colorDepth), _fullscreen(fullscreen), _vsync(vsync) { //TODO FULLSCREEN, SET WINDOW SIZE AND TYPE, ENABLE VSYNC
     this->_driverType = irr::video::EDT_OPENGL;
     this->_device = irr::createDevice(_driverType, irr::core::dimension2d<irr::u32>(_width, _height), _colorDepth,
-                                 _fullscreen, false, _vsync, nullptr);
+                                 _fullscreen, false, _vsync, &this->_eventReceiver);
     this->_driver = _device->getVideoDriver();
     this->_guienv = nullptr;
     this->_smgr = nullptr;
@@ -62,7 +62,7 @@ bool Irrlicht::Screen::setFullscreen(bool fullscreen) {
     this->_device->drop();
     _fullscreen = fullscreen;
     this->_device = irr::createDevice(_driverType, irr::core::dimension2d<irr::u32>(_width, _height), _colorDepth,
-                                     _fullscreen, false, _vsync, nullptr);
+                                     _fullscreen, false, _vsync, &this->_eventReceiver);
     this->_guienv = nullptr;
     this->_smgr = nullptr;
     this->_driver = _device->getVideoDriver();
@@ -78,7 +78,7 @@ bool Irrlicht::Screen::setWindowSize(int width, int height) {
     this->_width = width;
     this->_height = height;
     this->_device = irr::createDevice(_driverType, irr::core::dimension2d<irr::u32>(_width, _height), _colorDepth,
-                                      _fullscreen, false, _vsync, nullptr);
+                                      _fullscreen, false, _vsync, &this->_eventReceiver);
     this->_guienv = nullptr;
     this->_smgr = nullptr;
     this->_driver = _device->getVideoDriver();
@@ -93,7 +93,7 @@ bool Irrlicht::Screen::setVsync(bool vsync) {
     this->_device->drop();
     _vsync = vsync;
     this->_device = irr::createDevice(_driverType, irr::core::dimension2d<irr::u32>(_width, _height), _colorDepth,
-                                      _fullscreen, false, _vsync, nullptr);
+                                      _fullscreen, false, _vsync, &this->_eventReceiver);
     this->_guienv = nullptr;
     this->_smgr = nullptr;
     this->_driver = _device->getVideoDriver();
@@ -125,4 +125,9 @@ bool Irrlicht::Screen::setCurrentGameScene(const std::string &name) {
         }
     }
     return false;
+}
+
+Irrlicht::EventReceiver &Irrlicht::Screen::getEventReceiver()
+{
+    return (this->_eventReceiver);
 }

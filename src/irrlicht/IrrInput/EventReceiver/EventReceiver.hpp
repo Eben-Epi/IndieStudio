@@ -11,7 +11,8 @@
 #include <irrlicht/irrlicht.h>
 #include <vector>
 
-namespace Irrlicht {
+namespace Irrlicht
+{
     class EventReceiver : public irr::IEventReceiver
     {
     public:
@@ -19,8 +20,7 @@ namespace Irrlicht {
         ~EventReceiver() = default;
 
         //MEMBER FUNCTIONS
-        void update();
-        virtual void onEvent(const irr::SEvent &event);
+        virtual bool OnEvent(const irr::SEvent &event) override;
         virtual bool isKeyPressed(const irr::EKEY_CODE keyCode) const;
 
     private:

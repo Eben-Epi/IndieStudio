@@ -10,7 +10,8 @@
 Irrlicht::GameScene::GameScene(Screen &window, std::string name, unsigned id) :
     _window(window),
     sceneName(std::move(name)),
-    id(id)
+    id(id),
+    _eventReceiver(window.getEventReceiver())
 {
     this->_guienv = nullptr;
     this->_smgr = nullptr;
@@ -18,21 +19,22 @@ Irrlicht::GameScene::GameScene(Screen &window, std::string name, unsigned id) :
 
 bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key) //a changer
 {
-//    switch (key) {
-//        case irr::KEY_KEY_Z:
-//            return sf::Keyboard::isKeyPressed(sf::Keyboard::Z);
-//        case irr::KEY_KEY_Q:
-//            return sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
-//        case irr::KEY_KEY_S:
-//            return sf::Keyboard::isKeyPressed(sf::Keyboard::S);
-//        case irr::KEY_KEY_D:
-//            return sf::Keyboard::isKeyPressed(sf::Keyboard::D);
-//        case irr::KEY_SPACE:
-//            return sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
-//        default:
-//            return false;
-//    }
-    return (true);
+    return (this->_eventReceiver.isKeyPressed(key));
+    //    switch (key) {
+    //        case irr::KEY_KEY_Z:
+    //            return sf::Keyboard::isKeyPressed(sf::Keyboard::Z);
+    //        case irr::KEY_KEY_Q:
+    //            return sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
+    //        case irr::KEY_KEY_S:
+    //            return sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+    //        case irr::KEY_KEY_D:
+    //            return sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+    //        case irr::KEY_SPACE:
+    //            return sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+    //        default:
+    //            return false;
+    //    }
+    //  return (true);
 }
 
 unsigned int Irrlicht::GameScene::registerEntity(const std::string &name)

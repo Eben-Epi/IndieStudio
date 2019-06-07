@@ -14,6 +14,7 @@
 #include "../../ecs/Entity.hpp"
 #include "../../ecs/data/Vector2.hpp"
 #include "IrrEntity/IrrEntity.hpp"
+#include "../IrrInput/EventReceiver/EventReceiver.hpp"
 
 namespace Irrlicht {
 
@@ -45,6 +46,7 @@ namespace Irrlicht {
         Screen &_window;
         irr::scene::ISceneManager *_smgr;
         irr::gui::IGUIEnvironment *_guienv;
+        EventReceiver &_eventReceiver;
     };
 }
 
