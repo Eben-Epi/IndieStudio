@@ -18,10 +18,10 @@
 
 ECS::ExplosionFrame::ExplosionFrame(unsigned id, const Ressources &ressources) :
     Entity(id, "ExplosionFrame", {
-        new HealthComponent(1),
+        new HealthComponent(1, 30),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
         new DisplayableComponent("ExplosionFrame", ressources),
-        new EphemeralComponent(60),
+        new EphemeralComponent(30),
         new MortalComponent(),
         new ColliderComponent(0),
         new CollisionComponent(0),

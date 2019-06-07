@@ -13,7 +13,7 @@ Map::Map *loadMap(const ECS::Ressources &res, std::string path)
 	try {
 		if (stream.is_open())
 			return new Map::Map{res, stream};
-	} catch (ECS::InvalidSerializedStringException &e) {
+	} catch (std::exception &e) {
 		std::cerr << "The saved map is invalid " << e.what() << std::endl;
 	}
 

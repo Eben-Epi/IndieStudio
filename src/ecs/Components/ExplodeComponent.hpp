@@ -18,7 +18,7 @@ namespace ECS
         public:
             unsigned int range;
             unsigned int strength;
-            bool exploded;
+            bool exploded = false;
             ExplodeComponent(unsigned int range, unsigned int strength);
             ExplodeComponent(const Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;

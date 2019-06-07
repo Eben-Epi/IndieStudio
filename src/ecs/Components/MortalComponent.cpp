@@ -27,6 +27,6 @@ namespace ECS
 
 	std::ostream& MortalComponent::serialize(std::ostream &stream) const
 	{
-		return stream;
+		return stream << "EndOfComponent";
 	}
 }

@@ -29,6 +29,7 @@
 #include "../Components/PickerComponent.hpp"
 #include "../Components/OnCollisionDamageDealerComponent.hpp"
 #include "../Components/KickerComponent.hpp"
+#include "../Components/MortalComponent.hpp"
 
 namespace ECS 
 {
@@ -57,6 +58,7 @@ namespace ECS
 		{"Ultime", [](const Ressources &ressources, std::istream &stream) { return new UltimeComponent(ressources, stream); }},
 		{"PowerUp", [](const Ressources &ressources, std::istream &stream) { return new PowerUpComponent(ressources, stream); }},
 		{"PowerUpPicked", [](const Ressources &ressources, std::istream &stream) { return new PowerUpPickedComponent(ressources, stream); }},
+		{"Mortal", [](const Ressources &ressources, std::istream &stream) { return new MortalComponent(ressources, stream); }},
 	};
 
 	ComponentFactory::ComponentFactory(const ECS::Ressources &ressources) :
