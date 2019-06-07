@@ -166,12 +166,12 @@ void setEntityDropperComponentInBrick(ECS::Entity &brick, double randNum, double
 void Map::Map::setArenaWallAround(ECS::Vector2<unsigned> sizeMap)
 {
     for (int i = -1; i < (int)sizeMap.x + 1; ++i) {
-        setEntityComponentPosition(this->_core.makeEntity("Wall"), {(double)(i * TILESIZE), -1 * TILESIZE});
-        setEntityComponentPosition(this->_core.makeEntity("Wall"), {(double)(i * TILESIZE), (double)(sizeMap.y * TILESIZE)});
+        setEntityComponentPosition(this->_core.makeEntity("Bedrock"), {(double)(i * TILESIZE), -1 * TILESIZE});
+        setEntityComponentPosition(this->_core.makeEntity("Bedrock"), {(double)(i * TILESIZE), (double)(sizeMap.y * TILESIZE)});
     }
     for (int i = 0; i < (int)sizeMap.y; ++i) {
-        setEntityComponentPosition(this->_core.makeEntity("Wall"), {-1 * TILESIZE, (double)(i * TILESIZE)});
-        setEntityComponentPosition(this->_core.makeEntity("Wall"), {(double)(sizeMap.x * TILESIZE), (double)(i * TILESIZE)});
+        setEntityComponentPosition(this->_core.makeEntity("Bedrock"), {-1 * TILESIZE, (double)(i * TILESIZE)});
+        setEntityComponentPosition(this->_core.makeEntity("Bedrock"), {(double)(sizeMap.x * TILESIZE), (double)(i * TILESIZE)});
     }
 }
 

@@ -20,6 +20,7 @@
 #include "../Entities/DroppedBonusKick.hpp"
 #include "../Entities/DroppedBonusSpeed.hpp"
 #include "../Entities/DroppedBonusRange.hpp"
+#include "../Entities/Bedrock.hpp"
 
 namespace ECS
 {
@@ -39,7 +40,8 @@ namespace ECS
 		{"DroppedBonusSpeed", [](Ressources &ressources, unsigned id) { return new DroppedBonusSpeed(id, ressources); }},
 		{"ExplosionFrame", [](Ressources &ressources, unsigned id) { return new ExplosionFrame(id, ressources); }},
 		{"Player", [](Ressources &ressources, unsigned id) { return new Player(id, ressources); }},
-		{"Wall", [](Ressources &ressources, unsigned id) { return new Wall(id, ressources); }}
+		{"Wall", [](Ressources &ressources, unsigned id) { return new Wall(id, ressources); }},
+		{"Bedrock", [](Ressources &ressources, unsigned id) { return new Bedrock(id, ressources); }}
 	};
 
 	std::unique_ptr<Entity> EntityFactory::build(const std::string &name, unsigned id) const

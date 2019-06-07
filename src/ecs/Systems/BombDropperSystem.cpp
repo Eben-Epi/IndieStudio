@@ -39,9 +39,9 @@ void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 	auto &newBomb = this->_core.makeEntity("Bomb");
 	auto &bomb_pos = reinterpret_cast<ECS::PositionComponent &>(newBomb.getComponentByName("Position"));
 	auto &player_pos = reinterpret_cast<ECS::PositionComponent &>(entity.getComponentByName("Position"));
-	bomb_pos.pos = player_pos.pos;
-	// bomb_pos.pos.x = static_cast<int>(player_pos.pos.x) & (0xFFFFFFFF - TILESIZE + 1);
-	// bomb_pos.pos.y = static_cast<int>(player_pos.pos.y) & (0xFFFFFFFF - TILESIZE + 1);
+
+	bomb_pos.pos.x = lround(player_pos.pos.x / TILESIZE) * TILESIZE;
+	bomb_pos.pos.y = lround(player_pos.pos.y / TILESIZE) * TILESIZE;
 	bomb.bombs.push_back(&newBomb);
 	bomb.dropBomb = false;
 	clock = 50;

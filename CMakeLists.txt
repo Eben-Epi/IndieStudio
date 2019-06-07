@@ -166,7 +166,7 @@ add_executable(
 	src/ecs/Components/UltInvincibilityComponent.hpp
 	src/ecs/Systems/UltInvincibilitySystem.cpp
 	src/ecs/Systems/UltInvincibilitySystem.hpp
-)
+	src/ecs/Entities/Bedrock.cpp src/ecs/Entities/Bedrock.hpp)
 
 find_package(Irrlicht REQUIRED)
 

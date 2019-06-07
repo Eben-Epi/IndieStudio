@@ -19,7 +19,7 @@
 ECS::ExplosionFrame::ExplosionFrame(unsigned id, Ressources &ressources) :
     Entity(id, "ExplosionFrame", {
         new HealthComponent(1, 30),
-        new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
+        new PositionComponent({0, 0}, {TILESIZE - 2, TILESIZE - 2}),
         new DisplayableComponent("ExplosionFrame", ressources),
         new EphemeralComponent(30),
         new MortalComponent(),

@@ -110,7 +110,13 @@ namespace Irrlicht
 			this->color = 0xf90061;
 		else if (name == "Bomb")
 			this->color = 0x666666;
-		else
+		else if (name == "ExplosionFrame") {
+			this->color = 0xFFFF00;
+			this->size = {
+				static_cast<unsigned>(TILESIZE - 2),
+				static_cast<unsigned>(TILESIZE - 2)
+			};
+		} else
 			this->color = 0xffffff;
 	}
 

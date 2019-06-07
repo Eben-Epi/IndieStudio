@@ -42,7 +42,7 @@ void ECS::UltInvincibilitySystem::updateEntity(ECS::Entity &entity)
         uc.soundSystem.playSoundOverBackgroundMusic("starman");
         hc.invunerabilityTimeLeft = 26 * FRAME_RATE;
         self.oldPassThrough = mc.passThrough;
-        mc.passThrough = 3;
+        mc.passThrough = 2;
         self.isOnUse = true;
         self.timeLeft = 26 * FRAME_RATE;
     }
