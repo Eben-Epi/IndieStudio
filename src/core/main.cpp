@@ -43,7 +43,6 @@ int main()
 
 		for (auto &sound_name : sound_to_load)
 			res.soundSystem.loadSound(sound_name);
-		res.soundSystem.setLoop("battle_music", true);
 
 		res.soundSystem.setBackgroundMusic("battle_music"); // tmp
 		while (!screen.isEnd()) {

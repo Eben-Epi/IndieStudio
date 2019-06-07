@@ -31,7 +31,7 @@ ECS::Player::Player(unsigned id, Ressources &ressources) :
 		new CollisionComponent(0),
 		new ColliderComponent(0),
 		new BlockedComponent(),
-		new BombDropperComponent(),
+		new BombDropperComponent(ressources.soundSystem),
 		new DisplayableComponent("Player", ressources),
 		new ControllableComponent(*ressources.inputs.at(id), id)
 	})

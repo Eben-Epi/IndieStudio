@@ -17,13 +17,14 @@ namespace ECS
 {
 	class BombDropperComponent : public Component {
 	public:
-		std::vector<Entity *> bombs;
+		Sound::SoundSystem &soundSystem;
+		std::vector<unsigned> bombs;
 		unsigned int max;
 		float timeToExplode;
 		unsigned int range;
 		bool dropBomb;
 
-		explicit BombDropperComponent(unsigned max = 1, float timeToExplode = 5, unsigned range = 1);
+		explicit BombDropperComponent(Sound::SoundSystem &system, unsigned max = 1, float timeToExplode = 5, unsigned range = 1);
 		BombDropperComponent(Ressources &ressources, std::istream &stream);
 		std::ostream &serialize(std::ostream &stream) const override;
 	};

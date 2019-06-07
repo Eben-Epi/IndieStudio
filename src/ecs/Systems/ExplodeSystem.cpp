@@ -6,13 +6,13 @@
 */
 
 #include "ExplodeSystem.hpp"
+#include "../ECSCore.hpp"
 #include "../Components/ExplodeComponent.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../Components/PositionComponent.hpp"
-#include "../ECSCore.hpp"
-#include "../../config.hpp"
 #include "../Components/ColliderComponent.hpp"
 #include "../Components/DisplayableComponent.hpp"
+#include "../../config.hpp"
 
 static inline bool entities_collied(double x, double y, ECS::PositionComponent &e)
 {
@@ -104,9 +104,6 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
     auto &pc = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
     auto &exc = reinterpret_cast<ExplodeComponent &>(entity.getComponentByName("Explode"));
 
-    if (exc.exploded)
-        entity.destroy();
-
     std::vector<ECS::Vector2<double>> posAndSize = {
         {1 + pc.pos.x - (TILESIZE * exc.range), pc.pos.y},
         {(double)(TILESIZE * (exc.range * 2 + 1)), (double)pc.size.y},
@@ -170,12 +167,13 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
         PositionComponent &efVPos = reinterpret_cast<ECS::PositionComponent &>(verticalEF.getComponentByName("Position"));
         auto &dcv = reinterpret_cast<ECS::DisplayableComponent &>(horizontalEF.getComponentByName("Displayable"));
 
+        exc.soundSystem.playSound("explode");
         efHPos.pos = posAndSize[0];
         dc.screen.setPosition(dc.entityId, efHPos.pos.x, efHPos.pos.y);
         efHPos.size = posAndSize[1];
         efVPos.pos = posAndSize[2];
         dcv.screen.setPosition(dcv.entityId, efVPos.pos.x, efVPos.pos.y);
         efVPos.size = posAndSize[3];
-        exc.exploded = true;
+        entity.destroy();
     }
 }*/

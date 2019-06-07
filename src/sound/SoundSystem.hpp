@@ -18,37 +18,20 @@
 
 namespace Sound
 {
-	enum SoundState {
-		Playing,
-		Paused,
-		Stopped
-	};
-
 	class SoundSystem {
 	public:
 		SoundSystem() = default;
 		~SoundSystem();
 		void loadSound(const std::string &id);
-		void playSound(const std::string &id);
-		void stopSound(const std::string &id);
-		bool isLooping(const std::string &id);
-		void pauseSound(const std::string &id);
-		void destroySound(const std::string &id);
-		SoundState getState(const std::string &id);
-		void setBackgroundMusic(const std::string &id);
-		void setVolume(const std::string &id, float volume);
-		void setLoop(const std::string &id, bool loop = true);
 		void playSoundOverBackgroundMusic(const std::string &id);
+		unsigned playSound(const std::string &id, float volume = 100);
+		void setBackgroundMusic(const std::string &id, float volume = 100);
 
 	private:
-		struct Sound {
-			sf::Sound sound;
-			sf::SoundBuffer buffer;
-		};
-
-		std::thread                  _bgThread;
-		std::unique_ptr<std::string> _background;
-		std::map<std::string, Sound> _loadedSounds;
+		std::thread                            _bgThread;
+		std::unique_ptr<unsigned>              _backgroundMusic;
+		std::map<std::string, sf::SoundBuffer> _loadedSounds;
+		std::vector<std::unique_ptr<sf::Sound>>_sounds;
 	};
 }
 

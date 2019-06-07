@@ -16,10 +16,10 @@ namespace ECS
     class ExplodeComponent : public Component
     {
         public:
+	    Sound::SoundSystem &soundSystem;
             unsigned int range;
             unsigned int strength;
-            bool exploded = false;
-            ExplodeComponent(unsigned int range, unsigned int strength);
+            ExplodeComponent(Sound::SoundSystem &soundSystem, unsigned int range, unsigned int strength);
             ExplodeComponent(Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;
     };
