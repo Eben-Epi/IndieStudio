@@ -53,10 +53,6 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
     auto &pc = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
     auto &exc = reinterpret_cast<ExplodeComponent &>(entity.getComponentByName("Explode"));
 
-    if (exc.exploded) {
-        entity.destroy();
-        return;
-    }
     if (hc.health != 0)
         return;
 
@@ -80,7 +76,8 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
     efHPos.pos.y = min_y;
     efHPos.size.x = static_cast<unsigned>(max_x - min_x);
     efHPos.size.y = static_cast<unsigned>(max_y - min_y);
-    exc.exploded = true;
+    exc.soundSystem.playSound("explode");
+    entity.destroy();
 }
 
 /*
