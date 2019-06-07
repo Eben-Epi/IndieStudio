@@ -22,7 +22,7 @@ namespace ECS
     	return stream << " EndOfComponent";
     }
 
-    PickableComponent::PickableComponent(const ECS::Ressources &, std::istream &stream) :
+    PickableComponent::PickableComponent(ECS::Ressources &, std::istream &stream) :
 	    PickableComponent()
     {
         std::string terminator;

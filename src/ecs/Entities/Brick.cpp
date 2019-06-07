@@ -13,7 +13,7 @@
 #include "../Components/BlockedComponent.hpp"
 #include "../../config.hpp"
 
-ECS::Brick::Brick(unsigned id, const Ressources &ressources) :
+ECS::Brick::Brick(unsigned id, Ressources &ressources) :
 	Entity(id, "Brick", {
 		new HealthComponent(1),
 		new DisplayableComponent("Brick", ressources),

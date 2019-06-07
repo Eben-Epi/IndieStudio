@@ -20,7 +20,7 @@ namespace ECS
     	    unsigned inputNbr;
     	    Input::Input &input;
             ControllableComponent(Input::Input &, unsigned);
-            ControllableComponent(const Ressources &ressources, std::istream &stream);
+            ControllableComponent(Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS

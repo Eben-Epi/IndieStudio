@@ -15,7 +15,7 @@ namespace ECS
 {
     class DroppedBonusRange : public Entity {
     public:
-        explicit DroppedBonusRange(unsigned id, const Ressources &ressources);
+        explicit DroppedBonusRange(unsigned id, Ressources &ressources);
     };
 }
 

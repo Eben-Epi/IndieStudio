@@ -11,13 +11,14 @@
 #include "../Components/MovableComponent.hpp"
 #include "../Components/ControllableComponent.hpp"
 #include "../Components/CurseComponent.hpp"
+#include "../Components/UltimeComponent.hpp"
 
 namespace ECS
 {
 	ControllableSystem::ControllableSystem(ECS::ECSCore &core) :
 		System("Controllable", core)
 	{
-		this->_dependencies = {"Movable", "Position"};
+		this->_dependencies = {"Movable", "Position", "Ultime"};
 	}
 
 	void ControllableSystem::updateEntity(ECS::Entity &entity)
@@ -25,8 +26,10 @@ namespace ECS
 		auto &mov = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
 		auto &pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
 		auto &in = reinterpret_cast<ControllableComponent &>(entity.getComponentByName("Controllable"));
+		auto &uc = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
 		auto actions = in.input.getActions();
 		unsigned char newDir = 0;
+		uc.castUlt = false;
 
 		for (auto &action : actions) {
 			switch (action) {
@@ -36,6 +39,8 @@ namespace ECS
 			case Input::ACTION_RIGHT:
 				newDir = 1U << action;
 				break;
+			case Input::ACTION_ULT:
+				uc.castUlt = true;
 			default:
 				break;
 			}

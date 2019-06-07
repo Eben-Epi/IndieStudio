@@ -12,7 +12,7 @@
 #include "../Components/ColliderComponent.hpp"
 #include "../../config.hpp"
 
-ECS::Wall::Wall(unsigned id, const Ressources &ressources) :
+ECS::Wall::Wall(unsigned id, Ressources &ressources) :
     Entity(id, "Wall", {
         new DisplayableComponent("Wall", ressources),
         new ColliderComponent(2),

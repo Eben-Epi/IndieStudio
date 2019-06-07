@@ -41,7 +41,7 @@ namespace ECS
         unsigned int hardness;
         unsigned int range;
         PowerUpComponent(std::map<std::string, NumericValue>);
-        PowerUpComponent(const Ressources &ressources, std::istream &stream);
+        PowerUpComponent(Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS

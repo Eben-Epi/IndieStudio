@@ -173,12 +173,24 @@ add_executable(
 	src/irrlicht/GameScene/IrrEntity/IrrEntity.cpp
 	src/irrlicht/GameScene/IrrEntity/IrrEntity.hpp
 	src/irrlicht/EventReceiver/EventReceiver.cpp
-	src/irrlicht/EventReceiver/EventReceiver.hpp)
+	src/irrlicht/EventReceiver/EventReceiver.hpp
+	src/Input/Controller.cpp
+	src/Input/Controller.hpp
+	src/Input/Input.hpp
+	src/Input/Keyboard.cpp
+	src/Input/Keyboard.hpp
+	src/Input/Error/Errors.cpp
+	src/Input/Error/Errors.hpp
+	src/ecs/Systems/OnCollisionDamageDealerSystem.cpp
+	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp
+		src/ecs/Components/UltimeComponent.cpp src/ecs/Components/UltimeComponent.hpp src/ecs/Systems/UltimeSystem.cpp src/ecs/Systems/UltimeSystem.hpp src/sound/SoundSystem.cpp src/sound/SoundSystem.hpp src/sound/Exception.hpp src/ecs/Components/UltInvincibilityComponent.cpp src/ecs/Components/UltInvincibilityComponent.hpp src/ecs/Systems/UltInvincibilitySystem.cpp src/ecs/Systems/UltInvincibilitySystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 
 target_link_libraries(
 	bomberman
 	Irrlicht
+	sfml-audio
+	pthread
 )
 

@@ -9,7 +9,7 @@
 //#include "windows.h"
 //#include <cstdio>
 
-Map::Map *loadMap(const ECS::Ressources &res, std::string path)
+Map::Map *loadMap(ECS::Ressources &res, std::string path)
 {
 	std::ifstream stream(path);
 
@@ -51,6 +51,11 @@ int main()
     ECS::Ressources res{screen.getCurrentGameScene(), inputs};
     Map::Map *map = loadMap(res, "save.txt");
 
+    for (auto &sound_name : sound_to_load)
+        res.soundSystem.loadSound(sound_name);
+    res.soundSystem.setLoop("battle_music", true);
+
+    res.soundSystem.setBackgroundMusic("battle_music"); // tmp
     while (screen.display()) {
         map->update();
     }

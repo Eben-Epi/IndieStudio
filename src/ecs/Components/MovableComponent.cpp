@@ -24,7 +24,7 @@ namespace ECS
     	return stream << dir << ' ' << speed << ' ' << maxSpeed << " EndOfComponent";
     }
 
-    MovableComponent::MovableComponent(const ECS::Ressources &, std::istream &stream) :
+    MovableComponent::MovableComponent(ECS::Ressources &, std::istream &stream) :
 	    MovableComponent(0)
     {
 	    std::string terminator;

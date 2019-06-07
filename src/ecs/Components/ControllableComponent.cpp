@@ -22,7 +22,7 @@ namespace ECS
     	return stream << inputNbr << " EndOfComponent";
     }
 
-    ControllableComponent::ControllableComponent(const ECS::Ressources &ressources, std::istream &stream) :
+    ControllableComponent::ControllableComponent(ECS::Ressources &ressources, std::istream &stream) :
         Component("Controllable"),
         inputNbr([&stream]() {
         	unsigned nbr;

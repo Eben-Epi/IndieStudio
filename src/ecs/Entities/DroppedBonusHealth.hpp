@@ -17,7 +17,7 @@ namespace ECS
 {
     class DroppedBonusHealth : public Entity {
     public:
-        explicit DroppedBonusHealth(unsigned id, const Ressources &ressources);
+        explicit DroppedBonusHealth(unsigned id, Ressources &ressources);
     };
 }
 
