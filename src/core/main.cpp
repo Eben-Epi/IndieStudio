@@ -4,7 +4,7 @@
 #include "../irrlicht/Screen/Screen.hpp"
 #include "../irrlicht/GameScene/GameScene.hpp"
 #include "../map/Map.hpp"
-#include "../irrlicht/GameScene/Input/Keyboard.hpp"
+#include "../Input/Keyboard.hpp"
 #include "../ecs/Exceptions.hpp"
 //#include "windows.h"
 //#include <cstdio>
@@ -39,7 +39,7 @@ int main()
     if (!screen.setCurrentGameScene("Game"))
         return EXIT_FAILURE;
     inputs.emplace_back(
-            new Irrlicht::Keyboard(screen.getCurrentGameScene(), {
+            new Input::Keyboard(screen.getCurrentGameScene(), {
                     irr::KEY_KEY_Z,
                     irr::KEY_KEY_Q,
                     irr::KEY_KEY_S,

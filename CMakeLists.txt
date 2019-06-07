@@ -159,13 +159,13 @@ add_executable(
 	src/irrlicht/Animations.hpp
 	src/map/Map.hpp
 	src/map/Map.cpp
-	src/irrlicht/GameScene/Input/Controller.cpp
-	src/irrlicht/GameScene/Input/Controller.hpp
-	src/irrlicht/GameScene/Input/Input.hpp
-	src/irrlicht/GameScene/Input/Keyboard.cpp
-	src/irrlicht/GameScene/Input/Keyboard.hpp
-	src/irrlicht/GameScene/Input/Error/Errors.cpp
-	src/irrlicht/GameScene/Input/Error/Errors.hpp
+	src/Input/Controller.cpp
+	src/Input/Controller.hpp
+	src/Input/Input.hpp
+	src/Input/Keyboard.cpp
+	src/Input/Keyboard.hpp
+	src/Input/Error/Errors.cpp
+	src/Input/Error/Errors.hpp
 	src/irrlicht/Screen/Screen.cpp
 	src/irrlicht/Screen/Screen.hpp
 	src/irrlicht/GameScene/GameScene.cpp
