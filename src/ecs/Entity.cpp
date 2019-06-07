@@ -74,7 +74,13 @@ namespace ECS
 
 		stream >> this->_id >> this->_name;
 		for (stream >> componentName; componentName != "EndOfEntity"; stream >> componentName)
-			this->_components.push_back(factory.build(componentName, stream));
+			try {
+				this->_components.push_back(factory.build(componentName, stream));
+			} catch (std::exception &e) {
+				throw InvalidSerializedStringException(
+					"Cannot make " + componentName + " of entity n°" + std::to_string(this->_id) + " (" + this->_name + "): " + e.what()
+				);
+			}
 	}
 
 	std::ostream& Entity::serialize(std::ostream &stream) const

@@ -166,13 +166,17 @@ add_executable(
 	src/ecs/Components/UltInvincibilityComponent.hpp
 	src/ecs/Systems/UltInvincibilitySystem.cpp
 	src/ecs/Systems/UltInvincibilitySystem.hpp
-	src/ecs/Entities/Bedrock.cpp src/ecs/Entities/Bedrock.hpp)
+	src/ecs/Entities/Bedrock.cpp
+	src/ecs/Entities/Bedrock.hpp
+)
 
 find_package(Irrlicht REQUIRED)
 
+include_directories(Irrlicht_INCLUDE_DIRS)
+
 target_link_libraries(
 	bomberman
-	Irrlicht
+	${Irrlicht_LIBRARIES}
 	sfml-graphics
 	sfml-window
 	sfml-system

@@ -18,7 +18,7 @@ namespace ECS
 	class BombDropperComponent : public Component {
 	public:
 		Sound::SoundSystem &soundSystem;
-		std::vector<Entity *> bombs;
+		std::vector<unsigned> bombs;
 		unsigned int max;
 		float timeToExplode;
 		unsigned int range;

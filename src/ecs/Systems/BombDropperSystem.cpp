@@ -10,6 +10,7 @@
 #include "../Components/PositionComponent.hpp"
 #include "../Components/EphemeralComponent.hpp"
 #include "../Components/ExplodeComponent.hpp"
+#include "../Exceptions.hpp"
 
 ECS::BombDropperSystem::BombDropperSystem(ECS::ECSCore &core):
 		System("BombDropper", core)
@@ -20,8 +21,9 @@ void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 	ECS::BombDropperComponent &bomb = reinterpret_cast<ECS::BombDropperComponent &>(entity.getComponentByName("BombDropper"));
 
 	for (int i = 0; i < (int)bomb.bombs.size(); i++) {
-		auto &exploded = reinterpret_cast<ECS::ExplodeComponent &>(bomb.bombs[i]->getComponentByName("Explode"));
-		if (exploded.exploded) {
+		try {
+			this->_core.getEntityById(bomb.bombs[i]);
+		} catch (NoSuchEntityException &) {
 			bomb.bombs.erase(bomb.bombs.begin() + i);
 			i--;
 		}
@@ -38,6 +40,6 @@ void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 	bomb.soundSystem.playSound("drop_bomb");
 	bomb_pos.pos.x = lround(player_pos.pos.x / TILESIZE) * TILESIZE;
 	bomb_pos.pos.y = lround(player_pos.pos.y / TILESIZE) * TILESIZE;
-	bomb.bombs.push_back(&newBomb);
+	bomb.bombs.push_back(newBomb.getId());
 	bomb.dropBomb = false;
 }

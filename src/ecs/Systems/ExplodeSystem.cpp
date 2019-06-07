@@ -40,9 +40,6 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
     auto &pc = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
     auto &exc = reinterpret_cast<ExplodeComponent &>(entity.getComponentByName("Explode"));
 
-    if (exc.exploded)
-        entity.destroy();
-
     std::vector<ECS::Vector2<double>> posAndSize = {
         {1 + pc.pos.x - (TILESIZE * exc.range), pc.pos.y},
         {(double)(TILESIZE * (exc.range * 2 + 1)), (double)pc.size.y},
@@ -113,6 +110,6 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
         efVPos.pos = posAndSize[2];
         dcv.screen.setPosition(dcv.entityId, efVPos.pos.x, efVPos.pos.y);
         efVPos.size = posAndSize[3];
-        exc.exploded = true;
+        entity.destroy();
     }
 }
