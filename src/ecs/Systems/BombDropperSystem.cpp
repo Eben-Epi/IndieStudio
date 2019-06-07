@@ -33,13 +33,24 @@ void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 	if (bomb.bombs.size() >= bomb.max)
 		return;
 
+	auto &player_pos = reinterpret_cast<ECS::PositionComponent &>(entity.getComponentByName("Position"));
+	Point pos = {
+		static_cast<double>(lround(player_pos.pos.x / TILESIZE) * TILESIZE),
+		static_cast<double>(lround(player_pos.pos.y / TILESIZE) * TILESIZE)
+	};
+
+	for (Entity *ent : this->_core.getEntitiesByComponent("Collider")) {
+		auto &pos2 = reinterpret_cast<ECS::PositionComponent &>(ent->getComponentByName("Position"));
+
+		if (pos2.pos.x == pos.x && pos2.pos.y == pos.y)
+			return;
+	}
+
 	auto &newBomb = this->_core.makeEntity("Bomb");
 	auto &bomb_pos = reinterpret_cast<ECS::PositionComponent &>(newBomb.getComponentByName("Position"));
-	auto &player_pos = reinterpret_cast<ECS::PositionComponent &>(entity.getComponentByName("Position"));
 
-	bomb.soundSystem.playSound("drop_bomb");
-	bomb_pos.pos.x = lround(player_pos.pos.x / TILESIZE) * TILESIZE;
-	bomb_pos.pos.y = lround(player_pos.pos.y / TILESIZE) * TILESIZE;
+	bomb_pos.pos = pos;
 	bomb.bombs.push_back(newBomb.getId());
+	bomb.soundSystem.playSound("drop_bomb");
 	bomb.dropBomb = false;
 }
