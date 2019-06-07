@@ -11,8 +11,9 @@
 
 namespace ECS
 {
-	BombDropperComponent::BombDropperComponent(unsigned max, float timeToExplode, unsigned range) :
+	BombDropperComponent::BombDropperComponent(Sound::SoundSystem &soundSystem, unsigned max, float timeToExplode, unsigned range) :
 		Component ("BombDropper"),
+		soundSystem(soundSystem),
 		max(max),
 		timeToExplode(timeToExplode),
 		range(range),
@@ -20,8 +21,8 @@ namespace ECS
 	{
 	}
 
-	BombDropperComponent::BombDropperComponent(ECS::Ressources &, std::istream &stream) :
-		BombDropperComponent(0, 0, 0)
+	BombDropperComponent::BombDropperComponent(ECS::Ressources &res, std::istream &stream) :
+		BombDropperComponent(res.soundSystem)
 	{
 		std::string terminator;
 

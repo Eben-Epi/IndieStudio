@@ -6,13 +6,13 @@
 */
 
 #include "ExplodeSystem.hpp"
+#include "../ECSCore.hpp"
 #include "../Components/ExplodeComponent.hpp"
 #include "../Components/HealthComponent.hpp"
 #include "../Components/PositionComponent.hpp"
-#include "../ECSCore.hpp"
-#include "../../config.hpp"
 #include "../Components/ColliderComponent.hpp"
 #include "../Components/DisplayableComponent.hpp"
+#include "../../config.hpp"
 
 ECS::ExplodeSystem::ExplodeSystem(ECS::ECSCore &core) :
     System("Explode", core)
@@ -106,6 +106,7 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
         PositionComponent &efVPos = reinterpret_cast<ECS::PositionComponent &>(verticalEF.getComponentByName("Position"));
         auto &dcv = reinterpret_cast<ECS::DisplayableComponent &>(horizontalEF.getComponentByName("Displayable"));
 
+        exc.soundSystem.playSound("explode");
         efHPos.pos = posAndSize[0];
         dc.screen.setPosition(dc.entityId, efHPos.pos.x, efHPos.pos.y);
         efHPos.size = posAndSize[1];
