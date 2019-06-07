@@ -172,8 +172,8 @@ add_executable(
 	src/irrlicht/GameScene/GameScene.hpp
 	src/irrlicht/GameScene/IrrEntity/IrrEntity.cpp
 	src/irrlicht/GameScene/IrrEntity/IrrEntity.hpp
-	src/irrlicht/EventReceiver/EventReceiver.cpp
-	src/irrlicht/EventReceiver/EventReceiver.hpp
+	src/irrlicht/IrrInput/EventReceiver/EventReceiver.cpp
+	src/irrlicht/IrrInput/EventReceiver/EventReceiver.hpp
 	src/Input/Controller.cpp
 	src/Input/Controller.hpp
 	src/Input/Input.hpp
@@ -183,7 +183,17 @@ add_executable(
 	src/Input/Error/Errors.hpp
 	src/ecs/Systems/OnCollisionDamageDealerSystem.cpp
 	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp
-		src/ecs/Components/UltimeComponent.cpp src/ecs/Components/UltimeComponent.hpp src/ecs/Systems/UltimeSystem.cpp src/ecs/Systems/UltimeSystem.hpp src/sound/SoundSystem.cpp src/sound/SoundSystem.hpp src/sound/Exception.hpp src/ecs/Components/UltInvincibilityComponent.cpp src/ecs/Components/UltInvincibilityComponent.hpp src/ecs/Systems/UltInvincibilitySystem.cpp src/ecs/Systems/UltInvincibilitySystem.hpp)
+	src/ecs/Components/UltimeComponent.cpp
+	src/ecs/Components/UltimeComponent.hpp
+	src/ecs/Systems/UltimeSystem.cpp
+	src/ecs/Systems/UltimeSystem.hpp
+	src/sound/SoundSystem.cpp
+	src/sound/SoundSystem.hpp
+	src/sound/Exception.hpp
+	src/ecs/Components/UltInvincibilityComponent.cpp
+	src/ecs/Components/UltInvincibilityComponent.hpp
+	src/ecs/Systems/UltInvincibilitySystem.cpp
+	src/ecs/Systems/UltInvincibilitySystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 
