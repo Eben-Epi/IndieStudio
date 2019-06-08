@@ -35,9 +35,12 @@ namespace Irrlicht
         bool setWindowSize(int width, int height);
         unsigned addGameScene(const std::string &name);
         EventReceiver &getEventReceiver();
+        irr::video::IVideoDriver* getDriver();
+        irr::scene::ISceneManager* getSmgr();
 
     private:
         irr::video::E_DRIVER_TYPE _driverType; // TODO differenciate OpenGL and Dx9 when running under win32/64 or GNU/UNIX
+        //TODO LIMIT BY DELTA TIME IN MOVEMENT TUTORIAL
         int _width;
         int _height;
         int _colorDepth;

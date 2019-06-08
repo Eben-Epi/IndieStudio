@@ -9,6 +9,7 @@
 #define BOMBERMAN_EXCEPTION_HPP
 
 #include <exception>
+#include <stdexcept>
 #include <string>
 
 namespace Sound

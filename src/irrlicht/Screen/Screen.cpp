@@ -131,3 +131,11 @@ Irrlicht::EventReceiver &Irrlicht::Screen::getEventReceiver()
 {
     return (this->_eventReceiver);
 }
+
+irr::video::IVideoDriver *Irrlicht::Screen::getDriver() {
+    return (this->_driver);
+}
+
+irr::scene::ISceneManager *Irrlicht::Screen::getSmgr() {
+    return (this->_smgr);
+}

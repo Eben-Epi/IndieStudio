@@ -28,7 +28,7 @@ Map::Map *loadMap(ECS::Ressources &res, std::string path)
 
 int main()
 {
-//    try {
+    try {
 //        AllocConsole();
 //        freopen("CONOUT$", "w", stdout);
 //        freopen("CONOUT$", "w", stderr);
@@ -63,9 +63,8 @@ int main()
     stream << *map << std::endl;
     delete map;
     return EXIT_SUCCESS;
-//    } catch (std::exception &e) {
-//        std::cerr << "Error: " << e.what() << std::endl;
-//        system("pause");
-//        return EXIT_FAILURE;
-//    }
+    } catch (std::exception &e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
 }

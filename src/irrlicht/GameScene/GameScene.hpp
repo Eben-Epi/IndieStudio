@@ -44,8 +44,6 @@ namespace Irrlicht {
         std::vector<IrrEntity> _entities;
         unsigned _entities_id;
         Screen &_window;
-        irr::scene::ISceneManager *_smgr;
-        irr::gui::IGUIEnvironment *_guienv;
         EventReceiver &_eventReceiver;
     };
 }

@@ -11,16 +11,19 @@
 #include "../../Animations.hpp"
 #include "../../../ecs/Entity.hpp"
 #include "../../../ecs/data/Vector2.hpp"
+#include "../../Screen/Screen.hpp"
 
 namespace Irrlicht {
     class IrrEntity {
     public:
-        IrrEntity(const std::string &name, unsigned id, irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255), std::string texturePath = "");
+        IrrEntity(const std::string &filename, unsigned id, irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
+                irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255), std::string texturePath = "");
 
+        bool isEntityLoaded();
     //PROPERTIES
-        unsigned _id;
-        ECS::Point _pos;
-        Animations _anim;
+        unsigned id;
+        ECS::Point pos;
+        Animations anim;
         ECS::Vector2<unsigned> _size;
         irr::video::SColor _defaultColor;
     private:
@@ -29,6 +32,7 @@ namespace Irrlicht {
         irr::scene::IAnimatedMeshSceneNode* _node;
         irr::scene::ISceneNode* _parent;
         std::string _texturePath;
+        bool _loaded;
     };
 }
 

@@ -195,6 +195,7 @@ add_executable(
 	src/ecs/Systems/UltInvincibilitySystem.cpp
 	src/ecs/Systems/UltInvincibilitySystem.hpp)
 
+find_package(SFML COMPONENTS audio REQUIRED)
 find_package(Irrlicht REQUIRED)
 
 target_link_libraries(
