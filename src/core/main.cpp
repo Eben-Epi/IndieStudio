@@ -33,7 +33,7 @@ int main()
 //        freopen("CONOUT$", "w", stdout);
 //        freopen("CONOUT$", "w", stderr);
 //        freopen("CONIN$", "r", stdin);
-    Irrlicht::Screen screen(1920, 1080, 32, false, false);
+    Irrlicht::Screen screen(640, 640, 32, false, false);
     screen.addGameScene("Game");
     std::vector<std::unique_ptr<Input::Input>> inputs;
     if (!screen.setCurrentGameScene("Game"))
@@ -59,8 +59,8 @@ int main()
     while (screen.display()) {
         map->update();
     }
-    std::ofstream stream("save.txt");
-    stream << *map << std::endl;
+//    std::ofstream stream("save.txt");
+//    stream << *map << std::endl;
     delete map;
     return EXIT_SUCCESS;
     } catch (std::exception &e) {

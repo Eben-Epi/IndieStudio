@@ -8,7 +8,7 @@
 
 Irrlicht::IrrEntity::IrrEntity(const std::string &filename, unsigned id, irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
         irr::video::SColor defaultColor, std::string texturePath) :
-_meshPath("./media/mesh/" + filename + ".dae"), id(id), _defaultColor(defaultColor), _texturePath(std::move(texturePath)), _mesh(nullptr), _node(nullptr), _parent(nullptr)
+_meshPath("./media/models/" + filename + ".dae"), id(id), _defaultColor(defaultColor), _texturePath(std::move(texturePath)), _mesh(nullptr), _node(nullptr), _parent(nullptr)
 {
     this->_mesh = smgr->getMesh(this->_meshPath.c_str());
 
@@ -16,6 +16,7 @@ _meshPath("./media/mesh/" + filename + ".dae"), id(id), _defaultColor(defaultCol
         this->_loaded = false;
         return;
     }
+    std::cout << this->_meshPath << std::endl;
     this->_node = smgr->addAnimatedMeshSceneNode(this->_mesh);
     if (this->_node) {
         this->_node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
@@ -25,6 +26,13 @@ _meshPath("./media/mesh/" + filename + ".dae"), id(id), _defaultColor(defaultCol
     this->_loaded = true;
 }
 
+
+
 bool Irrlicht::IrrEntity::isEntityLoaded() {
     return this->_loaded;
+}
+
+void Irrlicht::IrrEntity::setPos(float x, float z) {
+    if (this->_node)
+        this->_node->setPosition(irr::core::vector3df(x, 0, z));
 }

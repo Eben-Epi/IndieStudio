@@ -13,7 +13,7 @@ Irrlicht::GameScene::GameScene(Screen &window, std::string name, unsigned id) :
     id(id),
     _eventReceiver(window.getEventReceiver())
 {
-    this->_window.getSmgr()->addCameraSceneNodeFPS();
+    this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(0, 100, 0), irr::core::vector3df(20, 0, 0));
 }
 
 bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key) //a changer
@@ -42,9 +42,11 @@ void Irrlicht::GameScene::setAnimation(unsigned entity_id, Animations anim) {
 }
 
 void Irrlicht::GameScene::setPosition(unsigned entity, float x, float y) {
-        for (auto &ent : this->_entities)
-            if (ent.id == entity)
-                ent.pos = {x, y};
+    for (auto &ent : this->_entities)
+        if (ent.id == entity) {
+            ent.pos = {x, y};
+            ent.setPos(ent.pos.x, ent.pos.y);
+        }
 }
 
 bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2) {

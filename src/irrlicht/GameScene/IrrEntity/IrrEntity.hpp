@@ -20,6 +20,7 @@ namespace Irrlicht {
                 irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255), std::string texturePath = "");
 
         bool isEntityLoaded();
+        void setPos(float x, float y);
     //PROPERTIES
         unsigned id;
         ECS::Point pos;
