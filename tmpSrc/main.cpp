@@ -74,7 +74,7 @@ int main()
 
 	guienv->addStaticText(L"Dab très fort sur l'Irrlicht Engine", irr::core::rect<irr::s32>(10, 10, 200, 25), true);
 
-	irr::scene::IAnimatedMesh *mesh = smgr->getMesh("media/Audience.DAE");
+	irr::scene::IAnimatedMesh *mesh = smgr->getMesh("media/dinamite.obj");
 	if (!mesh) {
 		device->drop();
 		return 1;
@@ -84,7 +84,7 @@ int main()
 	if (node) {
 		node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 		node->setMD2Animation(irr::scene::EMAT_STAND);
-		node->setMaterialTexture( 0, driver->getTexture("media/Audience2_TEXT.png") );
+		node->setMaterialTexture( 0, driver->getTexture("media/D.png"));
 	}
 
 	smgr->addCameraSceneNode(0, irr::core::vector3df(0, 60, -40), irr::core::vector3df(0, 15, 0));
@@ -99,8 +99,8 @@ int main()
 	unsigned int tmpCount = 0;
 	bool isDroppingBomb = false;
 	unsigned int timeBomb = 0;
-	irr::scene::IAnimatedMeshSceneNode *bomb(smgr->addAnimatedMeshSceneNode(smgr->getMesh("./media/skull.dae"), nullptr, 0, irr::core::vector3df(-100, 0, 0), irr::core::vector3df(0, 0, 0), irr::core::vector3df(5, 5, 5)));
-	bomb->setMaterialTexture(0, driver->getTexture("./media/orange.bmp"));
+	irr::scene::IAnimatedMeshSceneNode *bomb(smgr->addAnimatedMeshSceneNode(smgr->getMesh("media/dinamite.dae"), nullptr, 0, irr::core::vector3df(-100, 0, 0), irr::core::vector3df(0, 0, 0), irr::core::vector3df(5, 5, 5)));
+	bomb->setMaterialTexture(0, driver->getTexture("media/D.png"));
 
 	while (device->run()) {
 		driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
