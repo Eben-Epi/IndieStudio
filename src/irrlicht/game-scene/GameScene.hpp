@@ -34,8 +34,8 @@ namespace Irrlicht {
         void setSize(unsigned entity, float x, float y);
         ECS::Vector2<float> getSize(unsigned entity);
         bool isKeyPressed(irr::EKEY_CODE key);
-        bool isJoystickButtonPressed(unsigned id, unsigned button);
-        float getJoystickAxisPosition(unsigned id, unsigned axis);
+        bool isJoystickButtonPressed(unsigned button);
+        float getJoystickAxisPosition(unsigned axis);
         // TODO void createMesh() or cube;
 
         const std::string sceneName;

@@ -13,20 +13,23 @@
 
 namespace Irrlicht
 {
-    class EventReceiver : public irr::IEventReceiver
-    {
-    public:
-        EventReceiver();
-        ~EventReceiver() = default;
+	class EventReceiver : public irr::IEventReceiver
+	{
+	public:
+		EventReceiver();
+		~EventReceiver() = default;
 
-        //MEMBER FUNCTIONS
-        virtual bool OnEvent(const irr::SEvent &event) override;
-        virtual bool isKeyPressed(irr::EKEY_CODE keyCode) const;
+		//MEMBER FUNCTIONS
+		virtual bool OnEvent(const irr::SEvent &event) override;
+		virtual bool isKeyPressed(irr::EKEY_CODE keyCode) const;
+		const irr::SEvent::SJoystickEvent &GetJoystickState(void) const;
+		bool isJoystickKeyPressed(irr::u32 key) const;
 
-    private:
-        //PROPERTIES
-        std::vector<bool> _keys;
-    };
+	private:
+		//PROPERTIES
+		std::vector<bool> _keys;
+		irr::SEvent::SJoystickEvent _joystickState;
+	};
 }
 
 
