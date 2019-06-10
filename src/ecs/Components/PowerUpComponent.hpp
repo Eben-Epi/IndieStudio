@@ -11,28 +11,11 @@
 #include <map>
 #include "../Component.hpp"
 #include "../Ressources.hpp"
+#include "../data/NumericValue.hpp"
 
 namespace ECS
 {
-    class NumericValue {
-    private:
-        double value;
-
-    public:
-        NumericValue() : value(0) {};
-
-        template<typename type>
-        NumericValue(type val) : value(val) {};
-
-        template<typename type>
-        operator type()
-        {
-            return static_cast<type>(this->value);
-        }
-    };
-
-    class PowerUpComponent : public Component
-    {
+    class PowerUpComponent : public Component {
     public:
         bool kick;
         float speed;

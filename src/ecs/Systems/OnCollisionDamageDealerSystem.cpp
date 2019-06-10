@@ -26,10 +26,8 @@ void ECS::OnCollisionDamageDealerSystem::updateEntity(ECS::Entity &entity)
     for (Entity *entityCollided : cc.entitiesCollided) {
         if (entityCollided->hasComponent("Health")) {
             HealthComponent &hc = reinterpret_cast<HealthComponent &>(entityCollided->getComponentByName("Health"));
-            if (hc.health < ddc.damage)
-                hc.health = 0;
-            else
-                hc.health -= ddc.damage;
+
+            hc.takeDamage(ddc.damage);
         }
     }
 }

@@ -21,9 +21,7 @@ ECS::DroppedBonusRange::DroppedBonusRange(unsigned id, Ressources &ressources) :
         new DisplayableComponent("DroppedBonusRange", ressources),
         new ColliderComponent(0),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
-        new PowerUpComponent({
-            std::pair<std::string, NumericValue>("Range", 1)
-        }),
+        new PowerUpComponent({{"Range", 1}}),
         new PickableComponent(),
         new PowerUpPickedComponent()
     })

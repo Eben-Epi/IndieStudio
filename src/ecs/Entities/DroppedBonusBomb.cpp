@@ -21,9 +21,7 @@ ECS::DroppedBonusBomb::DroppedBonusBomb(unsigned id, Ressources &ressources) :
         new DisplayableComponent("DroppedBonusBomb", ressources),
         new ColliderComponent(0),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
-        new PowerUpComponent({
-            std::pair<std::string, NumericValue>("Bomb", 1)
-        }),
+        new PowerUpComponent({{"Bomb", 1}}),
         new PickableComponent(),
         new PowerUpPickedComponent()
     })

@@ -11,6 +11,7 @@
 #include "../Components/MovableComponent.hpp"
 #include "../Components/ControllableComponent.hpp"
 #include "../Components/CurseComponent.hpp"
+#include "../Components/BombDropperComponent.hpp"
 #include "../Components/UltimeComponent.hpp"
 
 namespace ECS
@@ -18,7 +19,7 @@ namespace ECS
 	ControllableSystem::ControllableSystem(ECS::ECSCore &core) :
 		System("Controllable", core)
 	{
-		this->_dependencies = {"Movable", "Position", "Ultime"};
+		this->_dependencies = {"Movable", "Position", "BombDropper", "Ultime"};
 	}
 
 	void ControllableSystem::updateEntity(ECS::Entity &entity)
@@ -26,11 +27,13 @@ namespace ECS
 		auto &mov = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
 		auto &pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
 		auto &in = reinterpret_cast<ControllableComponent &>(entity.getComponentByName("Controllable"));
+		auto &bombDropper = reinterpret_cast<BombDropperComponent &>(entity.getComponentByName("BombDropper"));
 		auto &uc = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
 		auto actions = in.input.getActions();
 		unsigned char newDir = 0;
-		uc.castUlt = false;
 
+		uc.castUlt = false;
+		bombDropper.dropBomb = false;
 		for (auto &action : actions) {
 			switch (action) {
 			case Input::ACTION_UP:
@@ -39,10 +42,11 @@ namespace ECS
 			case Input::ACTION_RIGHT:
 				newDir = 1U << action;
 				break;
+			case Input::ACTION_ACTION:
+				bombDropper.dropBomb = true;
+				break;
 			case Input::ACTION_ULT:
 				uc.castUlt = true;
-			default:
-				break;
 			}
 		}
 		if (newDir) {

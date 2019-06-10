@@ -25,7 +25,7 @@ namespace ECS
 
     std::ostream& PowerUpComponent::serialize(std::ostream &stream) const
     {
-    	return stream << health << ' ' << speed << ' ' << nbBomb << ' ' << kick << ' ' << hardness << "EndOfComponent";
+    	return stream << health << ' ' << speed << ' ' << nbBomb << ' ' << kick << ' ' << hardness << ' ' << range << " EndOfComponent";
     }
 
     PowerUpComponent::PowerUpComponent(ECS::Ressources &ressources, std::istream &stream) :

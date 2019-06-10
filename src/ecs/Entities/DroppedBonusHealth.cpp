@@ -22,9 +22,7 @@ ECS::DroppedBonusHealth::DroppedBonusHealth(unsigned id, Ressources &ressources)
         new DisplayableComponent("DroppedBonusHealth", ressources),
         new ColliderComponent(0),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
-        new PowerUpComponent({
-            std::pair<std::string, NumericValue>("Health", 1)
-        }),
+        new PowerUpComponent({{"Health", 1}}),
         new PickableComponent(),
         new PowerUpPickedComponent()
     })

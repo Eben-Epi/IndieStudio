@@ -60,6 +60,8 @@ add_executable(
 	src/ecs/Components/BlockedComponent.hpp
 	src/ecs/Components/OnCollisionDamageDealerComponent.cpp
 	src/ecs/Components/OnCollisionDamageDealerComponent.hpp
+	src/ecs/Systems/OnCollisionDamageDealerSystem.cpp
+	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp
 	src/ecs/Components/PowerUpPickedComponent.cpp
 	src/ecs/Components/PowerUpPickedComponent.hpp
 	src/ecs/Factories/ComponentFactory.cpp
@@ -68,8 +70,6 @@ add_executable(
 	src/ecs/Factories/EntityFactory.hpp
 	src/ecs/Factories/SystemFactory.cpp
 	src/ecs/Factories/SystemFactory.hpp
-	src/ecs/Entities/Brick.cpp
-	src/ecs/Entities/Brick.hpp
 	src/ecs/Entities/Brick.cpp
 	src/ecs/Entities/Brick.hpp
 	src/ecs/Entities/Wall.cpp
@@ -92,6 +92,8 @@ add_executable(
 	src/ecs/Entities/DroppedBonusKick.hpp
 	src/ecs/Entities/DroppedBonusHardness.cpp
 	src/ecs/Entities/DroppedBonusHardness.hpp
+	src/ecs/Entities/DroppedBonusRange.cpp
+	src/ecs/Entities/DroppedBonusRange.hpp
 	src/ecs/Systems/KickableSystem.cpp
 	src/ecs/Systems/KickableSystem.hpp
 	src/ecs/Systems/EphemeralSystem.cpp
@@ -104,8 +106,6 @@ add_executable(
 	src/ecs/Systems/CollisionSystem.hpp
 	src/ecs/Systems/DisplayableSystem.cpp
 	src/ecs/Systems/DisplayableSystem.hpp
-	src/ecs/Systems/HealthSystem.cpp
-	src/ecs/Systems/HealthSystem.hpp
 	src/ecs/Systems/BuffedSystem.cpp
 	src/ecs/Systems/BuffedSystem.hpp
 	src/ecs/Systems/PositionSystem.cpp
@@ -116,8 +116,6 @@ add_executable(
 	src/ecs/Systems/ControllableSystem.hpp
 	src/ecs/Systems/PowerUpPickedSystem.cpp
 	src/ecs/Systems/PowerUpPickedSystem.hpp
-	src/ecs/Systems/KickerSystem.cpp
-	src/ecs/Systems/KickerSystem.hpp
 	src/ecs/Systems/EntityDropperSystem.cpp
 	src/ecs/Systems/EntityDropperSystem.hpp
 	src/ecs/Systems/ColliderSystem.cpp
@@ -159,13 +157,6 @@ add_executable(
 	src/irrlicht/Animations.hpp
 	src/map/Map.hpp
 	src/map/Map.cpp
-	src/Input/Controller.cpp
-	src/Input/Controller.hpp
-	src/Input/Input.hpp
-	src/Input/Keyboard.cpp
-	src/Input/Keyboard.hpp
-	src/Input/Error/Errors.cpp
-	src/Input/Error/Errors.hpp
 	src/irrlicht/Screen/Screen.cpp
 	src/irrlicht/Screen/Screen.hpp
 	src/irrlicht/GameScene/GameScene.cpp
@@ -174,33 +165,48 @@ add_executable(
 	src/irrlicht/GameScene/IrrEntity/IrrEntity.hpp
 	src/irrlicht/IrrInput/EventReceiver/EventReceiver.cpp
 	src/irrlicht/IrrInput/EventReceiver/EventReceiver.hpp
-	src/Input/Controller.cpp
-	src/Input/Controller.hpp
-	src/Input/Input.hpp
-	src/Input/Keyboard.cpp
-	src/Input/Keyboard.hpp
-	src/Input/Error/Errors.cpp
-	src/Input/Error/Errors.hpp
+	src/map/Map.hpp
+	src/map/Map.cpp
+	src/input/Controller.cpp
+	src/input/Controller.hpp
+	src/input/Input.hpp
+	src/input/Keyboard.cpp
+	src/input/Keyboard.hpp
+	src/ecs/Systems/KickerSystem.cpp
+	src/ecs/Systems/KickerSystem.hpp
+	src/ecs/data/NumericValue.hpp
+	src/input/error/Errors.cpp
+	src/input/error/Errors.hpp
 	src/ecs/Systems/OnCollisionDamageDealerSystem.cpp
 	src/ecs/Systems/OnCollisionDamageDealerSystem.hpp
 	src/ecs/Components/UltimeComponent.cpp
 	src/ecs/Components/UltimeComponent.hpp
 	src/ecs/Systems/UltimeSystem.cpp
 	src/ecs/Systems/UltimeSystem.hpp
+	src/ecs/Components/MortalComponent.cpp
+	src/ecs/Components/MortalComponent.hpp
+	src/ecs/Systems/MortalSystem.cpp
+	src/ecs/Systems/MortalSystem.hpp
 	src/sound/SoundSystem.cpp
 	src/sound/SoundSystem.hpp
 	src/sound/Exception.hpp
 	src/ecs/Components/UltInvincibilityComponent.cpp
 	src/ecs/Components/UltInvincibilityComponent.hpp
 	src/ecs/Systems/UltInvincibilitySystem.cpp
-	src/ecs/Systems/UltInvincibilitySystem.hpp)
+	src/ecs/Systems/UltInvincibilitySystem.hpp
+	src/ecs/Systems/UltInvincibilitySystem.hpp
+	src/ecs/Entities/Bedrock.cpp
+	src/ecs/Entities/Bedrock.hpp
+)
 
 find_package(SFML COMPONENTS audio REQUIRED)
 find_package(Irrlicht REQUIRED)
 
+include_directories(Irrlicht_INCLUDE_DIRS)
+
 target_link_libraries(
 	bomberman
-	Irrlicht
+	${Irrlicht_LIBRARIES}
 	sfml-audio
 	pthread
 )

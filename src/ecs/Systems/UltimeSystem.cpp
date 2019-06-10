@@ -23,7 +23,7 @@ void ECS::UltimeSystem::updateEntity(ECS::Entity &entity)
 
         if (uc.charge >= 10000) {
             uc.charge = 10000;
-            uc.soundSystem.playSound("ultimate_ready");
+            uc.soundSystem.playSound("ultimate_ready", 50);
         }
     }
 }

@@ -9,7 +9,7 @@
 
 #include "../System.hpp"
 
-#define ULTIME_POINT_PER_FRAME (60 / FRAME_RATE) +20
+#define ULTIME_POINT_PER_FRAME (60 / FRAME_RATE) + 20
 
 namespace ECS {
     class UltimeSystem : public System {

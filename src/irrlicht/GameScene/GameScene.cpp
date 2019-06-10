@@ -11,6 +11,7 @@ Irrlicht::GameScene::GameScene(Screen &window, std::string name, unsigned id) :
     _window(window),
     sceneName(name),
     id(id),
+    _entitiesId(0),
     _eventReceiver(window.getEventReceiver())
 {
     this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(75, 125, 15), irr::core::vector3df(75, 15, 55));
@@ -23,30 +24,26 @@ bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key)
 
 unsigned int Irrlicht::GameScene::registerEntity(const std::string &name)
 {
-    _entities_id++;
-    this->_entities.emplace_back(name, _entities_id, this->_window.getSmgr(), this->_window.getDriver());
-
-    return(_entities_id);
+    this->_entities.emplace_back(new IrrEntity{name, this->_entitiesId, this->_window.getSmgr(), this->_window.getDriver()});
+    return(this->_entitiesId++);
 }
 
 void Irrlicht::GameScene::deleteEntity(unsigned id) {
     for (auto it = this->_entities.begin(); it < this->_entities.end(); it++)
-        if (it->id == id)
+        while (it < this->_entities.end() && (*it)->id == id)
             this->_entities.erase(it);
 }
 
 void Irrlicht::GameScene::setAnimation(unsigned entity_id, Animations anim) {
     for (auto &ent : this->_entities)
-        if (ent.id == entity_id)
-            ent.anim = anim;
+        if (ent->id == entity_id)
+            ent->anim = anim;
 }
 
 void Irrlicht::GameScene::setPosition(unsigned entity, float x, float y) {
     for (auto &ent : this->_entities)
-        if (ent.id == entity) {
-            ent.pos = {x, y};
-            ent.setPos(ent.pos.x/4, ent.pos.y/4);
-        }
+        if (ent->id == entity)
+            ent->setPos(x, y);
 }
 
 bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2) {

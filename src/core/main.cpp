@@ -4,10 +4,8 @@
 #include "../irrlicht/Screen/Screen.hpp"
 #include "../irrlicht/GameScene/GameScene.hpp"
 #include "../map/Map.hpp"
-#include "../Input/Keyboard.hpp"
+#include "../input/Keyboard.hpp"
 #include "../ecs/Exceptions.hpp"
-//#include "windows.h"
-//#include <cstdio>
 
 Map::Map *loadMap(ECS::Ressources &res, std::string path)
 {
@@ -16,7 +14,7 @@ Map::Map *loadMap(ECS::Ressources &res, std::string path)
 	try {
 		if (stream.is_open())
 			return new Map::Map{res, stream};
-	} catch (ECS::InvalidSerializedStringException &e) {
+	} catch (std::exception &e) {
 		std::cerr << "The saved map is invalid " << e.what() << std::endl;
 	}
 
@@ -28,43 +26,39 @@ Map::Map *loadMap(ECS::Ressources &res, std::string path)
 
 int main()
 {
-    try {
-//        AllocConsole();
-//        freopen("CONOUT$", "w", stdout);
-//        freopen("CONOUT$", "w", stderr);
-//        freopen("CONIN$", "r", stdin);
-    Irrlicht::Screen screen(640, 640, 32, false, false);
-    screen.addGameScene("Game");
-    std::vector<std::unique_ptr<Input::Input>> inputs;
-    if (!screen.setCurrentGameScene("Game"))
-        return EXIT_FAILURE;
-    inputs.emplace_back(
-            new Input::Keyboard(screen.getCurrentGameScene(), {
-                    irr::KEY_KEY_Z,
-                    irr::KEY_KEY_Q,
-                    irr::KEY_KEY_S,
-                    irr::KEY_KEY_D,
-                    irr::KEY_SPACE,
-                    irr::KEY_KEY_A,
-            })
-    );
-    ECS::Ressources res{screen.getCurrentGameScene(), inputs};
-    Map::Map *map = loadMap(res, "save.txt");
+	try {
+		Irrlicht::Screen screen(640, 640, 32, false, false);
+		screen.addGameScene("Game");
+		std::vector<std::unique_ptr<Input::Input>> inputs;
+		if (!screen.setCurrentGameScene("Game"))
+			return EXIT_FAILURE;
+		inputs.emplace_back(
+			new Input::Keyboard(screen.getCurrentGameScene(), {
+				irr::KEY_KEY_Z,
+				irr::KEY_KEY_Q,
+				irr::KEY_KEY_S,
+				irr::KEY_KEY_D,
+				irr::KEY_SPACE,
+				irr::KEY_KEY_A,
+			})
+		);
+		ECS::Ressources res{screen.getCurrentGameScene(), inputs};
+		Map::Map *map = loadMap(res, "save.txt");
 
-    for (auto &sound_name : sound_to_load)
-        res.soundSystem.loadSound(sound_name);
-    res.soundSystem.setLoop("battle_music", true);
+		for (auto &sound_name : sound_to_load)
+			res.soundSystem.loadSound(sound_name);
 
-    res.soundSystem.setBackgroundMusic("battle_music"); // tmp
-    while (screen.display()) {
-        map->update();
-    }
-//    std::ofstream stream("save.txt");
-//    stream << *map << std::endl;
-    delete map;
-    return EXIT_SUCCESS;
-    } catch (std::exception &e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return EXIT_FAILURE;
-    }
+		res.soundSystem.setBackgroundMusic("battle_music", 50); // tmp
+		while (screen.display())
+			map->update();
+
+		std::ofstream stream("save.txt");
+
+		stream << *map << std::endl;
+		delete map;
+	} catch (std::exception &e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+		return EXIT_FAILURE;
+	}
+	return EXIT_SUCCESS;
 }

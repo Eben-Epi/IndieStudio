@@ -11,8 +11,9 @@
 
 namespace ECS
 {
-    ExplodeComponent::ExplodeComponent(unsigned int range, unsigned int strength) :
-        Component("Controller"),
+    ExplodeComponent::ExplodeComponent(Sound::SoundSystem &soundSystem, unsigned int range, unsigned int strength) :
+        Component("Explode"),
+        soundSystem(soundSystem),
         range(range),
         strength(strength)
     {
@@ -23,8 +24,8 @@ namespace ECS
     	return stream << range << ' ' << strength << " EndOfComponent";
     }
 
-    ExplodeComponent::ExplodeComponent(ECS::Ressources &, std::istream &stream) :
-	    ExplodeComponent(0, 0)
+    ExplodeComponent::ExplodeComponent(ECS::Ressources &res, std::istream &stream) :
+	    ExplodeComponent(res.soundSystem, 0, 0)
     {
 	    std::string terminator;
 

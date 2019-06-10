@@ -9,7 +9,7 @@
 #define CONTROLLERCOMPONENT_HPP
 
 #include "../Component.hpp"
-#include "../../Input/Input.hpp"
+#include "../../input/Input.hpp"
 #include "../Ressources.hpp"
 
 namespace ECS

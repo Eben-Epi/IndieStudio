@@ -9,7 +9,7 @@
 #define BOMBERMAN_RESSOURCES_HPP
 
 
-#include "../Input/Input.hpp"
+#include "../input/Input.hpp"
 #include "../irrlicht/GameScene/GameScene.hpp"
 #include "../sound/SoundSystem.hpp"
 

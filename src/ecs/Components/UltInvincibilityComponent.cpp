@@ -27,5 +27,5 @@ ECS::UltInvincibilityComponent::UltInvincibilityComponent(ECS::Ressources &resso
 
 std::ostream& ECS::UltInvincibilityComponent::serialize(std::ostream &stream) const
 {
-    return stream << this->timeLeft << this->isOnUse << this->oldPassThrough << "EndOfComponent";
+    return stream << this->timeLeft << " " << this->isOnUse << " " << this->oldPassThrough << " EndOfComponent";
 }

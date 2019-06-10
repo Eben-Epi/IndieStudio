@@ -11,26 +11,37 @@
 
 namespace ECS
 {
-	BombDropperComponent::BombDropperComponent(unsigned max, float timeToExplode, unsigned range) :
+	BombDropperComponent::BombDropperComponent(Sound::SoundSystem &soundSystem, unsigned max, float timeToExplode, unsigned range) :
 		Component ("BombDropper"),
+		soundSystem(soundSystem),
 		max(max),
 		timeToExplode(timeToExplode),
-		range(range)
+		range(range),
+		dropBomb(false)
 	{
 	}
 
-	BombDropperComponent::BombDropperComponent(ECS::Ressources &, std::istream &stream) :
-		BombDropperComponent(0, 0, 0)
+	BombDropperComponent::BombDropperComponent(ECS::Ressources &res, std::istream &stream) :
+		BombDropperComponent(res.soundSystem)
 	{
-		std::string terminator;
+		unsigned size;
+		std::string value;
 
-		stream >> max >> timeToExplode >> range >> terminator;
-		if (terminator != "EndOfComponent")
+		stream >> max >> timeToExplode >> range >> size;
+		while (size--) {
+			stream >> value;
+			this->bombs.push_back(std::stoi(value));
+		}
+		stream >> value;
+		if (value != "EndOfComponent")
 			throw InvalidSerializedStringException("The component terminator was not found");
 	}
 
 	std::ostream &BombDropperComponent::serialize(std::ostream &stream) const
 	{
-		return stream << max << ' ' << timeToExplode << ' ' << range << " EndOfComponent";
+		stream << max << ' ' << timeToExplode << ' ' << range << ' ' << this->bombs.size() << ' ';
+		for (auto &bomb : this->bombs)
+			stream << bomb << " ";
+		return stream << "EndOfComponent";
 	}
 }

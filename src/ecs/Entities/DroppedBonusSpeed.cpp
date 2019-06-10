@@ -21,9 +21,7 @@ ECS::DroppedBonusSpeed::DroppedBonusSpeed(unsigned id, Ressources &ressources) :
         new DisplayableComponent("DroppedBonusSpeed", ressources),
         new ColliderComponent(0),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
-        new PowerUpComponent({
-            std::pair<std::string, NumericValue>("Speed", 0.2)
-        }),
+        new PowerUpComponent({{"Speed", 0.2}}),
         new PickableComponent(),
         new PowerUpPickedComponent()
     })

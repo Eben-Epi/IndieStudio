@@ -13,7 +13,7 @@
 namespace ECS {
     class DisplayableSystem : public System {
     public:
-	    DisplayableSystem(ECSCore &core);
+        DisplayableSystem(ECSCore &core);
         void updateEntity(Entity &entity) override;
     };
 }

@@ -18,17 +18,17 @@ namespace Irrlicht {
     public:
         IrrEntity(const std::string &filename, unsigned id, irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
                 irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255), std::string texturePath = "");
+        ~IrrEntity();
 
         bool isEntityLoaded();
         void setPos(float x, float y);
     //PROPERTIES
         unsigned id;
-        ECS::Point pos;
         Animations anim;
-        ECS::Vector2<unsigned> _size;
         irr::video::SColor _defaultColor;
     private:
         std::string _meshPath;
+        irr::scene::ISceneManager* _smgr;
         irr::scene::IAnimatedMesh* _mesh;
         irr::scene::IAnimatedMeshSceneNode* _node;
         irr::scene::ISceneNode* _parent;

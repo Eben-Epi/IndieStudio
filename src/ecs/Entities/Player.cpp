@@ -14,10 +14,11 @@
 #include "../Components/CollisionComponent.hpp"
 #include "../Components/BlockedComponent.hpp"
 #include "../Components/ColliderComponent.hpp"
-#include "../../config.hpp"
 #include "../Components/CurseComponent.hpp"
 #include "../Components/UltimeComponent.hpp"
+#include "../Components/BombDropperComponent.hpp"
 #include "../Components/UltInvincibilityComponent.hpp"
+#include "../../config.hpp"
 
 ECS::Player::Player(unsigned id, Ressources &ressources) :
 	Entity(id, "Player", {
@@ -30,6 +31,7 @@ ECS::Player::Player(unsigned id, Ressources &ressources) :
 		new CollisionComponent(0),
 		new ColliderComponent(0),
 		new BlockedComponent(),
+		new BombDropperComponent(ressources.soundSystem),
 		new DisplayableComponent("Player", ressources),
 		new ControllableComponent(*ressources.inputs.at(id), id)
 	})

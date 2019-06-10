@@ -15,26 +15,27 @@
 ECS::CollisionSystem::CollisionSystem(ECS::ECSCore &core):
     System("Collision", core)
 {
-	this->_dependencies = {"Displayable"};
+	this->_dependencies = {"Position"};
 }
 
 void ECS::CollisionSystem::updateEntity(ECS::Entity &entity)
 {
 	auto &col = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
-	auto &disp = reinterpret_cast<DisplayableComponent &>(entity.getComponentByName("Displayable"));
-	auto &pc = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
+	auto &e1 = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
 
 	col.entitiesCollided = {};
-	disp.gameScene.setPosition(disp.entityId, pc.pos.x, pc.pos.y);
 	for (auto &ent : this->_core.getEntitiesByComponent("Collider")) {
 		if (ent->getId() == entity.getId())
 			continue;
 
-		auto &disp2 = reinterpret_cast<DisplayableComponent &>(ent->getComponentByName("Displayable"));
-		auto &pos = reinterpret_cast<PositionComponent &>(ent->getComponentByName("Position"));
+		auto &e2 = reinterpret_cast<PositionComponent &>(ent->getComponentByName("Position"));
 
-		disp2.gameScene.setPosition(disp2.entityId, pos.pos.x, pos.pos.y);
-		if (disp.gameScene.areColliding(disp.entityId, disp2.entityId))
+		if (!(
+			e1.pos.x + e1.size.x < e2.pos.x ||
+			e2.pos.x + e2.size.x < e1.pos.x ||
+			e1.pos.y + e1.size.y < e2.pos.y ||
+			e2.pos.y + e2.size.y < e1.pos.y
+		))
 			col.entitiesCollided.push_back(&*ent);
 	}
 }

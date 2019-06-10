@@ -5,8 +5,8 @@
 ** DroppedBonusHardness.hpp
 */
 
-#ifndef BOMBERMAN_DROPPEDBONUSRANGE_HPP
-#define BOMBERMAN_DROPPEDBONUSRANGE_HPP
+#ifndef BOMBERMAN_DROPPEDBONUSHARDNESS_HPP
+#define BOMBERMAN_DROPPEDBONUSHARDNESS_HPP
 
 #include "../Entity.hpp"
 #include "../Ressources.hpp"
@@ -19,4 +19,4 @@ namespace ECS
     };
 }
 
-#endif //BOMBERMAN_DROPPEDBONUSRANGE_HPP
+#endif //BOMBERMAN_DROPPEDBONUSHARDNESS_HPP

@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include <algorithm>
 #include "ECSCore.hpp"
 #include "Exceptions.hpp"
 
@@ -38,6 +39,8 @@ namespace ECS
 				this->getEntityById(entity->getId());
 				throw InvalidSerializedStringException("Two entities have the same ID");
 			} catch (NoSuchEntityException &) {}
+			if (entity->getId() >= this->_lastEntityId)
+				this->_lastEntityId = entity->getId() + 1;
 			this->_entities.emplace_back(entity);
 			for (auto &comp : this->_entities.back()->getComponents())
 				this->_components[comp->getName()].push_back(&*this->_entities.back());
@@ -111,9 +114,19 @@ namespace ECS
 				}
 			}
 		}
-		for (auto it = this->_entities.begin(); it < this->_entities.end(); it++)
-			while ((*it)->isDestroyed())
+		for (auto it = this->_entities.begin(); it < this->_entities.end(); it++) {
+			while (it < this->_entities.end() && (*it)->isDestroyed()) {
+				for (auto &comp : (*it)->getComponents())
+					this->_components[comp->getName()].erase(
+						std::find(
+							this->_components[comp->getName()].begin(),
+							this->_components[comp->getName()].end(),
+							&**it
+						)
+					);
 				this->_entities.erase(it);
+			}
+		}
 	}
 
 	void ECSCore::reset()

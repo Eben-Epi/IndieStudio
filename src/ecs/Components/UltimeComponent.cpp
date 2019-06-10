@@ -23,7 +23,6 @@ ECS::UltimeComponent::UltimeComponent(ECS::Ressources &ressources, std::istream 
     soundSystem(ressources.soundSystem)
 {
     std::string terminator;
-    std::string ult_name;
 
     stream >> charge >> terminator;
     if (terminator != "EndOfComponent")

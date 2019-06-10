@@ -21,16 +21,18 @@ namespace ECS
 
     std::ostream& MovableComponent::serialize(std::ostream &stream) const
     {
-    	return stream << dir << ' ' << speed << ' ' << maxSpeed << " EndOfComponent";
+    	return stream << static_cast<int>(dir) << ' ' << speed << ' ' << maxSpeed << " EndOfComponent";
     }
 
     MovableComponent::MovableComponent(ECS::Ressources &, std::istream &stream) :
 	    MovableComponent(0)
     {
-	    std::string terminator;
+        int val;
+        std::string terminator;
 
-	    stream >> dir >> speed >> maxSpeed >> terminator;
-	    if (terminator != "EndOfComponent")
-		    throw InvalidSerializedStringException("The component terminator was not found");
+        stream >> val >> speed >> maxSpeed >> terminator;
+        dir = val;
+        if (terminator != "EndOfComponent")
+    	    throw InvalidSerializedStringException("The component terminator was not found");
     }
 }

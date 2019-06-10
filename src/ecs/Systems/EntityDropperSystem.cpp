@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** ECS
 ** File description:
-** ItemDropperSystem.cpp
+** EntityDropperSystem.cpp
 */
 
 #include "EntityDropperSystem.hpp"
@@ -21,7 +21,7 @@ void ECS::EntityDropperSystem::updateEntity(ECS::Entity &entity)
 {
     auto &posComp = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
     auto &hthComp = reinterpret_cast<HealthComponent &>(entity.getComponentByName("Health"));
-    auto &itemDropper = reinterpret_cast<EntityDropperComponent &>(entity.getComponentByName("ItemDropper"));
+    auto &itemDropper = reinterpret_cast<EntityDropperComponent &>(entity.getComponentByName("EntityDropper"));
 
     if (!itemDropper.items.empty()) {
         Entity &newEntity = this->_core.makeEntity(itemDropper.items[0]);

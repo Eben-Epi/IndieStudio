@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
-** congif.hpp
+** config.hpp
 */
 
-#ifndef BOMBERMAN_CONGIF_HPP
-#define BOMBERMAN_CONGIF_HPP
+#ifndef BOMBERMAN_CONFIG_HPP
+#define BOMBERMAN_CONFIG_HPP
 
 #define FRAME_RATE 60
 
@@ -18,7 +18,9 @@
 const std::vector<std::string> sound_to_load = {
     "battle_music",
     "ultimate_ready",
-    "starman"
+    "starman",
+    "bip",
+    "explode"
 };
 
-#endif //BOMBERMAN_CONGIF_HPP
+#endif //BOMBERMAN_CONFIG_HPP

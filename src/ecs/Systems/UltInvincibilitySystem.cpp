@@ -39,10 +39,10 @@ void ECS::UltInvincibilitySystem::updateEntity(ECS::Entity &entity)
         auto &mc = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
         uc.charge = 0;
 
-        uc.soundSystem.playSoundOverBackgroundMusic("starman");
+        uc.soundSystem.playSoundOverBackgroundMusic("starman", 100);
         hc.invunerabilityTimeLeft = 26 * FRAME_RATE;
         self.oldPassThrough = mc.passThrough;
-        mc.passThrough = 3;
+        mc.passThrough = 2;
         self.isOnUse = true;
         self.timeLeft = 26 * FRAME_RATE;
     }
