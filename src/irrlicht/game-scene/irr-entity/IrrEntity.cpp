@@ -50,7 +50,7 @@ bool Irrlicht::IrrEntity::isEntityLoaded() {
 
 void Irrlicht::IrrEntity::setPos(float x, float z) {
     if (this->_node)
-        this->_node->setPosition(irr::core::vector3df(x / 4, 0, z / 4));
+        this->_node->setPosition(irr::core::vector3df(x, 0, z));
 }
 
 void Irrlicht::IrrEntity::setScale(float x, float z) {
@@ -75,4 +75,26 @@ ECS::Vector2<float> Irrlicht::IrrEntity::getSize() {
     irr::core::aabbox3d<float> bounding_box = this->_node->getBoundingBox();
 
     return ECS::Vector2<float>{bounding_box.MaxEdge.X - bounding_box.MinEdge.X, bounding_box.MaxEdge.Z - bounding_box.MinEdge.Z};
+}
+
+void Irrlicht::IrrEntity::setSize(float x, float y)
+{
+	if (this->_node && size.x != x && size.y != y) {
+		size = {x, y};
+		auto *edges = new irr::core::vector3d<irr::f32>[8];
+		irr::core::aabbox3d<irr::f32> boundingbox = this->_node->getTransformedBoundingBox();
+		boundingbox.getEdges(edges);
+
+		irr::f32 width = edges[5].X - edges[1].X;
+		irr::f32 depth = edges[2].Z - edges[0].Z;
+
+		irr::f32 factorX = x / width;
+		irr::f32 factorZ = y / depth;
+		irr::core::vector3d<irr::f32> factorEscalate(
+			factorX > factorZ ? factorX : factorZ,
+			factorX > factorZ ? factorX : factorZ,
+			factorX > factorZ ? factorX : factorZ
+		);
+		this->_node->setScale(factorEscalate);
+	}
 }
