@@ -16,8 +16,6 @@
 
 static inline bool entities_collied(double x, double y, ECS::PositionComponent &e)
 {
-    // printf("Entity Collided(%f, %f, e_pos: %f:%f, e_size: %d:%d)\n", x, y, e.pos.x, e.pos.y, e.size.x, e.size.y);
-    // printf("Condition %d && %d\n", BETWEEN(e.pos.x, x, e.pos.x + e.size.x), BETWEEN(e.pos.y, y, e.pos.y + e.size.y));
     return (BETWEEN(e.pos.x, x, e.pos.x + e.size.x) && BETWEEN(e.pos.y, y, e.pos.y + e.size.y));
 }
 
@@ -30,14 +28,11 @@ static int get_first_collided(ECS::PositionComponent &pc, unsigned range, std::v
             if (!ic.hardness)
                 continue;
             if (entities_collied(pc.pos.x + (TILESIZE / 2 + TILESIZE * (v ? 0 : (r ? -i : i))), pc.pos.y + (TILESIZE / 2 + TILESIZE * (v ? (r ? -i : i) : 0)), ip)) {
-                // printf("check collision in %f:%f\n", pc.pos.x + (TILESIZE / 2 + TILESIZE * (v ? 0 : (r ? -i : i))), pc.pos.y + (TILESIZE / 2 + TILESIZE * (v ? (r ? -i : i) : 0)));
-                // printf("Collided with %s (%f;%f) when i = %d (r: %d v: %d)\n", e->getName().c_str(), ip.pos.x, ip.pos.y, i, r, v);
                 if (e->hasComponent("Health"))
                     reinterpret_cast<ECS::HealthComponent &>(e->getComponentByName("Health")).takeDamage();
                 return i - 1;
             }
         }
-    // printf("returned %d (range) for r: %d v: %d\n", range, r, v);
     return range; // if no collide, return the max range of the bomb
 }
 
@@ -63,7 +58,6 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
     max_x = static_cast<int>(pc.pos.x) + (get_first_collided(pc, exc.range, entities, false, false) + 1) * TILESIZE;
     min_y = static_cast<int>(pc.pos.y) - get_first_collided(pc, exc.range, entities, true, true) * TILESIZE;
     max_y = static_cast<int>(pc.pos.y) + (get_first_collided(pc, exc.range, entities, false, true) + 1) * TILESIZE;
-    printf("Explosion:\nx : %d - %d\ny: %d - %d\n--------------\n", min_x, max_x, min_y, max_y);
 
     Entity &horizontalEF = this->_core.makeEntity("ExplosionFrame");
     Entity &verticalEF = this->_core.makeEntity("ExplosionFrame");

@@ -78,7 +78,6 @@ ECS::Vector2<float> Irrlicht::IrrEntity::getSize() {
 void Irrlicht::IrrEntity::setSize(float x, float z)
 {
     if (this->_node && (this->_size.x != x || this->_size.y != z)) {
-        std::cout << "Set size of " << this->id << " to " << x << " " << z << std::endl;
         irr::f32 width;
         irr::f32 depth;
         if (_size.x == -1 && _size.y == -1) {
@@ -95,7 +94,6 @@ void Irrlicht::IrrEntity::setSize(float x, float z)
 
         irr::f32 factorX = x / width;
         irr::f32 factorZ = z / depth;
-        std::cout << width << " " << depth << " " << factorX << " " << factorZ << std::endl;
         irr::core::vector3d<irr::f32> factorEscalate(
             factorX,
             factorX > factorZ ? factorX : factorZ,
@@ -104,6 +102,5 @@ void Irrlicht::IrrEntity::setSize(float x, float z)
         this->_size = {x, z};
         this->_scale = {factorX, factorZ};
         this->_node->setScale(factorEscalate);
-        //this->_node->updateAbsolutePosition();
     }
 }
