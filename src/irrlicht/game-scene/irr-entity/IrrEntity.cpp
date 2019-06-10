@@ -53,3 +53,9 @@ void Irrlicht::IrrEntity::setPos(float x, float z) {
     if (this->_node)
         this->_node->setPosition(irr::core::vector3df(x / 4, 0, z / 4));
 }
+
+void Irrlicht::IrrEntity::setScale(float x, float z) {
+    if (this->_node) {
+        this->_node->setScale(irr::core::vector3df{x, 1, z});
+    }
+}

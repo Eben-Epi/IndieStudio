@@ -21,6 +21,7 @@ namespace Irrlicht {
         ~IrrEntity();
 
         bool isEntityLoaded();
+        void setScale(float x, float z);
         void setPos(float x, float y);
     //PROPERTIES
         unsigned id;
