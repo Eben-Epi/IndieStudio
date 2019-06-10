@@ -14,7 +14,7 @@ Irrlicht::GameScene::GameScene(Screen &window, const std::string &name, unsigned
     _entitiesId(0),
     _eventReceiver(window.getEventReceiver())
 {
-    this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(75, 125, 15), irr::core::vector3df(75, 15, 55));
+    this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(75, -125, 75), irr::core::vector3df(75, 0, 76));
 }
 
 bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key)
