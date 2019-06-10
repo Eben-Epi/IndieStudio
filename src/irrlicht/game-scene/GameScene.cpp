@@ -15,7 +15,7 @@ Irrlicht::GameScene::GameScene(Screen &window, const std::string &name, unsigned
     _entitiesId(0),
     _eventReceiver(window.getEventReceiver())
 {
-    this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(75, -125, 75), irr::core::vector3df(75, 0, 76));
+    this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(75, 120, -135), irr::core::vector3df(75, 0, -95));
 }
 
 bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key)
@@ -51,13 +51,23 @@ void Irrlicht::GameScene::setAnimation(unsigned entity_id, Animations anim) {
 void Irrlicht::GameScene::setPosition(unsigned entity, float x, float z) {
     for (auto &ent : this->_entities)
         if (ent->id == entity)
-            ent->setPos(x, z);
+            ent->setPos(x, -z);
 }
 
 void Irrlicht::GameScene::setScale(unsigned entity, float x, float z) {
     for (auto &ent : this->_entities)
         if (ent->id == entity)
             ent->setPos(x, z);
+}
+
+void Irrlicht::GameScene::setSize(unsigned entity, float x, float y)
+{
+    ECS::Vector2<float> size = this->getSize(entity);
+
+    size.x = x / size.x;
+    size.y = y / size.y;
+    std::cout << "Set " << entity << " to " << size.x << " " << size.y << std::endl;
+    this->setScale(entity, size.x, size.y);
 }
 
 ECS::Vector2<float> Irrlicht::GameScene::getSize(unsigned entity) {
