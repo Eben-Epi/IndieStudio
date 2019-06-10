@@ -25,14 +25,13 @@ namespace Irrlicht {
         GameScene(Screen &screen, const std::string &name, unsigned id);
         ~GameScene() = default;
 
-
-        void update();
-
         unsigned int registerEntity(const std::string &name);
         void deleteEntity(unsigned id);
         bool areColliding(unsigned entity1, unsigned entity2);
         void setAnimation(unsigned entity, Animations anim);
         void setPosition(unsigned entity, float x, float y);
+        void setScale(unsigned entity, float x, float y);
+        ECS::Vector2<float> getSize(unsigned entity);
         bool isKeyPressed(irr::EKEY_CODE key);
         bool isJoystickButtonPressed(unsigned id, unsigned button);
         float getJoystickAxisPosition(unsigned id, unsigned axis);

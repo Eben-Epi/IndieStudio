@@ -58,3 +58,9 @@ void Irrlicht::IrrEntity::setScale(float x, float z) {
         this->_node->setScale(irr::core::vector3df{x, 1, z});
     }
 }
+
+ECS::Vector2<float> Irrlicht::IrrEntity::getSize() {
+    irr::core::aabbox3d<float> bounding_box = this->_node->getBoundingBox();
+
+    return ECS::Vector2<float>{bounding_box.MinEdge.X - bounding_box.MaxEdge.X, bounding_box.MinEdge.Z - bounding_box.MaxEdge.Z};
+}

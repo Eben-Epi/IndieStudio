@@ -197,7 +197,8 @@ add_executable(
 	src/ecs/systems/UltInvincibilitySystem.hpp
 	src/ecs/entities/Bedrock.cpp
 	src/ecs/entities/Bedrock.hpp
-)
+	src/irrlicht/Exceptions.cpp
+	src/irrlicht/Exceptions.hpp)
 
 find_package(SFML COMPONENTS audio REQUIRED)
 find_package(Irrlicht REQUIRED)

@@ -29,6 +29,7 @@ namespace Irrlicht {
         bool isEntityLoaded();
         void setScale(float x, float z);
         void setPos(float x, float y);
+        ECS::Vector2<float> getSize();
     //PROPERTIES
         unsigned id;
         Animations anim;
