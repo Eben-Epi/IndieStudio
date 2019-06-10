@@ -15,7 +15,7 @@ Irrlicht::GameScene::GameScene(Screen &window, const std::string &name, unsigned
     _entitiesId(0),
     _eventReceiver(window.getEventReceiver())
 {
-    this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(304, 500, -304), irr::core::vector3df(304, 0, -303));
+    this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(320, 500, -320), irr::core::vector3df(320, 0, -319));
 }
 
 bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key)
@@ -26,12 +26,12 @@ bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key)
 unsigned int Irrlicht::GameScene::registerEntity(const std::string &name)
 {
     this->_entities.emplace_back(
-    	new IrrEntity{
-    		name,
-    		this->_entitiesId,
-    		this->_window.getSmgr(),
-    		this->_window.getDriver()
-    	}
+        new IrrEntity{
+            name,
+            this->_entitiesId,
+            this->_window.getSmgr(),
+            this->_window.getDriver()
+        }
     );
     return(this->_entitiesId++);
 }
@@ -57,14 +57,14 @@ void Irrlicht::GameScene::setPosition(unsigned entity, float x, float z) {
 void Irrlicht::GameScene::setScale(unsigned entity, float x, float z) {
     for (auto &ent : this->_entities)
         if (ent->id == entity)
-            ent->setPos(x, z);
+            ent->setScale(x, z);
 }
 
-void Irrlicht::GameScene::setSize(unsigned entity, float x, float y)
+void Irrlicht::GameScene::setSize(unsigned entity, float x, float z)
 {
-	for (auto &ent : this->_entities)
-		if (ent->id == entity)
-			ent->setSize(x, y);
+    for (auto &ent : this->_entities)
+        if (ent->id == entity)
+            ent->setSize(x, z);
 }
 
 ECS::Vector2<float> Irrlicht::GameScene::getSize(unsigned entity) {
@@ -75,7 +75,7 @@ ECS::Vector2<float> Irrlicht::GameScene::getSize(unsigned entity) {
 }
 
 bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2) {
-	return false;
+    return false;
 }
 
 //TODO ZARGITH add to event receiver http://irrlicht.sourceforge.net/docu/example019.html

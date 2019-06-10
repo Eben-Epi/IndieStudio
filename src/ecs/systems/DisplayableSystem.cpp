@@ -19,7 +19,7 @@ void ECS::DisplayableSystem::updateEntity(ECS::Entity &entity)
 	DisplayableComponent	&disp = reinterpret_cast<DisplayableComponent &>(entity.getComponentByName("Displayable"));
 	PositionComponent	&pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
 
-	disp.gameScene.setPosition(disp.entityId, pos.pos.x, pos.pos.y);
 	disp.gameScene.setSize(disp.entityId, pos.size.x, pos.size.y);
+	disp.gameScene.setPosition(disp.entityId, pos.pos.x, pos.pos.y);
 	disp.gameScene.setAnimation(disp.entityId, disp.animation);
 }

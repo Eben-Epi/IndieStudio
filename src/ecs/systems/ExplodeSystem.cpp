@@ -56,9 +56,7 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
     if (hc.health != 0)
         return;
 
-    Vector2<int> explose_size = {};
     int min_x, max_x, min_y, max_y;
-    int i;
     std::vector<Entity *> entities = this->_core.getEntitiesByComponent("Collider");
 
     min_x = static_cast<int>(pc.pos.x) - get_first_collided(pc, exc.range, entities, true, false) * TILESIZE;
@@ -72,10 +70,12 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
     PositionComponent &efHPos = reinterpret_cast<ECS::PositionComponent &>(horizontalEF.getComponentByName("Position"));
     PositionComponent &efVPos = reinterpret_cast<ECS::PositionComponent &>(verticalEF.getComponentByName("Position"));
 
-    efHPos.pos.x = min_x;
-    efHPos.pos.y = min_y;
-    efHPos.size.x = static_cast<unsigned>(max_x - min_x);
-    efHPos.size.y = static_cast<unsigned>(max_y - min_y);
+    efHPos.pos.x = min_x + 1;
+    efHPos.pos.y = pc.pos.y + 1;
+    efHPos.size.x = static_cast<unsigned>(max_x - min_x) - 2;
+    efVPos.pos.x = pc.pos.x + 1;
+    efVPos.pos.y = min_y + 1;
+    efVPos.size.y = static_cast<unsigned>(max_y - min_y) - 2;
     exc.soundSystem.playSound("explode");
     entity.destroy();
 }
