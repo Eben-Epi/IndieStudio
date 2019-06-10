@@ -197,6 +197,10 @@ add_executable(
 	src/ecs/systems/UltInvincibilitySystem.hpp
 	src/ecs/entities/Bedrock.cpp
 	src/ecs/entities/Bedrock.hpp
+	src/ecs/components/ControlledByAIComponent.cpp
+	src/ecs/components/ControlledByAIComponent.hpp
+	src/ecs/systems/ControlledByAISystem.cpp
+	src/ecs/systems/ControlledByAISystem.hpp
 )
 
 find_package(SFML COMPONENTS audio REQUIRED)
