@@ -7,10 +7,10 @@
 
 #include <random>
 #include "Map.hpp"
-#include "../ecs/Components/PositionComponent.hpp"
+#include "../ecs/components/PositionComponent.hpp"
 #include "MapException.hpp"
-#include "../ecs/Components/EntityDropperComponent.hpp"
-#include "../ecs/Components/PowerUpComponent.hpp"
+#include "../ecs/components/EntityDropperComponent.hpp"
+#include "../ecs/components/PowerUpComponent.hpp"
 
 Map::Map::Map(ECS::Ressources &ressources) : _core(ressources)
 {
@@ -188,7 +188,7 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
     setEntityComponentPosition(this->_core.makeEntity("Player"), {TILESIZE / 16., TILESIZE / 16.});
     setEntityComponentPosition(this->_core.makeEntity("Bomb"), {(double)((sizeMap.x - 1) * TILESIZE) + TILESIZE / 16. , (double)((sizeMap.y - 1) * TILESIZE) + TILESIZE / 16.});
     setArenaWallAround(sizeMap);
-    for (int i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
+    for (unsigned i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)
             airBlocksPos.erase(airBlocksPos.begin());
         else {

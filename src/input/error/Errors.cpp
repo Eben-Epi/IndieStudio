@@ -18,11 +18,11 @@ const char *Input::Errors::Errors::what() const noexcept
 }
 
 Input::KeyboardErrors::KeyboardErrors()
-: Errors("there is an error with the Keyboard")
+: Errors("there is an Error with the Keyboard")
 {
 }
 
 Input::ControllerErrors::ControllerErrors()
-: Errors("there is an error with the Controller")
+: Errors("there is an Error with the Controller")
 {
 }

@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include <algorithm>
 #include "ECSCore.hpp"
 #include "Exceptions.hpp"
 

@@ -9,19 +9,21 @@
 #define CONTROLLER_HPP
 
 #include "Input.hpp"
+#include "../irrlicht/screen/Screen.hpp"
+#include "../irrlicht/game-scene/GameScene.hpp"
 
 namespace Input
 {
-    class Controller : public Input 
+    class Controller : public Input
     {
         public:
-            Controller(Irrlicht::Irrlicht &, std::vector<unsigned> &&, unsigned);
+            Controller(Irrlicht::GameScene &, std::vector<unsigned> &&, unsigned);
             ~Controller();
             std::vector<Action> getActions();
             void changeKey(Action, unsigned); //keyCode -> controller Key Code
 
         private:
-            Irrlicht::Irrlicht &_irrlicht;
+            Irrlicht::GameScene &_scene;
             irr::SEvent *_event;
             std::vector<unsigned> _keys;
             unsigned _id;

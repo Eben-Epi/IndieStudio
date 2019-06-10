@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include "irrlicht/Keycodes.h"
-#include "../irrlicht/Irrlicht.hpp"
+#include "../irrlicht/screen/Screen.hpp"
+#include "../irrlicht/game-scene/GameScene.hpp"
 #include "../map/Map.hpp"
 #include "../input/Keyboard.hpp"
 #include "../ecs/Exceptions.hpp"
@@ -26,10 +27,13 @@ Map::Map *loadMap(ECS::Ressources &res, std::string path)
 int main()
 {
 	try {
-		Irrlicht::Irrlicht screen;
+		Irrlicht::Screen screen(640, 640, 32, false, false);
+		screen.addGameScene("Game");
 		std::vector<std::unique_ptr<Input::Input>> inputs;
+		if (!screen.setCurrentGameScene("Game"))
+			return EXIT_FAILURE;
 		inputs.emplace_back(
-			new Input::Keyboard(screen, {
+			new Input::Keyboard(screen.getCurrentGameScene(), {
 				irr::KEY_KEY_Z,
 				irr::KEY_KEY_Q,
 				irr::KEY_KEY_S,
@@ -38,18 +42,18 @@ int main()
 				irr::KEY_KEY_A,
 			})
 		);
-		ECS::Ressources res{screen, inputs, {}};
+		ECS::Ressources res{screen.getCurrentGameScene(), inputs};
 		Map::Map *map = loadMap(res, "save.txt");
 
 		for (auto &sound_name : sound_to_load)
 			res.soundSystem.loadSound(sound_name);
 
 		res.soundSystem.setBackgroundMusic("battle_music", 50); // tmp
-		while (!screen.isEnd()) {
+		while (screen.display())
 			map->update();
-			screen.display();
-		}
+
 		std::ofstream stream("save.txt");
+
 		stream << *map << std::endl;
 		delete map;
 	} catch (std::exception &e) {

@@ -12,8 +12,8 @@
 #include <memory>
 #include "System.hpp"
 #include "Ressources.hpp"
-#include "Factories/EntityFactory.hpp"
-#include "Factories/SystemFactory.hpp"
+#include "factories/EntityFactory.hpp"
+#include "factories/SystemFactory.hpp"
 
 namespace ECS
 {
