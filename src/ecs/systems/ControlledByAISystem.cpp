@@ -5,15 +5,17 @@
 ** ControlledByAISystem.cpp
 */
 
+#include <random>
 #include "ControlledByAISystem.hpp"
-#include "../Components/MovableComponent.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/ControlledByAIComponent.hpp"
-#include "../Components/BombDropperComponent.hpp"
-#include "../Components/UltimeComponent.hpp"
+#include "../components/MovableComponent.hpp"
+#include "../components/PositionComponent.hpp"
+#include "../components/ControlledByAIComponent.hpp"
+#include "../components/BombDropperComponent.hpp"
+#include "../components/UltimeComponent.hpp"
 #include "../ECSCore.hpp"
-#include "../Components/CurseComponent.hpp"
+#include "../components/CurseComponent.hpp"
 #include "../../config.hpp"
+#include "../components/ColliderComponent.hpp"
 
 namespace ECS
 {
@@ -23,18 +25,76 @@ namespace ECS
         this->_dependencies = {"Movable", "Position", "BombDropper", "Ultime"};
     }
 
+    std::vector<Input::Action> getTheBestWay(std::vector<int> &bonusMalusZone)
+    {
+        int i = 1;
+        int j = 0;
+        int nb = 1;
+        std::vector<Input::Action> actions;
+        std::random_device rand_device;
+
+        for (i = 1; i < bonusMalusZone.size(); ++i) {
+            if (bonusMalusZone[i] > bonusMalusZone[j])
+                j = i;
+            if (bonusMalusZone[i] == bonusMalusZone[j])
+                ++nb;
+        }
+        if (nb > 1) {
+            nb = rand_device() % nb;
+            j = 0;
+            for (i = 0; i < bonusMalusZone.size() && !nb; ++i) {
+                if (bonusMalusZone[i] == bonusMalusZone[j])
+                    --nb;
+            }
+            j = i - 1;
+        }
+        switch (j) {
+            case 0:
+                actions.push_back(Input::Action::ACTION_UP);
+                break;
+            case 1:
+                actions.push_back(Input::Action::ACTION_LEFT);
+                break;
+            case 3:
+                actions.push_back(Input::Action::ACTION_RIGHT);
+                break;
+            case 4:
+                actions.push_back(Input::Action::ACTION_DOWN);
+            default:
+                break;
+        }
+        return (actions);
+    }
+
+    void updateRelativeVision(
+        std::vector<ECS::Point> &cannotMoveThere,
+        std::vector<ECS::Point> &relativeVision,
+        std::vector<int> &bonusMalusZone,
+        int dangerLevel
+)
+    {
+        for (Point point : cannotMoveThere) {
+            auto infoIt = bonusMalusZone.begin();
+            for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
+                if (it.base()->x == point.x && it.base()->y == point.y) {
+                    if (*(infoIt.base()) < dangerLevel)
+                        *(infoIt.base()) += dangerLevel;
+                    break;
+                }
+                ++infoIt;
+            }
+        }
+    }
+
     std::vector<ECS::Point> getRelativeVision(ECS::Point &point)
     {
         std::vector<ECS::Point> vision;
 
-        vision.push_back({point.x - TILESIZE, point.y - TILESIZE});
         vision.push_back({point.x, point.y - TILESIZE});
-        vision.push_back({point.x + TILESIZE, point.y - TILESIZE});
         vision.push_back({point.x - TILESIZE, point.y});
+        vision.push_back({point.x, point.y});
         vision.push_back({point.x + TILESIZE, point.y});
-        vision.push_back({point.x - TILESIZE, point.y + TILESIZE});
         vision.push_back({point.x, point.y + TILESIZE});
-        vision.push_back({point.x + TILESIZE, point.y + TILESIZE});
 
         return (vision);
     }
@@ -54,33 +114,49 @@ namespace ECS
         return (point);
     }
 
-    std::vector<Input::Action> ControlledByAISystem::AIBrain(ECS::Entity &entity, MovableComponent &movableComponent)
+    std::vector<Input::Action> ControlledByAISystem::AIBrain(ECS::Entity &entity, MovableComponent &movable)
     {
         auto &in = reinterpret_cast<ControlledByAIComponent &>(entity.getComponentByName("ControlledByAI"));
         auto &pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
-        std::vector<Entity *> entities = this->_core.getEntitiesByComponent("Position");
+        std::vector<Entity *> colliders = this->_core.getEntitiesByComponent("Collider");
         std::vector<Entity *> explodableEntities = this->_core.getEntitiesByComponent("Explode");
-        std::vector<Point> cannotMoveThere;
+        std::vector<Entity *> powerUps = this->_core.getEntitiesByComponent("PowerUp");
         Point relativePos = getRelativePos(pos.pos);
         std::vector<Point> relativeVision = getRelativeVision(relativePos);
+        std::vector<Point> blockZone;
+        std::vector<Point> dangerZone;
+        std::vector<Point> bonusZone;
+        std::vector<int> bonusMalusZone = {0, 0, 0, 0, 0};
 
+        for (Entity *e : colliders) {
+            auto &eCollide = reinterpret_cast<ColliderComponent &>(e->getComponentByName("Collider"));
+            auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
+
+            if (eCollide.hardness >= 1)
+                blockZone.emplace_back(getRelativePos(ePos.pos));
+        }
+        updateRelativeVision(blockZone, relativeVision, bonusMalusZone, -1000000);
         for (Entity *e : explodableEntities) {
-            if (e->hasComponent("Explodable")) {
-                auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
+            auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
+            Point relaPos = getRelativePos(ePos.pos);
 
-                cannotMoveThere.emplace_back(ePos.pos);
-                cannotMoveThere.push_back({ePos.pos.x + TILESIZE, ePos.pos.y});
-                cannotMoveThere.push_back({ePos.pos.x - TILESIZE, ePos.pos.y});
-                cannotMoveThere.push_back({ePos.pos.x, ePos.pos.y + TILESIZE});
-                cannotMoveThere.push_back({ePos.pos.x, ePos.pos.y - TILESIZE});
-            }
-        }
-        for (Point point : cannotMoveThere)
-            for (Point vision : relativeVision) (pos.pos.x == point.x && pos.pos.y == point.y)
 
-        for (Entity *e : entities) {
-            if (e->hasComponent("Collider") && !e->hasComponent("Collision"))
+            dangerZone.push_back({relaPos.x + TILESIZE, relaPos.y});
+            dangerZone.push_back({relaPos.x - TILESIZE, relaPos.y});
+            dangerZone.push_back({relaPos.x, relaPos.y + TILESIZE});
+            dangerZone.push_back({relaPos.x, relaPos.y - TILESIZE});
         }
+        updateRelativeVision(dangerZone, relativeVision, bonusMalusZone, -20);
+
+        for (Entity *e : powerUps) {
+            auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
+
+            bonusZone.emplace_back(getRelativePos(ePos.pos));
+        }
+        updateRelativeVision(bonusZone, relativeVision, bonusMalusZone, 20);
+        std::vector<Input::Action> actions = getTheBestWay(bonusMalusZone);
+
+        return (actions);
     }
 
     void ControlledByAISystem::updateEntity(ECS::Entity &entity)
@@ -88,9 +164,10 @@ namespace ECS
         auto &mov = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
         auto &bombDropper = reinterpret_cast<BombDropperComponent &>(entity.getComponentByName("BombDropper"));
         auto &uc = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
-        std::vector<Input::Action> actions = AIBrain(entity, mov);
+        std::vector<Input::Action> actions;
         unsigned char newDir = 0;
 
+        actions = AIBrain(entity, mov);
         uc.castUlt = false;
         bombDropper.dropBomb = false;
         for (auto &action : actions) {

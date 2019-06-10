@@ -19,6 +19,7 @@
 #include "../components/BombDropperComponent.hpp"
 #include "../components/UltInvincibilityComponent.hpp"
 #include "../../config.hpp"
+#include "../components/ControlledByAIComponent.hpp"
 
 ECS::Player::Player(unsigned id, Ressources &ressources) :
 	Entity(id, "Player", {
@@ -33,7 +34,8 @@ ECS::Player::Player(unsigned id, Ressources &ressources) :
 		new BlockedComponent(),
 		new BombDropperComponent(ressources.soundSystem),
 		new DisplayableComponent("Player", ressources),
-		new ControllableComponent(*ressources.inputs.at(id), id)
+		new ControllableComponent(*ressources.inputs.at(id), id),
+		new ControlledByAIComponent(3)
 	})
 {
 }
