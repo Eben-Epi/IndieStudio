@@ -65,7 +65,6 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
     max_x = static_cast<int>(pc.pos.x) + (get_first_collided(pc, exc.range, entities, false, false) + 1) * TILESIZE;
     min_y = static_cast<int>(pc.pos.y) - get_first_collided(pc, exc.range, entities, true, true) * TILESIZE;
     max_y = static_cast<int>(pc.pos.y) + (get_first_collided(pc, exc.range, entities, false, true) + 1) * TILESIZE;
-    printf("Explosion:\nx : %d - %d\ny: %d - %d\n--------------\n", min_x, max_x, min_y, max_y);
 
     Entity &horizontalEF = this->_core.makeEntity("ExplosionFrame");
     Entity &verticalEF = this->_core.makeEntity("ExplosionFrame");

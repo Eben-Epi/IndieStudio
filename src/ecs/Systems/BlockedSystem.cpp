@@ -5,6 +5,7 @@
 ** BlockedSystem.cpp
 */
 #include <cmath>
+#include <algorithm>
 #include "../Exceptions.hpp"
 #include "BlockedSystem.hpp"
 #include "../Components/CollisionComponent.hpp"
@@ -12,6 +13,7 @@
 #include "../Components/MovableComponent.hpp"
 #include "../../config.hpp"
 #include "../Components/ColliderComponent.hpp"
+#include "../Components/BlockedComponent.hpp"
 
 ECS::BlockedSystem::BlockedSystem(ECS::ECSCore &core):
     System("Blocked", core)
@@ -21,7 +23,12 @@ ECS::BlockedSystem::BlockedSystem(ECS::ECSCore &core):
 
 void ECS::BlockedSystem::updateEntity(ECS::Entity &entity)
 {
+    auto &bc = reinterpret_cast<BlockedComponent &>(entity.getComponentByName("Blocked"));
     auto &entity_hitbox = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
+
+    for (auto &i : bc._whitelistId)
+        if (std::find(entity_hitbox.entitiesCollided.begin(), entity_hitbox.entitiesCollided.end(), i) == entity_hitbox.entitiesCollided.end())
+            bc._whitelistId.erase(std::remove(bc._whitelistId.begin(), bc._whitelistId.end(), i), bc._whitelistId.end());
 
     for (auto &wall : entity_hitbox.entitiesCollided) {
     	auto &entity_pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
@@ -29,7 +36,7 @@ void ECS::BlockedSystem::updateEntity(ECS::Entity &entity)
         auto &wall_hitbox = reinterpret_cast<ColliderComponent &>(wall->getComponentByName("Collider"));
         auto &wall_pos = reinterpret_cast<PositionComponent &>(wall->getComponentByName("Position"));
 
-        if (wall_hitbox.hardness <= entity_hitbox.passThrough)
+        if (wall_hitbox.hardness <= entity_hitbox.passThrough || std::find(bc._whitelistId.begin(), bc._whitelistId.end(), wall) != bc._whitelistId.end())
             continue;
 
         double relative_x = entity_pos.pos.x - wall_pos.pos.x;
