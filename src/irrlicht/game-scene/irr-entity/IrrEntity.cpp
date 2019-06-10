@@ -55,7 +55,19 @@ void Irrlicht::IrrEntity::setPos(float x, float z) {
 
 void Irrlicht::IrrEntity::setScale(float x, float z) {
     if (this->_node) {
-        this->_node->setScale(irr::core::vector3df{x, 1, z});
+        auto* edges = new irr::core::vector3d<irr::f32>[8];
+        irr::core::aabbox3d<irr::f32> boundingbox = this->_node->getTransformedBoundingBox();
+        boundingbox.getEdges(edges);
+
+        irr::f32 height = edges[1].Y - edges[0].Y;
+        irr::f32 width = edges[5].X - edges[1].X;
+        irr::f32 depth = edges[2].Z - edges[0].Z;
+
+        irr::f32 factorX = x /width;
+        irr::f32 factorY = 1 / height;
+        irr::f32 factorZ = z /depth;
+        irr::core::vector3d<irr::f32> factorEscalate(factorX,factorY,factorZ);
+        this->_node->setScale(factorEscalate);
     }
 }
 
