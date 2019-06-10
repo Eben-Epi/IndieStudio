@@ -23,7 +23,7 @@ namespace Sound
 		SoundSystem() = default;
 		~SoundSystem();
 		void loadSound(const std::string &id);
-		void playSoundOverBackgroundMusic(const std::string &id);
+		void playSoundOverBackgroundMusic(const std::string &id, float volume = 100);
 		unsigned playSound(const std::string &id, float volume = 100);
 		void setBackgroundMusic(const std::string &id, float volume = 100);
 

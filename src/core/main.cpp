@@ -44,7 +44,7 @@ int main()
 		for (auto &sound_name : sound_to_load)
 			res.soundSystem.loadSound(sound_name);
 
-		res.soundSystem.setBackgroundMusic("battle_music"); // tmp
+		res.soundSystem.setBackgroundMusic("battle_music", 50); // tmp
 		while (!screen.isEnd()) {
 			map->update();
 			screen.display();

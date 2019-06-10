@@ -19,7 +19,7 @@ const std::vector<std::string> sound_to_load = {
     "battle_music",
     "ultimate_ready",
     "starman",
-    "drop_bomb",
+    "bip",
     "explode"
 };
 

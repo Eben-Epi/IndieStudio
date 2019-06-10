@@ -57,18 +57,20 @@ namespace Sound
 	}
 
 
-	void SoundSystem::playSoundOverBackgroundMusic(const std::string &id)
+	void SoundSystem::playSoundOverBackgroundMusic(const std::string &id, float volume)
 	{
 		int i = this->playSound(id);
 		if (this->_backgroundMusic) {
 			this->_sounds[*this->_backgroundMusic]->pause();
 			if (this->_bgThread.joinable())
 				this->_bgThread.detach();
-			this->_bgThread = std::thread{[this, i]() {
+			this->_bgThread = std::thread{[this, i, volume]() {
 				while (this->_sounds[i]->getStatus() == sf::Sound::Playing)
 					std::this_thread::sleep_for(std::chrono::milliseconds(100));
-				if (this->_backgroundMusic)
+				if (this->_backgroundMusic) {
+					this->_sounds[*this->_backgroundMusic]->setVolume(volume);
 					this->_sounds[*this->_backgroundMusic]->play();
+				}
 			}};
 		}
 	}

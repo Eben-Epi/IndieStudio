@@ -51,6 +51,6 @@ void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 
 	bomb_pos.pos = pos;
 	bomb.bombs.push_back(newBomb.getId());
-	bomb.soundSystem.playSound("drop_bomb");
+	bomb.soundSystem.playSound("bip");
 	bomb.dropBomb = false;
 }
