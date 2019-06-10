@@ -6,7 +6,7 @@
 */
 
 #include "MortalSystem.hpp"
-#include "../Components/HealthComponent.hpp"
+#include "../components/HealthComponent.hpp"
 
 namespace ECS
 {

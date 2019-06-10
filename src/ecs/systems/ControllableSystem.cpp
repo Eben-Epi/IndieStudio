@@ -7,12 +7,12 @@
 
 #include <iostream>
 #include "ControllableSystem.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/MovableComponent.hpp"
-#include "../Components/ControllableComponent.hpp"
-#include "../Components/CurseComponent.hpp"
-#include "../Components/BombDropperComponent.hpp"
-#include "../Components/UltimeComponent.hpp"
+#include "../components/PositionComponent.hpp"
+#include "../components/MovableComponent.hpp"
+#include "../components/ControllableComponent.hpp"
+#include "../components/CurseComponent.hpp"
+#include "../components/BombDropperComponent.hpp"
+#include "../components/UltimeComponent.hpp"
 
 namespace ECS
 {

@@ -6,13 +6,13 @@
 */
 
 #include "Brick.hpp"
-#include "../Components/HealthComponent.hpp"
-#include "../Components/ColliderComponent.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/DisplayableComponent.hpp"
-#include "../Components/BlockedComponent.hpp"
+#include "../components/HealthComponent.hpp"
+#include "../components/ColliderComponent.hpp"
+#include "../components/PositionComponent.hpp"
+#include "../components/DisplayableComponent.hpp"
+#include "../components/BlockedComponent.hpp"
 #include "../../config.hpp"
-#include "../Components/MortalComponent.hpp"
+#include "../components/MortalComponent.hpp"
 
 ECS::Brick::Brick(unsigned id, Ressources &ressources) :
 	Entity(id, "Brick", {

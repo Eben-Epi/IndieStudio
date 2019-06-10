@@ -5,8 +5,8 @@
 ** EphemeralSystem.cpp
 */
 #include "EphemeralSystem.hpp"
-#include "../Components/HealthComponent.hpp"
-#include "../Components/EphemeralComponent.hpp"
+#include "../components/HealthComponent.hpp"
+#include "../components/EphemeralComponent.hpp"
 
 ECS::EphemeralSystem::EphemeralSystem(ECS::ECSCore &core) :
 	System("Ephemeral", core)

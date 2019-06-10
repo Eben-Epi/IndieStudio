@@ -6,11 +6,11 @@
 */
 
 #include "OnCollisionDamageDealerSystem.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/OnCollisionDamageDealerComponent.hpp"
 #include "../ECSCore.hpp"
-#include "../Components/CollisionComponent.hpp"
-#include "../Components/HealthComponent.hpp"
+#include "../components/PositionComponent.hpp"
+#include "../components/OnCollisionDamageDealerComponent.hpp"
+#include "../components/CollisionComponent.hpp"
+#include "../components/HealthComponent.hpp"
 
 ECS::OnCollisionDamageDealerSystem::OnCollisionDamageDealerSystem(ECS::ECSCore &core):
     System("OnCollisionDamageDealer", core)

@@ -5,7 +5,7 @@
 ** CurseSystem.cpp
 */
 #include "CurseSystem.hpp"
-#include "../Components/CurseComponent.hpp"
+#include "../components/CurseComponent.hpp"
 
 ECS::CurseSystem::CurseSystem(ECS::ECSCore &core):
     System("Curse", core)

@@ -6,10 +6,10 @@
 */
 #include "BombDropperSystem.hpp"
 #include "../ECSCore.hpp"
-#include "../Components/HealthComponent.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/EphemeralComponent.hpp"
-#include "../Components/ExplodeComponent.hpp"
+#include "../components/HealthComponent.hpp"
+#include "../components/PositionComponent.hpp"
+#include "../components/EphemeralComponent.hpp"
+#include "../components/ExplodeComponent.hpp"
 #include "../Exceptions.hpp"
 
 ECS::BombDropperSystem::BombDropperSystem(ECS::ECSCore &core):

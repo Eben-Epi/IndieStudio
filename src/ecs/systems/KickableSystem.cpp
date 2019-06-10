@@ -6,8 +6,8 @@
 */
 
 #include "KickableSystem.hpp"
-#include "../Components/CollisionComponent.hpp"
-#include "../Components/MovableComponent.hpp"
+#include "../components/CollisionComponent.hpp"
+#include "../components/MovableComponent.hpp"
 
 ECS::KickableSystem::KickableSystem(ECS::ECSCore &core) :
 	System("Kickable", core)

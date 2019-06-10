@@ -11,7 +11,7 @@
 #include "../../Animations.hpp"
 #include "../../../ecs/Entity.hpp"
 #include "../../../ecs/data/Vector2.hpp"
-#include "../../Screen/Screen.hpp"
+#include "../../screen/Screen.hpp"
 
 namespace Irrlicht {
     class IrrEntity {

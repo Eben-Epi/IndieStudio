@@ -12,7 +12,7 @@
 #endif
 
 #include "Screen.hpp"
-#include "../GameScene/GameScene.hpp"
+#include "../game-scene/GameScene.hpp"
 
 Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen, bool vsync) : _width(width), _height(height), _colorDepth(colorDepth), _fullscreen(fullscreen), _vsync(vsync) { //TODO FULLSCREEN, SET WINDOW SIZE AND TYPE, ENABLE VSYNC
     this->_driverType = irr::video::EDT_OPENGL;

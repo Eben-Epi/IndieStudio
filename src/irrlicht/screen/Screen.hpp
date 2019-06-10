@@ -10,7 +10,7 @@
 #include "irrlicht/irrlicht.h"
 #include "../../ecs/Entity.hpp"
 #include "../../ecs/data/Vector2.hpp"
-#include "../IrrInput/EventReceiver/EventReceiver.hpp"
+#include "../irr-input/event-receiver/EventReceiver.hpp"
 
 
 //#define TRANSFORM_COLOR_TO_SFML_COLOR(color) sf::Color(static_cast<sf::Uint8>(color >> 16), static_cast<sf::Uint8>(color >> 8), static_cast<sf::Uint8>(color))

@@ -5,11 +5,11 @@
 ** MovableSystem.cpp
 */
 #include "MovableSystem.hpp"
-#include "../Components/MovableComponent.hpp"
-#include "../Components/PositionComponent.hpp"
+#include "../components/MovableComponent.hpp"
+#include "../components/PositionComponent.hpp"
 #include "../data/Directions.hpp"
 #include "../../config.hpp"
-#include "../Components/CurseComponent.hpp"
+#include "../components/CurseComponent.hpp"
 
 ECS::MovableSystem::MovableSystem(ECS::ECSCore &core):
     System("Movable", core)

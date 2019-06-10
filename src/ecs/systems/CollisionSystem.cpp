@@ -8,9 +8,9 @@
 #include <iostream>
 #include "CollisionSystem.hpp"
 #include "../ECSCore.hpp"
-#include "../Components/CollisionComponent.hpp"
-#include "../Components/DisplayableComponent.hpp"
-#include "../Components/PositionComponent.hpp"
+#include "../components/CollisionComponent.hpp"
+#include "../components/DisplayableComponent.hpp"
+#include "../components/PositionComponent.hpp"
 
 ECS::CollisionSystem::CollisionSystem(ECS::ECSCore &core):
     System("Collision", core)

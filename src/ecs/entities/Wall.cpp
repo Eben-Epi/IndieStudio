@@ -6,10 +6,10 @@
 */
 
 #include "Wall.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/DisplayableComponent.hpp"
-#include "../Components/BlockedComponent.hpp"
-#include "../Components/ColliderComponent.hpp"
+#include "../components/PositionComponent.hpp"
+#include "../components/DisplayableComponent.hpp"
+#include "../components/BlockedComponent.hpp"
+#include "../components/ColliderComponent.hpp"
 #include "../../config.hpp"
 
 ECS::Wall::Wall(unsigned id, Ressources &ressources) :

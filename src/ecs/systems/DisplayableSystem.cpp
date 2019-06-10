@@ -6,8 +6,8 @@
 */
 
 #include "DisplayableSystem.hpp"
-#include "../Components/DisplayableComponent.hpp"
-#include "../Components/PositionComponent.hpp"
+#include "../components/DisplayableComponent.hpp"
+#include "../components/PositionComponent.hpp"
 
 
 ECS::DisplayableSystem::DisplayableSystem(ECS::ECSCore &core):

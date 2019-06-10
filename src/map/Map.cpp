@@ -7,10 +7,10 @@
 
 #include <random>
 #include "Map.hpp"
-#include "../ecs/Components/PositionComponent.hpp"
+#include "../ecs/components/PositionComponent.hpp"
 #include "MapException.hpp"
-#include "../ecs/Components/EntityDropperComponent.hpp"
-#include "../ecs/Components/PowerUpComponent.hpp"
+#include "../ecs/components/EntityDropperComponent.hpp"
+#include "../ecs/components/PowerUpComponent.hpp"
 
 Map::Map::Map(ECS::Ressources &ressources) : _core(ressources)
 {

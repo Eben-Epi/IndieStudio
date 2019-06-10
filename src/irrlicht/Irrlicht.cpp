@@ -8,7 +8,7 @@
 #include <memory>
 #include "Irrlicht.hpp"
 #include "../config.hpp"
-#include "../ecs/Components/PositionComponent.hpp"
+#include "../ecs/components/PositionComponent.hpp"
 
 namespace Irrlicht
 {

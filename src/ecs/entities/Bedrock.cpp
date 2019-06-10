@@ -7,9 +7,9 @@
 
 #include "Bedrock.hpp"
 #include "../Ressources.hpp"
-#include "../Components/DisplayableComponent.hpp"
-#include "../Components/ColliderComponent.hpp"
-#include "../Components/PositionComponent.hpp"
+#include "../components/DisplayableComponent.hpp"
+#include "../components/ColliderComponent.hpp"
+#include "../components/PositionComponent.hpp"
 #include "../../config.hpp"
 
 ECS::Bedrock::Bedrock(unsigned id, Ressources &ressources) :

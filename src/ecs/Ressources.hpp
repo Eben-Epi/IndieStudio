@@ -10,7 +10,7 @@
 
 
 #include "../input/Input.hpp"
-#include "../irrlicht/GameScene/GameScene.hpp"
+#include "../irrlicht/game-scene/GameScene.hpp"
 #include "../sound/SoundSystem.hpp"
 
 namespace ECS

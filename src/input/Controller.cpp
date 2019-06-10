@@ -6,7 +6,7 @@
 */
 
 #include "Controller.hpp"
-#include "../irrlicht/GameScene/GameScene.hpp"
+#include "../irrlicht/game-scene/GameScene.hpp"
 
 Input::Controller::Controller(Irrlicht::GameScene &scene, std::vector<unsigned> &&keys, unsigned id) :
     _scene(scene),

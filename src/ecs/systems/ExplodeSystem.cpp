@@ -7,11 +7,11 @@
 
 #include "ExplodeSystem.hpp"
 #include "../ECSCore.hpp"
-#include "../Components/ExplodeComponent.hpp"
-#include "../Components/HealthComponent.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/ColliderComponent.hpp"
-#include "../Components/DisplayableComponent.hpp"
+#include "../components/ExplodeComponent.hpp"
+#include "../components/HealthComponent.hpp"
+#include "../components/PositionComponent.hpp"
+#include "../components/ColliderComponent.hpp"
+#include "../components/DisplayableComponent.hpp"
 #include "../../config.hpp"
 
 static inline bool entities_collied(double x, double y, ECS::PositionComponent &e)

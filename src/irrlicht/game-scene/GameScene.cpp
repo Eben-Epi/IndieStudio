@@ -5,7 +5,7 @@
 //
 
 #include "GameScene.hpp"
-#include "../Screen/Screen.hpp"
+#include "../screen/Screen.hpp"
 
 Irrlicht::GameScene::GameScene(Screen &window, std::string name, unsigned id) :
     _window(window),

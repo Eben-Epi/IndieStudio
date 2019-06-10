@@ -6,7 +6,7 @@
 */
 
 #include "UltimeSystem.hpp"
-#include "../Components/UltimeComponent.hpp"
+#include "../components/UltimeComponent.hpp"
 #include "../../config.hpp"
 #include "../../sound/SoundSystem.hpp"
 

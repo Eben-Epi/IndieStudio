@@ -13,8 +13,8 @@
 #include <iostream>
 #include "../../ecs/Entity.hpp"
 #include "../../ecs/data/Vector2.hpp"
-#include "IrrEntity/IrrEntity.hpp"
-#include "../IrrInput/EventReceiver/EventReceiver.hpp"
+#include "irr-entity/IrrEntity.hpp"
+#include "../irr-input/event-receiver/EventReceiver.hpp"
 
 namespace Irrlicht {
 

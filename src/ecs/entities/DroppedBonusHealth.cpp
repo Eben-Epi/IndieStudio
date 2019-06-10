@@ -7,14 +7,14 @@
 
 
 #include "DroppedBonusHealth.hpp"
-#include "../Components/HealthComponent.hpp"
-#include "../Components/DisplayableComponent.hpp"
-#include "../Components/ColliderComponent.hpp"
-#include "../Components/PositionComponent.hpp"
+#include "../components/HealthComponent.hpp"
+#include "../components/DisplayableComponent.hpp"
+#include "../components/ColliderComponent.hpp"
+#include "../components/PositionComponent.hpp"
 #include "../../config.hpp"
-#include "../Components/PowerUpComponent.hpp"
-#include "../Components/PickableComponent.hpp"
-#include "../Components/PowerUpPickedComponent.hpp"
+#include "../components/PowerUpComponent.hpp"
+#include "../components/PickableComponent.hpp"
+#include "../components/PowerUpPickedComponent.hpp"
 
 ECS::DroppedBonusHealth::DroppedBonusHealth(unsigned id, Ressources &ressources) :
     Entity(id, "DroppedBonusHealth", {

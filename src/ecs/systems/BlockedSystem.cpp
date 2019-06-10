@@ -7,11 +7,11 @@
 #include <cmath>
 #include "../Exceptions.hpp"
 #include "BlockedSystem.hpp"
-#include "../Components/CollisionComponent.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/MovableComponent.hpp"
+#include "../components/CollisionComponent.hpp"
+#include "../components/PositionComponent.hpp"
+#include "../components/MovableComponent.hpp"
 #include "../../config.hpp"
-#include "../Components/ColliderComponent.hpp"
+#include "../components/ColliderComponent.hpp"
 
 ECS::BlockedSystem::BlockedSystem(ECS::ECSCore &core):
     System("Blocked", core)

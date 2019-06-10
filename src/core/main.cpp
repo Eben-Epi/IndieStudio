@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include "irrlicht/Keycodes.h"
-#include "../irrlicht/Screen/Screen.hpp"
-#include "../irrlicht/GameScene/GameScene.hpp"
+#include "../irrlicht/screen/Screen.hpp"
+#include "../irrlicht/game-scene/GameScene.hpp"
 #include "../map/Map.hpp"
 #include "../input/Keyboard.hpp"
 #include "../ecs/Exceptions.hpp"

@@ -5,11 +5,11 @@
 ** UltInvincibilitySystem.cpp
 */
 #include "UltInvincibilitySystem.hpp"
-#include "../Components/UltimeComponent.hpp"
-#include "../Components/HealthComponent.hpp"
-#include "../Components/UltInvincibilityComponent.hpp"
+#include "../components/UltimeComponent.hpp"
+#include "../components/HealthComponent.hpp"
+#include "../components/UltInvincibilityComponent.hpp"
 #include "UltimeSystem.hpp"
-#include "../Components/CollisionComponent.hpp"
+#include "../components/CollisionComponent.hpp"
 
 ECS::UltInvincibilitySystem::UltInvincibilitySystem(ECS::ECSCore &core):
     System("UltInvincibility", core)

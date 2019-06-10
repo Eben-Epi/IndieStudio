@@ -6,13 +6,13 @@
 */
 
 #include "PowerUpPickedSystem.hpp"
-#include "../Components/PickableComponent.hpp"
-#include "../Components/HealthComponent.hpp"
-#include "../Components/PowerUpComponent.hpp"
-#include "../Components/ColliderComponent.hpp"
-#include "../Components/KickerComponent.hpp"
-#include "../Components/BombDropperComponent.hpp"
-#include "../Components/MovableComponent.hpp"
+#include "../components/PickableComponent.hpp"
+#include "../components/HealthComponent.hpp"
+#include "../components/PowerUpComponent.hpp"
+#include "../components/ColliderComponent.hpp"
+#include "../components/KickerComponent.hpp"
+#include "../components/BombDropperComponent.hpp"
+#include "../components/MovableComponent.hpp"
 
 ECS::PowerUpPickedSystem::PowerUpPickedSystem(ECS::ECSCore &core):
     System("PowerUpPicked", core)

@@ -6,15 +6,15 @@
 */
 
 #include "ExplosionFrame.hpp"
-#include "../Components/PositionComponent.hpp"
+#include "../components/PositionComponent.hpp"
 #include "../../config.hpp"
-#include "../Components/DisplayableComponent.hpp"
-#include "../Components/EphemeralComponent.hpp"
-#include "../Components/HealthComponent.hpp"
-#include "../Components/OnCollisionDamageDealerComponent.hpp"
-#include "../Components/CollisionComponent.hpp"
-#include "../Components/ColliderComponent.hpp"
-#include "../Components/MortalComponent.hpp"
+#include "../components/DisplayableComponent.hpp"
+#include "../components/EphemeralComponent.hpp"
+#include "../components/HealthComponent.hpp"
+#include "../components/OnCollisionDamageDealerComponent.hpp"
+#include "../components/CollisionComponent.hpp"
+#include "../components/ColliderComponent.hpp"
+#include "../components/MortalComponent.hpp"
 
 ECS::ExplosionFrame::ExplosionFrame(unsigned id, Ressources &ressources) :
     Entity(id, "ExplosionFrame", {

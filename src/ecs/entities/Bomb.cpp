@@ -6,16 +6,16 @@
 */
 
 #include "Bomb.hpp"
-#include "../Components/HealthComponent.hpp"
-#include "../Components/CollisionComponent.hpp"
-#include "../Components/PositionComponent.hpp"
+#include "../components/HealthComponent.hpp"
+#include "../components/CollisionComponent.hpp"
+#include "../components/PositionComponent.hpp"
 #include "../../config.hpp"
-#include "../Components/DisplayableComponent.hpp"
-#include "../Components/EphemeralComponent.hpp"
-#include "../Components/KickableComponent.hpp"
-#include "../Components/ExplodeComponent.hpp"
-#include "../Components/ColliderComponent.hpp"
-#include "../Components/MovableComponent.hpp"
+#include "../components/DisplayableComponent.hpp"
+#include "../components/EphemeralComponent.hpp"
+#include "../components/KickableComponent.hpp"
+#include "../components/ExplodeComponent.hpp"
+#include "../components/ColliderComponent.hpp"
+#include "../components/MovableComponent.hpp"
 
 ECS::Bomb::Bomb(unsigned id, Ressources &ressources) :
     Entity(id, "Bomb", {

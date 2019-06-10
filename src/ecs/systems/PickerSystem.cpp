@@ -6,8 +6,8 @@
 */
 
 #include "PickerSystem.hpp"
-#include "../Components/CollisionComponent.hpp"
-#include "../Components/PickableComponent.hpp"
+#include "../components/CollisionComponent.hpp"
+#include "../components/PickableComponent.hpp"
 
 ECS::PickerSystem::PickerSystem(ECS::ECSCore &core):
     System("Picker", core)

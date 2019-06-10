@@ -6,10 +6,10 @@
 */
 
 #include "EntityDropperSystem.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/EntityDropperComponent.hpp"
+#include "../components/PositionComponent.hpp"
+#include "../components/EntityDropperComponent.hpp"
 #include "../ECSCore.hpp"
-#include "../Components/HealthComponent.hpp"
+#include "../components/HealthComponent.hpp"
 
 ECS::EntityDropperSystem::EntityDropperSystem(ECS::ECSCore &core) :
     System("EntityDropper", core)
