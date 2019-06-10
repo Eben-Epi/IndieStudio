@@ -49,8 +49,10 @@ void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 
 	auto &newBomb = this->_core.makeEntity("Bomb");
 	auto &bomb_pos = reinterpret_cast<ECS::PositionComponent &>(newBomb.getComponentByName("Position"));
+	auto &bomb_explode = reinterpret_cast<ECS::ExplodeComponent &>(newBomb.getComponentByName("Explode"));
 
 	bomb_pos.pos = pos;
+	bomb_explode.range = bomb.range;
 	bomb.bombs.push_back(newBomb.getId());
 	bomb.soundSystem.playSound("bip");
 	bomb.dropBomb = false;

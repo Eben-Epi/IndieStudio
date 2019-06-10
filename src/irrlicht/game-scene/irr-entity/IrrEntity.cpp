@@ -96,7 +96,7 @@ void Irrlicht::IrrEntity::setSize(float x, float z)
         irr::f32 factorZ = z / depth;
         irr::core::vector3d<irr::f32> factorEscalate(
             factorX,
-            factorX > factorZ ? factorX : factorZ,
+            factorZ > factorX ? factorX : factorZ,
             factorZ
         );
         this->_size = {x, z};
