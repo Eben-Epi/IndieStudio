@@ -13,10 +13,10 @@ Irrlicht::GameScene::GameScene(Screen &window, std::string name, unsigned id) :
     id(id),
     _eventReceiver(window.getEventReceiver())
 {
-    this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(0, 100, 0), irr::core::vector3df(20, 0, 0));
+    this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(75, 125, 15), irr::core::vector3df(75, 15, 55));
 }
 
-bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key) //a changer
+bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key)
 {
     return (this->_eventReceiver.isKeyPressed(key));
 }
@@ -30,7 +30,7 @@ unsigned int Irrlicht::GameScene::registerEntity(const std::string &name)
 }
 
 void Irrlicht::GameScene::deleteEntity(unsigned id) {
-    for (auto it = this->_entities.begin(); it < this->_entities.end(); it++)//delete a special cube here
+    for (auto it = this->_entities.begin(); it < this->_entities.end(); it++)
         if (it->id == id)
             this->_entities.erase(it);
 }
@@ -45,12 +45,12 @@ void Irrlicht::GameScene::setPosition(unsigned entity, float x, float y) {
     for (auto &ent : this->_entities)
         if (ent.id == entity) {
             ent.pos = {x, y};
-            ent.setPos(ent.pos.x, ent.pos.y);
+            ent.setPos(ent.pos.x/4, ent.pos.y/4);
         }
 }
 
 bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2) {
-        std::vector<IrrEntity *> vec;
+/*        std::vector<IrrEntity *> vec;
 
         for (auto &ent : this->_entities)
             if (ent.id == entity1 || ent.id == entity2)
@@ -64,7 +64,7 @@ bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2) {
                 e2.pos.x + e2._size.x < e1.pos.x ||
                 e1.pos.y + e1._size.y < e2.pos.y ||
                 e2.pos.y + e2._size.y < e1.pos.y
-        );
+        );*/
 }
 
 //TODO ZARGITH add to event receiver http://irrlicht.sourceforge.net/docu/example019.html
