@@ -14,22 +14,41 @@
 #include "Screen.hpp"
 #include "../game-scene/GameScene.hpp"
 
-Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen, bool vsync) : _width(width), _height(height), _colorDepth(colorDepth), _fullscreen(fullscreen), _vsync(vsync) { //TODO FULLSCREEN, SET WINDOW SIZE AND TYPE, ENABLE VSYNC
-    this->_driverType = irr::video::EDT_OPENGL;
-    this->_device = irr::createDevice(_driverType, irr::core::dimension2d<irr::u32>(_width, _height), _colorDepth,
-                                 _fullscreen, false, _vsync, &this->_eventReceiver);
-    this->_driver = _device->getVideoDriver();
-    this->_guienv = _device->getGUIEnvironment();
-    this->_smgr = _device->getSceneManager();
+Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen, bool vsync) :
+    _width(width),
+    _height(height),
+    _colorDepth(colorDepth),
+    _fullscreen(fullscreen),
+    _vsync(vsync),
+    _driverType(irr::video::EDT_OPENGL),
+    _device(nullptr),
+    _lastSceneId(0),
+    _currentSceneId(0)
+{
+    this->_device = irr::createDevice(
+        this->_driverType,
+        irr::core::dimension2d<irr::u32>(
+            this->_width,
+            this->_height
+        ),
+        this->_colorDepth,
+        this->_fullscreen,
+        false,
+        this->_vsync,
+        &this->_eventReceiver
+    );
+    this->_driver = this->_device->getVideoDriver();
+    this->_guienv = (this->_device->getGUIEnvironment());
+    this->_smgr = (this->_device->getSceneManager());
+    //TODO FULLSCREEN, SET WINDOW SIZE AND TYPE, ENABLE VSYNC
     this->_device->setResizable(true);
     this->_device->getCursorControl()->setVisible(false);
-    this->_currentSceneId = 0;
-    this->_lastSceneId = 0;
 }
 
 
 bool Irrlicht::Screen::display() { //TODO COLOR SCENE
     static int lastFPS = -1;
+
     if (this->_device->isWindowActive())
     {
         this->getCurrentGameScene().update();
@@ -56,57 +75,117 @@ bool Irrlicht::Screen::display() { //TODO COLOR SCENE
 }
 
 bool Irrlicht::Screen::setFullscreen(bool fullscreen) {
-    if (_fullscreen == fullscreen)
+    if (this->_fullscreen == fullscreen)
         return (false);
     this->_device->closeDevice();
     this->_device->run();
     this->_device->drop();
-    _fullscreen = fullscreen;
-    this->_device = irr::createDevice(_driverType, irr::core::dimension2d<irr::u32>(_width, _height), _colorDepth,
-                                     _fullscreen, false, _vsync, &this->_eventReceiver);
-    this->_guienv = _device->getGUIEnvironment();
-    this->_smgr = _device->getSceneManager();
-    this->_driver = _device->getVideoDriver();
+    this->_fullscreen = fullscreen;
+    this->_device = irr::createDevice(
+        this->_driverType,
+        irr::core::dimension2d<irr::u32>(
+            this->_width,
+            this->_height
+        ),
+        this->_colorDepth,
+        this->_fullscreen,
+        false,
+        this->_vsync,
+        &this->_eventReceiver
+    );
+    this->_guienv = this->_device->getGUIEnvironment();
+    this->_smgr = this->_device->getSceneManager();
+    this->_driver = this->_device->getVideoDriver();
     this->_device->getCursorControl()->setVisible(false);
     return (true);
 }
 
 bool Irrlicht::Screen::setWindowSize(int width, int height) {
-    if (_width == width && _height == height)
+    if (this->_width == width && this->_height == height)
         return (false);
     this->_device->closeDevice();
     this->_device->run();
     this->_device->drop();
     this->_width = width;
     this->_height = height;
-    this->_device = irr::createDevice(_driverType, irr::core::dimension2d<irr::u32>(_width, _height), _colorDepth,
-                                      _fullscreen, false, _vsync, &this->_eventReceiver);
-    this->_guienv = _device->getGUIEnvironment();
-    this->_smgr = _device->getSceneManager();
-    this->_driver = _device->getVideoDriver();
+    this->_device = irr::createDevice(
+        this->_driverType,
+        irr::core::dimension2d<irr::u32>(
+            this->_width,
+            this->_height
+        ),
+        this->_colorDepth,
+        this->_fullscreen,
+        false,
+        this->_vsync,
+        &this->_eventReceiver
+    );
+    this->_guienv = this->_device->getGUIEnvironment();
+    this->_smgr = this->_device->getSceneManager();
+    this->_driver = this->_device->getVideoDriver();
     this->_device->getCursorControl()->setVisible(false);
     return (true);
 }
 
 bool Irrlicht::Screen::setVsync(bool vsync) {
-    if (_vsync == vsync)
+    if (this->_vsync == vsync)
         return (false);
     this->_device->closeDevice();
     this->_device->run();
     this->_device->drop();
-    _vsync = vsync;
-    this->_device = irr::createDevice(_driverType, irr::core::dimension2d<irr::u32>(_width, _height), _colorDepth,
-                                      _fullscreen, false, _vsync, &this->_eventReceiver);
-    this->_guienv = _device->getGUIEnvironment();
-    this->_smgr = _device->getSceneManager();
-    this->_driver = _device->getVideoDriver();
+    this->_vsync = vsync;
+    this->_device = irr::createDevice(
+        this->_driverType,
+        irr::core::dimension2d<irr::u32>(
+            this->_width,
+            this->_height
+        ),
+        this->_colorDepth,
+        this->_fullscreen,
+        false,
+        this->_vsync,
+        &this->_eventReceiver
+    );
+    this->_guienv = this->_device->getGUIEnvironment();
+    this->_smgr = this->_device->getSceneManager();
+    this->_driver = this->_device->getVideoDriver();
+    this->_device->getCursorControl()->setVisible(false);
+    return (true);
+}
+
+bool Irrlicht::Screen::setWindowAttributes(int width, int height, int colorDepth, bool fullscreen, bool vsync) {
+    if (this->_vsync == vsync && this->_width == width && this->_height == height && this->_fullscreen == fullscreen && this->_colorDepth == colorDepth)
+        return (false);
+    this->_device->closeDevice();
+    this->_device->run();
+    this->_device->drop();
+    this->_vsync = vsync;
+    this->_fullscreen = fullscreen;
+    this->_height = height;
+    this->_width = width;
+    this->_colorDepth = colorDepth;
+    this->_device = irr::createDevice(
+        this->_driverType,
+        irr::core::dimension2d<irr::u32>(
+            this->_width,
+            this->_height
+        ),
+        this->_colorDepth,
+        this->_fullscreen,
+        false,
+        this->_vsync,
+        &this->_eventReceiver
+    );
+    this->_guienv = this->_device->getGUIEnvironment();
+    this->_smgr = this->_device->getSceneManager();
+    this->_driver = this->_device->getVideoDriver();
     this->_device->getCursorControl()->setVisible(false);
     return (true);
 }
 
 unsigned Irrlicht::Screen::addGameScene(const std::string &name) {
     this->_scenes.emplace_back(new GameScene{*this, name, this->_lastSceneId++});
-    return (_lastSceneId);
+    return (this->_lastSceneId);
 }
 
 Irrlicht::GameScene &Irrlicht::Screen::getCurrentGameScene() {

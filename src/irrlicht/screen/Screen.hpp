@@ -33,6 +33,7 @@ namespace Irrlicht
         bool setFullscreen(bool fullscreen);
         bool setVsync(bool vsync);
         bool setWindowSize(int width, int height);
+        bool setWindowAttributes(int width, int height, int colorDepth, bool fullscreen, bool vsync);
         unsigned addGameScene(const std::string &name);
         EventReceiver &getEventReceiver();
         irr::video::IVideoDriver* getDriver();

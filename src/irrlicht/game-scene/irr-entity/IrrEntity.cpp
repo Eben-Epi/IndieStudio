@@ -18,6 +18,7 @@ Irrlicht::IrrEntity::IrrEntity(
     _meshPath("./media/models/" + filename + ".dae"),
     _defaultColor(defaultColor),
     _texturePath("./media/textures/" + filename + ".png"),
+    _loaded(false),
     _smgr(smgr),
     _mesh(nullptr),
     _node(nullptr),
@@ -26,7 +27,6 @@ Irrlicht::IrrEntity::IrrEntity(
     this->_mesh = smgr->getMesh(this->_meshPath.c_str());
 
     if (!this->_mesh) {
-        this->_loaded = false;
         std::cerr << "Failed to load " << this->_meshPath << std::endl;
         return;
     }
@@ -36,8 +36,7 @@ Irrlicht::IrrEntity::IrrEntity(
         this->_node->setMaterialTexture(0, driver->getTexture(this->_texturePath.c_str()));
         this->_node->setScale(irr::core::vector3df(4, 4, 4));
         this->_loaded = true;
-    } else
-        this->_loaded = false;
+    }
 }
 
 Irrlicht::IrrEntity::~IrrEntity()

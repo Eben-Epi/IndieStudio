@@ -22,7 +22,7 @@ namespace Irrlicht {
 
     class GameScene {
     public:
-        GameScene(Screen &screen, std::string name, unsigned id);
+        GameScene(Screen &screen, const std::string &name, unsigned id);
         ~GameScene() = default;
 
 

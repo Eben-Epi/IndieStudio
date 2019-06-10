@@ -21,12 +21,12 @@ namespace Irrlicht
 
         //MEMBER FUNCTIONS
         virtual bool OnEvent(const irr::SEvent &event) override;
-        virtual bool isKeyPressed(const irr::EKEY_CODE keyCode) const;
+        virtual bool isKeyPressed(irr::EKEY_CODE keyCode) const;
 
     private:
         //PROPERTIES
         std::vector<bool> _keys;
-        };
+    };
 }
 
 

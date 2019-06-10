@@ -7,7 +7,7 @@
 #include "GameScene.hpp"
 #include "../screen/Screen.hpp"
 
-Irrlicht::GameScene::GameScene(Screen &window, std::string name, unsigned id) :
+Irrlicht::GameScene::GameScene(Screen &window, const std::string &name, unsigned id) :
     _window(window),
     sceneName(name),
     id(id),
@@ -24,7 +24,14 @@ bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key)
 
 unsigned int Irrlicht::GameScene::registerEntity(const std::string &name)
 {
-    this->_entities.emplace_back(new IrrEntity{name, this->_entitiesId, this->_window.getSmgr(), this->_window.getDriver()});
+    this->_entities.emplace_back(
+    	new IrrEntity{
+    		name,
+    		this->_entitiesId,
+    		this->_window.getSmgr(),
+    		this->_window.getDriver()
+    	}
+    );
     return(this->_entitiesId++);
 }
 
@@ -47,21 +54,7 @@ void Irrlicht::GameScene::setPosition(unsigned entity, float x, float y) {
 }
 
 bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2) {
-/*        std::vector<IrrEntity *> vec;
-
-        for (auto &ent : this->_entities)
-            if (ent.id == entity1 || ent.id == entity2)
-                vec.push_back(&ent);
-
-        IrrEntity &e1 = *vec.at(0);
-        IrrEntity &e2 = *vec.at(1);
-
-        return !(
-                e1.pos.x + e1._size.x < e2.pos.x ||
-                e2.pos.x + e2._size.x < e1.pos.x ||
-                e1.pos.y + e1._size.y < e2.pos.y ||
-                e2.pos.y + e2._size.y < e1.pos.y
-        );*/
+	return false;
 }
 
 //TODO ZARGITH add to event receiver http://irrlicht.sourceforge.net/docu/example019.html

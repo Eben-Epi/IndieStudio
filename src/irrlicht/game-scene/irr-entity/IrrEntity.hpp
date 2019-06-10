@@ -16,8 +16,14 @@
 namespace Irrlicht {
     class IrrEntity {
     public:
-        IrrEntity(const std::string &filename, unsigned id, irr::scene::ISceneManager *smgr, irr::video::IVideoDriver *driver,
-                irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255), std::string texturePath = "");
+        IrrEntity(
+            const std::string &filename,
+            unsigned id,
+            irr::scene::ISceneManager *smgr,
+            irr::video::IVideoDriver *driver,
+            irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255),
+            std::string texturePath = ""
+        );
         ~IrrEntity();
 
         bool isEntityLoaded();
