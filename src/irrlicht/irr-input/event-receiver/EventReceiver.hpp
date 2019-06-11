@@ -24,6 +24,8 @@ namespace Irrlicht
 		virtual bool isKeyPressed(irr::EKEY_CODE keyCode) const;
 		const irr::SEvent::SJoystickEvent &GetJoystickState(void) const;
 		bool isJoystickKeyPressed(irr::u32 key) const;
+		void displayAxes(void) const;
+		float getJoystickAxisPosition(irr::s16 axis) const;
 
 	private:
 		//PROPERTIES

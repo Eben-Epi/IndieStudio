@@ -36,3 +36,14 @@ bool Irrlicht::EventReceiver::isJoystickKeyPressed(irr::u32 key) const
 {
 	return (this->_joystickState.IsButtonPressed(key));
 }
+
+void Irrlicht::EventReceiver::displayAxes(void) const
+{
+	for (int i = 0; i < this->_joystickState.NUMBER_OF_AXES; i++)
+		std::cout << "axe " << i << " = " << this->_joystickState.Axis[i] << std::endl;
+}
+
+float Irrlicht::EventReceiver::getJoystickAxisPosition(irr::s16 axis) const
+{
+	return (this->_joystickState.Axis[axis]);
+}

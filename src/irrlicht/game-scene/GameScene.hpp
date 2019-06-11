@@ -16,36 +16,62 @@
 #include "irr-entity/IrrEntity.hpp"
 #include "../irr-input/event-receiver/EventReceiver.hpp"
 
-namespace Irrlicht {
+namespace Irrlicht
+{
 
-    class Screen;
+	enum ControllerButtonsGS {
+		A = 0,
+		B,
+		X,
+		Y,
+		LB,
+		RB,
+		SELECT,
+		START,
+		MIDDLE,
+		LJ_PRESSED,
+		RJ_PRESSED,
+		LEFT_CROSS,
+		RIGHT_CROSS,
+		UP_CROSS,
+		DOWN_CROSS,
+		LJ_HORIZONTAL,
+		LJ_VERTICAL,
+		RT,
+		RJ_HORIZONTAL,
+		RJ_VERTICAL,
+		LT,
+		NUMBER_BUTTONS
+	};
 
-    class GameScene {
-    public:
-        GameScene(Screen &screen, const std::string &name, unsigned id);
-        ~GameScene() = default;
+	class Screen;
 
-        unsigned int registerEntity(const std::string &name);
-        void deleteEntity(unsigned id);
-        bool areColliding(unsigned entity1, unsigned entity2);
-        void setAnimation(unsigned entity, Animations anim);
-        void setPosition(unsigned entity, float x, float y);
-        void setScale(unsigned entity, float x, float y);
-        void setSize(unsigned entity, float x, float y);
-        ECS::Vector2<float> getSize(unsigned entity);
-        bool isKeyPressed(irr::EKEY_CODE key);
-        bool isJoystickButtonPressed(unsigned button);
-        float getJoystickAxisPosition(unsigned axis);
-        // TODO void createMesh() or cube;
+	class GameScene {
+	public:
+		GameScene(Screen &screen, const std::string &name, unsigned id);
+		~GameScene() = default;
 
-        const std::string sceneName;
-        const unsigned id;
-    private:
-        std::vector<std::unique_ptr<IrrEntity>> _entities;
-        unsigned _entitiesId;
-        Screen &_window;
-        EventReceiver &_eventReceiver;
-    };
+		unsigned int registerEntity(const std::string &name);
+		void deleteEntity(unsigned id);
+		bool areColliding(unsigned entity1, unsigned entity2);
+		void setAnimation(unsigned entity, Animations anim);
+		void setPosition(unsigned entity, float x, float y);
+		void setScale(unsigned entity, float x, float y);
+		void setSize(unsigned entity, float x, float y);
+		ECS::Vector2<float> getSize(unsigned entity);
+		bool isKeyPressed(irr::EKEY_CODE key);
+		bool isJoystickButtonPressed(unsigned button);
+		float getJoystickAxisPosition(unsigned axis);
+		bool isJoystickAxisPressed(ControllerButtonsGS axis);
+
+		const std::string sceneName;
+		const unsigned id;
+	private:
+		std::vector<std::unique_ptr<IrrEntity>> _entities;
+		unsigned _entitiesId;
+		Screen &_window;
+		EventReceiver &_eventReceiver;
+	};
 }
 
 

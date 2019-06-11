@@ -221,3 +221,7 @@ irr::video::IVideoDriver *Irrlicht::Screen::getDriver() {
 irr::scene::ISceneManager *Irrlicht::Screen::getSmgr() {
     return (this->_smgr);
 }
+
+irr::IrrlichtDevice *Irrlicht::Screen::getDevice() {
+    return (this->_device);
+}

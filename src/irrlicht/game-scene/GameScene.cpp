@@ -83,10 +83,18 @@ bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2)
 
 bool Irrlicht::GameScene::isJoystickButtonPressed(unsigned button)
 {
+	this->_eventReceiver.displayAxes();
 	return (this->_eventReceiver.isJoystickKeyPressed(button));
 }
 
 float Irrlicht::GameScene::getJoystickAxisPosition(unsigned axis)
 {
-	return (this->_eventReceiver.isJoystickKeyPressed(axis));
+	return (this->_eventReceiver.getJoystickAxisPosition(axis));
+}
+
+bool Irrlicht::GameScene::isJoystickAxisPressed(ControllerButtonsGS button)
+{
+	if (this->getJoystickAxisPosition(button) > 16384)
+		return (true);
+	return (false);
 }
