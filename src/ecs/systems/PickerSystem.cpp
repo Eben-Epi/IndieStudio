@@ -18,10 +18,7 @@ void ECS::PickerSystem::updateEntity(ECS::Entity &entity)
 {
     CollisionComponent &cc = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
 
-    for (Entity *entityCollided : cc.entitiesCollided) {
-        if (entityCollided->hasComponent("Pickable")) {
-            reinterpret_cast<PickableComponent &>(entityCollided->getComponentByName("Pickable")).pickedBy = &entity;
-            break;
-        }
-    }
+    for (Entity *entityCollided : cc.entitiesCollided)
+        if (entityCollided->hasComponent("Pickable"))
+		reinterpret_cast<PickableComponent &>(entityCollided->getComponentByName("Pickable")).pickedBy = &entity;
 }

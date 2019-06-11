@@ -92,7 +92,9 @@ namespace ECS
 
 	void ECSCore::update()
 	{
-		for (auto &entity : this->_entities) {
+		for (size_t i = 0; i < this->_entities.size(); i++) {
+			auto &entity = this->_entities[i];
+
 			for (auto &comp : entity->getComponents()) {
 				try {
 					auto &system = this->getSystem(comp->getName());

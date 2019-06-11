@@ -18,21 +18,15 @@ namespace ECS
     EntityDropperComponent::EntityDropperComponent(const Ressources &ressources, std::istream &stream) :
         Component("EntityDropper")
     {
-        std::string out;
+	    std::string terminator;
 
-        for (stream >> out; out != "EndOfComponent"; stream >> out) {
-            if (stream.eof())
-                throw InvalidSerializedStringException("Unexpected End Of File");
-            this->items.push_back(out);
-        }
+	    stream >> this->item >> terminator;
+	    if (terminator != "EndOfComponent")
+		    throw InvalidSerializedStringException("The component terminator was not found");
     }
 
     std::ostream& EntityDropperComponent::serialize(std::ostream &stream) const
     {
-        for (const std::string &bonus : this->items)
-        {
-            stream << bonus + " ";
-        }
-        return stream << "EndOfComponent";
+        return stream << (this->item.empty() ? "null" : this->item) << " EndOfComponent";
     }
 }

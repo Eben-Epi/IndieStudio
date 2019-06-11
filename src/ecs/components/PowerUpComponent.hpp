@@ -23,7 +23,8 @@ namespace ECS
         unsigned int nbBomb;
         unsigned int hardness;
         unsigned int range;
-        PowerUpComponent(std::map<std::string, NumericValue>);
+        Sound::SoundSystem &soundSystem;
+        PowerUpComponent(Sound::SoundSystem &sounds, std::map<std::string, NumericValue>);
         PowerUpComponent(Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
     };

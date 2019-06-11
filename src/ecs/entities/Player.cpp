@@ -19,6 +19,8 @@
 #include "../components/BombDropperComponent.hpp"
 #include "../components/UltInvincibilityComponent.hpp"
 #include "../../config.hpp"
+#include "../components/PickerComponent.hpp"
+#include "../components/PowerUpComponent.hpp"
 
 ECS::Player::Player(unsigned id, Ressources &ressources) :
 	Entity(id, "Player", {
@@ -31,6 +33,7 @@ ECS::Player::Player(unsigned id, Ressources &ressources) :
 		new CollisionComponent(0),
 		new ColliderComponent(0),
 		new BlockedComponent(),
+		new PickerComponent(),
 		new BombDropperComponent(ressources.soundSystem),
 		new DisplayableComponent("Player", ressources),
 		new ControllableComponent(*ressources.inputs.at(id), id)

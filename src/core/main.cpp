@@ -20,7 +20,13 @@ Map::Map *loadMap(ECS::Ressources &res, std::string path)
 
 	auto map = new Map::Map{res};
 
-	map->generateMap({20, 20}, 70);
+	map->generateMap({20, 20}, 7000, {
+		{"Bonus", 40},
+		{"Speed", 20},
+		{"Bomb", 20},
+		{"Kick", 5},
+		{"Range", 20}
+	});
 	return map;
 }
 

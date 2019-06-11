@@ -17,7 +17,7 @@
 ECS::PowerUpPickedSystem::PowerUpPickedSystem(ECS::ECSCore &core):
     System("PowerUpPicked", core)
 {
-    this->_dependencies = {"Collision", "Pickable", "Health"};
+    this->_dependencies = {"Pickable", "Health", "PowerUp"};
 }
 
 void ECS::PowerUpPickedSystem::updateEntity(ECS::Entity &entity)
@@ -25,9 +25,9 @@ void ECS::PowerUpPickedSystem::updateEntity(ECS::Entity &entity)
     auto &pickable = reinterpret_cast<PickableComponent &>(entity.getComponentByName("Pickable"));
     if (pickable.pickedBy != nullptr) {
         HealthComponent &hc = reinterpret_cast<HealthComponent &>(entity.getComponentByName("Health"));
-        PowerUpComponent &pucI = reinterpret_cast<PowerUpComponent &>(pickable.pickedBy->getComponentByName("PowerUp"));
+        PowerUpComponent &pucI = reinterpret_cast<PowerUpComponent &>(entity.getComponentByName("PowerUp"));
 
-        hc.health = 0;
+
         if (pickable.pickedBy->hasComponent("Health")) {
             auto &tphc = reinterpret_cast<HealthComponent &>(pickable.pickedBy->getComponentByName("Health"));
 
@@ -36,7 +36,7 @@ void ECS::PowerUpPickedSystem::updateEntity(ECS::Entity &entity)
         if (pickable.pickedBy->hasComponent("Collider")) {
             auto &cc = reinterpret_cast<ColliderComponent &>(pickable.pickedBy->getComponentByName("Collider"));
 
-            cc.hardness += pucI.hardness;
+            cc.hardness = pucI.hardness;
         }
         if (pickable.pickedBy->hasComponent("Kicker") && pucI.kick) {
             auto &kc = reinterpret_cast<KickerComponent &>(pickable.pickedBy->getComponentByName("Kicker"));
@@ -49,10 +49,11 @@ void ECS::PowerUpPickedSystem::updateEntity(ECS::Entity &entity)
             bdc.max += pucI.nbBomb;
             bdc.range += pucI.range;
         }
-        if (pickable.pickedBy->hasComponent("Movable") && pucI.speed == 1) {
+        if (pickable.pickedBy->hasComponent("Movable") && pucI.speed != 0) {
             auto &mc = reinterpret_cast<MovableComponent &>(pickable.pickedBy->getComponentByName("Movable"));
 
-            mc.speed = pucI.speed;
+            mc.maxSpeed += pucI.speed;
         }
+        entity.destroy();
     }
 }
