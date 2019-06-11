@@ -51,7 +51,6 @@ bool Irrlicht::Screen::display() { //TODO COLOR SCENE
 
     if (this->_device->isWindowActive())
     {
-        this->getCurrentGameScene().update();
         this->_driver->beginScene(true, true, irr::video::SColor(255, 101, 101, 140));
         if (this->_smgr)
             this->_smgr->drawAll();

@@ -201,7 +201,10 @@ add_executable(
 	src/ecs/components/ControlledByAIComponent.hpp
 	src/ecs/systems/ControlledByAISystem.cpp
 	src/ecs/systems/ControlledByAISystem.hpp
-)
+	src/irrlicht/Exceptions.cpp
+	src/irrlicht/Exceptions.hpp
+	src/ecs/entities/AIPlayer.cpp
+	src/ecs/entities/AIPlayer.hpp)
 
 find_package(SFML COMPONENTS audio REQUIRED)
 find_package(Irrlicht REQUIRED)

@@ -27,13 +27,18 @@ namespace Irrlicht {
         ~IrrEntity();
 
         bool isEntityLoaded();
-        void setScale(float x, float z);
+        void setScale(float x, float z, float y = -1);
         void setPos(float x, float y);
+        void setSize(float x, float y);
+        ECS::Vector2<float> getSize();
     //PROPERTIES
         unsigned id;
         Animations anim;
         irr::video::SColor _defaultColor;
     private:
+    	ECS::Vector2<float> _pos = {-1, -1};
+        ECS::Vector2<float> _size = {-1, -1};
+        ECS::Vector2<float> _scale = {1, 1};
         std::string _meshPath;
         irr::scene::ISceneManager* _smgr;
         irr::scene::IAnimatedMesh* _mesh;

@@ -10,7 +10,8 @@
 ECS::UltimeComponent::UltimeComponent(Sound::SoundSystem &soundSystem):
     Component("Ultime"),
     charge(0),
-    soundSystem(soundSystem)
+    soundSystem(soundSystem),
+    castUlt(false)
 {}
 
 std::ostream& ECS::UltimeComponent::serialize(std::ostream &stream) const
@@ -20,7 +21,9 @@ std::ostream& ECS::UltimeComponent::serialize(std::ostream &stream) const
 
 ECS::UltimeComponent::UltimeComponent(ECS::Ressources &ressources, std::istream &stream):
     Component("Ultime"),
-    soundSystem(ressources.soundSystem)
+    soundSystem(ressources.soundSystem),
+    castUlt(false),
+    charge(0)
 {
     std::string terminator;
 

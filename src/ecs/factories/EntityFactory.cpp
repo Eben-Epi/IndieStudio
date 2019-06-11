@@ -21,6 +21,7 @@
 #include "../entities/DroppedBonusSpeed.hpp"
 #include "../entities/DroppedBonusRange.hpp"
 #include "../entities/Bedrock.hpp"
+#include "../entities/AIPlayer.hpp"
 
 namespace ECS
 {
@@ -30,6 +31,7 @@ namespace ECS
 	}
 
 	std::map<std::string, std::function<Entity *(Ressources &ressources, unsigned id)>> EntityFactory::_functions = {
+		{"AIPlayer", [](Ressources &ressources, unsigned id) { return new AIPlayer(id, ressources); }},
 		{"Bomb", [](Ressources &ressources, unsigned id) { return new Bomb(id, ressources); }},
 		{"Brick", [](Ressources &ressources, unsigned id) { return new Brick(id, ressources); }},
 		{"DroppedBonusBomb", [](Ressources &ressources, unsigned id) { return new DroppedBonusBomb(id, ressources); }},

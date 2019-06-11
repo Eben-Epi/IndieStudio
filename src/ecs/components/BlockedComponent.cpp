@@ -10,7 +10,8 @@
 #include "../Exceptions.hpp"
 
 ECS::BlockedComponent::BlockedComponent() :
-	Component("Blocked")
+	Component("Blocked"),
+	_whitelistId({})
 {}
 
 ECS::BlockedComponent::BlockedComponent(ECS::Ressources &, std::istream &stream) :
