@@ -54,6 +54,7 @@ void ECS::PowerUpPickedSystem::updateEntity(ECS::Entity &entity)
 
             mc.maxSpeed += pucI.speed;
         }
+        pucI.soundSystem.playSound("pop1");
         entity.destroy();
     }
 }
