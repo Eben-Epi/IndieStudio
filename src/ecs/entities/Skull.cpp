@@ -2,30 +2,27 @@
 ** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
-** DroppedBonusKick.cpp
+** Skull.cpp
 */
-
-#include "DroppedBonusKick.hpp"
+#include "Skull.hpp"
 #include "../components/HealthComponent.hpp"
 #include "../components/DisplayableComponent.hpp"
 #include "../components/ColliderComponent.hpp"
+#include "../components/MortalComponent.hpp"
 #include "../components/PositionComponent.hpp"
-#include "../../config.hpp"
 #include "../components/PowerUpComponent.hpp"
 #include "../components/PickableComponent.hpp"
 #include "../components/PowerUpPickedComponent.hpp"
-#include "../components/MortalComponent.hpp"
+#include "../components/CurseOnPickComponent.hpp"
 
-ECS::DroppedBonusKick::DroppedBonusKick(unsigned id, Ressources &ressources) :
-    Entity(id, "DroppedBonusKick", {
+ECS::Skull::Skull(unsigned id, Ressources &ressources) :
+    Entity(id, "Skull", {
         new HealthComponent(1),
-        new DisplayableComponent("DroppedBonusKick", ressources),
+        new DisplayableComponent("Skull", ressources),
         new ColliderComponent(0),
         new MortalComponent(),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
-        new PowerUpComponent(ressources.soundSystem, {{"Kick", true}}),
         new PickableComponent(),
-        new PowerUpPickedComponent()
+        new CurseOnPickComponent(ressources.soundSystem)
     })
-{
-}
+{}

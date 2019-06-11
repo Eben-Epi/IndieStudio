@@ -16,7 +16,7 @@ namespace ECS
     class ExplodeComponent : public Component
     {
         public:
-	    Sound::SoundSystem &soundSystem;
+	        Sound::SoundSystem &soundSystem;
             unsigned int range;
             unsigned int strength;
             ExplodeComponent(Sound::SoundSystem &soundSystem, unsigned int range, unsigned int strength);

@@ -26,6 +26,7 @@ Map::Map *loadMap(ECS::Ressources &res, std::string path)
 		{"DroppedBonusBomb", 20},
 		{"DroppedBonusKick", 5},
 		{"DroppedBonusRange", 20},
+        {"Skull", 10}
 	});
 	return map;
 }

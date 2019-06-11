@@ -199,7 +199,7 @@ add_executable(
 	src/ecs/entities/Bedrock.hpp
 	src/irrlicht/Exceptions.cpp
 	src/irrlicht/Exceptions.hpp
-)
+        src/ecs/entities/Skull.cpp src/ecs/entities/Skull.hpp src/ecs/components/CurseOnPickComponent.cpp src/ecs/components/CurseOnPickComponent.hpp src/ecs/systems/CurseOnPickSystem.cpp src/ecs/systems/CurseOnPickSystem.hpp)
 
 find_package(SFML COMPONENTS audio REQUIRED)
 find_package(Irrlicht REQUIRED)
