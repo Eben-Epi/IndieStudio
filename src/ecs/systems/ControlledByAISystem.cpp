@@ -16,6 +16,7 @@
 #include "../components/CurseComponent.hpp"
 #include "../../config.hpp"
 #include "../components/ColliderComponent.hpp"
+#include "../components/ExplodeComponent.hpp"
 
 namespace ECS
 {
@@ -25,31 +26,37 @@ namespace ECS
         this->_dependencies = {"Movable", "Position", "BombDropper", "Ultime"};
     }
 
-    std::vector<Input::Action> getTheBestWay(std::vector<int> &bonusMalusZone)
+    bool canEscape(std::vector<int> &bonusMalusZone)
+    {
+        int escapableWays = 0;
+
+        for (int score : bonusMalusZone) {
+            if (score >= 0)
+                ++escapableWays;
+        }
+        return (escapableWays == 2);
+    }
+
+    std::vector<Input::Action> getTheBestWay(std::vector<int> &bonusMalusZone, std::vector<Input::Action> previous)
     {
         int i;
         int j = 0;
-        int nb = 1;
+        std::vector<int> pos = {0};
         std::vector<Input::Action> actions;
         std::random_device rand_device;
 
         for (i = 1; i < bonusMalusZone.size(); ++i) {
             if (bonusMalusZone[i] > bonusMalusZone[j]) {
                 j = i;
-                nb = 1;
+                pos.clear();
+                pos.push_back(i);
             }
             else if (bonusMalusZone[i] == bonusMalusZone[j])
-                ++nb;
+                pos.push_back(i);
         }
-        if (nb > 1) {
-            nb = rand_device() % nb + 1;
-            for (i = 0; i < bonusMalusZone.size() && nb > 0; ++i) {
-                if (bonusMalusZone[i] == bonusMalusZone[j])
-                    --nb;
-            }
-            j = i - 1;
-        }
-        switch (j) {
+        if (pos.size() > 1)
+            j = rand_device() % (int)pos.size();
+        switch (pos[j]) {
             case 0:
                 actions.push_back(Input::Action::ACTION_UP);
                 break;
@@ -61,6 +68,7 @@ namespace ECS
                 break;
             case 4:
                 actions.push_back(Input::Action::ACTION_DOWN);
+                break;
             default:
                 break;
         }
@@ -79,7 +87,6 @@ namespace ECS
             for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
                 if (it.base()->x == point.x && it.base()->y == point.y) {
                     *(infoIt.base()) += dangerLevel;
-                    for (int score : bonusMalusZone)
                     break;
                 }
                 ++infoIt;
@@ -128,40 +135,50 @@ namespace ECS
         std::vector<Point> dangerZone;
         std::vector<Point> bonusZone;
         std::vector<int> bonusMalusZone = {0, 0, 0, 0, 0};
-        static int t = 0;
-        static std::vector<Input::Action> actions;
+        int xTmp = (int)(pos.pos.x / TILESIZE * 100) % 100;
+        int yTmp = (int)(pos.pos.x / TILESIZE * 100) % 100;
+        static std::vector<Input::Action> actions {Input::ACTION_LEFT};
+        static int time = 0;
 
-        if (t == 0) {
+        if ((xTmp <= 10 && yTmp <= 10) && time == 0) {
             for (Entity *e : colliders) {
                 auto &eCollide = reinterpret_cast<ColliderComponent &>(e->getComponentByName("Collider"));
                 auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
 
                 if (eCollide.hardness >= 1)
                     blockZone.emplace_back(getRelativePos(ePos.pos));
+                else if (e->hasComponent("OnCollisionDamageDealer"))
+                    blockZone.emplace_back(getRelativePos(ePos.pos));
             }
             updateRelativeVision(blockZone, relativeVision, bonusMalusZone, -1000000);
             for (Entity *e : explodableEntities) {
                 auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
+                auto &eExpl = reinterpret_cast<ExplodeComponent &>(e->getComponentByName("Explode"));
                 Point relaPos = getRelativePos(ePos.pos);
 
-                dangerZone.push_back({relaPos.x + TILESIZE, relaPos.y});
-                dangerZone.push_back({relaPos.x - TILESIZE, relaPos.y});
-                dangerZone.push_back({relaPos.x, relaPos.y + TILESIZE});
-                dangerZone.push_back({relaPos.x, relaPos.y - TILESIZE});
+                for (int i = 0; i < eExpl.range; ++i) {
+                    dangerZone.push_back({relaPos.x + (TILESIZE * i), relaPos.y});
+                    dangerZone.push_back({relaPos.x - (TILESIZE * i), relaPos.y});
+                    dangerZone.push_back({relaPos.x, relaPos.y + (TILESIZE * i)});
+                    dangerZone.push_back({relaPos.x, relaPos.y - (TILESIZE * i)});
+                }
             }
-            updateRelativeVision(dangerZone, relativeVision, bonusMalusZone, -20);
+            updateRelativeVision(dangerZone, relativeVision, bonusMalusZone, -100);
 
             for (Entity *e : powerUps) {
                 auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
 
                 bonusZone.emplace_back(getRelativePos(ePos.pos));
             }
-            updateRelativeVision(bonusZone, relativeVision, bonusMalusZone, 20);
-            actions = getTheBestWay(bonusMalusZone);
+            updateRelativeVision(bonusZone, relativeVision, bonusMalusZone, 10);
+            actions = getTheBestWay(bonusMalusZone, actions);
+            if (canEscape(bonusMalusZone)) {
+                actions.push_back(Input::ACTION_ACTION);
+            }
         }
-        ++t;
-        if (t == 60)
-            t = 0;
+        ++time;
+        if (time == 3)
+            time = 0;
         return (actions);
     }
 
