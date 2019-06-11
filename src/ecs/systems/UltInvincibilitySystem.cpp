@@ -10,6 +10,7 @@
 #include "../components/UltInvincibilityComponent.hpp"
 #include "UltimeSystem.hpp"
 #include "../components/CollisionComponent.hpp"
+#include "../components/MovableComponent.hpp"
 
 ECS::UltInvincibilitySystem::UltInvincibilitySystem(ECS::ECSCore &core):
     System("UltInvincibility", core)
@@ -22,11 +23,13 @@ void ECS::UltInvincibilitySystem::updateEntity(ECS::Entity &entity)
     auto &uc = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
     auto &self = reinterpret_cast<UltInvincibilityComponent &>(entity.getComponentByName("UltInvincibility"));
 
+
     if (self.isOnUse) {
         if (self.timeLeft == 0) {
+            auto &mc = reinterpret_cast<MovableComponent&>(entity.getComponentByName("Movable"));
+
             self.isOnUse = false;
-            auto &mc = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
-            mc.passThrough = self.oldPassThrough;
+            mc.maxSpeed -= 2.5;
         }
         else {
             self.timeLeft -= 1;
@@ -36,14 +39,14 @@ void ECS::UltInvincibilitySystem::updateEntity(ECS::Entity &entity)
 
     if (uc.castUlt && uc.ultimeIsReady()) {
         auto &hc = reinterpret_cast<HealthComponent &>(entity.getComponentByName("Health"));
-        auto &mc = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
-        uc.charge = 0;
+        auto &mc = reinterpret_cast<MovableComponent&>(entity.getComponentByName("Movable"));
 
+        uc.charge = 0;
         uc.soundSystem.playSoundOverBackgroundMusic("starman", 100);
-        hc.invunerabilityTimeLeft = 26 * FRAME_RATE;
-        self.oldPassThrough = mc.passThrough;
-        mc.passThrough = 2;
+        hc.invunerabilityTimeLeft = 25 * FRAME_RATE;
+        mc.maxSpeed += 2.5;
         self.isOnUse = true;
-        self.timeLeft = 26 * FRAME_RATE;
+
+        self.timeLeft = 25 * FRAME_RATE;
     }
 }

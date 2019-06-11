@@ -15,7 +15,7 @@ Irrlicht::GameScene::GameScene(Screen &window, const std::string &name, unsigned
 	_entitiesId(0),
 	_eventReceiver(window.getEventReceiver())
 {
-	this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(304, 500, -304), irr::core::vector3df(304, 0, -303));
+	this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(320, 500, -320), irr::core::vector3df(320, 0, -319));
 }
 
 bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key)
@@ -60,11 +60,11 @@ void Irrlicht::GameScene::setScale(unsigned entity, float x, float z) {
 			ent->setPos(x, z);
 }
 
-void Irrlicht::GameScene::setSize(unsigned entity, float x, float y)
+void Irrlicht::GameScene::setSize(unsigned entity, float x, float z)
 {
 	for (auto &ent : this->_entities)
 		if (ent->id == entity)
-			ent->setSize(x, y);
+			ent->setSize(x, z);
 }
 
 ECS::Vector2<float> Irrlicht::GameScene::getSize(unsigned entity) {
@@ -74,7 +74,8 @@ ECS::Vector2<float> Irrlicht::GameScene::getSize(unsigned entity) {
 	throw NoSuchEntityException("Cannot find entity with id " + std::to_string(entity));
 }
 
-bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2) {
+bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2)
+{
 	return false;
 }
 

@@ -11,6 +11,7 @@
 #include "../components/EphemeralComponent.hpp"
 #include "../components/ExplodeComponent.hpp"
 #include "../Exceptions.hpp"
+#include "../components/BlockedComponent.hpp"
 
 ECS::BombDropperSystem::BombDropperSystem(ECS::ECSCore &core):
 		System("BombDropper", core)
@@ -48,9 +49,15 @@ void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 
 	auto &newBomb = this->_core.makeEntity("Bomb");
 	auto &bomb_pos = reinterpret_cast<ECS::PositionComponent &>(newBomb.getComponentByName("Position"));
+	auto &bomb_explode = reinterpret_cast<ECS::ExplodeComponent &>(newBomb.getComponentByName("Explode"));
 
 	bomb_pos.pos = pos;
+	bomb_explode.range = bomb.range;
 	bomb.bombs.push_back(newBomb.getId());
 	bomb.soundSystem.playSound("bip");
 	bomb.dropBomb = false;
+
+	auto &bc = reinterpret_cast<BlockedComponent &>(entity.getComponentByName("Blocked"));
+	bc._whitelistId.push_back(&newBomb);
+
 }
