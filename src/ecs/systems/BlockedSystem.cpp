@@ -95,5 +95,6 @@ void ECS::BlockedSystem::updateEntity(ECS::Entity &entity)
             entity_pos.pos.x += MIN(TILESIZE - relative_x, TILESIZE - relative_y) + .1; // rright
             break;
         }
+        entity_mov.speed = 0;
     }
 }

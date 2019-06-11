@@ -23,7 +23,7 @@ ECS::DroppedBonusSpeed::DroppedBonusSpeed(unsigned id, Ressources &ressources) :
         new ColliderComponent(0),
 	new MortalComponent(),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
-        new PowerUpComponent(ressources.soundSystem, {{"Speed", TILESIZE / FRAME_RATE / 2}}),
+        new PowerUpComponent(ressources.soundSystem, {{"Speed", 0.33}}),
         new PickableComponent(),
         new PowerUpPickedComponent()
     })

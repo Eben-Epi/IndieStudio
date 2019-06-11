@@ -11,23 +11,24 @@
 
 namespace ECS
 {
-    KickerComponent::KickerComponent()
-    : Component("Kicker")
+    KickerComponent::KickerComponent() :
+        Component("Kicker"),
+        canKick(false)
     {
     }
 
     std::ostream& KickerComponent::serialize(std::ostream &stream) const
     {
-    	return stream << "EndOfComponent";
+        return stream << this->canKick << " EndOfComponent";
     }
 
     KickerComponent::KickerComponent(ECS::Ressources &, std::istream &stream) :
-	    KickerComponent()
+        KickerComponent()
     {
-	    std::string terminator;
+        std::string terminator;
 
-	    stream >> terminator;
-	    if (terminator != "EndOfComponent")
-		    throw InvalidSerializedStringException("The component terminator was not found");
+        stream >> this->canKick >> terminator;
+        if (terminator != "EndOfComponent")
+            throw InvalidSerializedStringException("The component terminator was not found");
     }
 }

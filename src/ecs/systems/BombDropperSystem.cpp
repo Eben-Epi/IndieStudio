@@ -36,8 +36,8 @@ void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 
 	auto &player_pos = reinterpret_cast<ECS::PositionComponent &>(entity.getComponentByName("Position"));
 	Point pos = {
-		static_cast<double>(lround(player_pos.pos.x / TILESIZE) * TILESIZE),
-		static_cast<double>(lround(player_pos.pos.y / TILESIZE) * TILESIZE)
+		static_cast<double>(lround(player_pos.pos.x / TILESIZE) * TILESIZE) + TILESIZE / 16,
+		static_cast<double>(lround(player_pos.pos.y / TILESIZE) * TILESIZE) + TILESIZE / 16
 	};
 
 	for (Entity *ent : this->_core.getEntitiesByComponent("Collider")) {
