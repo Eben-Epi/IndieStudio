@@ -49,6 +49,10 @@ namespace ECS
 				uc.castUlt = true;
 			}
 		}
+		if (IS_CURSED(entity, CurseComponent::AUTODROP))
+			bombDropper.dropBomb = true;
+		if (IS_CURSED(entity, CurseComponent::NODROP))
+			bombDropper.dropBomb = false;
 		if (newDir) {
 			if (IS_CURSED(entity, CurseComponent::REVERSECONTROL))
 				mov.dir = (newDir << 2) | (newDir >> 2);

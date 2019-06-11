@@ -19,10 +19,11 @@
 #include "../components/BombDropperComponent.hpp"
 #include "../components/UltInvincibilityComponent.hpp"
 #include "../../config.hpp"
+#include "../components/KickerComponent.hpp"
 
 ECS::Player::Player(unsigned id, Ressources &ressources) :
 	Entity(id, "Player", {
-		new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
+		new PositionComponent({0, 0}, {PLAYERSIZE, PLAYERSIZE}),
 		new HealthComponent(1),
 		new UltimeComponent(ressources.soundSystem),
 		new UltInvincibilityComponent(),

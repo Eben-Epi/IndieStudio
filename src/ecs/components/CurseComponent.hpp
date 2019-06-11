@@ -23,6 +23,8 @@ namespace ECS {
             SLOWBOMB,
             REVERSECONTROL,
             SWAP_POS,
+            AUTODROP,
+            NODROP
         };
 
         CurseEffect effect;
