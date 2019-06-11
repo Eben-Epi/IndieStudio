@@ -22,10 +22,10 @@ Map::Map *loadMap(ECS::Ressources &res, std::string path)
 
 	map->generateMap({20, 20}, 7000, {
 		{"Bonus", 40},
-		{"Speed", 20},
-		{"Bomb", 20},
-		{"Kick", 5},
-		{"Range", 20}
+		{"DroppedBonusSpeed", 20},
+		{"DroppedBonusBomb", 20},
+		{"DroppedBonusKick", 5},
+		{"DroppedBonusRange", 20},
 	});
 	return map;
 }

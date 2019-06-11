@@ -125,7 +125,7 @@ void setEntityDropperComponentInBrick(ECS::Entity &brick, unsigned randNum, std:
 
     for (auto &val : ratiosBonus) {
         if (randNum < val.second) {
-            entityDropper.item = "DroppedBonus" + val.first;
+            entityDropper.item = val.first;
             break;
         }
         randNum -= val.second;
