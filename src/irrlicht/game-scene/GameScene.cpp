@@ -79,11 +79,9 @@ bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2)
 	return false;
 }
 
-//TODO ZARGITH add to event receiver http://irrlicht.sourceforge.net/docu/example019.html
-
 bool Irrlicht::GameScene::isJoystickButtonPressed(unsigned button)
 {
-	this->_eventReceiver.displayAxes();
+//	this->_eventReceiver.displayAxes();
 	return (this->_eventReceiver.isJoystickKeyPressed(button));
 }
 
@@ -92,9 +90,41 @@ float Irrlicht::GameScene::getJoystickAxisPosition(unsigned axis)
 	return (this->_eventReceiver.getJoystickAxisPosition(axis));
 }
 
-bool Irrlicht::GameScene::isJoystickAxisPressed(ControllerButtonsGS button)
+bool Irrlicht::GameScene::isJoystickAxisPressed(ControllerAxisGS button)
 {
-	if (this->getJoystickAxisPosition(button) > 16384)
+	float value = 0;
+
+	switch (button) {
+	case LEFT_JOYSTICK_UP:
+	case LEFT_JOYSTICK_DOWN:
+		value = this->getJoystickAxisPosition(1);
+		break;
+	case LEFT_JOYSTICK_LEFT:
+	case LEFT_JOYSTICK_RIGHT:
+		value = this->getJoystickAxisPosition(0);
+		break;
+	case RIGHT_JOYSTICK_UP:
+	case RIGHT_JOYSTICK_DOWN:
+		value = this->getJoystickAxisPosition(4);
+		break;
+	case RIGHT_JOYSTICK_LEFT:
+	case RIGHT_JOYSTICK_RIGHT:
+		value = this->getJoystickAxisPosition(3);
+		break;
+	case RT:
+		value = this->getJoystickAxisPosition(2);
+		break;
+	case LT:
+		value = this->getJoystickAxisPosition(5);
+		break;
+
+	default :
+		return (false);
+	}
+	
+	if (value < 0)
+		value *= -1;
+	if (value > 16384)
 		return (true);
 	return (false);
 }

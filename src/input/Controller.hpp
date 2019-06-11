@@ -30,11 +30,9 @@ namespace Input
         RIGHT_CROSS,
         UP_CROSS,
         DOWN_CROSS,
-        LJ_HORIZONTAL,
-        LJ_VERTICAL,
+        LEFT_JOYSTICK,
+        RIGHT_JOYSTICK,
         RT,
-        RJ_HORIZONTAL,
-        RJ_VERTICAL,
         LT,
         NUMBER_BUTTONS
     };

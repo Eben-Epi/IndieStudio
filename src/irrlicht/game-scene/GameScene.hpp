@@ -19,29 +19,18 @@
 namespace Irrlicht
 {
 
-	enum ControllerButtonsGS {
-		A = 0,
-		B,
-		X,
-		Y,
-		LB,
-		RB,
-		SELECT,
-		START,
-		MIDDLE,
-		LJ_PRESSED,
-		RJ_PRESSED,
-		LEFT_CROSS,
-		RIGHT_CROSS,
-		UP_CROSS,
-		DOWN_CROSS,
-		LJ_HORIZONTAL,
-		LJ_VERTICAL,
+	enum ControllerAxisGS {
+		LEFT_JOYSTICK_UP = 0,
+		LEFT_JOYSTICK_DOWN,
+		LEFT_JOYSTICK_LEFT,
+		LEFT_JOYSTICK_RIGHT,
+		RIGHT_JOYSTICK_UP,
+		RIGHT_JOYSTICK_DOWN,
+		RIGHT_JOYSTICK_LEFT,
+		RIGHT_JOYSTICK_RIGHT,
 		RT,
-		RJ_HORIZONTAL,
-		RJ_VERTICAL,
 		LT,
-		NUMBER_BUTTONS
+		NUMBER_AXIS
 	};
 
 	class Screen;
@@ -62,7 +51,7 @@ namespace Irrlicht
 		bool isKeyPressed(irr::EKEY_CODE key);
 		bool isJoystickButtonPressed(unsigned button);
 		float getJoystickAxisPosition(unsigned axis);
-		bool isJoystickAxisPressed(ControllerButtonsGS axis);
+		bool isJoystickAxisPressed(ControllerAxisGS axis);
 
 		const std::string sceneName;
 		const unsigned id;
