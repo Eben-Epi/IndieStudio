@@ -31,6 +31,7 @@ namespace Irrlicht {
         void setPos(float x, float y);
         void setSize(float x, float y);
         ECS::Vector2<float> getSize();
+        void setRotation(float angle);
     //PROPERTIES
         unsigned id;
         Animations anim;

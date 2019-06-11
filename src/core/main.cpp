@@ -41,9 +41,9 @@ int main()
 		inputs.emplace_back(
 			new Input::Keyboard(screen.getCurrentGameScene(), {
 				irr::KEY_KEY_Z,
-				irr::KEY_KEY_Q,
-				irr::KEY_KEY_S,
 				irr::KEY_KEY_D,
+				irr::KEY_KEY_S,
+				irr::KEY_KEY_Q,
 				irr::KEY_SPACE,
 				irr::KEY_KEY_A,
 			})

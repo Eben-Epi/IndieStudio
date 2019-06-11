@@ -48,6 +48,13 @@ void Irrlicht::GameScene::setAnimation(unsigned entity_id, Animations anim) {
             ent->anim = anim;
 }
 
+void Irrlicht::GameScene::setRotation(unsigned entity, float y)
+{
+	for (auto &ent : this->_entities)
+		if (ent->id == entity)
+			ent->setRotation(y);
+}
+
 void Irrlicht::GameScene::setPosition(unsigned entity, float x, float z) {
     for (auto &ent : this->_entities)
         if (ent->id == entity)

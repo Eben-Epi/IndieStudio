@@ -107,3 +107,14 @@ void Irrlicht::IrrEntity::setSize(float x, float z)
         this->_node->setScale(factorEscalate);
     }
 }
+
+void Irrlicht::IrrEntity::setRotation(float angleY)
+{
+	irr::core::vector3df rotY;
+	irr::core::quaternion quaternionY;
+
+	quaternionY.fromAngleAxis(angleY, irr::core::vector3df(0, 1, 0));
+	quaternionY.normalize();
+	quaternionY.toEuler(rotY);
+	this->_node->setRotation(rotY * irr::core::RADTODEG);
+}

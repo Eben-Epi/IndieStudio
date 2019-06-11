@@ -30,6 +30,7 @@ namespace Irrlicht {
         bool areColliding(unsigned entity1, unsigned entity2);
         void setAnimation(unsigned entity, Animations anim);
         void setPosition(unsigned entity, float x, float y);
+        void setRotation(unsigned entity, float y);
         void setScale(unsigned entity, float x, float y);
         void setSize(unsigned entity, float x, float y);
         ECS::Vector2<float> getSize(unsigned entity);
