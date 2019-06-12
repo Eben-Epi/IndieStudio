@@ -30,6 +30,5 @@ void ECS::CurseOnPickSystem::updateEntity(ECS::Entity &entity)
     std::random_device random_dev;
     auto curse = static_cast<CurseComponent::CurseEffect >(random_dev() % (CurseComponent::_NUMBER_OF_CURSE - 1) + 1);
     cc.giveCurse(curse, 10 * FRAME_RATE, true);
-    self.soundSystem.playSound("skull");
     entity.destroy();
 }

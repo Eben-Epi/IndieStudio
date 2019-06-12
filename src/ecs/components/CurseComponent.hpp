@@ -25,9 +25,10 @@ namespace ECS {
             _NUMBER_OF_CURSE
         };
 
+        Sound::SoundSystem &soundSystem;
         CurseEffect effect;
         int timeLeft;
-        CurseComponent();
+        CurseComponent(Sound::SoundSystem &soundSystem);
         CurseComponent(Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
 
