@@ -128,7 +128,6 @@ void Irrlicht::IrrEntity::setAnimation(Irrlicht::Animations animation) {
     if (this->anim == animation)
         return;
     this->anim = animation;
-    if (this->_node) {
+    if (this->_node)
         this->_node->setMD2Animation(static_cast<irr::scene::EMD2_ANIMATION_TYPE>(this->anim));
-    }
 }
