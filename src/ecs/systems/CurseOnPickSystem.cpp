@@ -31,6 +31,5 @@ void ECS::CurseOnPickSystem::updateEntity(ECS::Entity &entity)
     auto curse = static_cast<CurseComponent::CurseEffect >(random_dev() % (CurseComponent::_NUMBER_OF_CURSE - 1) + 1);
     cc.giveCurse(curse, 15 * FRAME_RATE, true);
     self.soundSystem.playSound("skull");
-    printf("Cursed player with : %d\n", curse);
     entity.destroy();
 }
