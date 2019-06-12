@@ -198,8 +198,9 @@ add_executable(
 	src/ecs/entities/Bedrock.cpp
 	src/ecs/entities/Bedrock.hpp
 	src/irrlicht/Exceptions.cpp
-	src/irrlicht/Exceptions.hpp
-        src/ecs/entities/Skull.cpp src/ecs/entities/Skull.hpp src/ecs/components/CurseOnPickComponent.cpp src/ecs/components/CurseOnPickComponent.hpp src/ecs/systems/CurseOnPickSystem.cpp src/ecs/systems/CurseOnPickSystem.hpp)
+	src/irrlicht/Exceptions.hpp src/ecs/entities/Skull.cpp src/ecs/entities/Skull.hpp src/ecs/components/CurseOnPickComponent.cpp src/ecs/components/CurseOnPickComponent.hpp src/ecs/systems/CurseOnPickSystem.cpp src/ecs/systems/CurseOnPickSystem.hpp
+	src/ecs/components/OOBKillComponent.cpp
+	src/ecs/components/OOBKillComponent.hpp src/ecs/systems/OOBKillSystem.cpp src/ecs/systems/OOBKillSystem.hpp)
 
 find_package(SFML COMPONENTS audio REQUIRED)
 find_package(Irrlicht REQUIRED)
