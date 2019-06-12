@@ -28,13 +28,9 @@ void ECS::CurseSystem::updateEntity(ECS::Entity &entity)
         return;
 
     auto &e_collision = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
-    printf("Entities Collided : [");
     for (auto &i : e_collision.entitiesCollided) {
         if (!i->hasComponent("Curse"))
             continue;
-        printf("%s (%d), ", i->getName().c_str(), i->getId());
         auto &i_curse = reinterpret_cast<CurseComponent &>(i->getComponentByName("Curse"));
-        printf("result of give curse %d\n", i_curse.giveCurse(cc.effect, cc.timeLeft, false));
     }
-    printf("]\n");
 }

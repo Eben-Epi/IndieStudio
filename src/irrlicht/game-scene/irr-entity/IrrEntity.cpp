@@ -10,12 +10,11 @@ Irrlicht::IrrEntity::IrrEntity(
     unsigned id,
     irr::scene::ISceneManager *smgr,
     irr::video::IVideoDriver *driver,
-    irr::video::SColor defaultColor,
-    std::string texturePath
+    irr::video::SColor defaultColor
 ) :
     id(id),
     anim(Animations::IDLE),
-    _meshPath("./media/models/" + filename + ".dae"),
+    _meshPath("./media/models/" + filename + ".md2"),
     _defaultColor(defaultColor),
     _texturePath("./media/textures/" + filename + ".png"),
     _loaded(false),
@@ -25,10 +24,15 @@ Irrlicht::IrrEntity::IrrEntity(
     _parent(nullptr)
 {
     this->_mesh = smgr->getMesh(this->_meshPath.c_str());
-
     if (!this->_mesh) {
-        std::cerr << "Failed to load " << this->_meshPath << std::endl;
-        return;
+        this->_meshPath = "./media/models/" + filename + ".dae";
+        this->_mesh = smgr->getMesh(this->_meshPath.c_str());
+
+        if (!this->_mesh) {
+            std::cerr << "Failed to load ./media/models/" << filename << ".md2" << std::endl;
+            std::cerr << "Failed to load ./media/models/" << filename << ".dae" <<std::endl;
+            return;
+        }
     }
     this->_node = smgr->addAnimatedMeshSceneNode(this->_mesh);
     if (this->_node) {
@@ -110,11 +114,12 @@ void Irrlicht::IrrEntity::setSize(float x, float z)
 
 void Irrlicht::IrrEntity::setRotation(float angleY)
 {
-	irr::core::vector3df rotY;
-	irr::core::quaternion quaternionY;
+    irr::core::vector3df rotY;
+    irr::core::quaternion quaternionY;
 
-	quaternionY.fromAngleAxis(angleY, irr::core::vector3df(0, 1, 0));
-	quaternionY.normalize();
-	quaternionY.toEuler(rotY);
-	this->_node->setRotation(rotY * irr::core::RADTODEG);
+    quaternionY.fromAngleAxis(angleY, irr::core::vector3df(0, 1, 0));
+    quaternionY.normalize();
+    quaternionY.toEuler(rotY);
+    if (this->_node)
+    	this->_node->setRotation(rotY * irr::core::RADTODEG);
 }

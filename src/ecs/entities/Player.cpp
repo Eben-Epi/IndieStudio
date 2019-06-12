@@ -23,14 +23,15 @@
 #include "../components/KickerComponent.hpp"
 #include "../../config.hpp"
 #include "../components/OOBKillComponent.hpp"
+#include "../components/MortalComponent.hpp"
 
-ECS::Player::Player(unsigned id, Ressources &ressources) :
+ECS::Player::Player(unsigned id, Ressources &ressources, std::string &&texture, Component *ultimate) :
 	Entity(id, "Player", {
 		new PositionComponent({0, 0}, {PLAYERSIZE, PLAYERSIZE}),
 		new HealthComponent(1),
-		new OOBKillComponent({0, 0}, {20 * TILESIZE, 20 * TILESIZE}),
+		new OOBKillComponent({-TILESIZE, -TILESIZE}, {20 * TILESIZE, 20 * TILESIZE}),
 		new UltimeComponent(ressources.soundSystem),
-		new UltInvincibilityComponent(),
+		ultimate,
 		new MovableComponent(2.5),
 		new CollisionComponent(0),
 		new ColliderComponent(0),
@@ -38,8 +39,9 @@ ECS::Player::Player(unsigned id, Ressources &ressources) :
         new BlockedComponent(),
 		new PickerComponent(),
 		new KickerComponent(),
+		new MortalComponent(),
 		new BombDropperComponent(ressources.soundSystem),
-		new DisplayableComponent("Player", ressources),
+		new DisplayableComponent(std::move(texture), ressources),
 		new ControllableComponent(*ressources.inputs.at(id), id)
 	})
 {

@@ -10,7 +10,6 @@
 #include "../Ressources.hpp"
 #include "../entities/Brick.hpp"
 #include "../entities/Wall.hpp"
-#include "../entities/Player.hpp"
 #include "../entities/Bomb.hpp"
 #include "../entities/ExplosionFrame.hpp"
 #include "../entities/DroppedItem.hpp"
@@ -22,6 +21,10 @@
 #include "../entities/DroppedBonusRange.hpp"
 #include "../entities/Bedrock.hpp"
 #include "../entities/Skull.hpp"
+#include "../entities/Sydney.hpp"
+#include "../entities/Faerie.hpp"
+#include "../entities/Gunguy.hpp"
+#include "../entities/Warrior.hpp"
 
 namespace ECS
 {
@@ -39,9 +42,12 @@ namespace ECS
 		{"DroppedBonusKick", [](Ressources &ressources, unsigned id) { return new DroppedBonusKick(id, ressources); }},
 		{"DroppedBonusRange", [](Ressources &ressources, unsigned id) { return new DroppedBonusRange(id, ressources); }},
 		{"DroppedBonusSpeed", [](Ressources &ressources, unsigned id) { return new DroppedBonusSpeed(id, ressources); }},
-        {"Skull", [](Ressources &ressources, unsigned id) { return new Skull(id, ressources); }},
+		{"Skull", [](Ressources &ressources, unsigned id) { return new Skull(id, ressources); }},
 		{"ExplosionFrame", [](Ressources &ressources, unsigned id) { return new ExplosionFrame(id, ressources); }},
-		{"Player", [](Ressources &ressources, unsigned id) { return new Player(id, ressources); }},
+		{"Faerie", [](Ressources &ressources, unsigned id) { return new Faerie(id, ressources); }},
+		{"Sydney", [](Ressources &ressources, unsigned id) { return new Sydney(id, ressources); }},
+		{"Gunguy", [](Ressources &ressources, unsigned id) { return new Gunguy(id, ressources); }},
+		{"Warrior", [](Ressources &ressources, unsigned id) { return new Warrior(id, ressources); }},
 		{"Wall", [](Ressources &ressources, unsigned id) { return new Wall(id, ressources); }},
 		{"Bedrock", [](Ressources &ressources, unsigned id) { return new Bedrock(id, ressources); }}
 	};
