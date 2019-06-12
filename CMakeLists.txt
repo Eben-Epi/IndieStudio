@@ -200,15 +200,13 @@ add_executable(
 	src/irrlicht/Exceptions.cpp
 	src/irrlicht/Exceptions.hpp)
 
-find_package(SFML COMPONENTS audio REQUIRED)
 find_package(Irrlicht REQUIRED)
-
-include_directories(Irrlicht_INCLUDE_DIRS)
+find_package(Sfml REQUIRED)
 
 target_link_libraries(
 	bomberman
 	${Irrlicht_LIBRARIES}
-	sfml-audio
-	pthread
+	${SFML_LIBRARIES}
+	${Pthread_LIBRARIES}
 )
 

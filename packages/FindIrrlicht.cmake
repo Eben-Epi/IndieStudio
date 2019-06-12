@@ -16,6 +16,9 @@
 # Author: Guillaume DEVOILLE <guillaume1.devoille@epitech.eu> (17/05/2019)
 #
 
+set(Irrlicht_LIBRARIES C:/Users/Eben/Documents/Libs/irr_epi/Irrlicht.lib)
+set(Irrlicht_INCLUDE_DIRS C:/Users/Eben/Documents/Libs/irr_epi/include)
+
 IF (NOT Irrlicht_INCLUDE_DIRS OR NOT Irrlicht_LIBRARIES)
   FIND_PATH(Irrlicht_INCLUDE_DIRS
     NAMES
