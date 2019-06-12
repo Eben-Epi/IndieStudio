@@ -6,22 +6,22 @@
 #include "IrrEntity.hpp"
 
 Irrlicht::IrrEntity::IrrEntity(
-    const std::string &filename,
-    unsigned id,
-    irr::scene::ISceneManager *smgr,
-    irr::video::IVideoDriver *driver,
-    irr::video::SColor defaultColor
+        const std::string &filename,
+        unsigned id,
+        irr::scene::ISceneManager *smgr,
+        irr::video::IVideoDriver *driver,
+        irr::video::SColor defaultColor
 ) :
-    id(id),
-    anim(Animations::IDLE),
-    _meshPath("./media/models/" + filename + ".md2"),
-    _defaultColor(defaultColor),
-    _texturePath("./media/textures/" + filename + ".png"),
-    _loaded(false),
-    _smgr(smgr),
-    _mesh(nullptr),
-    _node(nullptr),
-    _parent(nullptr)
+        id(id),
+        anim(Animations::IDLE),
+        _meshPath("./media/models/" + filename + ".md2"),
+        _defaultColor(defaultColor),
+        _texturePath("./media/textures/" + filename + ".png"),
+        _loaded(false),
+        _smgr(smgr),
+        _mesh(nullptr),
+        _node(nullptr),
+        _parent(nullptr)
 {
     this->_mesh = smgr->getMesh(this->_meshPath.c_str());
     if (!this->_mesh) {
@@ -67,9 +67,9 @@ void Irrlicht::IrrEntity::setPos(float x, float z) {
 void Irrlicht::IrrEntity::setScale(float x, float z, float y) {
     if (this->_node && (this->_scale.x != x || this->_scale.y != z)) {
         irr::core::vector3d<irr::f32> factorEscalate(
-            x,
-            y < 0 ? (z > x ? x : z) : 1,
-            z
+                x,
+                y < 0 ? (z > x ? x : z) : 1,
+                z
         );
 
         this->_node->setScale(factorEscalate);
@@ -102,9 +102,9 @@ void Irrlicht::IrrEntity::setSize(float x, float z)
         irr::f32 factorX = x / width;
         irr::f32 factorZ = z / depth;
         irr::core::vector3d<irr::f32> factorEscalate(
-            factorX,
-            factorZ > factorX ? factorX : factorZ,
-            factorZ
+                factorX,
+                factorZ > factorX ? factorX : factorZ,
+                factorZ
         );
         this->_size = {x, z};
         this->_scale = {factorX, factorZ};
@@ -122,4 +122,12 @@ void Irrlicht::IrrEntity::setRotation(float angleY)
     quaternionY.toEuler(rotY);
     if (this->_node)
     	this->_node->setRotation(rotY * irr::core::RADTODEG);
+}
+
+void Irrlicht::IrrEntity::setAnimation(Irrlicht::Animations animation) {
+    if (this->anim == animation)
+        return;
+    this->anim = animation;
+    if (this->_node)
+        this->_node->setMD2Animation(static_cast<irr::scene::EMD2_ANIMATION_TYPE>(this->anim));
 }

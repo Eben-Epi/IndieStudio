@@ -190,7 +190,7 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
                                 total += val.second;
                             }
                         );
-                        setEntityDropperComponentInBrick(brick, rand_device() % (total ?: 1), ratiosBonus);
+                        setEntityDropperComponentInBrick(brick, rand_device() % (total ? total : 1), ratiosBonus);
                     }
                 }
             }

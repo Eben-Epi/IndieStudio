@@ -45,7 +45,7 @@ void Irrlicht::GameScene::deleteEntity(unsigned id) {
 void Irrlicht::GameScene::setAnimation(unsigned entity_id, Animations anim) {
 	for (auto &ent : this->_entities)
 		if (ent->id == entity_id)
-			ent->anim = anim;
+            ent->setAnimation(anim);
 }
 
 void Irrlicht::GameScene::setRotation(unsigned entity, float y)

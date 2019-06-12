@@ -10,6 +10,7 @@
 #include "../components/PositionComponent.hpp"
 #include "../components/MovableComponent.hpp"
 
+#define M_PI_2		1.57079632679489661923
 
 ECS::DisplayableSystem::DisplayableSystem(ECS::ECSCore &core):
     System("Displayable", core)

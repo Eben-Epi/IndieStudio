@@ -32,5 +32,6 @@ void ECS::CurseSystem::updateEntity(ECS::Entity &entity)
         if (!i->hasComponent("Curse"))
             continue;
         auto &i_curse = reinterpret_cast<CurseComponent &>(i->getComponentByName("Curse"));
+        i_curse.giveCurse(cc.effect, cc.timeLeft, false);
     }
 }
