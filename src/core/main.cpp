@@ -48,9 +48,9 @@ int main()
 			inputs.emplace_back(
 				new Input::Keyboard(screen.getCurrentGameScene(), {
 					irr::KEY_KEY_Z,
-					irr::KEY_KEY_Q,
-					irr::KEY_KEY_S,
 					irr::KEY_KEY_D,
+					irr::KEY_KEY_S,
+					irr::KEY_KEY_Q,
 					irr::KEY_SPACE,
 					irr::KEY_KEY_A,
 				})
@@ -58,9 +58,9 @@ int main()
 			inputs.emplace_back(
 				new Input::Keyboard(screen.getCurrentGameScene(), {
 					irr::KEY_UP,
-					irr::KEY_LEFT,
-					irr::KEY_DOWN,
 					irr::KEY_RIGHT,
+					irr::KEY_DOWN,
+					irr::KEY_LEFT,
 					irr::KEY_RSHIFT,
 					irr::KEY_RETURN,
 				})
@@ -71,12 +71,9 @@ int main()
 					std::cout << "\tName: '" << joystickInfos[joystick].Name.c_str() << "'" << std::endl;
 					inputs.emplace_back(
 						new Input::Controller(screen.getCurrentGameScene(), {
-							Input::Y,
-							Input::B,
-							Input::A,
-							Input::X,
+							Input::LEFT_JOYSTICK,
 							Input::LT,
-							Input::RT,
+							Input::A,
 						}, joystickInfos[joystick].Joystick)
 					);
 				}
