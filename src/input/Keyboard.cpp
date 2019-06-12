@@ -12,8 +12,7 @@ Input::Keyboard::Keyboard(Irrlicht::GameScene &scene, std::vector<irr::EKEY_CODE
     _keys(keys)
 {
    if (keys.size() != NB_OF_ACTIONS)
-       throw KeyboardErrors();
-//      TODO THROW INVALID ARG
+       throw KeyboardException("Invalid number of keys");
 }
 
 Input::Keyboard::~Keyboard() {}

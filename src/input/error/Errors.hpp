@@ -12,24 +12,25 @@
 
 namespace Input
 {
-    class Errors : public std::exception
+    class InputException : public std::exception
     {
-      std::string _message;
+        std::string _message;
 
     public:
-      Errors(std::string const &message) noexcept;
-      const char *what() const noexcept override;
+        InputException(std::string const &message) noexcept : _message(message) {};
+        const char *what() const noexcept override { return this->_message.c_str(); };
     };
 
-    class KeyboardErrors : public Errors
+    class KeyboardException : public InputException
     {
-      public:
-        KeyboardErrors();
+    public:
+        KeyboardException(std::string const &message) : InputException(message) {};
     };
-    class ControllerErrors : public Errors
+
+    class ControllerException : public InputException
     {
-      public:
-        ControllerErrors();
+    public:
+        ControllerException(std::string const &message) : InputException(message) {};
     };
 }
 
