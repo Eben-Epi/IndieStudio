@@ -17,6 +17,7 @@
 #include "../../config.hpp"
 #include "../components/ColliderComponent.hpp"
 #include "../components/ExplodeComponent.hpp"
+#include "../components/KickerComponent.hpp"
 
 namespace ECS
 {
@@ -29,7 +30,7 @@ namespace ECS
     bool canEscape(std::vector<int> &bonusMalusZone)
     {
         int escapableWays = 0;
-        static int bombTimer = 0;
+        static int bombTimer = 50;
 
         if (bombTimer != 0) {
             --bombTimer;
@@ -60,8 +61,15 @@ namespace ECS
             else if (bonusMalusZone[i] == bonusMalusZone[j])
                 pos.push_back(i);
         }
+        std::cout << "actions : " << pos.size() << " -> ";
+        for (int posi : pos)
+            std::cout << posi << " // ";
+        std::cout << std::endl;
         if (pos.size() > 1)
             j = rand_device() % (int)pos.size();
+        else
+            j = 0;
+        std::cout << "action engaged : " << pos[j] << " && with j : " << j << std::endl;
         switch (pos[j]) {
             /*case 0:
                 actions.push_back(Input::Action::ACTION_UP);
@@ -134,7 +142,7 @@ namespace ECS
         return (vision);
     }
 
-    ECS::Point getRelativePos(ECS::Point &pos)
+    ECS::Point getRelativePosPlayer(ECS::Point &pos)
     {
         ECS::Point point;
 
@@ -149,6 +157,15 @@ namespace ECS
         return (point);
     }
 
+    ECS::Point getRelativePosObj(ECS::Point &pos)
+    {
+        ECS::Point relative;
+
+        relative.x = (int)(pos.x / TILESIZE) * TILESIZE;
+        relative.y = (int)(pos.y / TILESIZE) * TILESIZE;
+        return (relative);
+    }
+
     std::vector<Input::Action> ControlledByAISystem::AIBrain(ECS::Entity &entity, BombDropperComponent &bombDropper)
     {
         auto &in = reinterpret_cast<ControlledByAIComponent &>(entity.getComponentByName("ControlledByAI"));
@@ -156,8 +173,8 @@ namespace ECS
         std::vector<Entity *> colliders = this->_core.getEntitiesByComponent("Collider");
         std::vector<Entity *> explodableEntities = this->_core.getEntitiesByComponent("Explode");
         std::vector<Entity *> powerUps = this->_core.getEntitiesByComponent("PowerUp");
-        Point relativePos = getRelativePos(pos.pos);
-        std::vector<Point> relativeVision = getRelativeVision(relativePos);
+        Point relativePosPlayer = getRelativePosPlayer(pos.pos);
+        std::vector<Point> relativeVision = getRelativeVision(relativePosPlayer);
         std::vector<Point> blockZone;
         std::vector<Point> dangerZone;
         std::vector<Point> bonusZone;
@@ -166,42 +183,56 @@ namespace ECS
         //static int changingPosy = relativePos.y / TILESIZE;
         int xTmp = (int)(pos.pos.x / TILESIZE * 100) % 100;
         int yTmp = (int)(pos.pos.y / TILESIZE * 100) % 100;
-        static std::vector<Input::Action> actions {Input::ACTION_LEFT};
+        static std::vector<Input::Action> actions {};
         static int timer = 0;
 
         //std::cout << "x : " << (int)(pos.pos.x / TILESIZE) << " // xTmp : " << xTmp << std::endl;
         //std::cout << "y : " << (int)(pos.pos.y / TILESIZE) << " // yTmp : " << yTmp << std::endl;
-        if (xTmp <= 20 && yTmp <= 20 && timer == 0) {
+        if ((xTmp <= 20 && yTmp <= 20 && timer == 0) || actions.empty() || actions[0] == Input::ACTION_ACTION) {
             for (Entity *e : colliders) {
                 auto &eCollide = reinterpret_cast<ColliderComponent &>(e->getComponentByName("Collider"));
                 auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
+                auto &eKicker = reinterpret_cast<KickerComponent &>(entity.getComponentByName("Kicker"));
+                Point newERelativePos = getRelativePosObj(ePos.pos);
+                Point end = {newERelativePos.x + ePos.size.x, newERelativePos.y + ePos.size.y};
 
-                if (eCollide.hardness >= 1)
-                    blockZone.emplace_back(getRelativePos(ePos.pos));
-                else if (e->hasComponent("OnCollisionDamageDealer") || e->hasComponent("Explode"))
-                    blockZone.emplace_back(getRelativePos(ePos.pos));
+                if (eCollide.hardness >= 1 || e->hasComponent("OnCollisionDamageDealer") || (!eKicker.canKick && e->hasComponent("Explode"))) {
+                    for (int y = newERelativePos.y; y < end.y; y += TILESIZE) {
+                        for (int x = newERelativePos.x; x < end.x; x += TILESIZE) {
+                            Point newPoint = {(double)x, (double)y};
+                            blockZone.emplace_back(newPoint);
+                        }
+                    }
+                }
             }
-            updateRelativeVision(blockZone, relativeVision, bonusMalusZone, -1000000);
+            if (!blockZone.empty())
+                updateRelativeVision(blockZone, relativeVision, bonusMalusZone, -1000000);
             for (Entity *e : explodableEntities) {
                 auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
                 auto &eExpl = reinterpret_cast<ExplodeComponent &>(e->getComponentByName("Explode"));
-                Point relaPos = getRelativePos(ePos.pos);
+                Point relaPos = getRelativePosPlayer(ePos.pos);
 
-                for (int i = 0; i < eExpl.range; ++i) {
+                for (int i = 1; i < eExpl.range + 1; ++i) {
                     dangerZone.push_back({relaPos.x + (TILESIZE * i), relaPos.y});
                     dangerZone.push_back({relaPos.x - (TILESIZE * i), relaPos.y});
                     dangerZone.push_back({relaPos.x, relaPos.y + (TILESIZE * i)});
                     dangerZone.push_back({relaPos.x, relaPos.y - (TILESIZE * i)});
+                    updateRelativeVision(dangerZone, relativeVision, bonusMalusZone, -100 * i);
+                    dangerZone.clear();
                 }
             }
-            updateRelativeVision(dangerZone, relativeVision, bonusMalusZone, -100);
-
+            std::cout << std::endl;
             for (Entity *e : powerUps) {
                 auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
 
-                bonusZone.emplace_back(getRelativePos(ePos.pos));
+                bonusZone.emplace_back(getRelativePosPlayer(ePos.pos));
             }
-            updateRelativeVision(bonusZone, relativeVision, bonusMalusZone, 10);
+            if (!bonusZone.empty())
+                updateRelativeVision(bonusZone, relativeVision, bonusMalusZone, 10);
+            std::cout << "scores : ";
+            for (int score : bonusMalusZone) {
+                std::cout << score << " || ";
+            }
             actions = getTheBestWay(bonusMalusZone);
             /*if (!actions.empty()) {
                 changingPosx = relativePos.x / TILESIZE;
@@ -210,10 +241,6 @@ namespace ECS
             if (canEscape(bonusMalusZone)) {
                 actions.push_back(Input::ACTION_ACTION);
             }
-            /*std::cout << "actions : ";
-            for (Input::Action action : actions)
-                std::cout << action << " - ";
-            std::cout << std::endl;*/
             timer = 11;
         }
         if (timer > 0)
