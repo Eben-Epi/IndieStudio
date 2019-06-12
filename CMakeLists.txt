@@ -175,7 +175,6 @@ add_executable(
 	src/ecs/systems/KickerSystem.cpp
 	src/ecs/systems/KickerSystem.hpp
 	src/ecs/data/NumericValue.hpp
-	src/input/error/Errors.cpp
 	src/input/error/Errors.hpp
 	src/ecs/systems/OnCollisionDamageDealerSystem.cpp
 	src/ecs/systems/OnCollisionDamageDealerSystem.hpp
@@ -200,17 +199,24 @@ add_executable(
 	src/irrlicht/Exceptions.cpp
 	src/irrlicht/Exceptions.hpp src/ecs/entities/Skull.cpp src/ecs/entities/Skull.hpp src/ecs/components/CurseOnPickComponent.cpp src/ecs/components/CurseOnPickComponent.hpp src/ecs/systems/CurseOnPickSystem.cpp src/ecs/systems/CurseOnPickSystem.hpp
 	src/ecs/components/OOBKillComponent.cpp
-	src/ecs/components/OOBKillComponent.hpp src/ecs/systems/OOBKillSystem.cpp src/ecs/systems/OOBKillSystem.hpp)
+	src/ecs/components/OOBKillComponent.hpp src/ecs/systems/OOBKillSystem.cpp src/ecs/systems/OOBKillSystem.hpp
+	src/irrlicht/Exceptions.hpp
+	src/ecs/entities/Skull.cpp
+	src/ecs/entities/Skull.hpp
+	src/ecs/components/CurseOnPickComponent.cpp
+	src/ecs/components/CurseOnPickComponent.hpp
+	src/ecs/systems/CurseOnPickSystem.cpp
+	src/ecs/systems/CurseOnPickSystem.hpp
+)
 
-find_package(SFML COMPONENTS audio REQUIRED)
 find_package(Irrlicht REQUIRED)
-
-include_directories(Irrlicht_INCLUDE_DIRS)
+find_package(Sfml REQUIRED)
+find_package(Pthread REQUIRED)
 
 target_link_libraries(
 	bomberman
 	${Irrlicht_LIBRARIES}
-	sfml-audio
-	pthread
+	${SFML_LIBRARIES}
+	${Pthread_LIBRARIES}
 )
 
