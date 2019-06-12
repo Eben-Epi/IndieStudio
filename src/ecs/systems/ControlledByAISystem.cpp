@@ -188,7 +188,7 @@ namespace ECS
 
         //std::cout << "x : " << (int)(pos.pos.x / TILESIZE) << " // xTmp : " << xTmp << std::endl;
         //std::cout << "y : " << (int)(pos.pos.y / TILESIZE) << " // yTmp : " << yTmp << std::endl;
-        if ((xTmp <= 20 && yTmp <= 20 && timer == 0) || actions.empty() || actions[0] == Input::ACTION_ACTION) {
+        if ((xTmp <= 10 && yTmp <= 10 && timer == 0) || actions.empty() || actions[0] == Input::ACTION_ACTION) {
             for (Entity *e : colliders) {
                 auto &eCollide = reinterpret_cast<ColliderComponent &>(e->getComponentByName("Collider"));
                 auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));

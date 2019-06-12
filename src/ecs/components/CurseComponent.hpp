@@ -19,10 +19,10 @@ namespace ECS {
             NONE = 0,
             ULTRASPEED,
             ULTRASLOW,
-            FASTBOMB,
-            SLOWBOMB,
             REVERSECONTROL,
-            SWAP_POS,
+            AUTODROP,
+            NODROP,
+            _NUMBER_OF_CURSE
         };
 
         CurseEffect effect;
@@ -30,6 +30,8 @@ namespace ECS {
         CurseComponent();
         CurseComponent(Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
+
+        bool giveCurse(CurseEffect effect, int time, bool force=false);
     };
 }
 

@@ -32,6 +32,8 @@
 #include "../systems/MortalSystem.hpp"
 #include "../systems/UltInvincibilitySystem.hpp"
 #include "../systems/ControlledByAISystem.hpp"
+#include "../systems/CurseOnPickSystem.hpp"
+#include "../systems/OOBKillSystem.hpp"
 
 namespace ECS
 {
@@ -49,6 +51,7 @@ namespace ECS
 		{"Controllable", [](ECS::ECSCore &core) { return new ControllableSystem(core); }},
 		{"ControlledByAI", [](ECS::ECSCore &core) { return new ControlledByAISystem(core); }},
 		{"Curse", [](ECS::ECSCore &core) { return new CurseSystem(core); }},
+        {"CurseOnPick", [](ECS::ECSCore &core) { return new CurseOnPickSystem(core); }},
 		{"Displayable", [](ECS::ECSCore &core) { return new DisplayableSystem(core); }},
 		{"EntityDropper", [](ECS::ECSCore &core) { return new EntityDropperSystem(core); }},
 		{"Ephemeral", [](ECS::ECSCore &core) { return new EphemeralSystem(core); }},
@@ -58,7 +61,8 @@ namespace ECS
 		{"Kicker", [](ECS::ECSCore &core) { return new KickerSystem(core); }},
 		{"Movable", [](ECS::ECSCore &core) { return new MovableSystem(core); }},
 		{"OnCollisionDamageDealer", [](ECS::ECSCore &core) { return new OnCollisionDamageDealerSystem(core); }},
-		{"Pickable", [](ECS::ECSCore &core) { return new PickableSystem(core); }},
+        {"OOBKill", [](ECS::ECSCore &core) { return new OOBKillSystem(core); }},
+        {"Pickable", [](ECS::ECSCore &core) { return new PickableSystem(core); }},
 		{"Picker", [](ECS::ECSCore &core) { return new PickerSystem(core); }},
 		{"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }},
 		{"PowerUp", [](ECS::ECSCore &core) { return new PowerUpSystem(core); }},

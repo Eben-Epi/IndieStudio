@@ -20,11 +20,15 @@
 #include "../components/UltInvincibilityComponent.hpp"
 #include "../../config.hpp"
 #include "../components/ControlledByAIComponent.hpp"
+#include "../components/OOBKillComponent.hpp"
+#include "../components/PickerComponent.hpp"
+#include "../components/KickerComponent.hpp"
 
 ECS::AIPlayer::AIPlayer(unsigned id, Ressources &ressources) :
     Entity(id, "AIPlayer", {
-        new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
+        new PositionComponent({0, 0}, {PLAYERSIZE, PLAYERSIZE}),
         new HealthComponent(1),
+        new OOBKillComponent({0, 0}, {20 * TILESIZE, 20 * TILESIZE}),
         new UltimeComponent(ressources.soundSystem),
         new UltInvincibilityComponent(),
         new CurseComponent(),
@@ -32,6 +36,8 @@ ECS::AIPlayer::AIPlayer(unsigned id, Ressources &ressources) :
         new CollisionComponent(0),
         new ColliderComponent(0),
         new BlockedComponent(),
+        new PickerComponent(),
+        new KickerComponent(),
         new BombDropperComponent(ressources.soundSystem),
         new DisplayableComponent("Player", ressources),
         new ControlledByAIComponent(3)

@@ -13,14 +13,15 @@
 #include "../components/BlockedComponent.hpp"
 #include "../../config.hpp"
 #include "../components/MortalComponent.hpp"
+#include "../components/EntityDropperComponent.hpp"
 
 ECS::Brick::Brick(unsigned id, Ressources &ressources) :
 	Entity(id, "Brick", {
 		new HealthComponent(1),
 		new DisplayableComponent("Brick", ressources),
 		new ColliderComponent(1),
-		new MortalComponent(),
-		new PositionComponent({0, 0}, {TILESIZE, TILESIZE})
+		new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
+		new EntityDropperComponent()
 	})
 {
 }

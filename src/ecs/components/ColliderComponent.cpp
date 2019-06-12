@@ -13,7 +13,6 @@ ECS::ColliderComponent::ColliderComponent(unsigned hardness) :
 	Component("Collider"),
 	hardness(hardness)
 {
-
 }
 
 std::ostream& ECS::ColliderComponent::serialize(std::ostream &stream) const

@@ -13,9 +13,9 @@ namespace ECS
     enum Directions
     {
         UP = 0b1,
-        LEFT = 0b10,
+        RIGHT = 0b10,
         DOWN = 0b100,
-        RIGHT = 0b1000
+        LEFT = 0b1000
     };
 }; // namespace ECS
 

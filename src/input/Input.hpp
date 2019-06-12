@@ -20,9 +20,9 @@
 namespace Input {
     enum Action {
         ACTION_UP,
-        ACTION_LEFT,
-        ACTION_DOWN,
         ACTION_RIGHT,
+        ACTION_DOWN,
+        ACTION_LEFT,
         ACTION_ACTION,
         ACTION_ULT,
         NB_OF_ACTIONS

@@ -38,6 +38,7 @@ namespace Irrlicht
         EventReceiver &getEventReceiver();
         irr::video::IVideoDriver* getDriver();
         irr::scene::ISceneManager* getSmgr();
+        irr::IrrlichtDevice *getDevice();
 
     private:
         irr::video::E_DRIVER_TYPE _driverType; // TODO differenciate OpenGL and Dx9 when running under win32/64 or GNU/UNIX

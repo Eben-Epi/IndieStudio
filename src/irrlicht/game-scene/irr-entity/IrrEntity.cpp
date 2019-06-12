@@ -33,7 +33,10 @@ Irrlicht::IrrEntity::IrrEntity(
     this->_node = smgr->addAnimatedMeshSceneNode(this->_mesh);
     if (this->_node) {
         this->_node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-        this->_node->setMaterialTexture(0, driver->getTexture(this->_texturePath.c_str()));
+        this->_texture = driver->getTexture(this->_texturePath.c_str());
+        if (!this->_texture)
+            std::cerr << "Cannot load file " << this->_texturePath << std::endl;
+        this->_node->setMaterialTexture(0, this->_texture);
         this->_node->setScale(irr::core::vector3df(4, 4, 4));
         this->_loaded = true;
     }
@@ -103,4 +106,15 @@ void Irrlicht::IrrEntity::setSize(float x, float z)
         this->_scale = {factorX, factorZ};
         this->_node->setScale(factorEscalate);
     }
+}
+
+void Irrlicht::IrrEntity::setRotation(float angleY)
+{
+	irr::core::vector3df rotY;
+	irr::core::quaternion quaternionY;
+
+	quaternionY.fromAngleAxis(angleY, irr::core::vector3df(0, 1, 0));
+	quaternionY.normalize();
+	quaternionY.toEuler(rotY);
+	this->_node->setRotation(rotY * irr::core::RADTODEG);
 }

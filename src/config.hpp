@@ -12,6 +12,7 @@
 
 #define TILESIZE 32
 #define PLAYERSIZE (TILESIZE - TILESIZE / 8)
+#define HARD_MOUVEMENT_SPEED_CAP 12
 
 #define FRAME_TIME 1 / FRAME_RATE
 
@@ -20,7 +21,9 @@ const std::vector<std::string> sound_to_load = {
     "ultimate_ready",
     "starman",
     "bip",
-    "explode"
+    "explode",
+    "skull",
+    "pop1"
 };
 
 #endif //BOMBERMAN_CONFIG_HPP

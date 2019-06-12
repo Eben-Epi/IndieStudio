@@ -18,34 +18,49 @@
 
 namespace Irrlicht {
 
-    class Screen;
+	class Screen;
 
-    class GameScene {
-    public:
-        GameScene(Screen &screen, const std::string &name, unsigned id);
-        ~GameScene() = default;
+	enum ControllerAxisGS {
+		LEFT_JOYSTICK_UP = 0,
+		LEFT_JOYSTICK_DOWN,
+		LEFT_JOYSTICK_LEFT,
+		LEFT_JOYSTICK_RIGHT,
+		RIGHT_JOYSTICK_UP,
+		RIGHT_JOYSTICK_DOWN,
+		RIGHT_JOYSTICK_LEFT,
+		RIGHT_JOYSTICK_RIGHT,
+		RT,
+		LT,
+		NUMBER_AXIS
+	};
 
-        unsigned int registerEntity(const std::string &name);
-        void deleteEntity(unsigned id);
-        bool areColliding(unsigned entity1, unsigned entity2);
-        void setAnimation(unsigned entity, Animations anim);
-        void setPosition(unsigned entity, float x, float y);
-        void setScale(unsigned entity, float x, float y);
-        void setSize(unsigned entity, float x, float y);
-        ECS::Vector2<float> getSize(unsigned entity);
-        bool isKeyPressed(irr::EKEY_CODE key);
-        bool isJoystickButtonPressed(unsigned id, unsigned button);
-        float getJoystickAxisPosition(unsigned id, unsigned axis);
-        // TODO void createMesh() or cube;
+	class GameScene {
+	public:
+		GameScene(Screen &screen, const std::string &name, unsigned id);
+		~GameScene() = default;
 
-        const std::string sceneName;
-        const unsigned id;
-    private:
-        std::vector<std::unique_ptr<IrrEntity>> _entities;
-        unsigned _entitiesId;
-        Screen &_window;
-        EventReceiver &_eventReceiver;
-    };
+		unsigned int registerEntity(const std::string &name);
+		void deleteEntity(unsigned id);
+		bool areColliding(unsigned entity1, unsigned entity2);
+		void setAnimation(unsigned entity, Animations anim);
+		void setPosition(unsigned entity, float x, float y);
+		void setRotation(unsigned entity, float y);
+		void setScale(unsigned entity, float x, float y);
+		void setSize(unsigned entity, float x, float y);
+		ECS::Vector2<float> getSize(unsigned entity);
+		bool isKeyPressed(irr::EKEY_CODE key);
+		bool isJoystickButtonPressed(unsigned joystickId, unsigned button);
+		float getJoystickAxisPosition(unsigned joystickId, unsigned axis);
+		bool isJoystickAxisPressed(unsigned joystickId, ControllerAxisGS axis, unsigned threshold = 16384);
+
+		const std::string sceneName;
+		const unsigned id;
+	private:
+		std::vector<std::unique_ptr<IrrEntity>> _entities;
+		unsigned _entitiesId;
+		Screen &_window;
+		EventReceiver &_eventReceiver;
+	};
 }
 
 

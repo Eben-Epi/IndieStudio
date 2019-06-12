@@ -25,11 +25,13 @@ void ECS::MovableSystem::updateEntity(ECS::Entity &entity)
     if (mc.speed > 0) {
         mc.speed += mc.maxSpeed / (FRAME_RATE / 2);
         if (IS_CURSED(entity, CurseComponent::ULTRASPEED))
-            mc.speed = 16;
+            mc.speed = 10;
         else if (IS_CURSED(entity, CurseComponent::ULTRASLOW))
             mc.speed = 0.8f;
         else
             mc.speed = (mc.speed <= mc.maxSpeed ? mc.speed : mc.maxSpeed);
+        if (mc.speed > HARD_MOUVEMENT_SPEED_CAP)
+            mc.speed = HARD_MOUVEMENT_SPEED_CAP;
         if (mc.dir & ECS::Directions::RIGHT)
             pc.pos.x += mc.speed;
         if (mc.dir & ECS::Directions::LEFT)
