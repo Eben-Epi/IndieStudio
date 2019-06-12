@@ -144,7 +144,7 @@ void Map::Map::setArenaWallAround(ECS::Vector2<unsigned> sizeMap)
     }
 }
 
-void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::map<std::string, unsigned> ratiosBonus)
+void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::vector<std::string> players, std::map<std::string, unsigned> ratiosBonus)
 {
     std::vector<unsigned> airBlocksPos = generateAirBlocksPos(sizeMap);
     std::vector<unsigned> wallBlocksPos = generateWallBlocksPos(sizeMap);
@@ -164,8 +164,8 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
     );
     if (sizeMap.x < 4 || sizeMap.y < 4)
         throw MapTooSmallException("Map is too small in x or in y (< 4).");
-    setEntityComponentPosition(this->_core.makeEntity("Player"), {TILESIZE / 16., TILESIZE / 16.});
-    setEntityComponentPosition(this->_core.makeEntity("Player"), {TILESIZE * 20., TILESIZE * 20.});
+    for (int i = 0; i < players.size(); i++)
+    	setEntityComponentPosition(this->_core.makeEntity(players[i]), {TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (i % 2), TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (i / 2)});
     setArenaWallAround(sizeMap);
     for (unsigned i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)

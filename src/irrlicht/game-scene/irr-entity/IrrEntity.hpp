@@ -21,8 +21,7 @@ namespace Irrlicht {
             unsigned id,
             irr::scene::ISceneManager *smgr,
             irr::video::IVideoDriver *driver,
-            irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255),
-            std::string texturePath = ""
+            irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255)
         );
         ~IrrEntity();
 
