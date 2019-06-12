@@ -8,6 +8,7 @@
 #include "DisplayableSystem.hpp"
 #include "../components/DisplayableComponent.hpp"
 #include "../components/PositionComponent.hpp"
+#include "../components/MovableComponent.hpp"
 
 
 ECS::DisplayableSystem::DisplayableSystem(ECS::ECSCore &core):
@@ -22,4 +23,11 @@ void ECS::DisplayableSystem::updateEntity(ECS::Entity &entity)
 	disp.gameScene.setSize(disp.entityId, pos.size.x, pos.size.y);
 	disp.gameScene.setPosition(disp.entityId, pos.pos.x, pos.pos.y);
 	disp.gameScene.setAnimation(disp.entityId, disp.animation);
+	if (entity.hasComponent("Movable")) {
+		auto &mov = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
+		float f = (float)(mov.dir & -mov.dir);
+		float angle = ((*(uint32_t *)&f >> 23) - 0x7f) * M_PI_2;
+
+		disp.gameScene.setRotation(disp.entityId, angle);
+	}
 }

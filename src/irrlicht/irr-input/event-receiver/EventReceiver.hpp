@@ -22,15 +22,14 @@ namespace Irrlicht
 		//MEMBER FUNCTIONS
 		virtual bool OnEvent(const irr::SEvent &event) override;
 		virtual bool isKeyPressed(irr::EKEY_CODE keyCode) const;
-		const irr::SEvent::SJoystickEvent &GetJoystickState(void) const;
-		bool isJoystickKeyPressed(irr::u32 key) const;
-		void displayAxes(void) const;
-		float getJoystickAxisPosition(irr::s16 axis) const;
+		const irr::SEvent::SJoystickEvent &GetJoystickState(unsigned id) const;
+		bool isJoystickKeyPressed(unsigned id, irr::u32 key) const;
+		float getJoystickAxisPosition(unsigned id, irr::s16 axis) const;
 
 	private:
 		//PROPERTIES
 		std::vector<bool> _keys;
-		irr::SEvent::SJoystickEvent _joystickState;
+		std::vector<irr::SEvent::SJoystickEvent> _joystickState{4};
 	};
 }
 

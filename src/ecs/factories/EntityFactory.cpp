@@ -21,6 +21,7 @@
 #include "../entities/DroppedBonusSpeed.hpp"
 #include "../entities/DroppedBonusRange.hpp"
 #include "../entities/Bedrock.hpp"
+#include "../entities/Skull.hpp"
 
 namespace ECS
 {
@@ -38,6 +39,7 @@ namespace ECS
 		{"DroppedBonusKick", [](Ressources &ressources, unsigned id) { return new DroppedBonusKick(id, ressources); }},
 		{"DroppedBonusRange", [](Ressources &ressources, unsigned id) { return new DroppedBonusRange(id, ressources); }},
 		{"DroppedBonusSpeed", [](Ressources &ressources, unsigned id) { return new DroppedBonusSpeed(id, ressources); }},
+        {"Skull", [](Ressources &ressources, unsigned id) { return new Skull(id, ressources); }},
 		{"ExplosionFrame", [](Ressources &ressources, unsigned id) { return new ExplosionFrame(id, ressources); }},
 		{"Player", [](Ressources &ressources, unsigned id) { return new Player(id, ressources); }},
 		{"Wall", [](Ressources &ressources, unsigned id) { return new Wall(id, ressources); }},

@@ -11,16 +11,16 @@
 
 namespace ECS
 {
-    PowerUpComponent::PowerUpComponent(std::map<std::string, NumericValue> map) :
+    PowerUpComponent::PowerUpComponent(Sound::SoundSystem &sounds, std::map<std::string, NumericValue> map) :
     	Component("PowerUp"),
     	health(map["Health"]),
     	speed(map["Speed"]),
     	nbBomb(map["Bomb"]),
     	kick(map["Kick"]),
     	hardness(map["Hardness"]),
-    	range(map["Range"])
+    	range(map["Range"]),
+    	soundSystem(sounds)
     {
-
     }
 
     std::ostream& PowerUpComponent::serialize(std::ostream &stream) const
@@ -29,11 +29,11 @@ namespace ECS
     }
 
     PowerUpComponent::PowerUpComponent(ECS::Ressources &ressources, std::istream &stream) :
-	    PowerUpComponent({})
+	    PowerUpComponent(ressources.soundSystem, {})
     {
 	    std::string terminator;
 
-	    stream >> health >> speed >> nbBomb >> kick >> hardness >> terminator;
+	    stream >> health >> speed >> nbBomb >> kick >> hardness >> range >> terminator;
 	    if (terminator != "EndOfComponent")
 		    throw InvalidSerializedStringException("The component terminator was not found");
     }

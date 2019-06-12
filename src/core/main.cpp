@@ -21,7 +21,14 @@ Map::Map *loadMap(ECS::Ressources &res, std::string path)
 
 	auto map = new Map::Map{res};
 
-	map->generateMap({20, 20}, 70);
+	map->generateMap({20, 20}, 7000, {
+		{"Bonus", 40},
+		{"DroppedBonusSpeed", 20},
+		{"DroppedBonusBomb", 20},
+		{"DroppedBonusKick", 5},
+		{"DroppedBonusRange", 20},
+		{"Skull", 10}
+	});
 	return map;
 }
 
@@ -38,18 +45,6 @@ int main()
 		if (screen.getDevice()->activateJoysticks(joystickInfos)) {
 			std::cout << "Joystick support is enabled and " << joystickInfos.size() << " joystick(s) are present." << std::endl;
 
-			if (joystickInfos.size() > 0) {
-				for (irr::u32 joystick = 0; joystick < joystickInfos.size(); joystick++) {
-					std::cout << "Joystick " << joystick << ":" << std::endl;
-					std::cout << "\tName: '" << joystickInfos[joystick].Name.c_str() << "'" << std::endl;
-				}
-				inputs.emplace_back(
-				new Input::Controller(screen.getCurrentGameScene(), {
-					Input::LEFT_JOYSTICK,
-					Input::RT,
-					Input::A,
-				}, 0));
-			} else {
 			inputs.emplace_back(
 				new Input::Keyboard(screen.getCurrentGameScene(), {
 					irr::KEY_KEY_Z,
@@ -58,7 +53,33 @@ int main()
 					irr::KEY_KEY_D,
 					irr::KEY_SPACE,
 					irr::KEY_KEY_A,
-				}));
+				})
+			);
+			inputs.emplace_back(
+				new Input::Keyboard(screen.getCurrentGameScene(), {
+					irr::KEY_UP,
+					irr::KEY_LEFT,
+					irr::KEY_DOWN,
+					irr::KEY_RIGHT,
+					irr::KEY_RSHIFT,
+					irr::KEY_RETURN,
+				})
+			);
+			if (!joystickInfos.empty()) {
+				for (irr::u32 joystick = 0; joystick < joystickInfos.size(); joystick++) {
+					std::cout << "Joystick " << joystick << ":" << std::endl;
+					std::cout << "\tName: '" << joystickInfos[joystick].Name.c_str() << "'" << std::endl;
+					inputs.emplace_back(
+						new Input::Controller(screen.getCurrentGameScene(), {
+							Input::Y,
+							Input::B,
+							Input::A,
+							Input::X,
+							Input::LT,
+							Input::RT,
+						}, joystickInfos[joystick].Joystick)
+					);
+				}
 			}
 		}
 
@@ -68,7 +89,7 @@ int main()
 		for (auto &sound_name : sound_to_load)
 			res.soundSystem.loadSound(sound_name);
 
-		res.soundSystem.setBackgroundMusic("battle_music", 50); // tmp
+		res.soundSystem.setBackgroundMusic("battle_music", 45); // tmp
 		while (screen.display())
 			map->update();
 

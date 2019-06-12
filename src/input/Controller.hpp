@@ -40,16 +40,16 @@ namespace Input
     class Controller : public Input
     {
         public:
-            Controller(Irrlicht::GameScene &, std::vector<ControllerButtons> &&, unsigned);
-            ~Controller();
+            Controller(Irrlicht::GameScene &, std::vector<ControllerButtons> &&, unsigned, unsigned threshold = 16384);
+            ~Controller() = default;
             std::vector<Action> getActions();
             void changeKey(Action, unsigned); //keyCode -> controller Key Code
 
         private:
             Irrlicht::GameScene &_scene;
-            irr::SEvent *_event;
             std::vector<ControllerButtons> _keys;
             unsigned _id;
+            unsigned _threshold;
     };
 }
 

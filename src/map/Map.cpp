@@ -6,6 +6,7 @@
 */
 
 #include <random>
+#include <algorithm>
 #include "Map.hpp"
 #include "../ecs/components/PositionComponent.hpp"
 #include "MapException.hpp"
@@ -118,48 +119,16 @@ void setEntityComponentPosition(ECS::Entity &entity, ECS::Point pos)
     posComp.pos = pos;
 }
 
-void setEntityDropperComponentInBrick(ECS::Entity &brick, double randNum, double brickBonusRatio, std::map<std::string, ECS::NumericValue> &ratiosBonus)
+void setEntityDropperComponentInBrick(ECS::Entity &brick, unsigned randNum, std::map<std::string, unsigned> &ratiosBonus)
 {
     ECS::EntityDropperComponent &entityDropper = reinterpret_cast<ECS::EntityDropperComponent &>(brick.getComponentByName("EntityDropper"));
-    double stacker = 0;
-    double tmp = 0;
 
-    if (randNum >= brickBonusRatio)
-        return;
-    tmp = (double)ratiosBonus["Health"] / 100. * brickBonusRatio;
-    if (randNum < tmp + stacker) {
-        entityDropper.items.emplace_back("DroppedBonusHealth");
-        return;
-    }
-    stacker += tmp;
-    tmp = (double)ratiosBonus["Speed"] / 100. * brickBonusRatio;
-    if (randNum < tmp + stacker) {
-        entityDropper.items.emplace_back("DroppedBonusSpeed");
-        return;
-    }
-    stacker += tmp;
-    tmp = (double)ratiosBonus["Bomb"] / 100. * brickBonusRatio;
-    if (randNum < tmp + stacker) {
-        entityDropper.items.emplace_back("DroppedBonusBomb");
-        return;
-    }
-    stacker += tmp;
-    tmp = (double)ratiosBonus["Kick"] / 100. * brickBonusRatio;
-    if (randNum < tmp + stacker) {
-        entityDropper.items.emplace_back("DroppedBonusKick");
-        return;
-    }
-    stacker += tmp;
-    tmp = (double)ratiosBonus["Hardness"] / 100. * brickBonusRatio;
-    if (randNum < tmp + stacker) {
-        entityDropper.items.emplace_back("DroppedBonusHardness");
-        return;
-    }
-    stacker += tmp;
-    tmp = (double)ratiosBonus["Range"] / 100. * brickBonusRatio;
-    if (randNum < tmp + stacker) {
-        entityDropper.items.emplace_back("DroppedBonusRange");
-        return;
+    for (auto &val : ratiosBonus) {
+        if (randNum < val.second) {
+            entityDropper.item = val.first;
+            break;
+        }
+        randNum -= val.second;
     }
 }
 
@@ -175,18 +144,27 @@ void Map::Map::setArenaWallAround(ECS::Vector2<unsigned> sizeMap)
     }
 }
 
-void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::map<std::string, ECS::NumericValue> ratiosBonus)
+void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::map<std::string, unsigned> ratiosBonus)
 {
     std::vector<unsigned> airBlocksPos = generateAirBlocksPos(sizeMap);
     std::vector<unsigned> wallBlocksPos = generateWallBlocksPos(sizeMap);
     std::random_device rand_device;
-    double randNum;
+    unsigned randNum;
+    unsigned bonus = ratiosBonus["Bonus"];
     ECS::Point position;
 
+    ratiosBonus.erase(
+        std::find_if(
+            ratiosBonus.begin(),
+            ratiosBonus.end(),
+            [](std::pair<const std::string, unsigned> &val) {
+                return val.first == "Bonus";
+            }
+        )
+    );
     if (sizeMap.x < 4 || sizeMap.y < 4)
         throw MapTooSmallException("Map is too small in x or in y (< 4).");
     setEntityComponentPosition(this->_core.makeEntity("Player"), {TILESIZE / 16., TILESIZE / 16.});
-    setEntityComponentPosition(this->_core.makeEntity("Bomb"), {(double)((sizeMap.x - 1) * TILESIZE) + TILESIZE / 16. , (double)((sizeMap.y - 1) * TILESIZE) + TILESIZE / 16.});
     setArenaWallAround(sizeMap);
     for (unsigned i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)
@@ -197,12 +175,22 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
                 setEntityComponentPosition(this->_core.makeEntity("Wall"), position);
                 wallBlocksPos.erase(wallBlocksPos.begin());
             } else {
-                randNum = rand_device() % 100;
+                randNum = rand_device() % 10000;
                 if (randNum < brickRatio) {
                     ECS::Entity &brick = this->_core.makeEntity("Brick");
                     setEntityComponentPosition(brick, position);
-                    if (!ratiosBonus.empty() && (unsigned)ratiosBonus["Bonus"] > 0)
-                        setEntityDropperComponentInBrick(brick, randNum, (double)(ratiosBonus["Bonus"]) / 100. * brickRatio, ratiosBonus);
+                    if (!ratiosBonus.empty() && bonus > 0 && rand_device() % 100 < bonus) {
+                        unsigned total = 0;
+
+                        std::for_each(
+                            ratiosBonus.begin(),
+                            ratiosBonus.end(),
+                            [&total](const std::pair<std::string, unsigned> &val) {
+                                total += val.second;
+                            }
+                        );
+                        setEntityDropperComponentInBrick(brick, rand_device() % (total ?: 1), ratiosBonus);
+                    }
                 }
             }
         }

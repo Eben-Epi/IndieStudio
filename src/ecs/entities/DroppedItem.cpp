@@ -21,7 +21,7 @@ ECS::DroppedItem::DroppedItem(unsigned id, Ressources &ressources) :
         new DisplayableComponent("DroppedItem", ressources),
         new ColliderComponent(0),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
-        new PowerUpComponent({}),
+        new PowerUpComponent(ressources.soundSystem, {}),
         new PickableComponent(),
         new PowerUpPickedComponent()
     })

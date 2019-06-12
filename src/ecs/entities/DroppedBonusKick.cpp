@@ -14,14 +14,16 @@
 #include "../components/PowerUpComponent.hpp"
 #include "../components/PickableComponent.hpp"
 #include "../components/PowerUpPickedComponent.hpp"
+#include "../components/MortalComponent.hpp"
 
 ECS::DroppedBonusKick::DroppedBonusKick(unsigned id, Ressources &ressources) :
     Entity(id, "DroppedBonusKick", {
         new HealthComponent(1),
         new DisplayableComponent("DroppedBonusKick", ressources),
         new ColliderComponent(0),
+        new MortalComponent(),
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
-        new PowerUpComponent({{"Kick", true}}),
+        new PowerUpComponent(ressources.soundSystem, {{"Kick", true}}),
         new PickableComponent(),
         new PowerUpPickedComponent()
     })

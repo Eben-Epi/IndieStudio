@@ -31,6 +31,7 @@ namespace Irrlicht {
         void setPos(float x, float y);
         void setSize(float x, float y);
         ECS::Vector2<float> getSize();
+        void setRotation(float angle);
     //PROPERTIES
         unsigned id;
         Animations anim;
@@ -40,6 +41,7 @@ namespace Irrlicht {
         ECS::Vector2<float> _size = {-1, -1};
         ECS::Vector2<float> _scale = {1, 1};
         std::string _meshPath;
+        irr::video::ITexture *_texture;
         irr::scene::ISceneManager* _smgr;
         irr::scene::IAnimatedMesh* _mesh;
         irr::scene::IAnimatedMeshSceneNode* _node;

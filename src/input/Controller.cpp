@@ -8,87 +8,62 @@
 #include "Controller.hpp"
 #include "../irrlicht/game-scene/GameScene.hpp"
 
-Input::Controller::Controller(Irrlicht::GameScene &scene, std::vector<ControllerButtons> &&keys, unsigned id) :
+Input::Controller::Controller(Irrlicht::GameScene &scene, std::vector<ControllerButtons> &&keys, unsigned id, unsigned threshold) :
 	_scene(scene),
 	_keys(keys),
-	_id(id)
+	_id(id),
+	_threshold(threshold)
 {
-    if (keys.size() != 3 && keys.size() != 6)
-        throw ControllerErrors(); // la condition est pas bonne , enfin je croit, je revienderais dessu quand je retournerais sur les inputs
-
-  //TODO THROW INVALID ARG AND NOT CONTROLLER ERROR
+    if ((keys.size() != 3 && keys.size() != 6) || (keys.size() == 3 && keys[0] != LEFT_JOYSTICK && keys[0] != RIGHT_JOYSTICK))
+        throw ControllerException("Invalid key vector given (size is invalid)");
 }
-
-Input::Controller::~Controller() {}
 
 std::vector<Input::Action> Input::Controller::getActions() { //WIP
 	std::vector<Action> actions;
-	float value = 0;
+	int start = 1;
+	float x;
+	float y;
 
-	for (unsigned i = 0; i < this->_keys.size(); i++) {
-		if (this->_keys[i] < 15 && this->_scene.isJoystickButtonPressed(this->_keys[i]))
-			if (this->_keys[0] == LEFT_JOYSTICK || this->_keys[0] == RIGHT_JOYSTICK || this->_keys[1] == LEFT_JOYSTICK || this->_keys[1] == RIGHT_JOYSTICK)
-				actions.push_back(static_cast<Action>(3 + i));
-			else
+	if (this->_keys[0] == LEFT_JOYSTICK || this->_keys[0] == RIGHT_JOYSTICK) {
+		x = this->_scene.getJoystickAxisPosition(this->_id, irr::SEvent::SJoystickEvent::AXIS_X + (this->_keys[0] == RIGHT_JOYSTICK) * 3);
+		y = this->_scene.getJoystickAxisPosition(this->_id, irr::SEvent::SJoystickEvent::AXIS_Y + (this->_keys[0] == RIGHT_JOYSTICK) * 3);
+
+		if (abs(y) > this->_threshold && y < 0)
+			actions.push_back(Action::ACTION_UP);
+		else if (abs(y) > this->_threshold)
+			actions.push_back(Action::ACTION_DOWN);
+
+		if (abs(x) > this->_threshold && x < 0)
+			actions.push_back(Action::ACTION_LEFT);
+		else if (abs(x) > this->_threshold)
+			actions.push_back(Action::ACTION_RIGHT);
+	} else {
+		start = 4;
+		for (unsigned i = 0; i < 4; i++)
+			if (this->_scene.isJoystickButtonPressed(this->_id, this->_keys[i]))
 				actions.push_back(static_cast<Action>(i));
-		else if (this->_keys[i] > 14) {
-			if (this->_keys[i] == ControllerButtons::LEFT_JOYSTICK) {
+	}
+	for (unsigned i = 0; i + start < this->_keys.size(); i++) {
+		unsigned axis = 0;
 
-				value = this->_scene.getJoystickAxisPosition(1);
-				if (value > 16384) {
-					actions.push_back(Action::ACTION_DOWN);
-					break;
-				} else if (value < -16384) {
-					actions.push_back(Action::ACTION_UP);
-					break;
-				}
-
-				value = this->_scene.getJoystickAxisPosition(0);
-				if (value > 16384) {
-					actions.push_back(Action::ACTION_RIGHT);
-					break;
-				} else if (value < -16384)
-					actions.push_back(Action::ACTION_LEFT);
-			} else if (this->_keys[i] == ControllerButtons::RIGHT_JOYSTICK) {
-
-				value = this->_scene.getJoystickAxisPosition(3);
-				if (value > 16384) {
-					actions.push_back(Action::ACTION_DOWN);
-					break;
-				} else if (value < -16384) {
-					actions.push_back(Action::ACTION_UP);
-					break;
-				}
-
-				value = this->_scene.getJoystickAxisPosition(4);
-				if (value > 16384) {
-					actions.push_back(Action::ACTION_RIGHT);
-					break;
-				} else if (value < -16384)
-					actions.push_back(Action::ACTION_LEFT);
-			} else if (this->_keys[i] == ControllerButtons::RT) {
-				value = this->_scene.getJoystickAxisPosition(5);
-				if (value >= 0){
-					if (this->_keys[0] == LEFT_JOYSTICK || this->_keys[0] == RIGHT_JOYSTICK || this->_keys[1] == LEFT_JOYSTICK || this->_keys[1] == RIGHT_JOYSTICK)
-						actions.push_back(static_cast<Action>(3 + i));
-					else
-						actions.push_back(static_cast<Action>(i));
-					break;
-				}
-			} else if (this->_keys[i] == LT) {
-				value = this->_scene.getJoystickAxisPosition(2);
-				if (value >= 0) {
-					if (this->_keys[0] == LEFT_JOYSTICK || this->_keys[0] == RIGHT_JOYSTICK || this->_keys[1] == LEFT_JOYSTICK || this->_keys[1] == RIGHT_JOYSTICK)
-						actions.push_back(static_cast<Action>(3 + i));
-					else
-						actions.push_back(static_cast<Action>(i));
-					break;
-				}
-			}
-			
-			//TODO vérifier valeur max tableau Axis de IEventReceiver
+		switch (this->_keys[i + start]) {
+		case LEFT_JOYSTICK:
+			throw ControllerException("Invalid key vector given (LEFT_JOYSTICK is not a valid key)");
+		case RIGHT_JOYSTICK:
+			throw ControllerException("Invalid key vector given (RIGHT_JOYSTICK is not a valid key)");
+		case RT:
+			axis = irr::SEvent::SJoystickEvent::AXIS_V;
+			break;
+		case LT:
+			axis = irr::SEvent::SJoystickEvent::AXIS_Z;
+			break;
+		default:
+			if (this->_scene.isJoystickButtonPressed(this->_id, this->_keys[i + start]))
+				actions.push_back(static_cast<Action>(i + 4));
+			continue;
 		}
-//        std::cout << "key " << this->_keys[i] << " is " << this->_scene.isJoystickButtonPressed(this->_keys[i]) << std::endl;
+		if (this->_scene.getJoystickAxisPosition(this->_id, axis) > 0)
+			actions.push_back(static_cast<Action>(i + 4));
 	}
 	return (actions);
 }

@@ -30,6 +30,15 @@ ECS::CurseComponent::CurseComponent(ECS::Ressources &ressources, std::istream &s
         throw InvalidSerializedStringException("The component terminator was not found");
 }
 
+bool ECS::CurseComponent::giveCurse(ECS::CurseComponent::CurseEffect effect, int time, bool force)
+{
+    if (this->timeLeft > 0 && !force)
+        return false;
+    this->effect = effect;
+    this->timeLeft = time;
+    return true;
+}
+
 std::ostream& ECS::CurseComponent::serialize(std::ostream &stream) const
 {
     return stream << this->effect << " " << this->timeLeft << " " << "EndOfComponent";

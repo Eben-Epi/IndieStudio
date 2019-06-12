@@ -45,14 +45,18 @@ ECS::ExplodeSystem::ExplodeSystem(ECS::ECSCore &core) :
 void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
 {
     auto &hc = reinterpret_cast<HealthComponent &>(entity.getComponentByName("Health"));
-    auto &pc = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
-    auto &exc = reinterpret_cast<ExplodeComponent &>(entity.getComponentByName("Explode"));
 
     if (hc.health != 0)
         return;
 
+    auto &pc = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
+    auto &exc = reinterpret_cast<ExplodeComponent &>(entity.getComponentByName("Explode"));
     int min_x, max_x, min_y, max_y;
+
     std::vector<Entity *> entities = this->_core.getEntitiesByComponent("Collider");
+
+    pc.pos.x = (static_cast<int>(pc.pos.x) + TILESIZE / 2) / TILESIZE * TILESIZE;
+    pc.pos.y = (static_cast<int>(pc.pos.y) + TILESIZE / 2) / TILESIZE * TILESIZE;
 
     min_x = static_cast<int>(pc.pos.x) - get_first_collided(pc, exc.range, entities, true, false) * TILESIZE;
     max_x = static_cast<int>(pc.pos.x) + (get_first_collided(pc, exc.range, entities, false, false) + 1) * TILESIZE;

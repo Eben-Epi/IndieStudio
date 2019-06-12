@@ -16,8 +16,9 @@
 #include "irr-entity/IrrEntity.hpp"
 #include "../irr-input/event-receiver/EventReceiver.hpp"
 
-namespace Irrlicht
-{
+namespace Irrlicht {
+
+	class Screen;
 
 	enum ControllerAxisGS {
 		LEFT_JOYSTICK_UP = 0,
@@ -33,8 +34,6 @@ namespace Irrlicht
 		NUMBER_AXIS
 	};
 
-	class Screen;
-
 	class GameScene {
 	public:
 		GameScene(Screen &screen, const std::string &name, unsigned id);
@@ -45,13 +44,14 @@ namespace Irrlicht
 		bool areColliding(unsigned entity1, unsigned entity2);
 		void setAnimation(unsigned entity, Animations anim);
 		void setPosition(unsigned entity, float x, float y);
+		void setRotation(unsigned entity, float y);
 		void setScale(unsigned entity, float x, float y);
 		void setSize(unsigned entity, float x, float y);
 		ECS::Vector2<float> getSize(unsigned entity);
 		bool isKeyPressed(irr::EKEY_CODE key);
-		bool isJoystickButtonPressed(unsigned button);
-		float getJoystickAxisPosition(unsigned axis);
-		bool isJoystickAxisPressed(ControllerAxisGS axis);
+		bool isJoystickButtonPressed(unsigned joystickId, unsigned button);
+		float getJoystickAxisPosition(unsigned joystickId, unsigned axis);
+		bool isJoystickAxisPressed(unsigned joystickId, ControllerAxisGS axis, unsigned threshold = 16384);
 
 		const std::string sceneName;
 		const unsigned id;

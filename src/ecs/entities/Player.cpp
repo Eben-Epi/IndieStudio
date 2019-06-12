@@ -18,11 +18,14 @@
 #include "../components/UltimeComponent.hpp"
 #include "../components/BombDropperComponent.hpp"
 #include "../components/UltInvincibilityComponent.hpp"
+#include "../components/PickerComponent.hpp"
+#include "../components/PowerUpComponent.hpp"
+#include "../components/KickerComponent.hpp"
 #include "../../config.hpp"
 
 ECS::Player::Player(unsigned id, Ressources &ressources) :
 	Entity(id, "Player", {
-		new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
+		new PositionComponent({0, 0}, {PLAYERSIZE, PLAYERSIZE}),
 		new HealthComponent(1),
 		new UltimeComponent(ressources.soundSystem),
 		new UltInvincibilityComponent(),
@@ -31,6 +34,8 @@ ECS::Player::Player(unsigned id, Ressources &ressources) :
 		new CollisionComponent(0),
 		new ColliderComponent(0),
 		new BlockedComponent(),
+		new PickerComponent(),
+		new KickerComponent(),
 		new BombDropperComponent(ressources.soundSystem),
 		new DisplayableComponent("Player", ressources),
 		new ControllableComponent(*ressources.inputs.at(id), id)

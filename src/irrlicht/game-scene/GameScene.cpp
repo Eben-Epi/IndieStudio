@@ -48,6 +48,13 @@ void Irrlicht::GameScene::setAnimation(unsigned entity_id, Animations anim) {
 			ent->anim = anim;
 }
 
+void Irrlicht::GameScene::setRotation(unsigned entity, float y)
+{
+	for (auto &ent : this->_entities)
+		if (ent->id == entity)
+			ent->setRotation(y);
+}
+
 void Irrlicht::GameScene::setPosition(unsigned entity, float x, float z) {
 	for (auto &ent : this->_entities)
 		if (ent->id == entity)
@@ -79,52 +86,47 @@ bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2)
 	return false;
 }
 
-bool Irrlicht::GameScene::isJoystickButtonPressed(unsigned button)
+bool Irrlicht::GameScene::isJoystickButtonPressed(unsigned joystickId, unsigned button)
 {
 //	this->_eventReceiver.displayAxes();
-	return (this->_eventReceiver.isJoystickKeyPressed(button));
+	return (this->_eventReceiver.isJoystickKeyPressed(joystickId, button));
 }
 
-float Irrlicht::GameScene::getJoystickAxisPosition(unsigned axis)
+float Irrlicht::GameScene::getJoystickAxisPosition(unsigned joystickId, unsigned axis)
 {
-	return (this->_eventReceiver.getJoystickAxisPosition(axis));
+	return (this->_eventReceiver.getJoystickAxisPosition(joystickId, axis));
 }
 
-bool Irrlicht::GameScene::isJoystickAxisPressed(ControllerAxisGS button)
+bool Irrlicht::GameScene::isJoystickAxisPressed(unsigned joystickId, ControllerAxisGS button, unsigned threshold)
 {
 	float value = 0;
 
 	switch (button) {
 	case LEFT_JOYSTICK_UP:
 	case LEFT_JOYSTICK_DOWN:
-		value = this->getJoystickAxisPosition(1);
+		value = this->getJoystickAxisPosition(joystickId, irr::SEvent::SJoystickEvent::AXIS_Y);
 		break;
 	case LEFT_JOYSTICK_LEFT:
 	case LEFT_JOYSTICK_RIGHT:
-		value = this->getJoystickAxisPosition(0);
+		value = this->getJoystickAxisPosition(joystickId, irr::SEvent::SJoystickEvent::AXIS_X);
 		break;
 	case RIGHT_JOYSTICK_UP:
 	case RIGHT_JOYSTICK_DOWN:
-		value = this->getJoystickAxisPosition(4);
+		value = this->getJoystickAxisPosition(joystickId, irr::SEvent::SJoystickEvent::AXIS_U);
 		break;
 	case RIGHT_JOYSTICK_LEFT:
 	case RIGHT_JOYSTICK_RIGHT:
-		value = this->getJoystickAxisPosition(3);
+		value = this->getJoystickAxisPosition(joystickId, irr::SEvent::SJoystickEvent::AXIS_R);
 		break;
 	case RT:
-		value = this->getJoystickAxisPosition(2);
+		value = this->getJoystickAxisPosition(joystickId, irr::SEvent::SJoystickEvent::AXIS_Z);
 		break;
 	case LT:
-		value = this->getJoystickAxisPosition(5);
+		value = this->getJoystickAxisPosition(joystickId, irr::SEvent::SJoystickEvent::AXIS_V);
 		break;
 
 	default :
 		return (false);
 	}
-	
-	if (value < 0)
-		value *= -1;
-	if (value > 16384)
-		return (true);
-	return (false);
+	return (abs(value) > threshold);
 }
