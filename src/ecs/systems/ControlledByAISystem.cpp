@@ -29,15 +29,21 @@ namespace ECS
     bool canEscape(std::vector<int> &bonusMalusZone)
     {
         int escapableWays = 0;
+        static int bombTimer = 0;
 
+        if (bombTimer != 0) {
+            --bombTimer;
+            return (false);
+        }
         for (int score : bonusMalusZone) {
             if (score >= 0)
                 ++escapableWays;
         }
-        return (escapableWays == 2);
+        bombTimer = 50;
+        return (escapableWays >= 2);
     }
 
-    std::vector<Input::Action> getTheBestWay(std::vector<int> &bonusMalusZone, std::vector<Input::Action> previous)
+    std::vector<Input::Action> getTheBestWay(std::vector<int> &bonusMalusZone)
     {
         int i;
         int j = 0;
@@ -57,18 +63,34 @@ namespace ECS
         if (pos.size() > 1)
             j = rand_device() % (int)pos.size();
         switch (pos[j]) {
+            /*case 0:
+                actions.push_back(Input::Action::ACTION_UP);
+                actions.push_back(Input::Action::ACTION_LEFT);
+                break;*/
             case 0:
                 actions.push_back(Input::Action::ACTION_UP);
                 break;
+            /*case 2:
+                actions.push_back(Input::Action::ACTION_UP);
+                actions.push_back(Input::Action::ACTION_RIGHT);
+                break;*/
             case 1:
                 actions.push_back(Input::Action::ACTION_LEFT);
                 break;
             case 3:
                 actions.push_back(Input::Action::ACTION_RIGHT);
                 break;
+            /*case 6:
+                actions.push_back(Input::Action::ACTION_DOWN);
+                actions.push_back(Input::Action::ACTION_LEFT);
+                break;*/
             case 4:
                 actions.push_back(Input::Action::ACTION_DOWN);
                 break;
+            /*case 8:
+                actions.push_back(Input::Action::ACTION_DOWN);
+                actions.push_back(Input::Action::ACTION_RIGHT);
+                break;*/
             default:
                 break;
         }
@@ -98,11 +120,16 @@ namespace ECS
     {
         std::vector<ECS::Point> vision;
 
+        //vision.push_back({point.x - TILESIZE, point.y - TILESIZE});
         vision.push_back({point.x, point.y - TILESIZE});
+        //vision.push_back({point.x + TILESIZE, point.y - TILESIZE});
         vision.push_back({point.x - TILESIZE, point.y});
         vision.push_back({point.x, point.y});
         vision.push_back({point.x + TILESIZE, point.y});
+        //vision.push_back({point.x - TILESIZE, point.y + TILESIZE});
         vision.push_back({point.x, point.y + TILESIZE});
+        //vision.push_back({point.x + TILESIZE, point.y + TILESIZE});
+
 
         return (vision);
     }
@@ -111,18 +138,18 @@ namespace ECS
     {
         ECS::Point point;
 
-        if ((int)(pos.x / TILESIZE * 10) % 10 >= 5)
+        if ((int)(pos.x / TILESIZE * 10) % 10 >= 7.5)
             point.x = (int)(pos.x / TILESIZE) * (TILESIZE * 2);
         else
             point.x = (int)(pos.x / TILESIZE) * TILESIZE;
-        if ((int)(pos.y / TILESIZE * 10) % 10 >= 5)
+        if ((int)(pos.y / TILESIZE * 10) % 10 >= 7.5)
             point.y = (int)(pos.y / TILESIZE) * (TILESIZE * 2);
         else
             point.y = (int)(pos.y / TILESIZE) * TILESIZE;
         return (point);
     }
 
-    std::vector<Input::Action> ControlledByAISystem::AIBrain(ECS::Entity &entity, MovableComponent &movable)
+    std::vector<Input::Action> ControlledByAISystem::AIBrain(ECS::Entity &entity, BombDropperComponent &bombDropper)
     {
         auto &in = reinterpret_cast<ControlledByAIComponent &>(entity.getComponentByName("ControlledByAI"));
         auto &pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
@@ -134,20 +161,24 @@ namespace ECS
         std::vector<Point> blockZone;
         std::vector<Point> dangerZone;
         std::vector<Point> bonusZone;
-        std::vector<int> bonusMalusZone = {0, 0, 0, 0, 0};
+        std::vector<int> bonusMalusZone = {0, 0, 0, 0, 0/*, 0, 0, 0, 0*/};
+        //static int changingPosx = relativePos.x / TILESIZE;
+        //static int changingPosy = relativePos.y / TILESIZE;
         int xTmp = (int)(pos.pos.x / TILESIZE * 100) % 100;
-        int yTmp = (int)(pos.pos.x / TILESIZE * 100) % 100;
+        int yTmp = (int)(pos.pos.y / TILESIZE * 100) % 100;
         static std::vector<Input::Action> actions {Input::ACTION_LEFT};
-        static int time = 0;
+        static int timer = 0;
 
-        if ((xTmp <= 10 && yTmp <= 10) && time == 0) {
+        //std::cout << "x : " << (int)(pos.pos.x / TILESIZE) << " // xTmp : " << xTmp << std::endl;
+        //std::cout << "y : " << (int)(pos.pos.y / TILESIZE) << " // yTmp : " << yTmp << std::endl;
+        if (xTmp <= 20 && yTmp <= 20 && timer == 0) {
             for (Entity *e : colliders) {
                 auto &eCollide = reinterpret_cast<ColliderComponent &>(e->getComponentByName("Collider"));
                 auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
 
                 if (eCollide.hardness >= 1)
                     blockZone.emplace_back(getRelativePos(ePos.pos));
-                else if (e->hasComponent("OnCollisionDamageDealer"))
+                else if (e->hasComponent("OnCollisionDamageDealer") || e->hasComponent("Explode"))
                     blockZone.emplace_back(getRelativePos(ePos.pos));
             }
             updateRelativeVision(blockZone, relativeVision, bonusMalusZone, -1000000);
@@ -171,14 +202,22 @@ namespace ECS
                 bonusZone.emplace_back(getRelativePos(ePos.pos));
             }
             updateRelativeVision(bonusZone, relativeVision, bonusMalusZone, 10);
-            actions = getTheBestWay(bonusMalusZone, actions);
+            actions = getTheBestWay(bonusMalusZone);
+            /*if (!actions.empty()) {
+                changingPosx = relativePos.x / TILESIZE;
+                changingPosy = relativePos.y / TILESIZE;
+            }*/
             if (canEscape(bonusMalusZone)) {
                 actions.push_back(Input::ACTION_ACTION);
             }
+            /*std::cout << "actions : ";
+            for (Input::Action action : actions)
+                std::cout << action << " - ";
+            std::cout << std::endl;*/
+            timer = 11;
         }
-        ++time;
-        if (time == 3)
-            time = 0;
+        if (timer > 0)
+            --timer;
         return (actions);
     }
 
@@ -190,7 +229,7 @@ namespace ECS
         std::vector<Input::Action> actions;
         unsigned char newDir = 0;
 
-        actions = AIBrain(entity, mov);
+        actions = AIBrain(entity, bombDropper);
         uc.castUlt = false;
         bombDropper.dropBomb = false;
         for (auto &action : actions) {
