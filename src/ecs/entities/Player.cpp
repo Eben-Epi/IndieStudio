@@ -22,11 +22,13 @@
 #include "../components/PowerUpComponent.hpp"
 #include "../components/KickerComponent.hpp"
 #include "../../config.hpp"
+#include "../components/OOBKillComponent.hpp"
 
 ECS::Player::Player(unsigned id, Ressources &ressources) :
 	Entity(id, "Player", {
 		new PositionComponent({0, 0}, {PLAYERSIZE, PLAYERSIZE}),
 		new HealthComponent(1),
+		new OOBKillComponent({0, 0}, {20 * TILESIZE, 20 * TILESIZE}),
 		new UltimeComponent(ressources.soundSystem),
 		new UltInvincibilityComponent(),
 		new CurseComponent(),

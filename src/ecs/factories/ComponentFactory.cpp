@@ -32,6 +32,7 @@
 #include "../components/MortalComponent.hpp"
 #include "../components/UltInvincibilityComponent.hpp"
 #include "../components/CurseOnPickComponent.hpp"
+#include "../components/OOBKillComponent.hpp"
 
 namespace ECS 
 {
@@ -53,7 +54,8 @@ namespace ECS
 		{"Kicker", [](Ressources &ressources, std::istream &stream) { return new KickerComponent(ressources, stream); }},
 		{"Movable", [](Ressources &ressources, std::istream &stream) { return new MovableComponent(ressources, stream); }},
 		{"OnCollisionDamageDealer", [](Ressources &ressources, std::istream &stream) { return new OnCollisionDamageDealerComponent(ressources, stream); }},
-		{"Pickable", [](Ressources &ressources, std::istream &stream) { return new PickableComponent(ressources, stream); }},
+        {"OOBKill", [](Ressources &ressources, std::istream &stream) { return new OOBKillComponent(ressources, stream); }},
+        {"Pickable", [](Ressources &ressources, std::istream &stream) { return new PickableComponent(ressources, stream); }},
 		{"Picker", [](Ressources &ressources, std::istream &stream) { return new PickerComponent(ressources, stream); }},
 		{"Position", [](Ressources &ressources, std::istream &stream) { return new PositionComponent(ressources, stream); }},
 		{"Blocked", [](Ressources &ressources, std::istream &stream) { return new BlockedComponent(ressources, stream); }},

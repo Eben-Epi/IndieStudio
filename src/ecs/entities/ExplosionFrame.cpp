@@ -21,7 +21,7 @@ ECS::ExplosionFrame::ExplosionFrame(unsigned id, Ressources &ressources) :
         new HealthComponent(1, 30),
         new PositionComponent({0, 0}, {TILESIZE - 2, TILESIZE - 2}),
         new DisplayableComponent("ExplosionFrame", ressources),
-        new EphemeralComponent(30),
+        new EphemeralComponent(FRAME_RATE / 2),
         new MortalComponent(),
         new ColliderComponent(0),
         new CollisionComponent(0),

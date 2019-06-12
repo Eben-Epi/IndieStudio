@@ -29,7 +29,7 @@ void ECS::CurseOnPickSystem::updateEntity(ECS::Entity &entity)
     auto &cc = reinterpret_cast<CurseComponent &>(pc.pickedBy->getComponentByName("Curse"));
     std::random_device random_dev;
     auto curse = static_cast<CurseComponent::CurseEffect >(random_dev() % (CurseComponent::_NUMBER_OF_CURSE - 1) + 1);
-    cc.giveCurse(curse, 15 * FRAME_RATE, true);
+    cc.giveCurse(curse, 10 * FRAME_RATE, true);
     self.soundSystem.playSound("skull");
     entity.destroy();
 }
