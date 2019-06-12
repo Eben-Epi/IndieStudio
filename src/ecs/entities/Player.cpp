@@ -29,7 +29,7 @@ ECS::Player::Player(unsigned id, Ressources &ressources, std::string &&texture, 
 	Entity(id, "Player", {
 		new PositionComponent({0, 0}, {PLAYERSIZE, PLAYERSIZE}),
 		new HealthComponent(1),
-		new OOBKillComponent({0, 0}, {20 * TILESIZE, 20 * TILESIZE}),
+		new OOBKillComponent({-TILESIZE, -TILESIZE}, {20 * TILESIZE, 20 * TILESIZE}),
 		new UltimeComponent(ressources.soundSystem),
 		ultimate,
 		new CurseComponent(ressources.soundSystem),
