@@ -45,7 +45,7 @@ int main()
 		if (screen.getDevice()->activateJoysticks(joystickInfos)) {
 			std::cout << "Joystick support is enabled and " << joystickInfos.size() << " joystick(s) are present." << std::endl;
 
-			/*inputs.emplace_back(
+			inputs.emplace_back(
 				new Input::Keyboard(screen.getCurrentGameScene(), {
 					irr::KEY_KEY_Z,
 					irr::KEY_KEY_Q,
@@ -64,7 +64,7 @@ int main()
 					irr::KEY_RSHIFT,
 					irr::KEY_RETURN,
 				})
-			);*/
+			);
 			if (!joystickInfos.empty()) {
 				for (irr::u32 joystick = 0; joystick < joystickInfos.size(); joystick++) {
 					std::cout << "Joystick " << joystick << ":" << std::endl;
