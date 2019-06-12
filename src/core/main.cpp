@@ -35,7 +35,7 @@ Map::Map *loadMap(ECS::Ressources &res, std::string path)
 int main()
 {
 	try {
-		Irrlicht::Screen screen(640, 640, 32, false, false);
+		Irrlicht::Screen screen(640, 640, 32, false, true);
 		screen.addGameScene("Game");
 		std::vector<std::unique_ptr<Input::Input>> inputs;
 		if (!screen.setCurrentGameScene("Game"))

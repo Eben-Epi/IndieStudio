@@ -118,3 +118,10 @@ void Irrlicht::IrrEntity::setRotation(float angleY)
 	quaternionY.toEuler(rotY);
 	this->_node->setRotation(rotY * irr::core::RADTODEG);
 }
+
+void Irrlicht::IrrEntity::setAnimation(Irrlicht::Animations animation) {
+    this->anim = animation;
+    if (this->_node) {
+        this->_node->setMD2Animation(static_cast<irr::scene::EMD2_ANIMATION_TYPE>(this->anim));
+    }
+}
