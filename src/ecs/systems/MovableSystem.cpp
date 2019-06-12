@@ -30,6 +30,8 @@ void ECS::MovableSystem::updateEntity(ECS::Entity &entity)
             mc.speed = 0.8f;
         else
             mc.speed = (mc.speed <= mc.maxSpeed ? mc.speed : mc.maxSpeed);
+        if (mc.speed > HARD_MOUVEMENT_SPEED_CAP)
+            mc.speed = HARD_MOUVEMENT_SPEED_CAP;
         if (mc.dir & ECS::Directions::RIGHT)
             pc.pos.x += mc.speed;
         if (mc.dir & ECS::Directions::LEFT)
