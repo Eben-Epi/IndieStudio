@@ -16,9 +16,6 @@
 # Author: Guillaume DEVOILLE <guillaume1.devoille@epitech.eu> (17/05/2019)
 #
 
-#set(SFML_LIBRARIES C:/Users/Eben/Documents/Libs/SFML-2.5.1/lib/libsfml-audio.a)
-#set(SFML_INCLUDE_DIRS C:/Users/Eben/Documents/Libs/SFML-2.5.1/include/SFML)
-
 IF (NOT SFML_INCLUDE_DIRS OR NOT SFML_LIBRARIES)
     FIND_PATH(SFML_INCLUDE_DIRS
         NAMES
@@ -61,7 +58,7 @@ ENDIF (SFML_INCLUDE_DIRS AND SFML_LIBRARIES)
 IF (SFML_FIND_REQUIRED AND NOT SFML_FOUND)
     MESSAGE(FATAL_ERROR
             "  SFML not found.\n"
-            "      Windows: Fill CMake variable CMAKE_MODULE_PATH to the provided directory.\n"
+            "      Windows: Fill CMake variable SFML_DIR to the provided directory.\n"
             "      Linux: Install SFML using your package manager ($> sudo dnf install SFML-devel).\n"
             )
 ENDIF (SFML_FIND_REQUIRED AND NOT SFML_FOUND)

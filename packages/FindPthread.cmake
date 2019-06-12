@@ -16,19 +16,7 @@
 # Author: Guillaume DEVOILLE <guillaume1.devoille@epitech.eu> (17/05/2019)
 #
 
-#set(pthread_LIBRARIES C:/Users/Eben/Documents/Libs/pthread-2.5.1/lib/smf-audio.lib)
-#set(pthread_INCLUDE_DIRS C:/Users/Eben/Documents/Libs/pthread-2.5.1/include/pthread)
-
-IF (NOT pthread_INCLUDE_DIRS OR NOT pthread_LIBRARIES)
-    FIND_PATH(pthread_INCLUDE_DIRS
-        NAMES
-            Audio.hpp
-        PATHS
-            /usr/include/pthread/            # Default Fedora28 system include path
-            /usr/local/include/pthread/      # Default Fedora28 local include path
-            ${CMAKE_MODULE_PATH}/include/ # Expected to contain the path to this file for Windows10
-            ${pthread_DIR}/include/          # pthread root directory (if provided)
-    )
+IF (NOT Pthread_LIBRARIES)
 
     IF (MSVC)     # Windows
         SET(CMAKE_FIND_LIBRARY_PREFIXES "")
@@ -38,9 +26,9 @@ IF (NOT pthread_INCLUDE_DIRS OR NOT pthread_LIBRARIES)
         SET(CMAKE_FIND_LIBRARY_SUFFIXES ".so")
     ENDIF(MSVC)
 
-    FIND_LIBRARY(pthread_LIBRARIES
+    FIND_LIBRARY(Pthread_LIBRARIES
         NAMES
-            pthread-audio
+            pthread
         PATHS
             /usr/lib64/                   # Default Fedora28 library path
             /usr/lib/                     # Some more Linux library path
@@ -48,20 +36,20 @@ IF (NOT pthread_INCLUDE_DIRS OR NOT pthread_LIBRARIES)
             /usr/local/lib/               # Some more Linux library path
             /usr/local/lib64/             # Some more Linux library path
             ${CMAKE_MODULE_PATH}/         # Expected to contain the path to this file for Windows10
-            ${pthread_DIR}/                  # pthread root directory (if provided)
+            ${Pthread_DIR}/               # pthread root directory (if provided)
     )
-ENDIF (NOT pthread_INCLUDE_DIRS OR NOT pthread_LIBRARIES)
+ENDIF (NOT Pthread_LIBRARIES)
 
-IF (pthread_INCLUDE_DIRS AND pthread_LIBRARIES)
-    SET(pthread_FOUND TRUE)
-ELSE (pthread_INCLUDE_DIRS AND pthread_LIBRARIES)
-    SET(pthread_FOUND FALSE)
-ENDIF (pthread_INCLUDE_DIRS AND pthread_LIBRARIES)
+IF (Pthread_LIBRARIES)
+    SET(Pthread_FOUND TRUE)
+ELSE (Pthread_LIBRARIES)
+    SET(Pthread_FOUND FALSE)
+ENDIF (Pthread_LIBRARIES)
 
-IF (pthread_FIND_REQUIRED AND NOT pthread_FOUND)
+IF (Pthread_FIND_REQUIRED AND NOT Pthread_FOUND)
     MESSAGE(FATAL_ERROR
             "  pthread not found.\n"
-            "      Windows: Fill CMake variable CMAKE_MODULE_PATH to the provided directory.\n"
+            "      Windows: Fill CMake variable Pthread_DIR to the provided directory.\n"
             "      Linux: Install pthread using your package manager ($> sudo dnf install pthread).\n"
             )
-ENDIF (pthread_FIND_REQUIRED AND NOT pthread_FOUND)
+ENDIF (Pthread_FIND_REQUIRED AND NOT Pthread_FOUND)

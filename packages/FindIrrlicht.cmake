@@ -16,9 +16,6 @@
 # Author: Guillaume DEVOILLE <guillaume1.devoille@epitech.eu> (17/05/2019)
 #
 
-set(Irrlicht_LIBRARIES C:/Users/Eben/Documents/Libs/irr_epi/Irrlicht.lib)
-set(Irrlicht_INCLUDE_DIRS C:/Users/Eben/Documents/Libs/irr_epi/include)
-
 IF (NOT Irrlicht_INCLUDE_DIRS OR NOT Irrlicht_LIBRARIES)
   FIND_PATH(Irrlicht_INCLUDE_DIRS
     NAMES
@@ -61,7 +58,7 @@ ENDIF (Irrlicht_INCLUDE_DIRS AND Irrlicht_LIBRARIES)
 IF (Irrlicht_FIND_REQUIRED AND NOT Irrlicht_FOUND)
   MESSAGE(FATAL_ERROR
     "  Irrlicht not found.\n"
-    "      Windows: Fill CMake variable CMAKE_MODULE_PATH to the provided directory.\n"
+    "      Windows: Fill CMake variable Irrlicht_DIR to the provided directory.\n"
     "      Linux: Install Irrlicht using your package manager ($> sudo dnf install irrlicht-devel).\n"
   )
 ENDIF (Irrlicht_FIND_REQUIRED AND NOT Irrlicht_FOUND)

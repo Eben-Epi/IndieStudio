@@ -202,6 +202,7 @@ add_executable(
 
 find_package(Irrlicht REQUIRED)
 find_package(Sfml REQUIRED)
+find_package(Pthread REQUIRED)
 
 target_link_libraries(
 	bomberman
