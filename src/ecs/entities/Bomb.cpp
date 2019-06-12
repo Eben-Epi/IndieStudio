@@ -26,7 +26,7 @@ ECS::Bomb::Bomb(unsigned id, Ressources &ressources) :
         new KickableComponent(),
         new MovableComponent(0),
         new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
-        new EphemeralComponent(300),
+        new EphemeralComponent(3 * FRAME_RATE),
         new ExplodeComponent(ressources.soundSystem, 1, 1),
         new DisplayableComponent("Bomb", ressources)
     })

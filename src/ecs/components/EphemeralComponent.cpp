@@ -11,7 +11,7 @@
 
 namespace ECS
 {
-	EphemeralComponent::EphemeralComponent(unsigned int timeLeft) : 
+	EphemeralComponent::EphemeralComponent(unsigned int timeLeft) :
 		Component("Ephemeral"),
 		timeLeft(timeLeft)
 	{
