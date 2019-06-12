@@ -121,7 +121,7 @@ void Irrlicht::IrrEntity::setRotation(float angleY)
     quaternionY.normalize();
     quaternionY.toEuler(rotY);
     if (this->_node)
-        this->_node->setRotation(rotY * irr::core::RADTODEG);
+    	this->_node->setRotation(rotY * irr::core::RADTODEG);
 }
 
 void Irrlicht::IrrEntity::setAnimation(Irrlicht::Animations animation) {
