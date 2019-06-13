@@ -80,20 +80,20 @@ add_executable(
 	src/ecs/entities/ExplosionFrame.hpp
 	src/ecs/entities/Bomb.cpp
 	src/ecs/entities/Bomb.hpp
-	src/ecs/entities/DroppedItem.cpp
-	src/ecs/entities/DroppedItem.hpp
-	src/ecs/entities/DroppedBonusHealth.cpp
-	src/ecs/entities/DroppedBonusHealth.hpp
-	src/ecs/entities/DroppedBonusSpeed.cpp
-	src/ecs/entities/DroppedBonusSpeed.hpp
-	src/ecs/entities/DroppedBonusBomb.cpp
-	src/ecs/entities/DroppedBonusBomb.hpp
-	src/ecs/entities/DroppedBonusKick.cpp
-	src/ecs/entities/DroppedBonusKick.hpp
-	src/ecs/entities/DroppedBonusHardness.cpp
-	src/ecs/entities/DroppedBonusHardness.hpp
-	src/ecs/entities/DroppedBonusRange.cpp
-	src/ecs/entities/DroppedBonusRange.hpp
+	src/ecs/entities/PowerUps/DroppedItem.cpp
+	src/ecs/entities/PowerUps/DroppedItem.hpp
+	src/ecs/entities/PowerUps/DroppedBonusHealth.cpp
+	src/ecs/entities/PowerUps/DroppedBonusHealth.hpp
+	src/ecs/entities/PowerUps/DroppedBonusSpeed.cpp
+	src/ecs/entities/PowerUps/DroppedBonusSpeed.hpp
+	src/ecs/entities/PowerUps/DroppedBonusBomb.cpp
+	src/ecs/entities/PowerUps/DroppedBonusBomb.hpp
+	src/ecs/entities/PowerUps/DroppedBonusKick.cpp
+	src/ecs/entities/PowerUps/DroppedBonusKick.hpp
+	src/ecs/entities/PowerUps/DroppedBonusHardness.cpp
+	src/ecs/entities/PowerUps/DroppedBonusHardness.hpp
+	src/ecs/entities/PowerUps/DroppedBonusRange.cpp
+	src/ecs/entities/PowerUps/DroppedBonusRange.hpp
 	src/ecs/systems/KickableSystem.cpp
 	src/ecs/systems/KickableSystem.hpp
 	src/ecs/systems/EphemeralSystem.cpp
@@ -130,8 +130,8 @@ add_executable(
 	src/ecs/systems/PowerUpSystem.hpp
 	src/ecs/systems/PickableSystem.cpp
 	src/ecs/systems/PickableSystem.hpp
-	src/ecs/entities/DroppedItem.cpp
-	src/ecs/entities/DroppedItem.hpp
+	src/ecs/entities/PowerUps/DroppedItem.cpp
+	src/ecs/entities/PowerUps/DroppedItem.hpp
 	src/ecs/components/PowerUpPickedComponent.cpp
 	src/ecs/components/PowerUpPickedComponent.hpp
 	src/ecs/systems/PowerUpPickedSystem.cpp
@@ -140,16 +140,16 @@ add_executable(
 	src/ecs/systems/KickerSystem.hpp
 	src/ecs/systems/EntityDropperSystem.cpp
 	src/ecs/systems/EntityDropperSystem.hpp
-	src/ecs/entities/DroppedBonusHealth.cpp
-	src/ecs/entities/DroppedBonusHealth.hpp
-	src/ecs/entities/DroppedBonusSpeed.cpp
-	src/ecs/entities/DroppedBonusSpeed.hpp
-	src/ecs/entities/DroppedBonusBomb.cpp
-	src/ecs/entities/DroppedBonusBomb.hpp
-	src/ecs/entities/DroppedBonusKick.cpp
-	src/ecs/entities/DroppedBonusKick.hpp
-	src/ecs/entities/DroppedBonusHardness.cpp
-	src/ecs/entities/DroppedBonusHardness.hpp
+	src/ecs/entities/PowerUps/DroppedBonusHealth.cpp
+	src/ecs/entities/PowerUps/DroppedBonusHealth.hpp
+	src/ecs/entities/PowerUps/DroppedBonusSpeed.cpp
+	src/ecs/entities/PowerUps/DroppedBonusSpeed.hpp
+	src/ecs/entities/PowerUps/DroppedBonusBomb.cpp
+	src/ecs/entities/PowerUps/DroppedBonusBomb.hpp
+	src/ecs/entities/PowerUps/DroppedBonusKick.cpp
+	src/ecs/entities/PowerUps/DroppedBonusKick.hpp
+	src/ecs/entities/PowerUps/DroppedBonusHardness.cpp
+	src/ecs/entities/PowerUps/DroppedBonusHardness.hpp
 	src/ecs/components/CurseComponent.cpp
 	src/ecs/components/CurseComponent.hpp
 	src/ecs/systems/CurseSystem.cpp
@@ -198,15 +198,15 @@ add_executable(
 	src/ecs/entities/Bedrock.hpp
 	src/irrlicht/Exceptions.cpp
 	src/irrlicht/Exceptions.hpp
-    src/ecs/entities/Skull.cpp
-    src/ecs/entities/Skull.hpp
-    src/ecs/components/CurseOnPickComponent.cpp
-    src/ecs/components/CurseOnPickComponent.hpp
-    src/ecs/systems/CurseOnPickSystem.cpp
-    src/ecs/systems/CurseOnPickSystem.hpp
+	src/ecs/entities/Skull.cpp
+	src/ecs/entities/Skull.hpp
+	src/ecs/components/CurseOnPickComponent.cpp
+	src/ecs/components/CurseOnPickComponent.hpp
+	src/ecs/systems/CurseOnPickSystem.cpp
+	src/ecs/systems/CurseOnPickSystem.hpp
 	src/ecs/components/OOBKillComponent.cpp
 	src/ecs/components/OOBKillComponent.hpp
-    src/ecs/systems/OOBKillSystem.cpp src/ecs/systems/OOBKillSystem.hpp
+	src/ecs/systems/OOBKillSystem.cpp src/ecs/systems/OOBKillSystem.hpp
 	src/irrlicht/Exceptions.hpp
 	src/ecs/entities/Skull.cpp
 	src/ecs/entities/Skull.hpp

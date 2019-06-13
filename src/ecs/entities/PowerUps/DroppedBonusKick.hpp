@@ -8,12 +8,13 @@
 #ifndef BOMBERMAN_DROPPEDBONUSKICK_HPP
 #define BOMBERMAN_DROPPEDBONUSKICK_HPP
 
-#include "../Entity.hpp"
-#include "../Ressources.hpp"
+#include "../../Entity.hpp"
+#include "../../Ressources.hpp"
+#include "DroppedItem.hpp"
 
 namespace ECS
 {
-    class DroppedBonusKick : public Entity {
+    class DroppedBonusKick : public DroppedItem {
     public:
         explicit DroppedBonusKick(unsigned id, Ressources &ressources);
     };
