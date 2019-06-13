@@ -13,12 +13,12 @@
 namespace Irrlicht
 {
 	class Button {
-		Button(Point pos, Vector2<unsigned> size);
+		Button(ECS::Point pos, ECS::Vector2<unsigned> size);
 		~Button();
 
 	private:
-		Point _pos;
-		Vector2<unsigned> _size;
+		ECS::Point _pos;
+		ECS::Vector2<unsigned> _size;
 	};
 } // namespace Irrlicht
 
