@@ -23,8 +23,8 @@
 #include "../entities/Skull.hpp"
 #include "../entities/Sydney.hpp"
 #include "../entities/Faerie.hpp"
-#include "../entities/Gunguy.hpp"
-#include "../entities/Warrior.hpp"
+#include "../entities/Alphaone.hpp"
+#include "../entities/Xenotype.hpp"
 
 namespace ECS
 {
@@ -46,8 +46,8 @@ namespace ECS
 		{"ExplosionFrame", [](Ressources &ressources, unsigned id) { return new ExplosionFrame(id, ressources); }},
 		{"Faerie", [](Ressources &ressources, unsigned id) { return new Faerie(id, ressources); }},
 		{"Sydney", [](Ressources &ressources, unsigned id) { return new Sydney(id, ressources); }},
-		{"Gunguy", [](Ressources &ressources, unsigned id) { return new Gunguy(id, ressources); }},
-		{"Warrior", [](Ressources &ressources, unsigned id) { return new Warrior(id, ressources); }},
+		{"Xenotype", [](Ressources &ressources, unsigned id) { return new Xenotype(id, ressources); }},
+		{"Alphaone", [](Ressources &ressources, unsigned id) { return new Alphaone(id, ressources); }},
 		{"Wall", [](Ressources &ressources, unsigned id) { return new Wall(id, ressources); }},
 		{"Bedrock", [](Ressources &ressources, unsigned id) { return new Bedrock(id, ressources); }}
 	};
