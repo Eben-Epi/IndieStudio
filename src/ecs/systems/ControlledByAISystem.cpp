@@ -19,33 +19,34 @@
 #include "../components/ExplodeComponent.hpp"
 #include "../components/KickerComponent.hpp"
 
-namespace ECS
-{
+namespace ECS {
     ControlledByAISystem::ControlledByAISystem(ECS::ECSCore &core) :
-        System("ControlledByAI", core)
-    {
+        System("ControlledByAI", core) {
         this->_dependencies = {"Movable", "Position", "BombDropper", "Ultime"};
     }
 
-    bool canEscape(std::vector<int> &bonusMalusZone)
-    {
+    bool ControlledByAISystem::canEscape(std::vector<int> &bonusMalusZone) {
         int escapableWays = 0;
         static int bombTimer = 50;
+        static int blocksDestroyed = 0;
 
         if (bombTimer != 0) {
             --bombTimer;
             return (false);
         }
         for (int score : bonusMalusZone) {
-            if (score >= 0)
+            if (score >= -1)
                 ++escapableWays;
         }
         bombTimer = 50;
-        return (escapableWays >= 2);
+        if (escapableWays >= 2 && (bonusMalusZone[2] / 10 % 10 != 0 || blocksDestroyed > 20)) {
+            ++blocksDestroyed;
+            return (true);
+        }
+        return (false);
     }
 
-    std::vector<Input::Action> getTheBestWay(std::vector<int> &bonusMalusZone)
-    {
+    std::vector<Input::Action> ControlledByAISystem::getTheBestWay(std::vector<int> &bonusMalusZone) {
         int i;
         int j = 0;
         std::vector<int> pos = {0};
@@ -57,8 +58,7 @@ namespace ECS
                 j = i;
                 pos.clear();
                 pos.push_back(i);
-            }
-            else if (bonusMalusZone[i] == bonusMalusZone[j])
+            } else if (bonusMalusZone[i] == bonusMalusZone[j])
                 pos.push_back(i);
         }
         std::cout << "actions : " << pos.size() << " -> ";
@@ -66,7 +66,7 @@ namespace ECS
             std::cout << posi << " // ";
         std::cout << std::endl;
         if (pos.size() > 1)
-            j = rand_device() % (int)pos.size();
+            j = rand_device() % (int) pos.size();
         else
             j = 0;
         std::cout << "action engaged : " << pos[j] << " && with j : " << j << std::endl;
@@ -78,53 +78,159 @@ namespace ECS
             case 0:
                 actions.push_back(Input::Action::ACTION_UP);
                 break;
-            /*case 2:
-                actions.push_back(Input::Action::ACTION_UP);
-                actions.push_back(Input::Action::ACTION_RIGHT);
-                break;*/
+                /*case 2:
+                    actions.push_back(Input::Action::ACTION_UP);
+                    actions.push_back(Input::Action::ACTION_RIGHT);
+                    break;*/
             case 1:
                 actions.push_back(Input::Action::ACTION_LEFT);
                 break;
             case 3:
                 actions.push_back(Input::Action::ACTION_RIGHT);
                 break;
-            /*case 6:
-                actions.push_back(Input::Action::ACTION_DOWN);
-                actions.push_back(Input::Action::ACTION_LEFT);
-                break;*/
+                /*case 6:
+                    actions.push_back(Input::Action::ACTION_DOWN);
+                    actions.push_back(Input::Action::ACTION_LEFT);
+                    break;*/
             case 4:
                 actions.push_back(Input::Action::ACTION_DOWN);
                 break;
-            /*case 8:
-                actions.push_back(Input::Action::ACTION_DOWN);
-                actions.push_back(Input::Action::ACTION_RIGHT);
-                break;*/
+                /*case 8:
+                    actions.push_back(Input::Action::ACTION_DOWN);
+                    actions.push_back(Input::Action::ACTION_RIGHT);
+                    break;*/
             default:
                 break;
         }
         return (actions);
     }
 
-    void updateRelativeVision(
-        std::vector<ECS::Point> &cannotMoveThere,
+    void ControlledByAISystem::updateRelativeVisionForBonuses(
+        std::vector<ECS::Entity *> &cannotMoveThere,
         std::vector<ECS::Point> &relativeVision,
         std::vector<int> &bonusMalusZone,
         int dangerLevel
-)
+    )
     {
-        for (Point point : cannotMoveThere) {
+        for (Entity *e : cannotMoveThere) {
+            auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
             auto infoIt = bonusMalusZone.begin();
-            for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
-                if (it.base()->x == point.x && it.base()->y == point.y) {
-                    *(infoIt.base()) += dangerLevel;
-                    break;
+            Point newERelativePos = getRelativePosObj(ePos.pos);
+            Point end = {newERelativePos.x + ePos.size.x, newERelativePos.y + ePos.size.y};
+
+            for (int y = newERelativePos.y; y < end.y; y += TILESIZE) {
+                for (int x = newERelativePos.x; x < end.x; x += TILESIZE) {
+                    Point newPoint = {(double) x, (double) y};
+
+                    for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
+                        if (it.base()->x == newPoint.x && it.base()->y == newPoint.y) {
+                            *(infoIt.base()) += dangerLevel;
+                            break;
+                        }
+                        ++infoIt;
+                    }
                 }
-                ++infoIt;
             }
         }
     }
 
-    std::vector<ECS::Point> getRelativeVision(ECS::Point &point)
+    void ControlledByAISystem::updateRelativeVisionForPredictions(
+        std::vector<ECS::Entity *> &cannotMoveThere,
+        std::vector<ECS::Point> &relativeVision,
+        std::vector<int> &bonusMalusZone,
+        int dangerLevel
+    )
+    {
+        for (Entity *e : cannotMoveThere) {
+            auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
+            auto &eExpl = reinterpret_cast<ExplodeComponent &>(e->getComponentByName("Explode"));
+            std::vector<Point> dangerZone;
+            Point relaPos = getRelativePosPlayer(ePos.pos);
+
+            for (int i = 1; i < eExpl.range + 1; ++i) {
+                dangerZone.push_back({relaPos.x + (TILESIZE * i), relaPos.y});
+                dangerZone.push_back({relaPos.x - (TILESIZE * i), relaPos.y});
+                dangerZone.push_back({relaPos.x, relaPos.y + (TILESIZE * i)});
+                dangerZone.push_back({relaPos.x, relaPos.y - (TILESIZE * i)});
+            }
+
+            for (Point point : dangerZone) {
+                auto infoIt = bonusMalusZone.begin();
+                Point end = {point.x + ePos.size.x, point.y + ePos.size.y};
+
+                for (int y = point.y; y < end.y; y += TILESIZE) {
+                    for (int x = point.x; x < end.x; x += TILESIZE) {
+                        Point newPoint = {(double) x, (double) y};
+
+                        for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
+                            if (it.base()->x == newPoint.x && it.base()->y == newPoint.y) {
+                                *(infoIt.base()) += dangerLevel;
+                                break;
+                            }
+                            ++infoIt;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    void ControlledByAISystem::updateRelativeVisionForBlocks(
+        std::vector<ECS::Entity *> &cannotMoveThere,
+        std::vector<ECS::Point> &relativeVision,
+        std::vector<int> &bonusMalusZone,
+        int dangerLevel
+    )
+    {
+        std::vector<ECS::Point> relativeCorners = {
+            {relativeVision[0].x - TILESIZE, relativeVision[0].y},
+            {relativeVision[0].x + TILESIZE, relativeVision[0].y},
+            {relativeVision[4].x - TILESIZE, relativeVision[4].y},
+            {relativeVision[4].x + TILESIZE, relativeVision[4].y}
+        };
+        std::vector<int> bonusMalusCorners = {0, 0, 0, 0};
+
+        for (Entity *e : cannotMoveThere) {
+            auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
+            Point newERelativePos = getRelativePosObj(ePos.pos);
+            Point end = {newERelativePos.x + ePos.size.x, newERelativePos.y + ePos.size.y};
+
+            for (int y = newERelativePos.y; y < end.y; y += TILESIZE) {
+                for (int x = newERelativePos.x; x < end.x; x += TILESIZE) {
+                    Point newPoint = {(double) x, (double) y};
+                    auto infoIt = bonusMalusZone.begin();
+
+                    for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
+                        if (it.base()->x == newPoint.x && it.base()->y == newPoint.y) {
+                            *(infoIt.base()) += dangerLevel;
+                            if (e->hasComponent("Health"))
+                                bonusMalusZone[2] -= 10;
+                            break;
+                        }
+                        ++infoIt;
+                    }
+                    infoIt = bonusMalusCorners.begin();
+                    for (auto it = relativeCorners.begin(); it < relativeCorners.end(); ++it) {
+                        if (it.base()->x == newPoint.x && it.base()->y == newPoint.y) {
+                            *(infoIt.base()) += dangerLevel;
+                            break;
+                        }
+                        ++infoIt;
+                    }
+                }
+            }
+        }
+        for (int j = 0; j < bonusMalusCorners.size(); ++j) {
+            if (bonusMalusCorners[j] == -1000000) {
+                bonusMalusZone[j % 2 ? 3 : 1] += -1;
+                bonusMalusZone[j / 2 * 4] += -1;
+            }
+        }
+    }
+
+    std::vector<ECS::Point> ControlledByAISystem::getRelativeVision(ECS::Point &point)
     {
         std::vector<ECS::Point> vision;
 
@@ -142,7 +248,7 @@ namespace ECS
         return (vision);
     }
 
-    ECS::Point getRelativePosPlayer(ECS::Point &pos)
+    ECS::Point ControlledByAISystem::getRelativePosPlayer(ECS::Point &pos)
     {
         ECS::Point point;
 
@@ -157,7 +263,7 @@ namespace ECS
         return (point);
     }
 
-    ECS::Point getRelativePosObj(ECS::Point &pos)
+    ECS::Point ControlledByAISystem::getRelativePosObj(ECS::Point &pos)
     {
         ECS::Point relative;
 
@@ -175,9 +281,7 @@ namespace ECS
         std::vector<Entity *> powerUps = this->_core.getEntitiesByComponent("PowerUp");
         Point relativePosPlayer = getRelativePosPlayer(pos.pos);
         std::vector<Point> relativeVision = getRelativeVision(relativePosPlayer);
-        std::vector<Point> blockZone;
-        std::vector<Point> dangerZone;
-        std::vector<Point> bonusZone;
+        std::vector<Entity *> blockZone;
         std::vector<int> bonusMalusZone = {0, 0, 0, 0, 0/*, 0, 0, 0, 0*/};
         //static int changingPosx = relativePos.x / TILESIZE;
         //static int changingPosy = relativePos.y / TILESIZE;
@@ -191,44 +295,24 @@ namespace ECS
         if ((xTmp <= 10 && yTmp <= 10 && timer == 0) || actions.empty() || actions[0] == Input::ACTION_ACTION) {
             for (Entity *e : colliders) {
                 auto &eCollide = reinterpret_cast<ColliderComponent &>(e->getComponentByName("Collider"));
-                auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
                 auto &eKicker = reinterpret_cast<KickerComponent &>(entity.getComponentByName("Kicker"));
-                Point newERelativePos = getRelativePosObj(ePos.pos);
-                Point end = {newERelativePos.x + ePos.size.x, newERelativePos.y + ePos.size.y};
 
                 if (eCollide.hardness >= 1 || e->hasComponent("OnCollisionDamageDealer") || (!eKicker.canKick && e->hasComponent("Explode"))) {
-                    for (int y = newERelativePos.y; y < end.y; y += TILESIZE) {
-                        for (int x = newERelativePos.x; x < end.x; x += TILESIZE) {
-                            Point newPoint = {(double)x, (double)y};
-                            blockZone.emplace_back(newPoint);
-                        }
-                    }
+                    blockZone.emplace_back(e);
                 }
             }
             if (!blockZone.empty())
-                updateRelativeVision(blockZone, relativeVision, bonusMalusZone, -1000000);
-            for (Entity *e : explodableEntities) {
-                auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
-                auto &eExpl = reinterpret_cast<ExplodeComponent &>(e->getComponentByName("Explode"));
-                Point relaPos = getRelativePosPlayer(ePos.pos);
+                updateRelativeVisionForBlocks(blockZone, relativeVision, bonusMalusZone, -1000000);
+            ///add a fifth parameter with the type of entity on an enum and
+            ///that enable us in blocks to know if we can go to angles
 
-                for (int i = 1; i < eExpl.range + 1; ++i) {
-                    dangerZone.push_back({relaPos.x + (TILESIZE * i), relaPos.y});
-                    dangerZone.push_back({relaPos.x - (TILESIZE * i), relaPos.y});
-                    dangerZone.push_back({relaPos.x, relaPos.y + (TILESIZE * i)});
-                    dangerZone.push_back({relaPos.x, relaPos.y - (TILESIZE * i)});
-                    updateRelativeVision(dangerZone, relativeVision, bonusMalusZone, -100 * i);
-                    dangerZone.clear();
-                }
-            }
+            if (!explodableEntities.empty())
+                updateRelativeVisionForPredictions(explodableEntities, relativeVision, bonusMalusZone, -1000);
+
             std::cout << std::endl;
-            for (Entity *e : powerUps) {
-                auto &ePos = reinterpret_cast<PositionComponent &>(e->getComponentByName("Position"));
 
-                bonusZone.emplace_back(getRelativePosPlayer(ePos.pos));
-            }
-            if (!bonusZone.empty())
-                updateRelativeVision(bonusZone, relativeVision, bonusMalusZone, 10);
+            if (!powerUps.empty())
+                updateRelativeVisionForBonuses(powerUps, relativeVision, bonusMalusZone, 100);
             std::cout << "scores : ";
             for (int score : bonusMalusZone) {
                 std::cout << score << " || ";
@@ -238,7 +322,7 @@ namespace ECS
                 changingPosx = relativePos.x / TILESIZE;
                 changingPosy = relativePos.y / TILESIZE;
             }*/
-            if (canEscape(bonusMalusZone)) {
+            if (canEscape(bonusMalusZone) && !bombDropper.bombs.empty()) {
                 actions.push_back(Input::ACTION_ACTION);
             }
             timer = 11;
