@@ -197,9 +197,16 @@ add_executable(
 	src/ecs/entities/Bedrock.cpp
 	src/ecs/entities/Bedrock.hpp
 	src/irrlicht/Exceptions.cpp
-	src/irrlicht/Exceptions.hpp src/ecs/entities/Skull.cpp src/ecs/entities/Skull.hpp src/ecs/components/CurseOnPickComponent.cpp src/ecs/components/CurseOnPickComponent.hpp src/ecs/systems/CurseOnPickSystem.cpp src/ecs/systems/CurseOnPickSystem.hpp
+	src/irrlicht/Exceptions.hpp
+    src/ecs/entities/Skull.cpp
+    src/ecs/entities/Skull.hpp
+    src/ecs/components/CurseOnPickComponent.cpp
+    src/ecs/components/CurseOnPickComponent.hpp
+    src/ecs/systems/CurseOnPickSystem.cpp
+    src/ecs/systems/CurseOnPickSystem.hpp
 	src/ecs/components/OOBKillComponent.cpp
-	src/ecs/components/OOBKillComponent.hpp src/ecs/systems/OOBKillSystem.cpp src/ecs/systems/OOBKillSystem.hpp
+	src/ecs/components/OOBKillComponent.hpp
+    src/ecs/systems/OOBKillSystem.cpp src/ecs/systems/OOBKillSystem.hpp
 	src/irrlicht/Exceptions.hpp
 	src/ecs/entities/Skull.cpp
 	src/ecs/entities/Skull.hpp
@@ -207,7 +214,7 @@ add_executable(
 	src/ecs/components/CurseOnPickComponent.hpp
 	src/ecs/systems/CurseOnPickSystem.cpp
 	src/ecs/systems/CurseOnPickSystem.hpp
-)
+	src/ecs/entities/Sydney.cpp src/ecs/entities/Sydney.hpp src/ecs/entities/Faerie.cpp src/ecs/entities/Faerie.hpp src/ecs/entities/Warrior.cpp src/ecs/entities/Warrior.hpp src/ecs/entities/Gunguy.cpp src/ecs/entities/Gunguy.hpp)
 
 find_package(Irrlicht REQUIRED)
 find_package(Sfml REQUIRED)

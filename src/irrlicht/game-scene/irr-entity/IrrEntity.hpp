@@ -21,14 +21,14 @@ namespace Irrlicht {
             unsigned id,
             irr::scene::ISceneManager *smgr,
             irr::video::IVideoDriver *driver,
-            irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255),
-            std::string texturePath = ""
+            irr::video::SColor defaultColor = irr::video::SColor(255, 255, 255, 255)
         );
         ~IrrEntity();
 
         bool isEntityLoaded();
         void setScale(float x, float z, float y = -1);
         void setPos(float x, float y);
+        void setAnimation(Animations anim);
         void setSize(float x, float y);
         ECS::Vector2<float> getSize();
         void setRotation(float angle);

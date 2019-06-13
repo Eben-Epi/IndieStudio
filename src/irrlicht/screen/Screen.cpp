@@ -14,13 +14,19 @@
 #include "Screen.hpp"
 #include "../game-scene/GameScene.hpp"
 
+#if defined(_WIN32) && !defined(__GNUC__)
+#define driverType irr::video::EDT_DIRECT3D9
+#else
+#define driverType irr::video::EDT_OPENGL
+#endif
+
 Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen, bool vsync) :
     _width(width),
     _height(height),
     _colorDepth(colorDepth),
     _fullscreen(fullscreen),
     _vsync(vsync),
-    _driverType(irr::video::EDT_OPENGL),
+    _driverType(driverType),
     _device(nullptr),
     _lastSceneId(0),
     _currentSceneId(0)
