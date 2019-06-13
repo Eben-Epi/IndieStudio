@@ -13,7 +13,7 @@
 namespace Irrlicht
 {
 	class Button {
-		Button(Point);
+		Button(Point pos, Vector2<unsigned> size);
 		~Button();
 
 	private:
