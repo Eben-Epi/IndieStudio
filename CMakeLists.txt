@@ -214,7 +214,7 @@ add_executable(
 	src/ecs/components/CurseOnPickComponent.hpp
 	src/ecs/systems/CurseOnPickSystem.cpp
 	src/ecs/systems/CurseOnPickSystem.hpp
-	src/ecs/entities/Sydney.cpp src/ecs/entities/Sydney.hpp src/ecs/entities/Faerie.cpp src/ecs/entities/Faerie.hpp src/ecs/entities/Warrior.cpp src/ecs/entities/Warrior.hpp src/ecs/entities/Gunguy.cpp src/ecs/entities/Gunguy.hpp)
+	src/ecs/entities/Sydney.cpp src/ecs/entities/Sydney.hpp src/ecs/entities/Faerie.cpp src/ecs/entities/Faerie.hpp src/ecs/entities/Alphaone.cpp src/ecs/entities/Alphaone.hpp src/ecs/entities/Xenotype.cpp src/ecs/entities/Xenotype.hpp)
 
 find_package(Irrlicht REQUIRED)
 find_package(Sfml REQUIRED)

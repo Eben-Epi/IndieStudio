@@ -21,7 +21,7 @@ Map::Map *loadMap(ECS::Ressources &res, std::string path)
 
 	auto map = new Map::Map{res};
 
-	map->generateMap({20, 20}, 7000, {"Gunguy", "Warrior"}, {
+	map->generateMap({20, 20}, 7000, {"Alphaone", "Xenotype"}, {
 		{"Bonus", 40},
 		{"DroppedBonusSpeed", 20},
 		{"DroppedBonusBomb", 20},
