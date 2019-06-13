@@ -23,7 +23,7 @@ namespace ECS
     }
 
     PickerComponent::PickerComponent(ECS::Ressources &, std::istream &stream) :
-	    PickerComponent()
+        PickerComponent()
     {
         std::string terminator;
 

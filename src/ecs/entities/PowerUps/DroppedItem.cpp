@@ -14,6 +14,7 @@
 #include "../../components/PowerUpComponent.hpp"
 #include "../../components/PickableComponent.hpp"
 #include "../../components/PowerUpPickedComponent.hpp"
+#include "../../components/MortalComponent.hpp"
 
 ECS::DroppedItem::DroppedItem(unsigned id, Ressources &ressources, std::string &&texture, std::map<std::string, NumericValue> &&map) :
     Entity(id, "DroppedItem", {
@@ -23,7 +24,8 @@ ECS::DroppedItem::DroppedItem(unsigned id, Ressources &ressources, std::string &
         new PositionComponent({0, 0}, {TILESIZE, TILESIZE}),
         new PowerUpComponent(ressources.soundSystem, map),
         new PickableComponent(),
-        new PowerUpPickedComponent()
+        new PowerUpPickedComponent(),
+        new MortalComponent()
     })
 {
 }

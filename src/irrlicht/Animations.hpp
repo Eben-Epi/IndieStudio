@@ -17,7 +17,7 @@ namespace Irrlicht {
 		DYING = irr::scene::EMAT_DEATH_FALLFORWARD,
 		DEAD = irr::scene::EMAT_BOOM,
 		RUN = irr::scene::EMAT_RUN,
-		ULT_CAST = irr::scene::EMAT_STAND,
+		ULT_CAST = irr::scene::EMAT_ATTACK,
 	};
 }
 

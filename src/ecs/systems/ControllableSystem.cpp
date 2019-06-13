@@ -30,7 +30,7 @@ namespace ECS
 		auto &in = reinterpret_cast<ControllableComponent &>(entity.getComponentByName("Controllable"));
 		auto &bombDropper = reinterpret_cast<BombDropperComponent &>(entity.getComponentByName("BombDropper"));
 		auto &uc = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
-        auto &disp = reinterpret_cast<DisplayableComponent &>(entity.getComponentByName("Displayable"));
+		auto &disp = reinterpret_cast<DisplayableComponent &>(entity.getComponentByName("Displayable"));
 		auto actions = in.input.getActions();
 		unsigned char newDir = 0;
 

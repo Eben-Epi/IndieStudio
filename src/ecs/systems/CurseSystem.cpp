@@ -16,15 +16,15 @@ void ECS::CurseSystem::updateEntity(ECS::Entity &entity)
 {
     auto &cc = reinterpret_cast<CurseComponent&>(entity.getComponentByName("Curse"));
 
+    if (cc.effect == CurseComponent::CurseEffect::NONE)
+    	return;
+
     if (cc.timeLeft > 0)
         cc.timeLeft -= 1;
-
-    else if (cc.timeLeft == 0) {
+    else if (cc.timeLeft == 0)
         cc.effect = CurseComponent::CurseEffect::NONE;
-        cc.timeLeft = -1;
-    }
 
-    if (cc.timeLeft <= 0 || !entity.hasComponent("Collision"))
+    if (!entity.hasComponent("Collision"))
         return;
 
     auto &e_collision = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
