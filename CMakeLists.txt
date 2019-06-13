@@ -214,7 +214,21 @@ add_executable(
 	src/ecs/components/CurseOnPickComponent.hpp
 	src/ecs/systems/CurseOnPickSystem.cpp
 	src/ecs/systems/CurseOnPickSystem.hpp
-	src/ecs/entities/Sydney.cpp src/ecs/entities/Sydney.hpp src/ecs/entities/Faerie.cpp src/ecs/entities/Faerie.hpp src/ecs/entities/Alphaone.cpp src/ecs/entities/Alphaone.hpp src/ecs/entities/Xenotype.cpp src/ecs/entities/Xenotype.hpp)
+	src/ecs/entities/Sydney.cpp
+	src/ecs/entities/Sydney.hpp
+	src/ecs/entities/Faerie.cpp
+	src/ecs/entities/Faerie.hpp
+	src/ecs/entities/Alphaone.cpp
+	src/ecs/entities/Alphaone.hpp
+	src/ecs/entities/Xenotype.cpp
+	src/ecs/entities/Xenotype.hpp
+	src/irrlicht/game-scene/main-menu/Button.cpp
+	src/irrlicht/game-scene/main-menu/Button.hpp
+	src/irrlicht/game-scene/main-menu/MainMenu.hpp
+	src/irrlicht/game-scene/main-menu/MainMenu.cpp
+	src/irrlicht/game-scene/main-menu/Menu.cpp
+	src/irrlicht/game-scene/main-menu/Menu.hpp
+)
 
 find_package(Irrlicht REQUIRED)
 find_package(Sfml REQUIRED)
