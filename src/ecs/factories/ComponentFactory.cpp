@@ -33,6 +33,7 @@
 #include "../components/UltInvincibilityComponent.hpp"
 #include "../components/CurseOnPickComponent.hpp"
 #include "../components/OOBKillComponent.hpp"
+#include "../components/UltShockWaveComponent.hpp"
 
 namespace ECS 
 {
@@ -65,7 +66,8 @@ namespace ECS
 		{"PowerUpPicked", [](Ressources &ressources, std::istream &stream) { return new PowerUpPickedComponent(ressources, stream); }},
 		{"Mortal", [](Ressources &ressources, std::istream &stream) { return new MortalComponent(ressources, stream); }},
 		{"Ultime", [](Ressources &ressources, std::istream &stream) { return new UltimeComponent(ressources, stream); }},
-		{"UltInvincibility", [](Ressources &ressources, std::istream &stream) { return new UltInvincibilityComponent(ressources, stream); }}
+		{"UltInvincibility", [](Ressources &ressources, std::istream &stream) { return new UltInvincibilityComponent(ressources, stream); }},
+        {"UltShockWave", [](Ressources &ressources, std::istream &stream) { return new UltShockWaveComponent(ressources, stream); }}
 	};
 
 	ComponentFactory::ComponentFactory(ECS::Ressources &ressources) :

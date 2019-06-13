@@ -17,10 +17,14 @@ namespace ECS
     class ControllableComponent : public Component
     {
         public:
+            unsigned stunLeft;
     	    unsigned inputNbr;
     	    Input::Input &input;
             ControllableComponent(Input::Input &, unsigned);
             ControllableComponent(Ressources &ressources, std::istream &stream);
+
+            bool stun(unsigned duration, bool force=false);
+
 	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS
