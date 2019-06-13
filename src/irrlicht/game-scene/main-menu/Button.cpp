@@ -60,4 +60,12 @@ bool Irrlicht::Button::isPressed() {
     return this->_button->isPressed();
 }
 
+void Irrlicht::Button::setVisible(bool visible)
+{
+	if (this->_visible == visible)
+		return;
+	this->_visible = visible;
+	this->_button->setVisible(visible);
+}
+
 Irrlicht::Button::~Button() = default;
