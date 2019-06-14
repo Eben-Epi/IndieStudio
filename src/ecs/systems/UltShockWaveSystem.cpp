@@ -22,7 +22,7 @@ void ECS::UltShockWaveSystem::updateEntity(ECS::Entity &entity)
 {
     auto &self = reinterpret_cast<UltShockWaveComponent &>(entity.getComponentByName("UltShockWave"));
     if (self.timer > 0) {
-        if (self.timer > (2 * FRAME_RATE) && !(self.timer % (FRAME_RATE / 10))) {
+        if (self.timer > (2 * FRAME_RATE) && !(self.timer % (FRAME_RATE / 15))) {
             auto &exp = this->_core.makeEntity("ExplosionFrame");
             auto &explosion_position = reinterpret_cast<PositionComponent &>(exp.getComponentByName("Position"));
 
