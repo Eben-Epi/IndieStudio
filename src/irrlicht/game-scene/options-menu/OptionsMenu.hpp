@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2018
+** EPITECH PROJECT, 2019
 ** IndieStudio
 ** File description:
 ** option-menu.hpp
@@ -19,8 +19,9 @@ namespace Irrlicht
 	{
 		CHANGE_KEYS = 0,
 		BACK,
-		VOLUME,
-		NUMBER_BUTTONS
+		VOLUME_LESS,
+		VOLUME_MORE,
+		VOLUME_MUTE
 	};
 
 	class OptionsMenu : public GameScene
