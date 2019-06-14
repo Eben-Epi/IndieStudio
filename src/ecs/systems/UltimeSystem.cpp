@@ -18,12 +18,12 @@ void ECS::UltimeSystem::updateEntity(ECS::Entity &entity)
 {
     auto &uc = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
 
-    if (uc.charge < 10000) {
+    if (uc.charge < 10000)
         uc.charge += ULTIME_POINT_PER_FRAME;
 
-        if (uc.charge >= 10000) {
-            uc.charge = 10000;
-            uc.soundSystem.playSound("ultimate_ready", 50);
-        }
+    if (!uc.hasUlt && uc.charge >= 10000) {
+        uc.hasUlt = true;
+        uc.charge = 10000;
+        uc.soundSystem.playSound("ultimate_ready", 50);
     }
 }

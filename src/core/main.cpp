@@ -7,6 +7,7 @@
 #include "../input/Keyboard.hpp"
 #include "../input/Controller.hpp"
 #include "../ecs/Exceptions.hpp"
+#include "../ecs/components/NameComponent.hpp"
 
 Map::Map *loadMap(std::string path, Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input::Input>> &inputs, Sound::SoundSystem &soundSystem)
 {
@@ -21,7 +22,7 @@ Map::Map *loadMap(std::string path, Irrlicht::GameScene &gameScene, std::vector<
 
 	auto map = new Map::Map{gameScene, inputs, soundSystem};
 
-	map->generateMap({20, 20}, 7000, {"Alphaone", "Xenotype"}, {
+	map->generateMap({20, 20}, 7000, {"Faerie", "Xenotype"}, {
 		{"Bonus", 40},
 		{"DroppedBonusSpeed", 20},
 		{"DroppedBonusBomb", 20},
@@ -32,45 +33,74 @@ Map::Map *loadMap(std::string path, Irrlicht::GameScene &gameScene, std::vector<
 	return map;
 }
 
+bool displayEndGameMenu(Map::Map &map, Irrlicht::Screen &screen, Sound::SoundSystem &sound)
+{
+	if (map.getPlayersAlive().empty()) {
+		sound.playSound("draw");
+	} else {
+		sound.playSound("winner");
+		std::this_thread::sleep_for(std::chrono::seconds(2));
+		sound.playSound(reinterpret_cast<ECS::NameComponent &>(map.getPlayersAlive()[0]->getComponentByName("Name")).name);
+	}
+	screen.setCursorVisible(true);
+	screen.setCurrentGameScene("MainMenu");
+	while (screen.display() && screen.getCurrentGameScene().sceneName != "Game");
+	if (screen.isGameClosed)
+		exit(EXIT_SUCCESS);
+	return true;
+}
+
 int main()
 {
 	try {
 		Irrlicht::Screen screen(640, 640, 32, false, true);
-		screen.addGameScene("Game");
+		screen.addGameSceneMainMenu("MainMenu");
 		std::vector<std::unique_ptr<Input::Input>> inputs;
-		if (!screen.setCurrentGameScene("Game"))
+		if (!screen.setCurrentGameScene("MainMenu"))
 			return EXIT_FAILURE;
 
 		irr::core::array<irr::SJoystickInfo> joystickInfos;
+
+		while (screen.display() && screen.getCurrentGameScene().sceneName != "Game");
+
+		inputs.emplace_back(
+			new Input::Keyboard(screen.getGameSceneByName("Game"), {
+				irr::KEY_KEY_Z,
+				irr::KEY_KEY_D,
+				irr::KEY_KEY_S,
+				irr::KEY_KEY_Q,
+				irr::KEY_SPACE,
+				irr::KEY_KEY_A,
+			})
+		);
+		inputs.emplace_back(
+			new Input::Keyboard(screen.getGameSceneByName("Game"), {
+				irr::KEY_UP,
+				irr::KEY_RIGHT,
+				irr::KEY_DOWN,
+				irr::KEY_LEFT,
+				irr::KEY_RSHIFT,
+				irr::KEY_RETURN,
+			})
+		);
+
+		if (screen.isGameClosed)
+			return (EXIT_SUCCESS);
+		if (!screen.isValidGetterName("Game"))
+			return (EXIT_FAILURE);
+
 		if (screen.getDevice()->activateJoysticks(joystickInfos)) {
 			std::cout << "Joystick support is enabled and " << joystickInfos.size() << " joystick(s) are present." << std::endl;
 
-			inputs.emplace_back(
-				new Input::Keyboard(screen.getCurrentGameScene(), {
-					irr::KEY_KEY_Z,
-					irr::KEY_KEY_D,
-					irr::KEY_KEY_S,
-					irr::KEY_KEY_Q,
-					irr::KEY_SPACE,
-					irr::KEY_KEY_A,
-				})
-			);
-			inputs.emplace_back(
-				new Input::Keyboard(screen.getCurrentGameScene(), {
-					irr::KEY_UP,
-					irr::KEY_RIGHT,
-					irr::KEY_DOWN,
-					irr::KEY_LEFT,
-					irr::KEY_RSHIFT,
-					irr::KEY_RETURN,
-				})
-			);
+			screen.setCursorVisible(false);
+			screen.getGameSceneByName("Game").addCamera(320, 500, -320, 320, 0, -319);
+
 			if (!joystickInfos.empty()) {
 				for (irr::u32 joystick = 0; joystick < joystickInfos.size(); joystick++) {
 					std::cout << "Joystick " << joystick << ":" << std::endl;
 					std::cout << "\tName: '" << joystickInfos[joystick].Name.c_str() << "'" << std::endl;
 					inputs.emplace_back(
-						new Input::Controller(screen.getCurrentGameScene(), {
+						new Input::Controller(screen.getGameSceneByName("Game"), {
 							Input::LEFT_JOYSTICK,
 							Input::LT,
 							Input::A,
@@ -81,7 +111,7 @@ int main()
 		}
 
 		Sound::SoundSystem soundSystem;
-		Map::Map *map = loadMap("save.txt", screen.getCurrentGameScene(), inputs, soundSystem);
+		Map::Map *map = loadMap("save.txt", screen.getGameSceneByName("Game"), inputs, soundSystem);
 
 		for (auto &sound_name : sound_to_load)
 			soundSystem.loadSound(sound_name);
@@ -90,7 +120,7 @@ int main()
 		bool paused = false;
 
 		while (screen.display()) {
-			if (screen.getCurrentGameScene().isKeyPressed(irr::KEY_ESCAPE) && !justPaused) {
+			if (screen.getGameSceneByName("Game").isKeyPressed(irr::KEY_ESCAPE) && !justPaused) {
 				justPaused = true;
 				paused = !paused;
 				if (paused)
@@ -100,9 +130,9 @@ int main()
 					soundSystem.resumeBackgroundMusic();
 			} else if (!screen.getCurrentGameScene().isKeyPressed(irr::KEY_ESCAPE))
 				justPaused = false;
-			if (!paused && !map->update()) {
+			if (!paused && !map->update() && displayEndGameMenu(*map, screen, soundSystem)) {
 				delete map;
-				map = new Map::Map(screen.getCurrentGameScene(), inputs, soundSystem);
+				map = new Map::Map(screen.getGameSceneByName("Game"), inputs, soundSystem);
 				map->generateMap({20, 20}, 7000, {"Alphaone", "Xenotype"}, {
 					{"Bonus", 40},
 					{"DroppedBonusSpeed", 20},

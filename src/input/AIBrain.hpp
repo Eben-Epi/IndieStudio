@@ -61,6 +61,8 @@ namespace Input {
         void changeKey(Action, irr::EKEY_CODE);
         bool isAI() override;
 
+        void resetControl() override {};
+
     private:
     	bool _init = false;
     	unsigned _id;

@@ -13,6 +13,8 @@
 #include "../components/ColliderComponent.hpp"
 #include "../components/DisplayableComponent.hpp"
 #include "../../config.hpp"
+#include "../components/OnCollisionDamageDealerComponent.hpp"
+#include "../components/OwnerComponent.hpp"
 
 static inline bool entities_collied(double x, double y, ECS::PositionComponent &e)
 {
@@ -68,6 +70,12 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
     PositionComponent &efHPos = reinterpret_cast<ECS::PositionComponent &>(horizontalEF.getComponentByName("Position"));
     PositionComponent &efVPos = reinterpret_cast<ECS::PositionComponent &>(verticalEF.getComponentByName("Position"));
 
+    auto &hddc = reinterpret_cast<ECS::OnCollisionDamageDealerComponent &>(horizontalEF.getComponentByName("OnCollisionDamageDealer"));
+    auto &vddc = reinterpret_cast<ECS::OnCollisionDamageDealerComponent &>(verticalEF.getComponentByName("OnCollisionDamageDealer"));
+    auto &owner = reinterpret_cast<ECS::OwnerComponent &>(entity.getComponentByName("Owner"));
+
+    hddc.ownerId = owner.ownerId;
+    vddc.ownerId = owner.ownerId;
     efHPos.pos.x = min_x + 1;
     efHPos.pos.y = pc.pos.y + 1;
     efHPos.size.x = static_cast<unsigned>(max_x - min_x) - 2;

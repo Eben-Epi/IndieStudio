@@ -33,10 +33,14 @@
 #include "../components/UltInvincibilityComponent.hpp"
 #include "../components/CurseOnPickComponent.hpp"
 #include "../components/OOBKillComponent.hpp"
+#include "../components/UltShockWaveComponent.hpp"
+#include "../components/OwnerComponent.hpp"
+#include "../components/KillCounterComponent.hpp"
+#include "../components/NameComponent.hpp"
 
-namespace ECS 
+namespace ECS
 {
-	std::map<std::string, std::function<Component *(unsigned id, Ressources &ressources, std::istream &stream)>> ComponentFactory::_functions = {
+	std::map<std::string, std::function<Component *(unsigned id, Ressources &ressources, std::istream &stream)>> ComponentFactory::_functions{
 		{"Blocked", [](unsigned id, Ressources &ressources, std::istream &stream) { return new BlockedComponent(id, ressources, stream); }},
 		{"BombDropper", [](unsigned id, Ressources &ressources, std::istream &stream) { return new BombDropperComponent(id, ressources, stream); }},
 		{"Buffed", [](unsigned id, Ressources &ressources, std::istream &stream) { return new BuffedComponent(id, ressources, stream); }},
@@ -65,7 +69,11 @@ namespace ECS
 		{"PowerUpPicked", [](unsigned id, Ressources &ressources, std::istream &stream) { return new PowerUpPickedComponent(id, ressources, stream); }},
 		{"Mortal", [](unsigned id, Ressources &ressources, std::istream &stream) { return new MortalComponent(id, ressources, stream); }},
 		{"Ultime", [](unsigned id, Ressources &ressources, std::istream &stream) { return new UltimeComponent(id, ressources, stream); }},
-		{"UltInvincibility", [](unsigned id, Ressources &ressources, std::istream &stream) { return new UltInvincibilityComponent(id, ressources, stream); }}
+		{"UltInvincibility", [](unsigned id, Ressources &ressources, std::istream &stream) { return new UltInvincibilityComponent(id, ressources, stream); }},
+		{"KillCounter", [](unsigned, Ressources &ressources, std::istream &stream) { return new KillCounterComponent(ressources, stream); }},
+		{"Owner", [](unsigned, Ressources &ressources, std::istream &stream) { return new OwnerComponent(ressources, stream); }},
+		{"UltShockWave", [](unsigned, Ressources &ressources, std::istream &stream) { return new UltShockWaveComponent(ressources, stream); }},
+		{"Name", [](unsigned id, Ressources &ressources, std::istream &stream) { return new NameComponent(id, ressources, stream); }}
 	};
 
 	ComponentFactory::ComponentFactory(ECS::Ressources &ressources) :
