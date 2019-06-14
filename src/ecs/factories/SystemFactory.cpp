@@ -31,7 +31,6 @@
 #include "../systems/EntityDropperSystem.hpp"
 #include "../systems/MortalSystem.hpp"
 #include "../systems/UltInvincibilitySystem.hpp"
-#include "../systems/ControlledByAISystem.hpp"
 #include "../systems/CurseOnPickSystem.hpp"
 #include "../systems/OOBKillSystem.hpp"
 
@@ -49,7 +48,6 @@ namespace ECS
 		{"Collider", [](ECS::ECSCore &core) { return new ColliderSystem(core); }},
 		{"Collision", [](ECS::ECSCore &core) { return new CollisionSystem(core); }},
 		{"Controllable", [](ECS::ECSCore &core) { return new ControllableSystem(core); }},
-		{"ControlledByAI", [](ECS::ECSCore &core) { return new ControlledByAISystem(core); }},
 		{"Curse", [](ECS::ECSCore &core) { return new CurseSystem(core); }},
 		{"CurseOnPick", [](ECS::ECSCore &core) { return new CurseOnPickSystem(core); }},
 		{"Displayable", [](ECS::ECSCore &core) { return new DisplayableSystem(core); }},

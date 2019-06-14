@@ -31,7 +31,6 @@
 #include "../components/KickerComponent.hpp"
 #include "../components/MortalComponent.hpp"
 #include "../components/UltInvincibilityComponent.hpp"
-#include "../components/ControlledByAIComponent.hpp"
 #include "../components/CurseOnPickComponent.hpp"
 #include "../components/OOBKillComponent.hpp"
 
@@ -44,7 +43,6 @@ namespace ECS
 		{"Collider", [](Ressources &ressources, std::istream &stream) { return new ColliderComponent(ressources, stream); }},
 		{"Collision", [](Ressources &ressources, std::istream &stream) { return new CollisionComponent(ressources, stream); }},
 		{"Controllable", [](Ressources &ressources, std::istream &stream) { return new ControllableComponent(ressources, stream); }},
-		{"ControlledByAI", [](Ressources &ressources, std::istream &stream) { return new ControlledByAIComponent(ressources, stream); }},
 		{"Curse", [](Ressources &ressources, std::istream &stream) { return new CurseComponent(ressources, stream); }},
 		{"CurseOnPick", [](Ressources &ressources, std::istream &stream) { return new CurseOnPickComponent(ressources, stream); }},
 		{"Displayable", [](Ressources &ressources, std::istream &stream) { return new DisplayableComponent(ressources, stream); }},

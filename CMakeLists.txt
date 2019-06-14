@@ -192,12 +192,8 @@ add_executable(
 	src/sound/Exception.hpp
 	src/sound/SoundSystem.cpp
 	src/sound/SoundSystem.hpp
-	src/ecs/components/ControlledByAIComponent.cpp
-	src/ecs/components/ControlledByAIComponent.hpp
-	src/ecs/systems/ControlledByAISystem.cpp
-	src/ecs/systems/ControlledByAISystem.hpp
-	src/ecs/entities/AIPlayer.cpp
-	src/ecs/entities/AIPlayer.hpp
+	src/input/AIBrain.cpp
+	src/input/AIBrain.hpp
 )
 
 find_package(Irrlicht REQUIRED)
