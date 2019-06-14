@@ -36,8 +36,7 @@ int main()
 {
 	try {
 		Irrlicht::Screen screen(640, 640, 32, false, true);
-		screen.addGameScene("MainMenu");
-		screen.addGameScene("Game");
+        screen.addGameScene("MainMenu", true);
 		std::vector<std::unique_ptr<Input::Input>> inputs;
 		if (!screen.setCurrentGameScene("MainMenu"))
 			return EXIT_FAILURE;
@@ -46,8 +45,17 @@ int main()
 		if (screen.getDevice()->activateJoysticks(joystickInfos)) {
 			std::cout << "Joystick support is enabled and " << joystickInfos.size() << " joystick(s) are present." << std::endl;
 
+            while (screen.display() && screen.getCurrentGameScene().sceneName == "MainMenu");
+
+            if (screen.isGameClosed)
+                return (EXIT_SUCCESS);
+            if (!screen.isValidGetterName("Game"))
+                exit(EXIT_FAILURE); //TODO EXCEPTION
+            screen.setCursorVisible(false);
+            screen.getGameSceneByName("Game").addCamera(320, 500, -320, 320, 0, -319);
+
 			inputs.emplace_back(
-				new Input::Keyboard(screen.getCurrentGameScene(), {
+				new Input::Keyboard(screen.getGameSceneByName("Game"), {
 					irr::KEY_KEY_Z,
 					irr::KEY_KEY_D,
 					irr::KEY_KEY_S,
@@ -57,7 +65,7 @@ int main()
 				})
 			);
 			inputs.emplace_back(
-				new Input::Keyboard(screen.getCurrentGameScene(), {
+				new Input::Keyboard(screen.getGameSceneByName("Game"), {
 					irr::KEY_UP,
 					irr::KEY_RIGHT,
 					irr::KEY_DOWN,
@@ -71,7 +79,7 @@ int main()
 					std::cout << "Joystick " << joystick << ":" << std::endl;
 					std::cout << "\tName: '" << joystickInfos[joystick].Name.c_str() << "'" << std::endl;
 					inputs.emplace_back(
-						new Input::Controller(screen.getCurrentGameScene(), {
+						new Input::Controller(screen.getGameSceneByName("Game"), {
 							Input::LEFT_JOYSTICK,
 							Input::LT,
 							Input::A,
@@ -81,7 +89,7 @@ int main()
 			}
 		}
 
-		ECS::Ressources res{screen.getCurrentGameScene(), inputs};
+		ECS::Ressources res{screen.getGameSceneByName("Game"), inputs};
 		Map::Map *map = loadMap(res, "save.txt");
 
 		for (auto &sound_name : sound_to_load)

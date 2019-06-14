@@ -1,5 +1,7 @@
 #include <utility>
 
+#include <utility>
+
 //
 // Created by Eben on 05/06/2019.
 //
@@ -8,14 +10,13 @@
 #include "../screen/Screen.hpp"
 #include "../Exceptions.hpp"
 
-Irrlicht::GameScene::GameScene(Screen &window, const std::string &name, unsigned id) :
+Irrlicht::GameScene::GameScene(Screen &window, std::string name, unsigned id) :
 	_window(window),
-	sceneName(name),
+	sceneName(std::move(name)),
 	id(id),
 	_entitiesId(0),
 	_eventReceiver(window.getEventReceiver())
 {
-	this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(320, 500, -320), irr::core::vector3df(320, 0, -319));
 }
 
 bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key)
@@ -89,13 +90,16 @@ bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2)
 
 bool Irrlicht::GameScene::isJoystickButtonPressed(unsigned joystickId, unsigned button)
 {
-//	this->_eventReceiver.displayAxes();
 	return (this->_eventReceiver.isJoystickKeyPressed(joystickId, button));
 }
 
 float Irrlicht::GameScene::getJoystickAxisPosition(unsigned joystickId, unsigned axis)
 {
 	return (this->_eventReceiver.getJoystickAxisPosition(joystickId, axis));
+}
+
+bool Irrlicht::GameScene::isGuiButtonPressed(unsigned id) {
+    return (this->_eventReceiver.isGuiButtonPressed(id));
 }
 
 bool Irrlicht::GameScene::isJoystickAxisPressed(unsigned joystickId, ControllerAxisGS button, unsigned threshold)
@@ -131,3 +135,12 @@ bool Irrlicht::GameScene::isJoystickAxisPressed(unsigned joystickId, ControllerA
 	}
 	return (abs(value) > threshold);
 }
+
+void Irrlicht::GameScene::addCamera(float posX, float posY, float posZ, float lookAtX, float lookAtY, float lookAtZ) {
+	this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(posX, posY, posZ), irr::core::vector3df(lookAtX, lookAtY, lookAtZ));
+}
+
+bool Irrlicht::GameScene::update() {
+    return (true);
+}
+

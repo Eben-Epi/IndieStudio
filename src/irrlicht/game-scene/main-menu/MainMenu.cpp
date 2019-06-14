@@ -10,34 +10,38 @@
 Irrlicht::MainMenu::MainMenu(Screen &screen, const std::string &name, unsigned id) :
 	GameScene(screen, name, id)
 {
-	this->_buttons.emplace_back(new Button(ECS::Point{20, 20}, ECS::Vector2<unsigned>{10, 5}, START, "START"));
-	this->_buttons.emplace_back(new Button(ECS::Point{20, 50}, ECS::Vector2<unsigned>{10, 5}, OPTIONS, "OPTIONS"));
-	this->_buttons.emplace_back(new Button(ECS::Point{20, 70}, ECS::Vector2<unsigned>{10, 5}, EXIT, "EXIT"));
+	this->_buttons.emplace_back(new Button({280, 100}, {20, 240, 110, 240 + 32}, START, this->_window.getGuiEnv(), "START"));
+	this->_buttons.emplace_back(new Button({280, 300}, {20, 240, 110, 240 + 32}, OPTIONS, this->_window.getGuiEnv(), "OPTIONS"));
+	this->_buttons.emplace_back(new Button({280, 500}, {20, 240, 110, 240 + 32}, EXIT, this->_window.getGuiEnv(), "EXIT"));
 }
 
-void Irrlicht::MainMenu::update()
+bool Irrlicht::MainMenu::update()
 {
-	for (unsigned i = 0; i < this->_buttons.size(); i++)
-		if (this->_buttons.at(i)->isPressed()) {
-			switch (this->_buttons.at(i)->id)
-			{
-			case START:
-				changeCurrentGameScene(START);
-				break;
-			case OPTIONS:
-				changeCurrentGameScene(OPTIONS);
-				break;
-			case EXIT:
-				this->_window.getDevice()->drop();
-				exit(0); //TODO ON FAIT PAS ÇA PUTAIN <3
-				break;
-			default:
-				break;
-			}
-		}
+	for (unsigned i = 0; i < this->_buttons.size(); i++) {
+        if (this->isGuiButtonPressed(i)) {
+            switch (i) {
+                case START:
+                    this->_window.addGameScene("Game");
+                    changeCurrentGameScene("Game");
+                    break;
+                case OPTIONS:
+                    changeCurrentGameScene("Options");
+                    break;
+                case EXIT:
+                    this->_window.getDevice()->drop();
+                    return (false);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+	return (true);
 }
 
-void Irrlicht::MainMenu::changeCurrentGameScene(ButtonName scene)
+void Irrlicht::MainMenu::changeCurrentGameScene(std::string sceneName)
 {
-	this->_window.setCurrentGameScene(scene);
+    for (unsigned i = 0; i < this->_buttons.size(); i++)
+        this->_buttons.at(i)->setVisible(false);
+	this->_window.setCurrentGameScene(sceneName);
 }

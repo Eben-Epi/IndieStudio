@@ -59,8 +59,8 @@ namespace Irrlicht
 		public:
 			MainMenu(Screen &screen, const std::string &name, unsigned id);
 			~MainMenu() = default;
-			void changeCurrentGameScene(ButtonName scene);
-			void update();
+			void changeCurrentGameScene(std::string sceneName);
+			bool update() override;
 
 		private:
 			//PROPERTIES

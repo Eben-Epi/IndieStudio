@@ -5,18 +5,29 @@
 ** Button.cpp
 */
 
+#include <iostream>
 #include "Button.hpp"
 
-Irrlicht::Button::Button(ECS::Point pos, ECS::Vector2<unsigned int> size, unsigned id, std::string text) :
+Irrlicht::Button::Button(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text) :
     id(id),
-    _pos(pos),
-    _size(size)
+    _pos({0, 0}),
+    _size(size),
+    _guienv(guienv)
 {
+    wchar_t *val = reinterpret_cast<wchar_t *>(malloc(sizeof(*val) * (text.size() + 1)));
+
+    for (size_t i = 0; i < text.size(); i++)
+        val[i] = text[i];
+    val[text.size()] = 0;
     if (!text.empty()) {
         this->_text = text;
-        this->_button = this->_guienv->addButton(irr::core::rect<irr::s32>((int)_pos.x, (int)_pos.y, _size.x, _size.y), 0, this->id, reinterpret_cast<const wchar_t *>(&this->_text));
+        this->_button = this->_guienv->addButton(irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d), 0, this->id, val);
+        this->setPos(pos);
+        return;
     }
-    this->_button = this->_guienv->addButton(irr::core::rect<irr::s32>((int)_pos.x, (int)_pos.y, _size.x, _size.y), 0, this->id);
+    free(val);
+    this->_button = this->_guienv->addButton(irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d), 0, this->id);
+    this->setPos(pos);
 }
 
 const std::string &Irrlicht::Button::getText() {
@@ -27,32 +38,41 @@ const ECS::Point &Irrlicht::Button::getPos() {
     return this->_pos;
 }
 
-const ECS::Vector2<unsigned> &Irrlicht::Button::getSize() {
+const ECS::Vector4<int> &Irrlicht::Button::getSize() {
     return this->_size;
 }
 
 void Irrlicht::Button::setText(std::string text) {
     delete this->_button;
     this->_text = text;
-    if (!text.empty())
-        this->_button = this->_guienv->addButton(irr::core::rect<irr::s32>((int)_pos.x, (int)_pos.y, _size.x, _size.y), 0, this->id, reinterpret_cast<const wchar_t *>(&this->_text));
-    this->_button = this->_guienv->addButton(irr::core::rect<irr::s32>((int)_pos.x, (int)_pos.y, _size.x, _size.y), 0, this->id);
+    if (!text.empty()) {
+        this->_button = this->_guienv->addButton(
+                irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d), 0, this->id,
+                reinterpret_cast<const wchar_t *>(&this->_text));
+        setPos(this->_pos);
+        return;
+    }
+    this->_button = this->_guienv->addButton(irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d), 0, this->id);
+    setPos(this->_pos);
 }
 
 void Irrlicht::Button::setPos(ECS::Point pos) {
-    if (pos.x != _pos.x && pos.y != pos.y) {
+
+    if (pos.x != _pos.x && pos.y != _pos.y) {
         this->_pos = pos;
-        this->_button->setRelativePosition(irr::core::position2di((int)pos.x, (int)pos.y));
+        this->_button->setRelativePosition(irr::core::position2di((int)_pos.x, (int)_pos.y));
     }
 }
 
-void Irrlicht::Button::setSize(ECS::Vector2<unsigned> size) {
+void Irrlicht::Button::setSize(ECS::Vector4<int> size) {
     delete this->_button;
-    if (size.x != _size.x && size.y != _size.y) {
+    if (size.a != _size.a && size.b != _size.b && size.c != _size.c && size.d && _size.d) {
         this->_size = size;
         this->_button = this->_guienv->addButton(
-                irr::core::rect<irr::s32>((int) _pos.x, (int) _pos.y, _size.x, _size.y), 0, this->id,
+                irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d), 0, this->id,
                 reinterpret_cast<const wchar_t *>(&this->_text));
+        setPos(this->_pos);
+        return;
     }
 }
 

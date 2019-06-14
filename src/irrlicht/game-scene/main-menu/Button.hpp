@@ -17,15 +17,15 @@ namespace Irrlicht
 {
 	class Button {
 	public:
-		Button(ECS::Point pos, ECS::Vector2<unsigned> size, unsigned id, std::string text = "");
+		Button(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text = "");
 		~Button();
 
 		const std::string &getText();
 		const ECS::Point &getPos();
-		const ECS::Vector2<unsigned> &getSize();
+		const ECS::Vector4<int> &getSize();
 		void setText(std::string text);
 		void setPos(ECS::Point pos);
-		void setSize(ECS::Vector2<unsigned> size);
+		void setSize(ECS::Vector4<int> size);
 		bool isPressed();
 		void setVisible(bool visible);
 
@@ -33,7 +33,7 @@ namespace Irrlicht
 	private:
 		std::string _text;
 		ECS::Point _pos;
-		ECS::Vector2<unsigned> _size;
+		ECS::Vector4<int> _size;
 		irr::gui::IGUIEnvironment* _guienv;
 		irr::gui::IGUIButton* _button;
 		bool _visible;

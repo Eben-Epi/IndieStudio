@@ -30,19 +30,26 @@ namespace Irrlicht
         GameScene &getCurrentGameScene();
         bool setCurrentGameScene(unsigned id);
         bool setCurrentGameScene(const std::string &name);
-        bool setFullscreen(bool fullscreen);
-        bool setVsync(bool vsync);
-        bool setWindowSize(int width, int height);
-        bool setWindowAttributes(int width, int height, int colorDepth, bool fullscreen, bool vsync);
-        unsigned addGameScene(const std::string &name);
+        void setFullscreen(bool fullscreen);
+        void setVsync(bool vsync);
+        void setWindowSize(int width, int height);
+        void setWindowAttributes(int width, int height, int colorDepth, bool fullscreen, bool vsync);
+        void setCursorVisible(bool cursor);
+        void setGameClosed(bool close);
+        bool isValidGetterId(unsigned id);
+        bool isValidGetterName(const std::string& name);
+        unsigned addGameScene(const std::string &name, bool isMainMenu = false);
         EventReceiver &getEventReceiver();
+        GameScene &getGameSceneById(unsigned id);
+        GameScene &getGameSceneByName(const std::string& name);
         irr::video::IVideoDriver* getDriver();
         irr::scene::ISceneManager* getSmgr();
+        irr::gui::IGUIEnvironment* getGuiEnv();
         irr::IrrlichtDevice *getDevice();
 
+        bool isGameClosed;
     private:
-        irr::video::E_DRIVER_TYPE _driverType; // TODO differenciate OpenGL and Dx9 when running under win32/64 or GNU/UNIX
-        //TODO LIMIT BY DELTA TIME IN MOVEMENT TUTORIAL
+        irr::video::E_DRIVER_TYPE _driverType;
         int _width;
         int _height;
         int _colorDepth;
@@ -55,8 +62,8 @@ namespace Irrlicht
         //PROPERTIES
         irr::IrrlichtDevice* _device;
         irr::video::IVideoDriver* _driver;
-        irr::gui::IGUIEnvironment* _guienv; //TODO GETTER SETTER
-        irr::scene::ISceneManager* _smgr; //TODO GETTER SETTER
+        irr::gui::IGUIEnvironment* _guienv;
+        irr::scene::ISceneManager* _smgr;
         EventReceiver _eventReceiver;
 
         //void drawRect(ECS::Point pos, ECS::Vector2<unsigned> size, Color color = 0xFFFFFF, bool filled = false);
