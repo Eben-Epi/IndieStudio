@@ -76,26 +76,15 @@ void Input::Controller::changeKey(Action act, unsigned control) {
 		addJoystick(control);
 		break;
 	case ACTION_UP :
-		if (this->_joystickOn == 3) removeJoystick();
-		this->_keys[ACTION_UP] = static_cast<ControllerButtons>(control);
-		break;
 	case ACTION_DOWN :
-		if (this->_joystickOn == 3) removeJoystick();
-		this->_keys[ACTION_DOWN] = static_cast<ControllerButtons>(control);
-		break;
 	case ACTION_LEFT :
-		if (this->_joystickOn == 3) removeJoystick();
-		this->_keys[ACTION_LEFT] = static_cast<ControllerButtons>(control);
-		break;
 	case ACTION_RIGHT :
 		if (this->_joystickOn == 3) removeJoystick();
-		this->_keys[ACTION_RIGHT] = static_cast<ControllerButtons>(control);
+		this->_keys[act] = static_cast<ControllerButtons>(control);
 		break;
 	case ACTION_ACTION :
-		this->_keys[ACTION_ACTION - this->_joystickOn] = static_cast<ControllerButtons>(control);
-		break;
 	case ACTION_ULT :
-		this->_keys[ACTION_ULT - this->_joystickOn] = static_cast<ControllerButtons>(control);
+		this->_keys[act - this->_joystickOn] = static_cast<ControllerButtons>(control);
 		break;
 	default:
 		break;
