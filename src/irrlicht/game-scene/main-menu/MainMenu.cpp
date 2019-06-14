@@ -17,17 +17,21 @@ Irrlicht::MainMenu::MainMenu(Screen &screen, const std::string &name, unsigned i
 
 bool Irrlicht::MainMenu::update()
 {
+    for (unsigned i = 0; i < this->_buttons.size(); i++)
+        this->_buttons.at(i)->setVisible(true);
 	for (unsigned i = 0; i < this->_buttons.size(); i++) {
         if (this->isGuiButtonPressed(i)) {
             for (unsigned i = 0; i < this->_buttons.size(); i++)
                 this->_buttons.at(i)->setVisible(false);
             switch (i) {
                 case START:
-                    this->_window.addGameScene("Game");
+                    if (!this->_window.isValidGetterName("Game"))
+                        this->_window.addGameSceneGame("Game");
                     changeCurrentGameScene("Game");
                     break;
                 case OPTIONS:
-                    this->_window.
+                    if (!this->_window.isValidGetterName("Options"))
+                        this->_window.addGameSceneOptions("Options");
                     changeCurrentGameScene("Options");
                     break;
                 case EXIT:

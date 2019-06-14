@@ -28,12 +28,13 @@ namespace Irrlicht
 		bool isGuiButtonPressed(unsigned id);
 		bool isJoystickKeyPressed(unsigned id, irr::u32 key) const;
 		float getJoystickAxisPosition(unsigned id, irr::s16 axis) const;
+        void resetButtonsStates();
 
 	private:
 		//PROPERTIES
 		std::vector<bool> _keys;
 		std::vector<irr::SEvent::SJoystickEvent> _joystickState{4};
-		std::vector<bool> _buttonState;
+		std::vector<bool> _buttonsStates;
 	};
 }
 

@@ -18,8 +18,8 @@ namespace Irrlicht
 	enum OptionButtonName
 	{
 		CHANGE_KEYS = 0,
-		VOLUME,
 		BACK,
+		VOLUME,
 		NUMBER_BUTTONS
 	};
 

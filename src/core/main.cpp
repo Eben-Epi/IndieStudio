@@ -36,7 +36,7 @@ int main()
 {
 	try {
 		Irrlicht::Screen screen(640, 640, 32, false, true);
-        screen.addGameScene("MainMenu", true);
+        screen.addGameSceneMainMenu("MainMenu");
 		std::vector<std::unique_ptr<Input::Input>> inputs;
 		if (!screen.setCurrentGameScene("MainMenu"))
 			return EXIT_FAILURE;
@@ -45,7 +45,7 @@ int main()
 		if (screen.getDevice()->activateJoysticks(joystickInfos)) {
 			std::cout << "Joystick support is enabled and " << joystickInfos.size() << " joystick(s) are present." << std::endl;
 
-            while (screen.display() && screen.getCurrentGameScene().sceneName == "MainMenu");
+            while (screen.display() && screen.getCurrentGameScene().sceneName != "Game");
 
             if (screen.isGameClosed)
                 return (EXIT_SUCCESS);

@@ -12,7 +12,7 @@ Irrlicht::EventReceiver::EventReceiver() {
 	for (auto i = 0; i < irr::KEY_KEY_CODES_COUNT; i++)
 		this->_keys.push_back(false);
 	for (auto i = 0; i < MAX_BUTTON_ON_SCREEN; i++)
-		this->_buttonState.push_back(false);
+		this->_buttonsStates.push_back(false);
 }
 
 bool Irrlicht::EventReceiver::OnEvent(const irr::SEvent &event)
@@ -27,7 +27,7 @@ bool Irrlicht::EventReceiver::OnEvent(const irr::SEvent &event)
     }
     if (event.EventType == irr::EET_GUI_EVENT) {
         if (event.GUIEvent.EventType == irr::gui::EGET_BUTTON_CLICKED)
-                this->_buttonState[event.GUIEvent.Caller->getID()] = true;
+                this->_buttonsStates[event.GUIEvent.Caller->getID()] = true;
         return (true);
     }
 	return (false);
@@ -54,5 +54,12 @@ float Irrlicht::EventReceiver::getJoystickAxisPosition(unsigned id, irr::s16 axi
 }
 
 bool Irrlicht::EventReceiver::isGuiButtonPressed(unsigned id) {
-    return (this->_buttonState.at(id));
+    return (this->_buttonsStates.at(id));
+}
+
+void Irrlicht::EventReceiver::resetButtonsStates() {
+    for (auto i = 0; i < irr::KEY_KEY_CODES_COUNT; i++)
+        this->_keys[i] = false;
+    for (auto i = 0; i < MAX_BUTTON_ON_SCREEN; i++)
+        this->_buttonsStates[i] = false;
 }

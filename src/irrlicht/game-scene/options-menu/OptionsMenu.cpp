@@ -15,6 +15,8 @@ Irrlicht::OptionsMenu::OptionsMenu(Screen &screen, const std::string &name, unsi
 
 bool Irrlicht::OptionsMenu::update()
 {
+    for (unsigned i = 0; i < this->_buttons.size(); i++)
+        this->_buttons.at(i)->setVisible(true);
 	for (unsigned i = 0; i < this->_buttons.size(); i++)
 	{
 		if (this->isGuiButtonPressed(i))
@@ -37,7 +39,7 @@ bool Irrlicht::OptionsMenu::update()
 
 void Irrlicht::OptionsMenu::changeCurrentGameScene(std::string sceneName)
 {
-	for (unsigned i = 0; i < this->_buttons.size(); i++)
-		this->_buttons.at(i)->setVisible(false);
+    for (unsigned i = 0; i < this->_buttons.size(); i++)
+        this->_buttons.at(i)->setVisible(false);
 	this->_window.setCurrentGameScene(sceneName);
 }
