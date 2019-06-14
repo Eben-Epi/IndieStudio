@@ -9,7 +9,8 @@
 
 Input::Keyboard::Keyboard(Irrlicht::GameScene &scene, std::vector<irr::EKEY_CODE> &&keys) :
     _scene(scene),
-    _keys(keys)
+    _keys(keys),
+    _default(keys)
 {
    if (keys.size() != NB_OF_ACTIONS)
        throw KeyboardException("Invalid number of keys");
@@ -26,4 +27,10 @@ std::vector<Input::Action> Input::Keyboard::getActions() {
     return (actions);
 }
 
-void Input::Keyboard::changeKey(Action, irr::EKEY_CODE) {}
+void Input::Keyboard::changeKey(Action act, irr::EKEY_CODE newKey) {
+    this->_keys[act] = newKey;
+}
+
+void Input::Keyboard::resetControl() {
+    this->_keys = this->_default;
+}

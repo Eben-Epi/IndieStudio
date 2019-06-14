@@ -25,12 +25,14 @@ namespace Input {
         ACTION_LEFT,
         ACTION_ACTION,
         ACTION_ULT,
-        NB_OF_ACTIONS
+        NB_OF_ACTIONS,
+        ACTION_JOYSTICK
     };
 
     class Input {
     public:
         virtual std::vector<Action> getActions() = 0;
+        virtual void resetControl() = 0;
 
     private:
     };
