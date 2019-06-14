@@ -12,7 +12,8 @@ Irrlicht::Button::Button(ECS::Point pos, ECS::Vector4<int> size, unsigned id, ir
     id(id),
     _pos({0, 0}),
     _size(size),
-    _guienv(guienv)
+    _guienv(guienv),
+    _visible(true)
 {
     wchar_t *val = reinterpret_cast<wchar_t *>(malloc(sizeof(*val) * (text.size() + 1)));
 
