@@ -14,8 +14,8 @@ Input::Controller::Controller(Irrlicht::GameScene &scene, std::vector<Controller
 	_id(id),
 	_threshold(threshold)
 {
-	if ((keys.size() != 3 && keys.size() != 6) || (keys.size() == 3 && keys[0] != LEFT_JOYSTICK && keys[0] != RIGHT_JOYSTICK))
-		throw ControllerException("Invalid key vector given (size is invalid)");
+    if ((keys.size() != 3 && keys.size() != 6) || (keys.size() == 3 && keys[0] != LEFT_JOYSTICK && keys[0] != RIGHT_JOYSTICK))
+        throw ControllerException("Invalid key vector given (size is invalid)");
 }
 
 std::vector<Input::Action> Input::Controller::getActions() { //WIP
@@ -68,4 +68,65 @@ std::vector<Input::Action> Input::Controller::getActions() { //WIP
 	return (actions);
 }
 
-void Input::Controller::changeKey(Action, unsigned) {}
+void Input::Controller::changeKey(Action act, unsigned control) {
+	joystickIn();
+	switch (act)
+	{
+	case ACTION_JOYSTICK :
+		addJoystick(control);
+		break;
+	case ACTION_UP :
+		if (this->_joystickOn == 3) removeJoystick();
+		this->_keys[ACTION_UP] = static_cast<ControllerButtons>(control);
+		break;
+	case ACTION_DOWN :
+		if (this->_joystickOn == 3) removeJoystick();
+		this->_keys[ACTION_DOWN] = static_cast<ControllerButtons>(control);
+		break;
+	case ACTION_LEFT :
+		if (this->_joystickOn == 3) removeJoystick();
+		this->_keys[ACTION_LEFT] = static_cast<ControllerButtons>(control);
+		break;
+	case ACTION_RIGHT :
+		if (this->_joystickOn == 3) removeJoystick();
+		this->_keys[ACTION_RIGHT] = static_cast<ControllerButtons>(control);
+		break;
+	case ACTION_ACTION :
+		this->_keys[ACTION_ACTION - this->_joystickOn] = static_cast<ControllerButtons>(control);
+		break;
+	case ACTION_ULT :
+		this->_keys[ACTION_ULT - this->_joystickOn] = static_cast<ControllerButtons>(control);
+		break;
+	default:
+		break;
+	}
+}
+
+void Input::Controller::removeJoystick() {
+	this->_keys[ACTION_UP] = static_cast<ControllerButtons>(Y);
+	this->_keys[ACTION_DOWN] = static_cast<ControllerButtons>(A);
+	this->_keys[ACTION_RIGHT] = static_cast<ControllerButtons>(B);
+	this->_keys.push_back(static_cast<ControllerButtons>(X));
+	this->_keys.push_back(static_cast<ControllerButtons>(RT));
+	this->_keys.push_back(static_cast<ControllerButtons>(LT));
+}
+
+void Input::Controller::addJoystick(unsigned control) {
+	if (this->_keys.size() == 3)
+		this->_keys[ACTION_UP] = static_cast<ControllerButtons>(control);
+	else {
+		this->_keys.erase(this->_keys.begin() + ACTION_RIGHT);
+		this->_keys.erase(this->_keys.begin() + ACTION_LEFT);
+		this->_keys.erase(this->_keys.begin() + ACTION_DOWN);
+		this->_keys[ACTION_UP] = static_cast<ControllerButtons>(control);
+	}
+}
+
+void Input::Controller::joystickIn() {
+	for (int i = 0; i < this->_keys.size(); i++)
+		if (this->_keys[i] == LEFT_JOYSTICK || this->_keys[i] == RIGHT_JOYSTICK) {
+			this->_joystickOn = 3;
+			return;
+		}
+	this->_joystickOn = 0;
+}

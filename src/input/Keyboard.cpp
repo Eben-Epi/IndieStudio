@@ -26,4 +26,6 @@ std::vector<Input::Action> Input::Keyboard::getActions() {
     return (actions);
 }
 
-void Input::Keyboard::changeKey(Action, irr::EKEY_CODE) {}
+void Input::Keyboard::changeKey(Action act, irr::EKEY_CODE newKey) {
+    this->_keys[act] = newKey;
+}
