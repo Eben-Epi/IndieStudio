@@ -18,7 +18,8 @@ namespace ECS
 		_name(name)
 	{
 		for (Component *comp : components)
-			this->_components.emplace_back(comp);
+			if (comp)
+				this->_components.emplace_back(comp);
 	}
 
 	std::string Entity::getName() const

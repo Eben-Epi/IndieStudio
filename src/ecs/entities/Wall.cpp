@@ -8,7 +8,6 @@
 #include "Wall.hpp"
 #include "../components/PositionComponent.hpp"
 #include "../components/DisplayableComponent.hpp"
-#include "../components/BlockedComponent.hpp"
 #include "../components/ColliderComponent.hpp"
 #include "../../config.hpp"
 

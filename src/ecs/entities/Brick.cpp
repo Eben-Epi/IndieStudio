@@ -10,9 +10,7 @@
 #include "../components/ColliderComponent.hpp"
 #include "../components/PositionComponent.hpp"
 #include "../components/DisplayableComponent.hpp"
-#include "../components/BlockedComponent.hpp"
 #include "../../config.hpp"
-#include "../components/MortalComponent.hpp"
 #include "../components/EntityDropperComponent.hpp"
 
 ECS::Brick::Brick(unsigned id, Ressources &ressources) :

@@ -23,7 +23,7 @@ namespace ECS
     }
 
     PickableComponent::PickableComponent(ECS::Ressources &, std::istream &stream) :
-	    PickableComponent()
+        PickableComponent()
     {
         std::string terminator;
 

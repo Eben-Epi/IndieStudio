@@ -19,19 +19,19 @@ ECS::BombDropperSystem::BombDropperSystem(ECS::ECSCore &core):
 
 void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 {
-	ECS::BombDropperComponent &bomb = reinterpret_cast<ECS::BombDropperComponent &>(entity.getComponentByName("BombDropper"));
+	ECS::BombDropperComponent &bombDropper = reinterpret_cast<ECS::BombDropperComponent &>(entity.getComponentByName("BombDropper"));
 
-	for (int i = 0; i < (int)bomb.bombs.size(); i++) {
+	for (unsigned i = 0; i < bombDropper.bombs.size(); i++) {
 		try {
-			this->_core.getEntityById(bomb.bombs[i]);
+			this->_core.getEntityById(bombDropper.bombs[i]);
 		} catch (NoSuchEntityException &) {
-			bomb.bombs.erase(bomb.bombs.begin() + i);
+			bombDropper.bombs.erase(bombDropper.bombs.begin() + i);
 			i--;
 		}
 	}
-	if (!bomb.dropBomb)
+	if (!bombDropper.dropBomb)
 		return;
-	if (bomb.bombs.size() >= bomb.max)
+	if (bombDropper.bombs.size() >= bombDropper.max)
 		return;
 
 	auto &player_pos = reinterpret_cast<ECS::PositionComponent &>(entity.getComponentByName("Position"));
@@ -52,12 +52,12 @@ void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 	auto &bomb_explode = reinterpret_cast<ECS::ExplodeComponent &>(newBomb.getComponentByName("Explode"));
 
 	bomb_pos.pos = pos;
-	bomb_explode.range = bomb.range;
-	bomb.bombs.push_back(newBomb.getId());
-	bomb.soundSystem.playSound("bip");
-	bomb.dropBomb = false;
+	bomb_explode.range = bombDropper.range;
+	bombDropper.bombs.push_back(newBomb.getId());
+	bombDropper.soundSystem.playSound("bip");
+	bombDropper.dropBomb = false;
 
 	auto &bc = reinterpret_cast<BlockedComponent &>(entity.getComponentByName("Blocked"));
-	bc._whitelistId.push_back(&newBomb);
+	bc.whitelistId.push_back(&newBomb);
 
 }

@@ -31,7 +31,7 @@ ECS::AIPlayer::AIPlayer(unsigned id, Ressources &ressources) :
         new OOBKillComponent({0, 0}, {20 * TILESIZE, 20 * TILESIZE}),
         new UltimeComponent(ressources.soundSystem),
         new UltInvincibilityComponent(),
-        new CurseComponent(),
+        new CurseComponent(ressources.soundSystem),
         new MovableComponent(2.5),
         new CollisionComponent(0),
         new ColliderComponent(0),

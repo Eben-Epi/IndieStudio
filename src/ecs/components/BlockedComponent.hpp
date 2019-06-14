@@ -14,7 +14,7 @@
 namespace ECS {
     class BlockedComponent : public Component {
     public:
-        std::vector<Entity*> _whitelistId;
+        std::vector<Entity*> whitelistId;
 
         BlockedComponent();
         BlockedComponent(Ressources &ressources, std::istream &stream);

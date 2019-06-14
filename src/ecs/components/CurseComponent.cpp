@@ -10,14 +10,15 @@
 #include "../Exceptions.hpp"
 
 
-ECS::CurseComponent::CurseComponent():
+ECS::CurseComponent::CurseComponent(Sound::SoundSystem &soundSystem):
     Component("Curse"),
+    soundSystem(soundSystem),
     effect(NONE),
-    timeLeft(-1)
+    timeLeft(0)
 {}
 
 ECS::CurseComponent::CurseComponent(ECS::Ressources &ressources, std::istream &stream):
-    CurseComponent()
+    CurseComponent(ressources.soundSystem)
 {
     unsigned tmp;
     std::string terminator;
@@ -30,12 +31,13 @@ ECS::CurseComponent::CurseComponent(ECS::Ressources &ressources, std::istream &s
         throw InvalidSerializedStringException("The component terminator was not found");
 }
 
-bool ECS::CurseComponent::giveCurse(ECS::CurseComponent::CurseEffect effect, int time, bool force)
+bool ECS::CurseComponent::giveCurse(CurseEffect eff, int time, bool force)
 {
     if (this->timeLeft > 0 && !force)
         return false;
-    this->effect = effect;
+    this->effect = eff;
     this->timeLeft = time;
+    this->soundSystem.playSound("skull");
     return true;
 }
 

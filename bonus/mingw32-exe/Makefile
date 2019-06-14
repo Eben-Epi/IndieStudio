@@ -13,10 +13,12 @@ LDFLAGS = -lIrrlicht -lsfml-audio
 all:	$(NAME)
 
 $(NAME):
-		$(CXX) -o $(NAME) $(SRC) $(LDFLAGS)
+		$(CXX) -o $(NAME) $(SRC) $(LDFLAGS) $(CXXFLAGS)
 
 clean:
-	$(RM) $(OBJ)
-
-fclean: clean
 		$(RM) $(NAME)
+
+re: clean all
+
+dbg: CXXFLAGS += -g -O0
+dbg: re

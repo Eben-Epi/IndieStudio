@@ -22,13 +22,14 @@ namespace Map {
 
     private:
         ECS::ECSCore _core;
+        ECS::Ressources &_ressources;
 
     public:
         Map(ECS::Ressources &ressources);
         Map(ECS::Ressources &ressources, std::istream &stream);
         ~Map() = default;
         void update();
-        void generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::map<std::string, unsigned> ratiosBonus = {{"Bonus", 0}});
+        void generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::vector<std::string> players, std::map<std::string, unsigned> ratiosBonus = {{"Bonus", 0}});
         std::ostream &serialize(std::ostream &stream) const;
         void setArenaWallAround(ECS::Vector2<unsigned> sizeMap);
     };

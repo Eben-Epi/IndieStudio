@@ -12,7 +12,7 @@
 namespace ECS
 {
 	BombDropperComponent::BombDropperComponent(Sound::SoundSystem &soundSystem, unsigned max, float timeToExplode, unsigned range) :
-		Component ("BombDropper"),
+		Component("BombDropper"),
 		soundSystem(soundSystem),
 		max(max),
 		timeToExplode(timeToExplode),

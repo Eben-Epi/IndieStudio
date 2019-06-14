@@ -10,6 +10,7 @@
 #include "../components/PositionComponent.hpp"
 #include "../components/MovableComponent.hpp"
 
+#define M_PI_2		1.57079632679489661923
 
 ECS::DisplayableSystem::DisplayableSystem(ECS::ECSCore &core):
     System("Displayable", core)
@@ -28,6 +29,6 @@ void ECS::DisplayableSystem::updateEntity(ECS::Entity &entity)
 		float f = (float)(mov.dir & -mov.dir);
 		float angle = ((*(uint32_t *)&f >> 23) - 0x7f) * M_PI_2;
 
-		disp.gameScene.setRotation(disp.entityId, angle);
+		disp.gameScene.setRotation(disp.entityId, angle - M_PI_2);
 	}
 }

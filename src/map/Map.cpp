@@ -13,13 +13,16 @@
 #include "../ecs/components/EntityDropperComponent.hpp"
 #include "../ecs/components/PowerUpComponent.hpp"
 
-Map::Map::Map(ECS::Ressources &ressources) : _core(ressources)
+Map::Map::Map(ECS::Ressources &ressources) :
+    _core(ressources),
+    _ressources(ressources)
 {
 
 }
 
 Map::Map::Map(ECS::Ressources &ressources, std::istream &stream) :
-    _core(ressources, stream)
+    _core(ressources, stream),
+    _ressources(ressources)
 {
 }
 
@@ -144,7 +147,7 @@ void Map::Map::setArenaWallAround(ECS::Vector2<unsigned> sizeMap)
     }
 }
 
-void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::map<std::string, unsigned> ratiosBonus)
+void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::vector<std::string> players, std::map<std::string, unsigned> ratiosBonus)
 {
     std::vector<unsigned> airBlocksPos = generateAirBlocksPos(sizeMap);
     std::vector<unsigned> wallBlocksPos = generateWallBlocksPos(sizeMap);
@@ -153,6 +156,7 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
     unsigned bonus = ratiosBonus["Bonus"];
     ECS::Point position;
 
+    this->_ressources.mapSize = sizeMap;
     ratiosBonus.erase(
         std::find_if(
             ratiosBonus.begin(),
@@ -164,9 +168,10 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
     );
     if (sizeMap.x < 4 || sizeMap.y < 4)
         throw MapTooSmallException("Map is too small in x or in y (< 4).");
-    setEntityComponentPosition(this->_core.makeEntity("Player"), {TILESIZE / 16., TILESIZE / 16.});
-    setEntityComponentPosition(this->_core.makeEntity("AIPlayer"), {(double)((sizeMap.x - 1) * TILESIZE) + TILESIZE / 16., TILESIZE / 16.});
-    setEntityComponentPosition(this->_core.makeEntity("Bomb"), {(double)((sizeMap.x - 1) * TILESIZE) + TILESIZE / 16. , (double)((sizeMap.y - 1) * TILESIZE) + TILESIZE / 16.});
+    for (int i = 0; i < players.size(); i++)
+    	setEntityComponentPosition(this->_core.makeEntity(players[i]), {TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (i % 2), TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (i / 2)});
+    /*for (int i = players.size(); i < 4; i++)
+        setEntityComponentPosition(this->_core.makeEntity("Alphaone"), {TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (i % 2), TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (i / 2)});*/
     setArenaWallAround(sizeMap);
     for (unsigned i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)
@@ -191,7 +196,7 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
                                 total += val.second;
                             }
                         );
-                        setEntityDropperComponentInBrick(brick, rand_device() % (total ?: 1), ratiosBonus);
+                        setEntityDropperComponentInBrick(brick, rand_device() % (total ? total : 1), ratiosBonus);
                     }
                 }
             }

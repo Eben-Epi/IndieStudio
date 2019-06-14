@@ -10,217 +10,194 @@ add_executable(
 	bomberman
 	src/config.hpp
 	src/core/main.cpp
-	src/ecs/ECSCore.cpp
-	src/ecs/ECSCore.hpp
-	src/ecs/System.cpp
-	src/ecs/System.hpp
 	src/ecs/Component.cpp
 	src/ecs/Component.hpp
-	src/ecs/Entity.cpp
-	src/ecs/Entity.hpp
-	src/ecs/Exceptions.hpp
-	src/ecs/Ressources.hpp
-	src/ecs/data/Directions.hpp
-	src/ecs/data/Vector2.hpp
+	src/ecs/components/BlockedComponent.cpp
+	src/ecs/components/BlockedComponent.hpp
 	src/ecs/components/BombDropperComponent.cpp
 	src/ecs/components/BombDropperComponent.hpp
+	src/ecs/components/BuffedComponent.cpp
+	src/ecs/components/BuffedComponent.hpp
+	src/ecs/components/ColliderComponent.cpp
+	src/ecs/components/ColliderComponent.hpp
+	src/ecs/components/CollisionComponent.cpp
+	src/ecs/components/CollisionComponent.hpp
+	src/ecs/components/ControllableComponent.cpp
+	src/ecs/components/ControllableComponent.hpp
+	src/ecs/components/CurseComponent.cpp
+	src/ecs/components/CurseComponent.hpp
+	src/ecs/components/CurseOnPickComponent.cpp
+	src/ecs/components/CurseOnPickComponent.hpp
 	src/ecs/components/DisplayableComponent.cpp
 	src/ecs/components/DisplayableComponent.hpp
-	src/ecs/components/HealthComponent.cpp
-	src/ecs/components/HealthComponent.hpp
 	src/ecs/components/EntityDropperComponent.cpp
 	src/ecs/components/EntityDropperComponent.hpp
+	src/ecs/components/EphemeralComponent.cpp
+	src/ecs/components/EphemeralComponent.hpp
+	src/ecs/components/ExplodeComponent.cpp
+	src/ecs/components/ExplodeComponent.hpp
+	src/ecs/components/HealthComponent.cpp
+	src/ecs/components/HealthComponent.hpp
 	src/ecs/components/KickableComponent.cpp
 	src/ecs/components/KickableComponent.hpp
 	src/ecs/components/KickerComponent.cpp
 	src/ecs/components/KickerComponent.hpp
+	src/ecs/components/MortalComponent.cpp
+	src/ecs/components/MortalComponent.hpp
 	src/ecs/components/MovableComponent.cpp
 	src/ecs/components/MovableComponent.hpp
-	src/ecs/components/PositionComponent.cpp
-	src/ecs/components/PositionComponent.hpp
-	src/ecs/components/PowerUpComponent.cpp
-	src/ecs/components/PowerUpComponent.hpp
-	src/ecs/components/CollisionComponent.cpp
-	src/ecs/components/CollisionComponent.hpp
-	src/ecs/components/BuffedComponent.cpp
-	src/ecs/components/BuffedComponent.hpp
+	src/ecs/components/OnCollisionDamageDealerComponent.cpp
+	src/ecs/components/OnCollisionDamageDealerComponent.hpp
+	src/ecs/components/OOBKillComponent.cpp
+	src/ecs/components/OOBKillComponent.hpp
 	src/ecs/components/PickableComponent.cpp
 	src/ecs/components/PickableComponent.hpp
 	src/ecs/components/PickerComponent.cpp
 	src/ecs/components/PickerComponent.hpp
-	src/ecs/components/ExplodeComponent.cpp
-	src/ecs/components/ExplodeComponent.hpp
-	src/ecs/components/ControllableComponent.cpp
-	src/ecs/components/ControllableComponent.hpp
-	src/ecs/components/EphemeralComponent.cpp
-	src/ecs/components/EphemeralComponent.hpp
-	src/ecs/components/ColliderComponent.cpp
-	src/ecs/components/ColliderComponent.hpp
-	src/ecs/components/BlockedComponent.cpp
-	src/ecs/components/BlockedComponent.hpp
-	src/ecs/components/OnCollisionDamageDealerComponent.cpp
-	src/ecs/components/OnCollisionDamageDealerComponent.hpp
-	src/ecs/systems/OnCollisionDamageDealerSystem.cpp
-	src/ecs/systems/OnCollisionDamageDealerSystem.hpp
+	src/ecs/components/PositionComponent.cpp
+	src/ecs/components/PositionComponent.hpp
+	src/ecs/components/PowerUpComponent.cpp
+	src/ecs/components/PowerUpComponent.hpp
 	src/ecs/components/PowerUpPickedComponent.cpp
 	src/ecs/components/PowerUpPickedComponent.hpp
+	src/ecs/components/UltimeComponent.cpp
+	src/ecs/components/UltimeComponent.hpp
+	src/ecs/components/UltInvincibilityComponent.cpp
+	src/ecs/components/UltInvincibilityComponent.hpp
+	src/ecs/data/Directions.hpp
+	src/ecs/data/NumericValue.hpp
+	src/ecs/data/Vector2.hpp
+	src/ecs/ECSCore.cpp
+	src/ecs/ECSCore.hpp
+	src/ecs/entities/Alphaone.cpp
+	src/ecs/entities/Alphaone.hpp
+	src/ecs/entities/Bedrock.cpp
+	src/ecs/entities/Bedrock.hpp
+	src/ecs/entities/Bomb.cpp
+	src/ecs/entities/Bomb.hpp
+	src/ecs/entities/Brick.cpp
+	src/ecs/entities/Brick.hpp
+	src/ecs/entities/ExplosionFrame.cpp
+	src/ecs/entities/ExplosionFrame.hpp
+	src/ecs/entities/Faerie.cpp
+	src/ecs/entities/Faerie.hpp
+	src/ecs/entities/Player.cpp
+	src/ecs/entities/Player.hpp
+	src/ecs/entities/PowerUps/DroppedBonusBomb.cpp
+	src/ecs/entities/PowerUps/DroppedBonusBomb.hpp
+	src/ecs/entities/PowerUps/DroppedBonusHardness.cpp
+	src/ecs/entities/PowerUps/DroppedBonusHardness.hpp
+	src/ecs/entities/PowerUps/DroppedBonusHealth.cpp
+	src/ecs/entities/PowerUps/DroppedBonusHealth.hpp
+	src/ecs/entities/PowerUps/DroppedBonusKick.cpp
+	src/ecs/entities/PowerUps/DroppedBonusKick.hpp
+	src/ecs/entities/PowerUps/DroppedBonusRange.cpp
+	src/ecs/entities/PowerUps/DroppedBonusRange.hpp
+	src/ecs/entities/PowerUps/DroppedBonusSpeed.cpp
+	src/ecs/entities/PowerUps/DroppedBonusSpeed.hpp
+	src/ecs/entities/PowerUps/DroppedItem.cpp
+	src/ecs/entities/PowerUps/DroppedItem.hpp
+	src/ecs/entities/Skull.cpp
+	src/ecs/entities/Skull.cpp
+	src/ecs/entities/Skull.hpp
+	src/ecs/entities/Skull.hpp
+	src/ecs/entities/Sydney.cpp
+	src/ecs/entities/Sydney.hpp
+	src/ecs/entities/Wall.cpp
+	src/ecs/entities/Wall.hpp
+	src/ecs/entities/Xenotype.cpp
+	src/ecs/entities/Xenotype.hpp
+	src/ecs/Entity.cpp
+	src/ecs/Entity.hpp
+	src/ecs/Exceptions.hpp
 	src/ecs/factories/ComponentFactory.cpp
 	src/ecs/factories/ComponentFactory.hpp
 	src/ecs/factories/EntityFactory.cpp
 	src/ecs/factories/EntityFactory.hpp
 	src/ecs/factories/SystemFactory.cpp
 	src/ecs/factories/SystemFactory.hpp
-	src/ecs/entities/Brick.cpp
-	src/ecs/entities/Brick.hpp
-	src/ecs/entities/Wall.cpp
-	src/ecs/entities/Wall.hpp
-	src/ecs/entities/Player.cpp
-	src/ecs/entities/Player.hpp
-	src/ecs/entities/ExplosionFrame.cpp
-	src/ecs/entities/ExplosionFrame.hpp
-	src/ecs/entities/Bomb.cpp
-	src/ecs/entities/Bomb.hpp
-	src/ecs/entities/DroppedItem.cpp
-	src/ecs/entities/DroppedItem.hpp
-	src/ecs/entities/DroppedBonusHealth.cpp
-	src/ecs/entities/DroppedBonusHealth.hpp
-	src/ecs/entities/DroppedBonusSpeed.cpp
-	src/ecs/entities/DroppedBonusSpeed.hpp
-	src/ecs/entities/DroppedBonusBomb.cpp
-	src/ecs/entities/DroppedBonusBomb.hpp
-	src/ecs/entities/DroppedBonusKick.cpp
-	src/ecs/entities/DroppedBonusKick.hpp
-	src/ecs/entities/DroppedBonusHardness.cpp
-	src/ecs/entities/DroppedBonusHardness.hpp
-	src/ecs/entities/DroppedBonusRange.cpp
-	src/ecs/entities/DroppedBonusRange.hpp
-	src/ecs/systems/KickableSystem.cpp
-	src/ecs/systems/KickableSystem.hpp
-	src/ecs/systems/EphemeralSystem.cpp
-	src/ecs/systems/EphemeralSystem.hpp
-	src/ecs/systems/BombDropperSystem.cpp
-	src/ecs/systems/BombDropperSystem.hpp
-	src/ecs/systems/HealthSystem.cpp
-	src/ecs/systems/HealthSystem.hpp
-	src/ecs/systems/CollisionSystem.cpp
-	src/ecs/systems/CollisionSystem.hpp
-	src/ecs/systems/DisplayableSystem.cpp
-	src/ecs/systems/DisplayableSystem.hpp
-	src/ecs/systems/BuffedSystem.cpp
-	src/ecs/systems/BuffedSystem.hpp
-	src/ecs/systems/PositionSystem.cpp
-	src/ecs/systems/PositionSystem.hpp
-	src/ecs/systems/MovableSystem.cpp
-	src/ecs/systems/MovableSystem.hpp
-	src/ecs/systems/ControllableSystem.cpp
-	src/ecs/systems/ControllableSystem.hpp
-	src/ecs/systems/PowerUpPickedSystem.cpp
-	src/ecs/systems/PowerUpPickedSystem.hpp
-	src/ecs/systems/EntityDropperSystem.cpp
-	src/ecs/systems/EntityDropperSystem.hpp
-	src/ecs/systems/ColliderSystem.cpp
-	src/ecs/systems/ColliderSystem.hpp
+	src/ecs/Ressources.hpp
+	src/ecs/System.cpp
+	src/ecs/System.hpp
 	src/ecs/systems/BlockedSystem.cpp
 	src/ecs/systems/BlockedSystem.hpp
-	src/ecs/systems/ExplodeSystem.cpp
-	src/ecs/systems/ExplodeSystem.hpp
-	src/ecs/systems/PickerSystem.cpp
-	src/ecs/systems/PickerSystem.hpp
-	src/ecs/systems/PowerUpSystem.cpp
-	src/ecs/systems/PowerUpSystem.hpp
-	src/ecs/systems/PickableSystem.cpp
-	src/ecs/systems/PickableSystem.hpp
-	src/ecs/entities/DroppedItem.cpp
-	src/ecs/entities/DroppedItem.hpp
-	src/ecs/components/PowerUpPickedComponent.cpp
-	src/ecs/components/PowerUpPickedComponent.hpp
-	src/ecs/systems/PowerUpPickedSystem.cpp
-	src/ecs/systems/PowerUpPickedSystem.hpp
-	src/ecs/systems/KickerSystem.cpp
-	src/ecs/systems/KickerSystem.hpp
-	src/ecs/systems/EntityDropperSystem.cpp
-	src/ecs/systems/EntityDropperSystem.hpp
-	src/ecs/entities/DroppedBonusHealth.cpp
-	src/ecs/entities/DroppedBonusHealth.hpp
-	src/ecs/entities/DroppedBonusSpeed.cpp
-	src/ecs/entities/DroppedBonusSpeed.hpp
-	src/ecs/entities/DroppedBonusBomb.cpp
-	src/ecs/entities/DroppedBonusBomb.hpp
-	src/ecs/entities/DroppedBonusKick.cpp
-	src/ecs/entities/DroppedBonusKick.hpp
-	src/ecs/entities/DroppedBonusHardness.cpp
-	src/ecs/entities/DroppedBonusHardness.hpp
-	src/ecs/components/CurseComponent.cpp
-	src/ecs/components/CurseComponent.hpp
+	src/ecs/systems/BombDropperSystem.cpp
+	src/ecs/systems/BombDropperSystem.hpp
+	src/ecs/systems/BuffedSystem.cpp
+	src/ecs/systems/BuffedSystem.hpp
+	src/ecs/systems/ColliderSystem.cpp
+	src/ecs/systems/ColliderSystem.hpp
+	src/ecs/systems/CollisionSystem.cpp
+	src/ecs/systems/CollisionSystem.hpp
+	src/ecs/systems/ControllableSystem.cpp
+	src/ecs/systems/ControllableSystem.hpp
+	src/ecs/systems/CurseOnPickSystem.cpp
+	src/ecs/systems/CurseOnPickSystem.hpp
 	src/ecs/systems/CurseSystem.cpp
 	src/ecs/systems/CurseSystem.hpp
+	src/ecs/systems/DisplayableSystem.cpp
+	src/ecs/systems/DisplayableSystem.hpp
+	src/ecs/systems/EntityDropperSystem.cpp
+	src/ecs/systems/EntityDropperSystem.hpp
+	src/ecs/systems/EphemeralSystem.cpp
+	src/ecs/systems/EphemeralSystem.hpp
+	src/ecs/systems/ExplodeSystem.cpp
+	src/ecs/systems/ExplodeSystem.hpp
+	src/ecs/systems/HealthSystem.cpp
+	src/ecs/systems/HealthSystem.hpp
+	src/ecs/systems/KickableSystem.cpp
+	src/ecs/systems/KickableSystem.hpp
+	src/ecs/systems/KickerSystem.cpp
+	src/ecs/systems/KickerSystem.hpp
+	src/ecs/systems/MortalSystem.cpp
+	src/ecs/systems/MortalSystem.hpp
+	src/ecs/systems/MovableSystem.cpp
+	src/ecs/systems/MovableSystem.hpp
+	src/ecs/systems/OnCollisionDamageDealerSystem.cpp
+	src/ecs/systems/OnCollisionDamageDealerSystem.hpp
+	src/ecs/systems/OOBKillSystem.cpp
+	src/ecs/systems/OOBKillSystem.hpp
+	src/ecs/systems/PickableSystem.cpp
+	src/ecs/systems/PickableSystem.hpp
+	src/ecs/systems/PickerSystem.cpp
+	src/ecs/systems/PickerSystem.hpp
+	src/ecs/systems/PositionSystem.cpp
+	src/ecs/systems/PositionSystem.hpp
+	src/ecs/systems/PowerUpPickedSystem.cpp
+	src/ecs/systems/PowerUpPickedSystem.hpp
+	src/ecs/systems/PowerUpSystem.cpp
+	src/ecs/systems/PowerUpSystem.hpp
+	src/ecs/systems/UltimeSystem.cpp
+	src/ecs/systems/UltimeSystem.hpp
+	src/ecs/systems/UltInvincibilitySystem.cpp
+	src/ecs/systems/UltInvincibilitySystem.hpp
+	src/input/Controller.cpp
+	src/input/Controller.hpp
+	src/input/error/Errors.hpp
+	src/input/Input.hpp
+	src/input/Keyboard.cpp
+	src/input/Keyboard.hpp
 	src/irrlicht/Animations.hpp
-	src/map/Map.hpp
-	src/map/Map.cpp
-	src/irrlicht/screen/Screen.cpp
-	src/irrlicht/screen/Screen.hpp
+	src/irrlicht/Exceptions.hpp
 	src/irrlicht/game-scene/GameScene.cpp
 	src/irrlicht/game-scene/GameScene.hpp
 	src/irrlicht/game-scene/irr-entity/IrrEntity.cpp
 	src/irrlicht/game-scene/irr-entity/IrrEntity.hpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.cpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.hpp
-	src/map/Map.hpp
+	src/irrlicht/screen/Screen.cpp
+	src/irrlicht/screen/Screen.hpp
 	src/map/Map.cpp
-	src/input/Controller.cpp
-	src/input/Controller.hpp
-	src/input/Input.hpp
-	src/input/Keyboard.cpp
-	src/input/Keyboard.hpp
-	src/ecs/systems/KickerSystem.cpp
-	src/ecs/systems/KickerSystem.hpp
-	src/ecs/data/NumericValue.hpp
-	src/input/error/Errors.hpp
-	src/ecs/systems/OnCollisionDamageDealerSystem.cpp
-	src/ecs/systems/OnCollisionDamageDealerSystem.hpp
-	src/ecs/components/UltimeComponent.cpp
-	src/ecs/components/UltimeComponent.hpp
-	src/ecs/systems/UltimeSystem.cpp
-	src/ecs/systems/UltimeSystem.hpp
-	src/ecs/components/MortalComponent.cpp
-	src/ecs/components/MortalComponent.hpp
-	src/ecs/systems/MortalSystem.cpp
-	src/ecs/systems/MortalSystem.hpp
+	src/map/Map.hpp
+	src/sound/Exception.hpp
 	src/sound/SoundSystem.cpp
 	src/sound/SoundSystem.hpp
-	src/sound/Exception.hpp
-	src/ecs/components/UltInvincibilityComponent.cpp
-	src/ecs/components/UltInvincibilityComponent.hpp
-	src/ecs/systems/UltInvincibilitySystem.cpp
-	src/ecs/systems/UltInvincibilitySystem.hpp
-	src/ecs/systems/UltInvincibilitySystem.hpp
-	src/ecs/entities/Bedrock.cpp
-	src/ecs/entities/Bedrock.hpp
 	src/ecs/components/ControlledByAIComponent.cpp
 	src/ecs/components/ControlledByAIComponent.hpp
 	src/ecs/systems/ControlledByAISystem.cpp
 	src/ecs/systems/ControlledByAISystem.hpp
-	src/irrlicht/Exceptions.cpp
-	src/irrlicht/Exceptions.hpp
 	src/ecs/entities/AIPlayer.cpp
 	src/ecs/entities/AIPlayer.hpp
-	src/ecs/entities/Skull.cpp
-	src/ecs/entities/Skull.hpp
-	src/ecs/components/CurseOnPickComponent.cpp
-	src/ecs/components/CurseOnPickComponent.hpp
-	src/ecs/systems/CurseOnPickSystem.cpp
-	src/ecs/systems/CurseOnPickSystem.hpp
-	src/ecs/components/OOBKillComponent.cpp
-	src/ecs/components/OOBKillComponent.hpp
-	src/ecs/systems/OOBKillSystem.cpp
-	src/ecs/systems/OOBKillSystem.hpp
-	src/irrlicht/Exceptions.hpp
-	src/ecs/entities/Skull.cpp
-	src/ecs/entities/Skull.hpp
-	src/ecs/components/CurseOnPickComponent.cpp
-	src/ecs/components/CurseOnPickComponent.hpp
-	src/ecs/systems/CurseOnPickSystem.cpp
-	src/ecs/systems/CurseOnPickSystem.hpp
 )
 
 find_package(Irrlicht REQUIRED)
