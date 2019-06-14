@@ -13,13 +13,16 @@
 #include "../ecs/components/EntityDropperComponent.hpp"
 #include "../ecs/components/PowerUpComponent.hpp"
 
-Map::Map::Map(ECS::Ressources &ressources) : _core(ressources)
+Map::Map::Map(ECS::Ressources &ressources) :
+    _core(ressources),
+    _ressources(ressources)
 {
 
 }
 
 Map::Map::Map(ECS::Ressources &ressources, std::istream &stream) :
-    _core(ressources, stream)
+    _core(ressources, stream),
+    _ressources(ressources)
 {
 }
 
@@ -153,6 +156,7 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
     unsigned bonus = ratiosBonus["Bonus"];
     ECS::Point position;
 
+    this->_ressources.mapSize = sizeMap;
     ratiosBonus.erase(
         std::find_if(
             ratiosBonus.begin(),

@@ -22,6 +22,7 @@ namespace Map {
 
     private:
         ECS::ECSCore _core;
+        ECS::Ressources &_ressources;
 
     public:
         Map(ECS::Ressources &ressources);
