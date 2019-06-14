@@ -19,6 +19,8 @@ bool Irrlicht::MainMenu::update()
 {
 	for (unsigned i = 0; i < this->_buttons.size(); i++) {
         if (this->isGuiButtonPressed(i)) {
+            for (unsigned i = 0; i < this->_buttons.size(); i++)
+                this->_buttons.at(i)->setVisible(false);
             switch (i) {
                 case START:
                     this->_window.addGameScene("Game");
@@ -41,7 +43,5 @@ bool Irrlicht::MainMenu::update()
 
 void Irrlicht::MainMenu::changeCurrentGameScene(std::string sceneName)
 {
-    for (unsigned i = 0; i < this->_buttons.size(); i++)
-        this->_buttons.at(i)->setVisible(false);
 	this->_window.setCurrentGameScene(sceneName);
 }
