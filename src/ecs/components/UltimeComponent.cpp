@@ -16,7 +16,7 @@ ECS::UltimeComponent::UltimeComponent(Sound::SoundSystem &soundSystem):
 
 std::ostream& ECS::UltimeComponent::serialize(std::ostream &stream) const
 {
-    return stream << this->charge << " EndOfComponent";
+    return stream << this->charge << " " << hasUlt <<" EndOfComponent";
 }
 
 ECS::UltimeComponent::UltimeComponent(ECS::Ressources &ressources, std::istream &stream):
@@ -27,7 +27,7 @@ ECS::UltimeComponent::UltimeComponent(ECS::Ressources &ressources, std::istream 
 {
     std::string terminator;
 
-    stream >> charge >> terminator;
+    stream >> charge >> hasUlt >> terminator;
     if (terminator != "EndOfComponent")
         throw InvalidSerializedStringException("The component terminator was not found");
 }
@@ -35,4 +35,10 @@ ECS::UltimeComponent::UltimeComponent(ECS::Ressources &ressources, std::istream 
 bool ECS::UltimeComponent::ultimeIsReady()
 {
     return (this->charge >= 10000);
+}
+
+void ECS::UltimeComponent::resetUlt()
+{
+    this->charge = 0;
+    this->hasUlt = false;
 }

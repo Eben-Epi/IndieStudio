@@ -24,6 +24,7 @@
 #include "../../config.hpp"
 #include "../components/OOBKillComponent.hpp"
 #include "../components/MortalComponent.hpp"
+#include "../components/KillCounterComponent.hpp"
 
 ECS::Player::Player(unsigned id, Ressources &ressources, std::string &&texture, Component *ultimate) :
 	Entity(id, "Player", {
@@ -40,6 +41,7 @@ ECS::Player::Player(unsigned id, Ressources &ressources, std::string &&texture, 
 		new PickerComponent(),
 		new KickerComponent(),
 		new MortalComponent(),
+		new KillCounterComponent(ressources.soundSystem),
 		new BombDropperComponent(ressources.soundSystem),
 		new DisplayableComponent(std::move(texture), ressources),
 		new ControllableComponent(*ressources.inputs.at(id), id)

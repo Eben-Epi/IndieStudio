@@ -15,6 +15,7 @@ namespace ECS {
     class UltimeComponent : public Component {
     public:
         unsigned charge;
+        bool hasUlt;
         bool castUlt;
         Sound::SoundSystem &soundSystem;
 
@@ -23,6 +24,7 @@ namespace ECS {
         std::ostream &serialize(std::ostream &stream) const override;
 
         bool ultimeIsReady();
+        void resetUlt();
     };
 }
 

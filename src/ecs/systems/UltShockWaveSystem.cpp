@@ -13,6 +13,7 @@
 #include "../components/PositionComponent.hpp"
 #include "../entities/ExplosionFrame.hpp"
 #include "../components/MovableComponent.hpp"
+#include "../components/OnCollisionDamageDealerComponent.hpp"
 
 ECS::UltShockWaveSystem::UltShockWaveSystem(ECS::ECSCore &core):
     System("UltShockWave", core)
@@ -25,8 +26,11 @@ void ECS::UltShockWaveSystem::updateEntity(ECS::Entity &entity)
         if (self.timer > (2 * FRAME_RATE) && !(self.timer % (FRAME_RATE / 15))) {
             auto &exp = this->_core.makeEntity("ExplosionFrame");
             auto &explosion_position = reinterpret_cast<PositionComponent &>(exp.getComponentByName("Position"));
+            auto &ddc = reinterpret_cast<OnCollisionDamageDealerComponent &>(exp.getComponentByName("OnCollisionDamageDealer"));
 
             self.waveCount++;
+            ddc.ownerId = entity.getId();
+
             if (self.directon & 0b0001) {     // UP
                 explosion_position.size = {TILESIZE * 3, TILESIZE};
                 explosion_position.pos = {
@@ -62,7 +66,7 @@ void ECS::UltShockWaveSystem::updateEntity(ECS::Entity &entity)
 
     auto &ult = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
     if (ult.castUlt && ult.ultimeIsReady()) {
-        ult.charge = 0;
+        ult.resetUlt();
         auto &cc = reinterpret_cast<ControllableComponent &>(entity.getComponentByName("Controllable"));
         auto &pc = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
         auto &mc = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
