@@ -29,7 +29,7 @@ namespace ECS
         auto &mov = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
 		auto &bombDropper = reinterpret_cast<BombDropperComponent &>(entity.getComponentByName("BombDropper"));
 		auto &uc = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
-        auto &disp = reinterpret_cast<DisplayableComponent &>(entity.getComponentByName("Displayable"));
+		auto &disp = reinterpret_cast<DisplayableComponent &>(entity.getComponentByName("Displayable"));
 		unsigned char newDir = 0;
 
 		uc.castUlt = false;

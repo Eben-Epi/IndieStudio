@@ -9,12 +9,13 @@
 #define BOMBERMAN_DROPPEDBONUSBOMB_HPP
 
 
-#include "../Entity.hpp"
-#include "../Ressources.hpp"
+#include "../../Entity.hpp"
+#include "../../Ressources.hpp"
+#include "DroppedItem.hpp"
 
 namespace ECS
 {
-    class DroppedBonusBomb : public Entity {
+    class DroppedBonusBomb : public DroppedItem {
     public:
         explicit DroppedBonusBomb(unsigned id, Ressources &ressources);
     };

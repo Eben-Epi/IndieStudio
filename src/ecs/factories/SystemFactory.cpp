@@ -52,7 +52,7 @@ namespace ECS
 		{"Collision", [](ECS::ECSCore &core) { return new CollisionSystem(core); }},
 		{"Controllable", [](ECS::ECSCore &core) { return new ControllableSystem(core); }},
 		{"Curse", [](ECS::ECSCore &core) { return new CurseSystem(core); }},
-        {"CurseOnPick", [](ECS::ECSCore &core) { return new CurseOnPickSystem(core); }},
+		{"CurseOnPick", [](ECS::ECSCore &core) { return new CurseOnPickSystem(core); }},
 		{"Displayable", [](ECS::ECSCore &core) { return new DisplayableSystem(core); }},
 		{"EntityDropper", [](ECS::ECSCore &core) { return new EntityDropperSystem(core); }},
 		{"Ephemeral", [](ECS::ECSCore &core) { return new EphemeralSystem(core); }},

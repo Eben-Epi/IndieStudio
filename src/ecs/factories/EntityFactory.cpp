@@ -12,19 +12,19 @@
 #include "../entities/Wall.hpp"
 #include "../entities/Bomb.hpp"
 #include "../entities/ExplosionFrame.hpp"
-#include "../entities/DroppedItem.hpp"
-#include "../entities/DroppedBonusBomb.hpp"
-#include "../entities/DroppedBonusHardness.hpp"
-#include "../entities/DroppedBonusHealth.hpp"
-#include "../entities/DroppedBonusKick.hpp"
-#include "../entities/DroppedBonusSpeed.hpp"
-#include "../entities/DroppedBonusRange.hpp"
+#include "../entities/PowerUps/DroppedItem.hpp"
+#include "../entities/PowerUps/DroppedBonusBomb.hpp"
+#include "../entities/PowerUps/DroppedBonusHardness.hpp"
+#include "../entities/PowerUps/DroppedBonusHealth.hpp"
+#include "../entities/PowerUps/DroppedBonusKick.hpp"
+#include "../entities/PowerUps/DroppedBonusSpeed.hpp"
+#include "../entities/PowerUps/DroppedBonusRange.hpp"
 #include "../entities/Bedrock.hpp"
 #include "../entities/Skull.hpp"
 #include "../entities/Sydney.hpp"
 #include "../entities/Faerie.hpp"
-#include "../entities/Gunguy.hpp"
-#include "../entities/Warrior.hpp"
+#include "../entities/Alphaone.hpp"
+#include "../entities/Xenotype.hpp"
 
 namespace ECS
 {
@@ -46,8 +46,8 @@ namespace ECS
 		{"ExplosionFrame", [](Ressources &ressources, unsigned id) { return new ExplosionFrame(id, ressources); }},
 		{"Faerie", [](Ressources &ressources, unsigned id) { return new Faerie(id, ressources); }},
 		{"Sydney", [](Ressources &ressources, unsigned id) { return new Sydney(id, ressources); }},
-		{"Gunguy", [](Ressources &ressources, unsigned id) { return new Gunguy(id, ressources); }},
-		{"Warrior", [](Ressources &ressources, unsigned id) { return new Warrior(id, ressources); }},
+		{"Xenotype", [](Ressources &ressources, unsigned id) { return new Xenotype(id, ressources); }},
+		{"Alphaone", [](Ressources &ressources, unsigned id) { return new Alphaone(id, ressources); }},
 		{"Wall", [](Ressources &ressources, unsigned id) { return new Wall(id, ressources); }},
 		{"Bedrock", [](Ressources &ressources, unsigned id) { return new Bedrock(id, ressources); }}
 	};

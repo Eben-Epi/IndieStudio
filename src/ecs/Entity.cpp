@@ -12,7 +12,7 @@
 
 namespace ECS
 {
-	Entity::Entity(unsigned id, std::string &&name, std::vector<Component *> &&components) :
+	Entity::Entity(unsigned id, std::string &&name, const std::vector<Component *> &&components) :
 		_destroy(false),
 		_id(id),
 		_name(name)

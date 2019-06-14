@@ -42,6 +42,7 @@ Irrlicht::IrrEntity::IrrEntity(
             std::cerr << "Cannot load file " << this->_texturePath << std::endl;
         this->_node->setMaterialTexture(0, this->_texture);
         this->_node->setScale(irr::core::vector3df(4, 4, 4));
+        this->_node->setMD2Animation(static_cast<irr::scene::EMD2_ANIMATION_TYPE>(this->anim));
         this->_loaded = true;
     }
 }

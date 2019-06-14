@@ -10,19 +10,22 @@
 
 #include <irrlicht/irrlicht.h>
 #include <vector>
+#define MAX_BUTTON_ON_SCREEN 25
 
 namespace Irrlicht
 {
 	class EventReceiver : public irr::IEventReceiver
 	{
 	public:
-		EventReceiver();
+		explicit EventReceiver();
 		~EventReceiver() = default;
 
 		//MEMBER FUNCTIONS
 		virtual bool OnEvent(const irr::SEvent &event) override;
+//		void addContext();
 		virtual bool isKeyPressed(irr::EKEY_CODE keyCode) const;
 		const irr::SEvent::SJoystickEvent &GetJoystickState(unsigned id) const;
+		bool isGuiButtonPressed(unsigned id);
 		bool isJoystickKeyPressed(unsigned id, irr::u32 key) const;
 		float getJoystickAxisPosition(unsigned id, irr::s16 axis) const;
 
@@ -30,6 +33,7 @@ namespace Irrlicht
 		//PROPERTIES
 		std::vector<bool> _keys;
 		std::vector<irr::SEvent::SJoystickEvent> _joystickState{4};
+		std::vector<bool> _buttonState;
 	};
 }
 

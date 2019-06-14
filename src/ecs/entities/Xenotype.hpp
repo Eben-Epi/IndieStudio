@@ -5,8 +5,8 @@
 ** Warrior.hpp
 */
 
-#ifndef BOMBERMAN_WARRIOR_HPP
-#define BOMBERMAN_WARRIOR_HPP
+#ifndef BOMBERMAN_XENOTYPE_HPP
+#define BOMBERMAN_XENOTYPE_HPP
 
 
 #include "../Ressources.hpp"
@@ -14,9 +14,9 @@
 
 namespace ECS
 {
-	class Warrior : public Player {
+	class Xenotype : public Player {
 	public:
-		Warrior(unsigned id, Ressources &ressources);
+		Xenotype(unsigned id, Ressources &ressources);
 	};
 }
 

@@ -32,7 +32,7 @@ void ECS::KickerSystem::updateEntity(ECS::Entity &entity)
     auto &bc = reinterpret_cast<BlockedComponent &>(entity.getComponentByName("Blocked"));
 
     for (Entity *i : collision.entitiesCollided) {
-        if (i->hasComponent("Kickable") && std::find(bc._whitelistId.begin(), bc._whitelistId.end(), i) == bc._whitelistId.end()) {
+        if (i->hasComponent("Kickable") && std::find(bc.whitelistId.begin(), bc.whitelistId.end(), i) == bc.whitelistId.end()) {
             auto &i_move = reinterpret_cast<MovableComponent &>(i->getComponentByName("Movable"));
             auto &e_move = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
 

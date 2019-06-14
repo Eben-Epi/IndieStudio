@@ -8,12 +8,13 @@
 #ifndef BOMBERMAN_DROPPEDBONUSSPEED_HPP
 #define BOMBERMAN_DROPPEDBONUSSPEED_HPP
 
-#include "../Entity.hpp"
-#include "../Ressources.hpp"
+#include "../../Entity.hpp"
+#include "../../Ressources.hpp"
+#include "DroppedItem.hpp"
 
 namespace ECS
 {
-    class DroppedBonusSpeed : public Entity {
+    class DroppedBonusSpeed : public DroppedItem {
     public:
         explicit DroppedBonusSpeed(unsigned id, Ressources &ressources);
     };

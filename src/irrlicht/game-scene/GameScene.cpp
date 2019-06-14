@@ -1,5 +1,7 @@
 #include <utility>
 
+#include <utility>
+
 //
 // Created by Eben on 05/06/2019.
 //
@@ -8,14 +10,13 @@
 #include "../screen/Screen.hpp"
 #include "../Exceptions.hpp"
 
-Irrlicht::GameScene::GameScene(Screen &window, const std::string &name, unsigned id) :
+Irrlicht::GameScene::GameScene(Screen &window, std::string name, unsigned id) :
 	_window(window),
-	sceneName(name),
+	sceneName(std::move(name)),
 	id(id),
 	_entitiesId(0),
 	_eventReceiver(window.getEventReceiver())
 {
-	this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(320, 500, -320), irr::core::vector3df(320, 0, -319));
 }
 
 bool Irrlicht::GameScene::isKeyPressed(irr::EKEY_CODE key)
@@ -42,59 +43,63 @@ void Irrlicht::GameScene::deleteEntity(unsigned id) {
 			this->_entities.erase(it);
 }
 
-void Irrlicht::GameScene::setAnimation(unsigned entity_id, Animations anim) {
+Irrlicht::IrrEntity& Irrlicht::GameScene::_getEntity(unsigned entity_id)
+{
 	for (auto &ent : this->_entities)
 		if (ent->id == entity_id)
-            ent->setAnimation(anim);
+			return *ent;
+	throw NoSuchEntityException("Cannot find entity with id " + std::to_string(entity_id));
+}
+
+void Irrlicht::GameScene::setAnimation(unsigned entity_id, Animations anim)
+{
+	this->_getEntity(entity_id).setAnimation(anim);
 }
 
 void Irrlicht::GameScene::setRotation(unsigned entity, float y)
 {
-	for (auto &ent : this->_entities)
-		if (ent->id == entity)
-			ent->setRotation(y);
+	this->_getEntity(entity).setRotation(y);
 }
 
-void Irrlicht::GameScene::setPosition(unsigned entity, float x, float z) {
-	for (auto &ent : this->_entities)
-		if (ent->id == entity)
-			ent->setPos(x, -z);
+void Irrlicht::GameScene::setPosition(unsigned entity, float x, float z)
+{
+	this->_getEntity(entity).setPos(x, -z);
 }
 
-void Irrlicht::GameScene::setScale(unsigned entity, float x, float z) {
-	for (auto &ent : this->_entities)
-		if (ent->id == entity)
-			ent->setPos(x, z);
+void Irrlicht::GameScene::setScale(unsigned entity, float x, float z)
+{
+	this->_getEntity(entity).setScale(x, z);
 }
 
 void Irrlicht::GameScene::setSize(unsigned entity, float x, float z)
 {
-	for (auto &ent : this->_entities)
-		if (ent->id == entity)
-			ent->setSize(x, z);
+	this->_getEntity(entity).setSize(x, z);
 }
 
-ECS::Vector2<float> Irrlicht::GameScene::getSize(unsigned entity) {
-	for (auto &ent : this->_entities)
-		if (ent->id == entity)
-			return ent->getSize();
-	throw NoSuchEntityException("Cannot find entity with id " + std::to_string(entity));
+ECS::Vector2<float> Irrlicht::GameScene::getSize(unsigned entity)
+{
+	return this->_getEntity(entity).getSize();
 }
 
 bool Irrlicht::GameScene::areColliding(unsigned entity1, unsigned entity2)
 {
+	this->_getEntity(entity1);
+	this->_getEntity(entity2);
 	return false;
 }
 
 bool Irrlicht::GameScene::isJoystickButtonPressed(unsigned joystickId, unsigned button)
 {
-//	this->_eventReceiver.displayAxes();
 	return (this->_eventReceiver.isJoystickKeyPressed(joystickId, button));
 }
 
 float Irrlicht::GameScene::getJoystickAxisPosition(unsigned joystickId, unsigned axis)
 {
 	return (this->_eventReceiver.getJoystickAxisPosition(joystickId, axis));
+}
+
+bool Irrlicht::GameScene::isGuiButtonPressed(unsigned id) {
+    return (this->_eventReceiver.isGuiButtonPressed(id));
 }
 
 bool Irrlicht::GameScene::isJoystickAxisPressed(unsigned joystickId, ControllerAxisGS button, unsigned threshold)
@@ -130,3 +135,12 @@ bool Irrlicht::GameScene::isJoystickAxisPressed(unsigned joystickId, ControllerA
 	}
 	return (abs(value) > threshold);
 }
+
+void Irrlicht::GameScene::addCamera(float posX, float posY, float posZ, float lookAtX, float lookAtY, float lookAtZ) {
+	this->_window.getSmgr()->addCameraSceneNode(0, irr::core::vector3df(posX, posY, posZ), irr::core::vector3df(lookAtX, lookAtY, lookAtZ));
+}
+
+bool Irrlicht::GameScene::update() {
+    return (true);
+}
+

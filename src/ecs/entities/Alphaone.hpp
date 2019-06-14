@@ -5,8 +5,8 @@
 ** Gunguy.hpp
 */
 
-#ifndef BOMBERMAN_GUNGUY_HPP
-#define BOMBERMAN_GUNGUY_HPP
+#ifndef BOMBERMAN_ALPHAONE_HPP
+#define BOMBERMAN_ALPHAONE_HPP
 
 
 #include "../Ressources.hpp"
@@ -14,9 +14,9 @@
 
 namespace ECS
 {
-	class Gunguy : public Player {
+	class Alphaone : public Player {
 	public:
-		Gunguy(unsigned id, Ressources &ressources);
+		Alphaone(unsigned id, Ressources &ressources);
 	};
 }
 

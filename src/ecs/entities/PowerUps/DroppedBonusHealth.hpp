@@ -10,12 +10,13 @@
 #define BOMBERMAN_DROPPEDBONUSHEALTH_HPP
 
 
-#include "../Entity.hpp"
-#include "../Ressources.hpp"
+#include "../../Entity.hpp"
+#include "../../Ressources.hpp"
+#include "DroppedItem.hpp"
 
 namespace ECS
 {
-    class DroppedBonusHealth : public Entity {
+    class DroppedBonusHealth : public DroppedItem {
     public:
         explicit DroppedBonusHealth(unsigned id, Ressources &ressources);
     };

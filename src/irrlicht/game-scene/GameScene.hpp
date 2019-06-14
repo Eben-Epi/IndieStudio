@@ -36,7 +36,7 @@ namespace Irrlicht {
 
 	class GameScene {
 	public:
-		GameScene(Screen &screen, const std::string &name, unsigned id);
+		GameScene(Screen &screen, std::string name, unsigned id);
 		~GameScene() = default;
 
 		unsigned int registerEntity(const std::string &name);
@@ -47,15 +47,19 @@ namespace Irrlicht {
 		void setRotation(unsigned entity, float y);
 		void setScale(unsigned entity, float x, float y);
 		void setSize(unsigned entity, float x, float y);
+        void addCamera(float posX, float posY, float posZ, float lookAtX, float lookAtY, float lookAtZ);
 		ECS::Vector2<float> getSize(unsigned entity);
 		bool isKeyPressed(irr::EKEY_CODE key);
 		bool isJoystickButtonPressed(unsigned joystickId, unsigned button);
+		bool isGuiButtonPressed(unsigned id);
 		float getJoystickAxisPosition(unsigned joystickId, unsigned axis);
 		bool isJoystickAxisPressed(unsigned joystickId, ControllerAxisGS axis, unsigned threshold = 16384);
+		virtual bool update();
 
 		const std::string sceneName;
 		const unsigned id;
-	private:
+	protected:
+        IrrEntity &_getEntity(unsigned entity_id);
 		std::vector<std::unique_ptr<IrrEntity>> _entities;
 		unsigned _entitiesId;
 		Screen &_window;

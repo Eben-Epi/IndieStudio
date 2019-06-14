@@ -24,9 +24,9 @@ namespace ECS
     }
 
     OnCollisionDamageDealerComponent::OnCollisionDamageDealerComponent(ECS::Ressources &, std::istream &stream) :
-	    OnCollisionDamageDealerComponent(0)
+        OnCollisionDamageDealerComponent(0)
     {
-	    std::string terminator;
+        std::string terminator;
 
 	    stream >> damage >> ownerId >> terminator;
 	    if (terminator != "EndOfComponent")

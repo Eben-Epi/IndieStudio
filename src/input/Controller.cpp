@@ -68,4 +68,70 @@ std::vector<Input::Action> Input::Controller::getActions() { //WIP
 	return (actions);
 }
 
-void Input::Controller::changeKey(Action, unsigned) {}
+void Input::Controller::changeKey(Action act, unsigned control) {
+	joystickIn();
+	switch (act)
+	{
+	case ACTION_JOYSTICK :
+		addJoystick(control);
+		break;
+	case ACTION_UP :
+	case ACTION_DOWN :
+	case ACTION_LEFT :
+	case ACTION_RIGHT :
+		if (this->_joystickOn == 3) removeJoystick();
+		this->_keys[act] = static_cast<ControllerButtons>(control);
+		break;
+	case ACTION_ACTION :
+	case ACTION_ULT :
+		this->_keys[act - this->_joystickOn] = static_cast<ControllerButtons>(control);
+		break;
+	default:
+		break;
+	}
+}
+
+void Input::Controller::removeJoystick() {
+	this->_keys[ACTION_UP] = static_cast<ControllerButtons>(Y);
+	this->_keys[ACTION_DOWN] = static_cast<ControllerButtons>(A);
+	this->_keys[ACTION_RIGHT] = static_cast<ControllerButtons>(B);
+	this->_keys.push_back(static_cast<ControllerButtons>(X));
+	this->_keys.push_back(static_cast<ControllerButtons>(RT));
+	this->_keys.push_back(static_cast<ControllerButtons>(LT));
+}
+
+void Input::Controller::addJoystick(unsigned control) {
+	if (this->_keys.size() == 3)
+		this->_keys[ACTION_UP] = static_cast<ControllerButtons>(control);
+	else {
+		this->_keys.erase(this->_keys.begin() + ACTION_RIGHT);
+		this->_keys.erase(this->_keys.begin() + ACTION_LEFT);
+		this->_keys.erase(this->_keys.begin() + ACTION_DOWN);
+		this->_keys[ACTION_UP] = static_cast<ControllerButtons>(control);
+	}
+}
+
+void Input::Controller::joystickIn() {
+	for (int i = 0; i < this->_keys.size(); i++)
+		if (this->_keys[i] == LEFT_JOYSTICK || this->_keys[i] == RIGHT_JOYSTICK) {
+			this->_joystickOn = 3;
+			return;
+		}
+	this->_joystickOn = 0;
+}
+
+void Input::Controller::resetControl() {
+	if (this->_keys[ACTION_UP] == LEFT_JOYSTICK || this->_keys[ACTION_UP] == RIGHT_JOYSTICK) {
+		this->_keys[ACTION_UP] = static_cast<ControllerButtons>(LEFT_JOYSTICK);
+		this->_keys[ACTION_ACTION - 3] = static_cast<ControllerButtons>(RT);
+		this->_keys[ACTION_ULT - 3] = static_cast<ControllerButtons>(LT);
+	}
+	else {
+		this->_keys.erase(this->_keys.begin() + ACTION_RIGHT);
+		this->_keys.erase(this->_keys.begin() + ACTION_LEFT);
+		this->_keys.erase(this->_keys.begin() + ACTION_DOWN);
+		this->_keys[ACTION_UP] = static_cast<ControllerButtons>(LEFT_JOYSTICK);
+		this->_keys[ACTION_ACTION - 3] = static_cast<ControllerButtons>(RT);
+		this->_keys[ACTION_ULT - 3] = static_cast<ControllerButtons>(LT);
+	}
+}

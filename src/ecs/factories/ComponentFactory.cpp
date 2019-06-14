@@ -47,7 +47,7 @@ namespace ECS
 		{"Collision", [](Ressources &ressources, std::istream &stream) { return new CollisionComponent(ressources, stream); }},
 		{"Controllable", [](Ressources &ressources, std::istream &stream) { return new ControllableComponent(ressources, stream); }},
 		{"Curse", [](Ressources &ressources, std::istream &stream) { return new CurseComponent(ressources, stream); }},
-        {"CurseOnPick", [](Ressources &ressources, std::istream &stream) { return new CurseOnPickComponent(ressources, stream); }},
+		{"CurseOnPick", [](Ressources &ressources, std::istream &stream) { return new CurseOnPickComponent(ressources, stream); }},
 		{"Displayable", [](Ressources &ressources, std::istream &stream) { return new DisplayableComponent(ressources, stream); }},
 		{"EntityDropper", [](Ressources &ressources, std::istream &stream) { return new EntityDropperComponent(ressources, stream); }},
 		{"Ephemeral", [](Ressources &ressources, std::istream &stream) { return new EphemeralComponent(ressources, stream); }},

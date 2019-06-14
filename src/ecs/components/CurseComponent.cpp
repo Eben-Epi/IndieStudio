@@ -14,7 +14,7 @@ ECS::CurseComponent::CurseComponent(Sound::SoundSystem &soundSystem):
     Component("Curse"),
     soundSystem(soundSystem),
     effect(NONE),
-    timeLeft(-1)
+    timeLeft(0)
 {}
 
 ECS::CurseComponent::CurseComponent(ECS::Ressources &ressources, std::istream &stream):
