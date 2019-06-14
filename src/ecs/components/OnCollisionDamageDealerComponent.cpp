@@ -22,7 +22,7 @@ namespace ECS
     	return stream << damage << " EndOfComponent";
     }
 
-    OnCollisionDamageDealerComponent::OnCollisionDamageDealerComponent(ECS::Ressources &, std::istream &stream) :
+    OnCollisionDamageDealerComponent::OnCollisionDamageDealerComponent(unsigned, ECS::Ressources &, std::istream &stream) :
         OnCollisionDamageDealerComponent(0)
     {
         std::string terminator;

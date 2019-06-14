@@ -23,7 +23,7 @@ namespace ECS
 		return stream << pos.x << ' ' << pos.y << ' ' << size.x << ' ' << size.y << " EndOfComponent";
 	}
 
-	PositionComponent::PositionComponent(ECS::Ressources &ressources, std::istream &stream) :
+	PositionComponent::PositionComponent(unsigned id, ECS::Ressources &ressources, std::istream &stream) :
 		PositionComponent({0, 0}, {0, 0})
 	{
 		std::string terminator;

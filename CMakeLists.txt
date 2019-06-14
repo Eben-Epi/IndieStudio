@@ -192,6 +192,8 @@ add_executable(
 	src/sound/Exception.hpp
 	src/sound/SoundSystem.cpp
 	src/sound/SoundSystem.hpp
+	src/input/AIBrain.cpp
+	src/input/AIBrain.hpp
 )
 
 find_package(Irrlicht REQUIRED)

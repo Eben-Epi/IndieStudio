@@ -16,11 +16,13 @@ namespace ECS
 {
     class ControllableComponent : public Component
     {
+    	private:
+	    std::unique_ptr<Input::Input> inputCreated;
         public:
     	    unsigned inputNbr;
     	    Input::Input &input;
             ControllableComponent(Input::Input &, unsigned);
-            ControllableComponent(Ressources &ressources, std::istream &stream);
+            ControllableComponent(unsigned id, Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS

@@ -17,7 +17,7 @@ namespace ECS {
         std::vector<Entity*> whitelistId;
 
         BlockedComponent();
-        BlockedComponent(Ressources &ressources, std::istream &stream);
+        BlockedComponent(unsigned id, Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
     };
 }

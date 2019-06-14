@@ -15,14 +15,19 @@
 
 namespace ECS
 {
-	struct Ressources {
-		Irrlicht::GameScene                        &gameScene;
-		std::vector<std::unique_ptr<Input::Input>> &inputs;
-		Sound::SoundSystem                         soundSystem{};
-		Vector2<unsigned>                          mapSize = {0, 0};
+	class ECSCore;
 
-		Ressources(Irrlicht::GameScene &scene, std::vector<std::unique_ptr<Input::Input>> &inputs) :
+	struct Ressources {
+		Irrlicht::GameScene         &gameScene;
+		Sound::SoundSystem          &soundSystem;
+		ECSCore	                    &core;
+		std::vector<Input::Input *> inputs;
+		Vector2<unsigned>           mapSize = {0, 0};
+
+		Ressources(Irrlicht::GameScene &scene, Sound::SoundSystem &soundSystem, ECSCore &core, std::vector<Input::Input *> &&inputs = {}) :
 			gameScene(scene),
+			soundSystem(soundSystem),
+			core(core),
 			inputs(inputs)
 		{}
 	};

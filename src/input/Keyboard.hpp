@@ -23,6 +23,8 @@ namespace Input
 
         void changeKey(Action, irr::EKEY_CODE);
 
+        bool isAI();
+
     private:
         Irrlicht::GameScene &_scene;
         irr::SEvent *_event;

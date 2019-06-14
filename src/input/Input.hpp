@@ -31,6 +31,7 @@ namespace Input {
     class Input {
     public:
         virtual std::vector<Action> getActions() = 0;
+        virtual bool isAI() = 0;
 
     private:
     };

@@ -8,18 +8,18 @@
 #include "../input/Controller.hpp"
 #include "../ecs/Exceptions.hpp"
 
-Map::Map *loadMap(ECS::Ressources &res, std::string path)
+Map::Map *loadMap(std::string path, Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input::Input>> &inputs, Sound::SoundSystem &soundSystem)
 {
 	std::ifstream stream(path);
 
 	try {
 		if (stream.is_open())
-			return new Map::Map{res, stream};
+			return new Map::Map{gameScene, inputs, soundSystem, stream};
 	} catch (std::exception &e) {
 		std::cerr << "The saved map is invalid " << e.what() << std::endl;
 	}
 
-	auto map = new Map::Map{res};
+	auto map = new Map::Map{gameScene, inputs, soundSystem};
 
 	map->generateMap({20, 20}, 7000, {"Alphaone", "Xenotype"}, {
 		{"Bonus", 40},
@@ -80,29 +80,29 @@ int main()
 			}
 		}
 
-		ECS::Ressources res{screen.getCurrentGameScene(), inputs};
-		Map::Map *map = loadMap(res, "save.txt");
+		Sound::SoundSystem soundSystem;
+		Map::Map *map = loadMap("save.txt", screen.getCurrentGameScene(), inputs, soundSystem);
 
 		for (auto &sound_name : sound_to_load)
-			res.soundSystem.loadSound(sound_name);
+			soundSystem.loadSound(sound_name);
 
 		bool justPaused = false;
 		bool paused = false;
 
 		while (screen.display()) {
-			if (res.gameScene.isKeyPressed(irr::KEY_ESCAPE) && !justPaused) {
+			if (screen.getCurrentGameScene().isKeyPressed(irr::KEY_ESCAPE) && !justPaused) {
 				justPaused = true;
 				paused = !paused;
 				if (paused)
-					res.soundSystem.pauseBackgroundMusic();
-				res.soundSystem.playSound("pause", 100);
+					soundSystem.pauseBackgroundMusic();
+				soundSystem.playSound("pause", 100);
 				if (!paused)
-					res.soundSystem.resumeBackgroundMusic();
-			} else if (!res.gameScene.isKeyPressed(irr::KEY_ESCAPE))
+					soundSystem.resumeBackgroundMusic();
+			} else if (!screen.getCurrentGameScene().isKeyPressed(irr::KEY_ESCAPE))
 				justPaused = false;
 			if (!paused && !map->update()) {
 				delete map;
-				map = new Map::Map(res);
+				map = new Map::Map(screen.getCurrentGameScene(), inputs, soundSystem);
 				map->generateMap({20, 20}, 7000, {"Alphaone", "Xenotype"}, {
 					{"Bonus", 40},
 					{"DroppedBonusSpeed", 20},

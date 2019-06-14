@@ -44,6 +44,7 @@ namespace Input
             ~Controller() = default;
             std::vector<Action> getActions();
             void changeKey(Action, unsigned); //keyCode -> controller Key Code
+            bool isAI() override;
 
         private:
             Irrlicht::GameScene &_scene;

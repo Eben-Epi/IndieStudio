@@ -19,7 +19,7 @@ namespace ECS {
         unsigned timeLeft;
 
         UltInvincibilityComponent();
-        UltInvincibilityComponent(Ressources &ressources, std::istream &stream);
+        UltInvincibilityComponent(unsigned id, Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
     };
 }

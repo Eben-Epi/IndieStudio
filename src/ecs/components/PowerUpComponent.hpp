@@ -25,7 +25,7 @@ namespace ECS
         unsigned int range;
         Sound::SoundSystem &soundSystem;
         PowerUpComponent(Sound::SoundSystem &sounds, std::map<std::string, NumericValue>);
-        PowerUpComponent(Ressources &ressources, std::istream &stream);
+        PowerUpComponent(unsigned id, Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS

@@ -32,7 +32,7 @@ namespace ECS
 		return stream << spriteId << ' ' << animation << " EndOfComponent";
 	}
 
-	DisplayableComponent::DisplayableComponent(ECS::Ressources &ressources, std::istream &stream) :
+	DisplayableComponent::DisplayableComponent(unsigned id, ECS::Ressources &ressources, std::istream &stream) :
 		Component("Displayable"),
 		gameScene(ressources.gameScene),
 		entityId(0),

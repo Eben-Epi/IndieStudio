@@ -19,7 +19,7 @@ std::ostream& ECS::UltimeComponent::serialize(std::ostream &stream) const
     return stream << this->charge << " EndOfComponent";
 }
 
-ECS::UltimeComponent::UltimeComponent(ECS::Ressources &ressources, std::istream &stream):
+ECS::UltimeComponent::UltimeComponent(unsigned id, ECS::Ressources &ressources, std::istream &stream):
     Component("Ultime"),
     soundSystem(ressources.soundSystem),
     castUlt(false),

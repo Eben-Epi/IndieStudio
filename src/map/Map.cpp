@@ -13,17 +13,26 @@
 #include "../ecs/components/EntityDropperComponent.hpp"
 #include "../ecs/components/PowerUpComponent.hpp"
 #include "../ecs/components/HealthComponent.hpp"
+#include "../input/AIBrain.hpp"
 
-Map::Map::Map(ECS::Ressources &ressources) :
-    _core(ressources),
-    _ressources(ressources),
+Map::Map::Map(Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input::Input>> &inputs, Sound::SoundSystem &soundSystem) :
+    _inputs(inputs),
+    _ressources(gameScene, soundSystem, this->_core),
+    _core(this->_ressources),
     _clock(0)
 {
 }
 
-Map::Map::Map(ECS::Ressources &ressources, std::istream &stream) :
-    _core(ressources, stream),
-    _ressources(ressources),
+Map::Map::Map(Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input::Input>> &inputs, Sound::SoundSystem &soundSystem, std::istream &stream) :
+    _inputs(inputs),
+    _ressources(gameScene, soundSystem, this->_core, [&inputs](){
+    	std::vector<Input::Input *> result;
+
+    	for (auto &val : inputs)
+    	    result.push_back(&*val);
+    	return result;
+    }()),
+    _core(this->_ressources, stream),
     _clock(0)
 {
 }
@@ -199,8 +208,17 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
     );
     if (sizeMap.x < 4 || sizeMap.y < 4)
         throw MapTooSmallException("Map is too small in x or in y (< 4).");
+    this->_ai.clear();
+    this->_ressources.inputs = {};
     for (int i = 0; i < players.size(); i++)
-        this->_setEntityComponentPosition(this->_core.makeEntity(players[i]), {TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (i % 2), TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (i / 2)});
+    	this->_ressources.inputs.push_back(&*this->_inputs[i]);
+    for (int i = players.size(); i < 4; i++) {
+        this->_ai.emplace_back(new Input::AIBrain(i, this->_core));
+        this->_ressources.inputs.push_back(&*this->_ai.back());
+        players.emplace_back(playerEntities[rand_device() % playerEntities.size()]);
+    }
+    for (int i = 0; i < 4; i++)
+	this->_setEntityComponentPosition(this->_core.makeEntity(players[i]), {TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (i % 2), TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (i / 2)});
     this->_setArenaWallAround(sizeMap);
     for (unsigned i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)

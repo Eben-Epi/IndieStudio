@@ -17,7 +17,7 @@ ECS::CurseComponent::CurseComponent(Sound::SoundSystem &soundSystem):
     timeLeft(0)
 {}
 
-ECS::CurseComponent::CurseComponent(ECS::Ressources &ressources, std::istream &stream):
+ECS::CurseComponent::CurseComponent(unsigned id, ECS::Ressources &ressources, std::istream &stream):
     CurseComponent(ressources.soundSystem)
 {
     unsigned tmp;

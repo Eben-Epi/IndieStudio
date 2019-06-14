@@ -29,7 +29,7 @@ namespace ECS {
         CurseEffect effect;
         int timeLeft;
         CurseComponent(Sound::SoundSystem &soundSystem);
-        CurseComponent(Ressources &ressources, std::istream &stream);
+        CurseComponent(unsigned id, Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
 
         bool giveCurse(CurseEffect effect, int time, bool force=false);

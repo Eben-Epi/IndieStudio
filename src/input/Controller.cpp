@@ -68,4 +68,9 @@ std::vector<Input::Action> Input::Controller::getActions() { //WIP
 	return (actions);
 }
 
+bool Input::Controller::isAI()
+{
+	return false;
+}
+
 void Input::Controller::changeKey(Action, unsigned) {}
