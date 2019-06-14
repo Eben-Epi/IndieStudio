@@ -34,6 +34,8 @@
 #include "../components/CurseOnPickComponent.hpp"
 #include "../components/OOBKillComponent.hpp"
 #include "../components/UltShockWaveComponent.hpp"
+#include "../components/OwnerComponent.hpp"
+#include "../components/KillCounterComponent.hpp"
 
 namespace ECS 
 {
@@ -53,9 +55,11 @@ namespace ECS
 		{"Health", [](Ressources &ressources, std::istream &stream) { return new HealthComponent(ressources, stream); }},
 		{"Kickable", [](Ressources &ressources, std::istream &stream) { return new KickableComponent(ressources, stream); }},
 		{"Kicker", [](Ressources &ressources, std::istream &stream) { return new KickerComponent(ressources, stream); }},
+        {"KillCounter", [](Ressources &ressources, std::istream &stream) { return new KillCounterComponent(ressources, stream); }},
 		{"Movable", [](Ressources &ressources, std::istream &stream) { return new MovableComponent(ressources, stream); }},
 		{"OnCollisionDamageDealer", [](Ressources &ressources, std::istream &stream) { return new OnCollisionDamageDealerComponent(ressources, stream); }},
         {"OOBKill", [](Ressources &ressources, std::istream &stream) { return new OOBKillComponent(ressources, stream); }},
+        {"Owner", [](Ressources &ressources, std::istream &stream) { return new OwnerComponent(ressources, stream); }},
         {"Pickable", [](Ressources &ressources, std::istream &stream) { return new PickableComponent(ressources, stream); }},
 		{"Picker", [](Ressources &ressources, std::istream &stream) { return new PickerComponent(ressources, stream); }},
 		{"Position", [](Ressources &ressources, std::istream &stream) { return new PositionComponent(ressources, stream); }},

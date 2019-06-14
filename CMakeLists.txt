@@ -214,7 +214,7 @@ add_executable(
 	src/ecs/components/CurseOnPickComponent.hpp
 	src/ecs/systems/CurseOnPickSystem.cpp
 	src/ecs/systems/CurseOnPickSystem.hpp
-	src/ecs/entities/Sydney.cpp src/ecs/entities/Sydney.hpp src/ecs/entities/Faerie.cpp src/ecs/entities/Faerie.hpp src/ecs/entities/Warrior.cpp src/ecs/entities/Warrior.hpp src/ecs/entities/Gunguy.cpp src/ecs/entities/Gunguy.hpp src/ecs/components/UltShockWaveComponent.cpp src/ecs/components/UltShockWaveComponent.hpp src/ecs/systems/UltShockWaveSystem.cpp src/ecs/systems/UltShockWaveSystem.hpp)
+	src/ecs/entities/Sydney.cpp src/ecs/entities/Sydney.hpp src/ecs/entities/Faerie.cpp src/ecs/entities/Faerie.hpp src/ecs/entities/Warrior.cpp src/ecs/entities/Warrior.hpp src/ecs/entities/Gunguy.cpp src/ecs/entities/Gunguy.hpp src/ecs/components/UltShockWaveComponent.cpp src/ecs/components/UltShockWaveComponent.hpp src/ecs/systems/UltShockWaveSystem.cpp src/ecs/systems/UltShockWaveSystem.hpp src/ecs/components/KillCounterComponent.cpp src/ecs/components/KillCounterComponent.hpp src/ecs/systems/KillCounterSystem.cpp src/ecs/systems/KillCounterSystem.hpp src/ecs/components/OwnerComponent.cpp src/ecs/components/OwnerComponent.hpp src/ecs/systems/OwnerSystem.cpp src/ecs/systems/OwnerSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 find_package(Sfml REQUIRED)
