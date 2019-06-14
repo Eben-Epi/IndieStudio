@@ -87,8 +87,24 @@ int main()
 			res.soundSystem.loadSound(sound_name);
 
 		res.soundSystem.setBackgroundMusic("battle_music", 45); // tmp
-		while (screen.display())
-			map->update();
+
+		bool justPaused = false;
+		bool paused = false;
+
+		while (screen.display()) {
+			if (res.gameScene.isKeyPressed(irr::KEY_ESCAPE) && !justPaused) {
+				justPaused = true;
+				paused = !paused;
+				if (paused)
+					res.soundSystem.pauseBackgroundMusic();
+				res.soundSystem.playSound("pause", 100);
+				if (!paused)
+					res.soundSystem.resumeBackgroundMusic();
+			} else if (!res.gameScene.isKeyPressed(irr::KEY_ESCAPE))
+				justPaused = false;
+			if (!paused)
+				map->update();
+		}
 
 		std::ofstream stream("save.txt");
 
