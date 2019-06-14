@@ -20,6 +20,7 @@ namespace Input
         ~Keyboard();
 
         std::vector<Action> getActions();
+        void resetControl();
 
         void changeKey(Action, irr::EKEY_CODE);
 
@@ -27,6 +28,7 @@ namespace Input
         Irrlicht::GameScene &_scene;
         irr::SEvent *_event;
         std::vector<irr::EKEY_CODE> _keys;
+        std::vector<irr::EKEY_CODE> _default;
     };
 }
 
