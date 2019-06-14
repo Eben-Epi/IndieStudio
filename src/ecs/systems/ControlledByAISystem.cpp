@@ -25,52 +25,144 @@ namespace ECS {
         this->_dependencies = {"Movable", "Position", "BombDropper", "Ultime"};
     }
 
-    bool ControlledByAISystem::canEscape(std::vector<int> &bonusMalusZone) {
+
+    Entity *ControlledByAISystem::setAIObjective(Entity &me, Entity *objective, std::vector<Entity *> bonuses)
+    {
+        std::vector<Entity *> players = this->_core.getEntitiesByComponent("Controllable");
+        static Entity *chase;
+
+        if (!objective || !chase) {
+            std::random_device randomDev;
+            int nb = randomDev() % players.size();
+
+            while (players[nb]->getId() == me.getId())
+                nb = randomDev() % players.size();
+            chase = players[nb];
+            return (players[nb]);
+        }
+        Entity *nearestEnt = chase;
+        auto &firstPos = reinterpret_cast<PositionComponent &>(nearestEnt->getComponentByName("Position"));
+        Point nearestPos = firstPos.pos;
+        auto &myPos = reinterpret_cast<PositionComponent &>(me.getComponentByName("Position"));
+        double myDist = abs(myPos.pos.x - firstPos.pos.x) + abs(myPos.pos.y - firstPos.pos.y);
+
+        for (auto &bonus : bonuses) {
+            auto &nextPos = reinterpret_cast<PositionComponent &>(bonus->getComponentByName("Position"));
+            double distNext = abs(myPos.pos.x - nextPos.pos.x) + abs(myPos.pos.y - nextPos.pos.y);
+
+            if (myDist > distNext) {
+                nearestEnt = bonus;
+                myDist = distNext;
+            }
+        }
+        return (nearestEnt);
+    }
+
+
+
+    bool ControlledByAISystem::canEscape(std::vector<int> &bonusMalusZone, int onStepAbs)
+    {
         int escapableWays = 0;
         static int bombTimer = 50;
         static int blocksDestroyed = 0;
 
-        if (bombTimer != 0) {
+        if (bombTimer > 0) {
             --bombTimer;
             return (false);
         }
         for (int score : bonusMalusZone) {
-            if (score >= -1)
+            if (score >= -2)
                 ++escapableWays;
         }
-        bombTimer = 50;
-        if (escapableWays >= 2 && (bonusMalusZone[2] / 10 % 10 != 0 || blocksDestroyed > 20)) {
+
+        std::cout << "onStep : " << onStepAbs << std::endl;
+        if (escapableWays >= 1 && ((onStepAbs >= 1 && onStepAbs < 9) || blocksDestroyed > 20)) {
             ++blocksDestroyed;
+            bombTimer = 50;
             return (true);
         }
         return (false);
     }
 
-    std::vector<Input::Action> ControlledByAISystem::getTheBestWay(std::vector<int> &bonusMalusZone) {
+    std::vector<Input::Action> ControlledByAISystem::getTheBestWay(
+        std::vector<int> &bonusMalusZone,
+        Entity *objective,
+        Point &myPos,
+        int onStepAbs
+    )
+    {
         int i;
         int j = 0;
         std::vector<int> pos = {0};
         std::vector<Input::Action> actions;
         std::random_device rand_device;
+        auto &objPos = reinterpret_cast<PositionComponent &>(objective->getComponentByName("Position"));
+        Point relaObjPos = getRelativePosObj(objPos.pos);
+        std::vector<int> bestWays;
+        int xBestWay;
+        int yBestWay;
+        int moveChoice = 2;
 
         for (i = 1; i < bonusMalusZone.size(); ++i) {
-            if (bonusMalusZone[i] > bonusMalusZone[j]) {
+            if (bonusMalusZone[i] > bonusMalusZone[j] + 3) {
                 j = i;
                 pos.clear();
                 pos.push_back(i);
-            } else if (bonusMalusZone[i] == bonusMalusZone[j])
+            } else if (bonusMalusZone[i] >= bonusMalusZone[j] - 3)
                 pos.push_back(i);
         }
+        if (objPos.pos.x - myPos.x > 0) {
+            xBestWay = 3;
+        } else {
+            xBestWay = 1;
+        }
+        if (objPos.pos.y - myPos.y > 0) {
+            yBestWay = 4;
+        } else {
+            yBestWay = 0;
+        }
+        if (abs(relaObjPos.x - myPos.x) > abs(relaObjPos.y - myPos.y)) {
+            if (bonusMalusZone[xBestWay] < -999000 && onStepAbs >= 1 && onStepAbs < 9 && canEscape(bonusMalusZone, onStepAbs))
+                actions.push_back(Input::ACTION_ACTION);
+            for (int posi : pos) {
+                if (posi == yBestWay) {
+                    moveChoice = yBestWay;
+                    break;
+                }
+            }
+            for (int posi : pos) {
+                if (posi == xBestWay) {
+                    moveChoice = xBestWay;
+                    break;
+                }
+            }
+        } else if (relaObjPos.y - myPos.y != 0) {
+            if (bonusMalusZone[yBestWay] < -999000 && onStepAbs >= 1 && onStepAbs < 9 && canEscape(bonusMalusZone, onStepAbs))
+                actions.push_back(Input::ACTION_ACTION);
+            for (int posi : pos) {
+                if (posi == xBestWay) {
+                    moveChoice = xBestWay;
+                    break;
+                }
+            }
+            for (int posi : pos) {
+                if (posi == yBestWay) {
+                    moveChoice = yBestWay;
+                    break;
+                }
+            }
+        }
+        std::cout << "moveChoice : " << moveChoice << std::endl;
+        if (bonusMalusZone[moveChoice] < -100) {
+            moveChoice = pos[rand_device() % pos.size()];
+        }
+
         std::cout << "actions : " << pos.size() << " -> ";
         for (int posi : pos)
             std::cout << posi << " // ";
         std::cout << std::endl;
-        if (pos.size() > 1)
-            j = rand_device() % (int) pos.size();
-        else
-            j = 0;
-        std::cout << "action engaged : " << pos[j] << " && with j : " << j << std::endl;
-        switch (pos[j]) {
+        std::cout << "action engaged : " << moveChoice << std::endl;
+        switch (moveChoice) {
             /*case 0:
                 actions.push_back(Input::Action::ACTION_UP);
                 actions.push_back(Input::Action::ACTION_LEFT);
@@ -205,8 +297,10 @@ namespace ECS {
                     for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
                         if (it.base()->x == newPoint.x && it.base()->y == newPoint.y) {
                             *(infoIt.base()) += dangerLevel;
+                            if (e->hasComponent("OnCollisionDamageDealer") || e->hasComponent("Explode"))
+                                *(infoIt.base()) += 5000;
                             if (e->hasComponent("Health"))
-                                bonusMalusZone[2] -= 10;
+                                bonusMalusZone[2] += -10;
                             break;
                         }
                         ++infoIt;
@@ -272,6 +366,15 @@ namespace ECS {
         return (relative);
     }
 
+    bool ControlledByAISystem::initBadPos(PositionComponent &pos, int xTmp, int yTmp)
+    {
+        if (xTmp <= 15 && yTmp <= 15)
+            return (true);
+        pos.pos.x = (int)(pos.pos.x / TILESIZE) * TILESIZE + 5;
+        pos.pos.y = (int)(pos.pos.y / TILESIZE) * TILESIZE + 5;
+        return (false);
+    }
+
     std::vector<Input::Action> ControlledByAISystem::AIBrain(ECS::Entity &entity, BombDropperComponent &bombDropper)
     {
         auto &in = reinterpret_cast<ControlledByAIComponent &>(entity.getComponentByName("ControlledByAI"));
@@ -282,22 +385,27 @@ namespace ECS {
         Point relativePosPlayer = getRelativePosPlayer(pos.pos);
         std::vector<Point> relativeVision = getRelativeVision(relativePosPlayer);
         std::vector<Entity *> blockZone;
-        std::vector<int> bonusMalusZone = {0, 0, 0, 0, 0/*, 0, 0, 0, 0*/};
+        std::vector<int> bonusMalusZone = {0, 0, -2, 0, 0/*, 0, 0, 0, 0*/};
         //static int changingPosx = relativePos.x / TILESIZE;
         //static int changingPosy = relativePos.y / TILESIZE;
         int xTmp = (int)(pos.pos.x / TILESIZE * 100) % 100;
         int yTmp = (int)(pos.pos.y / TILESIZE * 100) % 100;
-        static std::vector<Input::Action> actions {};
+        static bool init = initBadPos(pos, xTmp, yTmp);
+        static std::vector<Input::Action> actions = {};
+        static Entity *objective;
         static int timer = 0;
+        int onStepAbs;
 
         //std::cout << "x : " << (int)(pos.pos.x / TILESIZE) << " // xTmp : " << xTmp << std::endl;
         //std::cout << "y : " << (int)(pos.pos.y / TILESIZE) << " // yTmp : " << yTmp << std::endl;
-        if ((xTmp <= 10 && yTmp <= 10 && timer == 0) || actions.empty() || actions[0] == Input::ACTION_ACTION) {
+        if ((xTmp <= 15 && yTmp <= 15 && timer == 0) || !objective) {
+            objective = setAIObjective(entity, objective, powerUps);
+            std::cout << objective->getName() << std::endl;
             for (Entity *e : colliders) {
                 auto &eCollide = reinterpret_cast<ColliderComponent &>(e->getComponentByName("Collider"));
                 auto &eKicker = reinterpret_cast<KickerComponent &>(entity.getComponentByName("Kicker"));
 
-                if (eCollide.hardness >= 1 || e->hasComponent("OnCollisionDamageDealer") || (!eKicker.canKick && e->hasComponent("Explode"))) {
+                if (eCollide.hardness >= 1 || e->hasComponent("OnCollisionDamageDealer") || (/* !eKicker.canKick && */ e->hasComponent("Explode"))) {
                     blockZone.emplace_back(e);
                 }
             }
@@ -317,15 +425,21 @@ namespace ECS {
             for (int score : bonusMalusZone) {
                 std::cout << score << " || ";
             }
-            actions = getTheBestWay(bonusMalusZone);
+            std::cout << std::endl;
+            onStepAbs = (bonusMalusZone[2] + 2);
+            if (onStepAbs < 0)
+                onStepAbs *= -1;
+            onStepAbs = onStepAbs % 100 / 10;
+            std::cout << "onStepLOL : " << onStepAbs << std::endl;
+            actions = getTheBestWay(bonusMalusZone, objective, relativePosPlayer, onStepAbs);
             /*if (!actions.empty()) {
                 changingPosx = relativePos.x / TILESIZE;
                 changingPosy = relativePos.y / TILESIZE;
             }*/
-            if (canEscape(bonusMalusZone) && !bombDropper.bombs.empty()) {
+            if (canEscape(bonusMalusZone, onStepAbs) && !actions.empty() && actions[0] != Input::ACTION_ACTION) {
                 actions.push_back(Input::ACTION_ACTION);
             }
-            timer = 11;
+            timer = 2;
         }
         if (timer > 0)
             --timer;

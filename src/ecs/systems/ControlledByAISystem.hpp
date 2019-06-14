@@ -12,6 +12,7 @@
 #include "../System.hpp"
 #include "../../input/Input.hpp"
 #include "../components/BombDropperComponent.hpp"
+#include "../components/PositionComponent.hpp"
 
 namespace ECS
 {
@@ -20,8 +21,14 @@ namespace ECS
         ControlledByAISystem(ECSCore &core);
         void updateEntity(Entity &entity) override;
         std::vector<Input::Action> AIBrain(Entity &entity, BombDropperComponent &bombDropper);
-        bool canEscape(std::vector<int> &bonusMalusZone);
-        std::vector<Input::Action> getTheBestWay(std::vector<int> &bonusMalusZone);
+        bool canEscape(std::vector<int> &bonusMalusZone, int onStepAbs);
+
+        std::vector<Input::Action> getTheBestWay(
+            std::vector<int> &bonusMalusZone,
+            Entity *objective,
+            Point &myPos,
+            int onStepAbs
+        );
 
         void updateRelativeVisionForBlocks(
             std::vector<ECS::Entity *> &cannotMoveThere,
@@ -46,6 +53,8 @@ namespace ECS
         std::vector<ECS::Point> getRelativeVision(ECS::Point &point);
         ECS::Point getRelativePosPlayer(ECS::Point &pos);
         ECS::Point getRelativePosObj(ECS::Point &pos);
+        Entity *setAIObjective(Entity &me, Entity *objective, std::vector<Entity *> bonuses);
+        bool initBadPos(PositionComponent &pos, int xTmp, int yTmp);
     };
 }
 
