@@ -12,15 +12,15 @@
 #include <memory>
 #include "System.hpp"
 #include "Ressources.hpp"
-#include "Factories/EntityFactory.hpp"
-#include "Factories/SystemFactory.hpp"
+#include "factories/EntityFactory.hpp"
+#include "factories/SystemFactory.hpp"
 
 namespace ECS
 {
 	class ECSCore {
 	private:
 		unsigned					_lastEntityId;
-		Ressources					_ressources;
+		Ressources					&_ressources;
 		SystemFactory					_systemFactory;
 		EntityFactory					_entityFactory;
 		std::vector<std::unique_ptr<System>>		_systems;
@@ -28,7 +28,8 @@ namespace ECS
 		std::map<std::string, std::vector<Entity *>>	_components;
 
 	public:
-		explicit ECSCore(const Ressources &ressources);
+		explicit ECSCore(Ressources &ressources);
+		explicit ECSCore(ECS::Ressources &ressources, std::istream &stream);
 		Entity &getEntityById(unsigned id) const;
 		std::vector<Entity *> getEntitiesByName(const std::string &name) const;
 		std::vector<Entity *> getEntitiesByComponent(const std::string &name) const;

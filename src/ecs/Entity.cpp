@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Entity.hpp"
 #include "Exceptions.hpp"
+#include "factories/ComponentFactory.hpp"
 
 namespace ECS
 {
@@ -17,7 +18,8 @@ namespace ECS
 		_name(name)
 	{
 		for (Component *comp : components)
-			this->_components.emplace_back(comp);
+			if (comp)
+				this->_components.emplace_back(comp);
 	}
 
 	std::string Entity::getName() const
@@ -61,6 +63,25 @@ namespace ECS
 	void Entity::destroy()
 	{
 		this->_destroy = true;
+	}
+
+	Entity::Entity(ECS::Ressources &ressources, std::istream &stream) :
+		_destroy(false),
+		_id(0),
+		_name("")
+	{
+		ComponentFactory factory(ressources);
+		std::string componentName;
+
+		stream >> this->_id >> this->_name;
+		for (stream >> componentName; componentName != "EndOfEntity"; stream >> componentName)
+			try {
+				this->_components.push_back(factory.build(componentName, stream));
+			} catch (std::exception &e) {
+				throw InvalidSerializedStringException(
+					"Cannot make " + componentName + " of entity n°" + std::to_string(this->_id) + " (" + this->_name + "): " + e.what()
+				);
+			}
 	}
 
 	std::ostream& Entity::serialize(std::ostream &stream) const

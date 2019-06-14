@@ -18,6 +18,7 @@ namespace ECS
 
 	public:
 		Component(std::string &&name);
+		virtual ~Component() = default;
 		std::string		getName() const;
 		virtual std::ostream	&serialize(std::ostream &stream) const = 0;
 	};

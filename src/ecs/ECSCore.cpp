@@ -6,18 +6,45 @@
 */
 
 #include <iostream>
+#include <algorithm>
 #include "ECSCore.hpp"
 #include "Exceptions.hpp"
 
 namespace ECS
 {
-	ECSCore::ECSCore(const ECS::Ressources &ressources) :
+	ECSCore::ECSCore(ECS::Ressources &ressources) :
 		_ressources(ressources),
 		_systemFactory(*this),
 		_entityFactory(ressources),
 		_lastEntityId(0)
 	{
 		this->_systems = this->_systemFactory.buildAll();
+	}
+
+	ECSCore::ECSCore(ECS::Ressources &ressources, std::istream &stream) :
+		ECSCore(ressources)
+	{
+		std::string value;
+
+		stream >> value;
+		if (value != "SerializedECSCore")
+			throw InvalidSerializedStringException("Core header is invalid");
+		for (stream >> value; value != "EndOfRecord"; stream >> value) {
+			if (value != "Entity")
+				throw InvalidSerializedStringException("Entity header is invalid");
+
+			auto entity = new Entity{ressources, stream};
+
+			try {
+				this->getEntityById(entity->getId());
+				throw InvalidSerializedStringException("Two entities have the same ID");
+			} catch (NoSuchEntityException &) {}
+			if (entity->getId() >= this->_lastEntityId)
+				this->_lastEntityId = entity->getId() + 1;
+			this->_entities.emplace_back(entity);
+			for (auto &comp : this->_entities.back()->getComponents())
+				this->_components[comp->getName()].push_back(&*this->_entities.back());
+		}
 	}
 
 	Entity &ECSCore::getEntityById(unsigned id) const
@@ -65,7 +92,9 @@ namespace ECS
 
 	void ECSCore::update()
 	{
-		for (auto &entity : this->_entities) {
+		for (size_t i = 0; i < this->_entities.size(); i++) {
+			auto &entity = this->_entities[i];
+
 			for (auto &comp : entity->getComponents()) {
 				try {
 					auto &system = this->getSystem(comp->getName());
@@ -87,9 +116,19 @@ namespace ECS
 				}
 			}
 		}
-		for (auto it = this->_entities.begin(); it < this->_entities.end(); it++)
-			while ((*it)->isDestroyed())
+		for (auto it = this->_entities.begin(); it < this->_entities.end(); it++) {
+			while (it < this->_entities.end() && (*it)->isDestroyed()) {
+				for (auto &comp : (*it)->getComponents())
+					this->_components[comp->getName()].erase(
+						std::find(
+							this->_components[comp->getName()].begin(),
+							this->_components[comp->getName()].end(),
+							&**it
+						)
+					);
 				this->_entities.erase(it);
+			}
+		}
 	}
 
 	void ECSCore::reset()
@@ -102,7 +141,7 @@ namespace ECS
 	{
 		stream << "SerializedECSCore" << std::endl;
 		for (auto &entity : this->_entities)
-			stream << *entity << std::endl;
+			stream << "Entity " << *entity << std::endl;
 		return stream << "EndOfRecord";
 	}
 }

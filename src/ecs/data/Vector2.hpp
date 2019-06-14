@@ -17,8 +17,8 @@ namespace ECS
 
         template <typename type>
         Vector2<T> &operator=(Vector2<type> &vec) {
-            this->x = vec.x;
-            this->y = vec.y;
+            this->x = static_cast<type>(vec.x);
+            this->y = static_cast<type>(vec.y);
             return *this;
         }
     };

@@ -13,6 +13,8 @@
 #include "../ecs/ECSCore.hpp"
 #include "../ecs/data/Vector2.hpp"
 #include "../config.hpp"
+#include "../ecs/data/NumericValue.hpp"
+
 
 namespace Map {
 
@@ -22,10 +24,11 @@ namespace Map {
         ECS::ECSCore _core;
 
     public:
-        Map(const ECS::Ressources &ressources);
+        Map(ECS::Ressources &ressources);
+        Map(ECS::Ressources &ressources, std::istream &stream);
         ~Map() = default;
         void update();
-        void generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio);
+        void generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::vector<std::string> players, std::map<std::string, unsigned> ratiosBonus = {{"Bonus", 0}});
         std::ostream &serialize(std::ostream &stream) const;
         void setArenaWallAround(ECS::Vector2<unsigned> sizeMap);
     };

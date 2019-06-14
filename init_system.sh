@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR_PATH=`dirname "$0"`
-ECS_PATH="$DIR_PATH/src/ecs/Systems/"
+ECS_PATH="$DIR_PATH/src/ecs/systems/"
 if [[ "$1" =~ ^.*System$ ]]
 then
     NAME="$1"

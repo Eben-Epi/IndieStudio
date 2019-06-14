@@ -10,13 +10,15 @@
 
 
 #include "../input/Input.hpp"
-#include "../irrlicht/Irrlicht.hpp"
+#include "../irrlicht/game-scene/GameScene.hpp"
+#include "../sound/SoundSystem.hpp"
 
 namespace ECS
 {
 	struct Ressources {
-		Irrlicht::Irrlicht			   &screen;
+		Irrlicht::GameScene                        &gameScene;
 		std::vector<std::unique_ptr<Input::Input>> &inputs;
+		Sound::SoundSystem                         soundSystem;
 	};
 }
 

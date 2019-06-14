@@ -15,6 +15,8 @@
 
 namespace ECS
 {
+    struct Ressources;
+
 	class Entity {
 	private:
 		bool _destroy;
@@ -24,6 +26,7 @@ namespace ECS
 
 	public:
 		Entity(unsigned id, std::string &&name, std::vector<Component *> &&components);
+		Entity(Ressources &ressources, std::istream &stream);
 		void destroy();
 		bool isDestroyed();
 		unsigned getId() const;
