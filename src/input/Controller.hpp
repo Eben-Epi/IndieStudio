@@ -47,6 +47,7 @@ namespace Input
             void addJoystick(unsigned);
             void joystickIn();
             void removeJoystick();
+            void resetControl();
 
         private:
             Irrlicht::GameScene &_scene;

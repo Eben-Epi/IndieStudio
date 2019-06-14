@@ -32,6 +32,7 @@ namespace Input {
     class Input {
     public:
         virtual std::vector<Action> getActions() = 0;
+        virtual void resetControl() = 0;
 
     private:
     };
