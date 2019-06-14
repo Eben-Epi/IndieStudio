@@ -13,7 +13,7 @@
 #include "../components/PositionComponent.hpp"
 
 ECS::CollisionSystem::CollisionSystem(ECS::ECSCore &core):
-    System("Collision", core)
+	System("Collision", core)
 {
 	this->_dependencies = {"Position"};
 }

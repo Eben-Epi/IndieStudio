@@ -84,85 +84,21 @@ bool Irrlicht::Screen::display() {
     return this->_device->run();
 }
 
-void Irrlicht::Screen::setFullscreen(bool fullscreen) {
-    if (this->_fullscreen == fullscreen)
-        return;
-    this->_device->closeDevice();
-    this->_device->run();
-    this->_device->drop();
-    this->_fullscreen = fullscreen;
-    this->_device = irr::createDevice(
-        this->_driverType,
-        irr::core::dimension2d<irr::u32>(
-            this->_width,
-            this->_height
-        ),
-        this->_colorDepth,
-        this->_fullscreen,
-        false,
-        this->_vsync,
-        &this->_eventReceiver
-    );
-    this->_guienv = this->_device->getGUIEnvironment();
-    this->_smgr = this->_device->getSceneManager();
-    this->_driver = this->_device->getVideoDriver();
-    this->_device->getCursorControl()->setVisible(false);
+bool Irrlicht::Screen::setFullscreen(bool fullscreen) {
+    return (this->setWindowAttributes(this->_width, this->_height, this->_colorDepth, fullscreen, this->_vsync));
 }
 
-void Irrlicht::Screen::setWindowSize(int width, int height) {
-    if (this->_width == width && this->_height == height)
-        return;
-    this->_device->closeDevice();
-    this->_device->run();
-    this->_device->drop();
-    this->_width = width;
-    this->_height = height;
-    this->_device = irr::createDevice(
-        this->_driverType,
-        irr::core::dimension2d<irr::u32>(
-            this->_width,
-            this->_height
-        ),
-        this->_colorDepth,
-        this->_fullscreen,
-        false,
-        this->_vsync,
-        &this->_eventReceiver
-    );
-    this->_guienv = this->_device->getGUIEnvironment();
-    this->_smgr = this->_device->getSceneManager();
-    this->_driver = this->_device->getVideoDriver();
-    this->_device->getCursorControl()->setVisible(false);
+bool Irrlicht::Screen::setWindowSize(int width, int height) {
+    return (this->setWindowAttributes(width, height, this->_colorDepth, this->_fullscreen, this->_vsync));
 }
 
-void Irrlicht::Screen::setVsync(bool vsync) {
-    if (this->_vsync == vsync)
-        return;
-    this->_device->closeDevice();
-    this->_device->run();
-    this->_device->drop();
-    this->_vsync = vsync;
-    this->_device = irr::createDevice(
-        this->_driverType,
-        irr::core::dimension2d<irr::u32>(
-            this->_width,
-            this->_height
-        ),
-        this->_colorDepth,
-        this->_fullscreen,
-        false,
-        this->_vsync,
-        &this->_eventReceiver
-    );
-    this->_guienv = this->_device->getGUIEnvironment();
-    this->_smgr = this->_device->getSceneManager();
-    this->_driver = this->_device->getVideoDriver();
-    this->_device->getCursorControl()->setVisible(false);
+bool Irrlicht::Screen::setVsync(bool vsync) {
+    return (this->setWindowAttributes(this->_width, this->_height, this->_colorDepth, this->_fullscreen, vsync));
 }
 
-void Irrlicht::Screen::setWindowAttributes(int width, int height, int colorDepth, bool fullscreen, bool vsync) {
+bool Irrlicht::Screen::setWindowAttributes(int width, int height, int colorDepth, bool fullscreen, bool vsync) {
     if (this->_vsync == vsync && this->_width == width && this->_height == height && this->_fullscreen == fullscreen && this->_colorDepth == colorDepth)
-        return;
+        return (true);
     this->_device->closeDevice();
     this->_device->run();
     this->_device->drop();
@@ -187,6 +123,7 @@ void Irrlicht::Screen::setWindowAttributes(int width, int height, int colorDepth
     this->_smgr = this->_device->getSceneManager();
     this->_driver = this->_device->getVideoDriver();
     this->_device->getCursorControl()->setVisible(false);
+    return (true);
 }
 
 unsigned Irrlicht::Screen::addGameScene(const std::string &name, bool isMainMenu) {
@@ -220,8 +157,7 @@ bool Irrlicht::Screen::setCurrentGameScene(const std::string &name) {
     return false;
 }
 
-Irrlicht::EventReceiver &Irrlicht::Screen::getEventReceiver()
-{
+Irrlicht::EventReceiver &Irrlicht::Screen::getEventReceiver() {
     return (this->_eventReceiver);
 }
 

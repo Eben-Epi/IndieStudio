@@ -30,10 +30,10 @@ namespace Irrlicht
         GameScene &getCurrentGameScene();
         bool setCurrentGameScene(unsigned id);
         bool setCurrentGameScene(const std::string &name);
-        void setFullscreen(bool fullscreen);
-        void setVsync(bool vsync);
-        void setWindowSize(int width, int height);
-        void setWindowAttributes(int width, int height, int colorDepth, bool fullscreen, bool vsync);
+        bool setFullscreen(bool fullscreen);
+        bool setVsync(bool vsync);
+        bool setWindowSize(int width, int height);
+        bool setWindowAttributes(int width, int height, int colorDepth, bool fullscreen, bool vsync);
         void setCursorVisible(bool cursor);
         void setGameClosed(bool close);
         bool isValidGetterId(unsigned id);

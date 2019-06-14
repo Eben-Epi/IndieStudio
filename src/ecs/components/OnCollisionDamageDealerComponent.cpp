@@ -23,12 +23,12 @@ namespace ECS
     }
 
     OnCollisionDamageDealerComponent::OnCollisionDamageDealerComponent(ECS::Ressources &, std::istream &stream) :
-	    OnCollisionDamageDealerComponent(0)
+        OnCollisionDamageDealerComponent(0)
     {
-	    std::string terminator;
+        std::string terminator;
 
-	    stream >> damage >> terminator;
-	    if (terminator != "EndOfComponent")
-		    throw InvalidSerializedStringException("The component terminator was not found");
+        stream >> damage >> terminator;
+        if (terminator != "EndOfComponent")
+            throw InvalidSerializedStringException("The component terminator was not found");
     }
 }

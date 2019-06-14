@@ -10,9 +10,7 @@
 #include "../components/ColliderComponent.hpp"
 #include "../components/MortalComponent.hpp"
 #include "../components/PositionComponent.hpp"
-#include "../components/PowerUpComponent.hpp"
 #include "../components/PickableComponent.hpp"
-#include "../components/PowerUpPickedComponent.hpp"
 #include "../components/CurseOnPickComponent.hpp"
 
 ECS::Skull::Skull(unsigned id, Ressources &ressources) :

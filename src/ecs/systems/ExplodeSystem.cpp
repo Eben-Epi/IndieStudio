@@ -19,13 +19,13 @@ static inline bool entities_collied(double x, double y, ECS::PositionComponent &
     return (BETWEEN(e.pos.x, x, e.pos.x + e.size.x) && BETWEEN(e.pos.y, y, e.pos.y + e.size.y));
 }
 
-static int get_first_collided(ECS::PositionComponent &pc, unsigned range, std::vector<ECS::Entity *> &entities, bool r, bool v)
+static int get_first_collided(ECS::PositionComponent &pc, unsigned range, std::vector<ECS::Entity *> &entities, bool r, bool v, unsigned strength)
 {
     for (int i = 1; i <= range; i++)
         for (ECS::Entity *e : entities) {
             auto &ip = reinterpret_cast<ECS::PositionComponent &>(e->getComponentByName("Position"));
             auto &ic = reinterpret_cast<ECS::ColliderComponent &>(e->getComponentByName("Collider"));
-            if (!ic.hardness)
+            if (ic.hardness < strength)
                 continue;
             if (entities_collied(pc.pos.x + (TILESIZE / 2 + TILESIZE * (v ? 0 : (r ? -i : i))), pc.pos.y + (TILESIZE / 2 + TILESIZE * (v ? (r ? -i : i) : 0)), ip)) {
                 if (e->hasComponent("Health"))
@@ -37,7 +37,7 @@ static int get_first_collided(ECS::PositionComponent &pc, unsigned range, std::v
 }
 
 ECS::ExplodeSystem::ExplodeSystem(ECS::ECSCore &core) :
-        System("Explode", core)
+    System("Explode", core)
 {
     this->_dependencies = {"Health", "Position"};
 }
@@ -58,10 +58,10 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
     pc.pos.x = (static_cast<int>(pc.pos.x) + TILESIZE / 2) / TILESIZE * TILESIZE;
     pc.pos.y = (static_cast<int>(pc.pos.y) + TILESIZE / 2) / TILESIZE * TILESIZE;
 
-    min_x = static_cast<int>(pc.pos.x) - get_first_collided(pc, exc.range, entities, true, false) * TILESIZE;
-    max_x = static_cast<int>(pc.pos.x) + (get_first_collided(pc, exc.range, entities, false, false) + 1) * TILESIZE;
-    min_y = static_cast<int>(pc.pos.y) - get_first_collided(pc, exc.range, entities, true, true) * TILESIZE;
-    max_y = static_cast<int>(pc.pos.y) + (get_first_collided(pc, exc.range, entities, false, true) + 1) * TILESIZE;
+    min_x = static_cast<int>(pc.pos.x) - get_first_collided(pc, exc.range, entities, true, false, exc.strength) * TILESIZE;
+    max_x = static_cast<int>(pc.pos.x) + (get_first_collided(pc, exc.range, entities, false, false, exc.strength) + 1) * TILESIZE;
+    min_y = static_cast<int>(pc.pos.y) - get_first_collided(pc, exc.range, entities, true, true, exc.strength) * TILESIZE;
+    max_y = static_cast<int>(pc.pos.y) + (get_first_collided(pc, exc.range, entities, false, true, exc.strength) + 1) * TILESIZE;
 
     Entity &horizontalEF = this->_core.makeEntity("ExplosionFrame");
     Entity &verticalEF = this->_core.makeEntity("ExplosionFrame");

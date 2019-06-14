@@ -41,6 +41,7 @@ namespace Sound
 				auto &sound = this->_sounds[i];
 
 				if (sound->getStatus() == sf::Sound::Stopped) {
+					sound->stop();
 					sound->setBuffer(this->_loadedSounds.at(id));
 					sound->setVolume(volume);
 					sound->setLoop(false);
@@ -83,5 +84,54 @@ namespace Sound
 	{
 		this->_backgroundMusic.reset(new unsigned(this->playSound(id, volume)));
 		this->_sounds[*this->_backgroundMusic]->setLoop(true);
+	}
+
+	void SoundSystem::pause(unsigned id)
+	{
+		try {
+			this->_sounds[id]->pause();
+		} catch (std::out_of_range &) {
+			throw InvalidSoundIdentifierException("No sound loaded has id " + std::to_string(id));
+		}
+	}
+
+	void SoundSystem::stop(unsigned id)
+	{
+		try {
+			this->_sounds[id]->stop();
+		} catch (std::out_of_range &) {
+			throw InvalidSoundIdentifierException("No sound loaded has id " + std::to_string(id));
+		}
+	}
+
+	void SoundSystem::resume(unsigned id)
+	{
+		try {
+			this->_sounds[id]->play();
+		} catch (std::out_of_range &) {
+			throw InvalidSoundIdentifierException("No sound loaded has id " + std::to_string(id));
+		}
+	}
+
+	void SoundSystem::pauseBackgroundMusic()
+	{
+		if (!this->_backgroundMusic)
+			throw InvalidSoundIdentifierException("No background music is playing");
+		this->pause(*this->_backgroundMusic);
+	}
+
+	void SoundSystem::stopBackgroundMusic()
+	{
+		if (!this->_backgroundMusic)
+			throw InvalidSoundIdentifierException("No background music is playing");
+		this->stop(*this->_backgroundMusic);
+		this->_backgroundMusic = nullptr;
+	}
+
+	void SoundSystem::resumeBackgroundMusic()
+	{
+		if (!this->_backgroundMusic)
+			throw InvalidSoundIdentifierException("No background music is playing");
+		this->resume(*this->_backgroundMusic);
 	}
 }

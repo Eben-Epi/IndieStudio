@@ -21,6 +21,26 @@ namespace ECS
             this->y = static_cast<type>(vec.y);
             return *this;
         }
+
+        Vector2<T> &operator+(T value) {
+            this->x += value;
+            this->y += value;
+            return *this;
+        }
+
+        Vector2<T> &operator*(T value) {
+            this->x *= value;
+            this->y *= value;
+            return *this;
+        }
+
+        template <typename type>
+        operator Vector2<type>() {
+            return {
+               static_cast<type>(this->x),
+	       static_cast<type>(this->y)
+            };
+        }
     };
 
     template <typename T>
@@ -42,7 +62,7 @@ namespace ECS
 
     typedef Vector2<double> PointF;
     typedef Vector2<double> Point;
-}; // namespace ECS
+} // namespace ECS
 
 
 #endif

@@ -37,7 +37,6 @@ namespace ECS
 		Entity &makeEntity(const std::string &name);
 		std::ostream &serialize(std::ostream &stream) const;
 		void update();
-		void reset();
 	};
 }
 

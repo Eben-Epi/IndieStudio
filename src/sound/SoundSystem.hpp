@@ -25,6 +25,12 @@ namespace Sound
 		void loadSound(const std::string &id);
 		void playSoundOverBackgroundMusic(const std::string &id, float volume = 100);
 		unsigned playSound(const std::string &id, float volume = 100);
+		void pauseBackgroundMusic();
+		void pause(unsigned id);
+		void resumeBackgroundMusic();
+		void resume(unsigned id);
+		void stopBackgroundMusic();
+		void stop(unsigned id);
 		void setBackgroundMusic(const std::string &id, float volume = 100);
 
 	private:

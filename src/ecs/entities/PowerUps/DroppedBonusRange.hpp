@@ -9,12 +9,13 @@
 #define BOMBERMAN_DROPPEDBONUSRANGE_HPP
 
 
-#include "../Entity.hpp"
-#include "../Ressources.hpp"
+#include "../../Entity.hpp"
+#include "../../Ressources.hpp"
+#include "DroppedItem.hpp"
 
 namespace ECS
 {
-    class DroppedBonusRange : public Entity {
+    class DroppedBonusRange : public DroppedItem {
     public:
         explicit DroppedBonusRange(unsigned id, Ressources &ressources);
     };

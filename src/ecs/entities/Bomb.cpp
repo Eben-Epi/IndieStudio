@@ -16,7 +16,6 @@
 #include "../components/ExplodeComponent.hpp"
 #include "../components/ColliderComponent.hpp"
 #include "../components/MovableComponent.hpp"
-#include "../components/BlockedComponent.hpp"
 
 ECS::Bomb::Bomb(unsigned id, Ressources &ressources) :
     Entity(id, "Bomb", {

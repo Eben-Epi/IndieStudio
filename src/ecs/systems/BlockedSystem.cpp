@@ -26,17 +26,17 @@ void ECS::BlockedSystem::updateEntity(ECS::Entity &entity)
     auto &bc = reinterpret_cast<BlockedComponent &>(entity.getComponentByName("Blocked"));
     auto &entity_hitbox = reinterpret_cast<CollisionComponent &>(entity.getComponentByName("Collision"));
 
-    for (auto &i : bc._whitelistId)
+    for (auto &i : bc.whitelistId)
         if (std::find(entity_hitbox.entitiesCollided.begin(), entity_hitbox.entitiesCollided.end(), i) == entity_hitbox.entitiesCollided.end())
-            bc._whitelistId.erase(std::remove(bc._whitelistId.begin(), bc._whitelistId.end(), i), bc._whitelistId.end());
+            bc.whitelistId.erase(std::remove(bc.whitelistId.begin(), bc.whitelistId.end(), i), bc.whitelistId.end());
 
     for (auto &wall : entity_hitbox.entitiesCollided) {
-    	auto &entity_pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
+        auto &entity_pos = reinterpret_cast<PositionComponent &>(entity.getComponentByName("Position"));
         auto &entity_mov = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
         auto &wall_hitbox = reinterpret_cast<ColliderComponent &>(wall->getComponentByName("Collider"));
         auto &wall_pos = reinterpret_cast<PositionComponent &>(wall->getComponentByName("Position"));
 
-        if (wall_hitbox.hardness <= entity_hitbox.passThrough || std::find(bc._whitelistId.begin(), bc._whitelistId.end(), wall) != bc._whitelistId.end())
+        if (wall_hitbox.hardness <= entity_hitbox.passThrough || std::find(bc.whitelistId.begin(), bc.whitelistId.end(), wall) != bc.whitelistId.end())
             continue;
 
         double relative_x = entity_pos.pos.x - wall_pos.pos.x;

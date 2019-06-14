@@ -59,6 +59,7 @@ namespace Irrlicht {
 		const std::string sceneName;
 		const unsigned id;
 	protected:
+        IrrEntity &_getEntity(unsigned entity_id);
 		std::vector<std::unique_ptr<IrrEntity>> _entities;
 		unsigned _entitiesId;
 		Screen &_window;

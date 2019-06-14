@@ -14,8 +14,8 @@ Input::Controller::Controller(Irrlicht::GameScene &scene, std::vector<Controller
 	_id(id),
 	_threshold(threshold)
 {
-    if ((keys.size() != 3 && keys.size() != 6) || (keys.size() == 3 && keys[0] != LEFT_JOYSTICK && keys[0] != RIGHT_JOYSTICK))
-        throw ControllerException("Invalid key vector given (size is invalid)");
+	if ((keys.size() != 3 && keys.size() != 6) || (keys.size() == 3 && keys[0] != LEFT_JOYSTICK && keys[0] != RIGHT_JOYSTICK))
+		throw ControllerException("Invalid key vector given (size is invalid)");
 }
 
 std::vector<Input::Action> Input::Controller::getActions() { //WIP

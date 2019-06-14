@@ -11,7 +11,7 @@
 
 ECS::BlockedComponent::BlockedComponent() :
 	Component("Blocked"),
-	_whitelistId({})
+	whitelistId({})
 {}
 
 ECS::BlockedComponent::BlockedComponent(ECS::Ressources &, std::istream &stream) :

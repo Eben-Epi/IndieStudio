@@ -23,7 +23,10 @@ const std::vector<std::string> sound_to_load = {
     "bip",
     "explode",
     "skull",
-    "pop1"
+    "pop1",
+    "pause",
+    "ready",
+    "game"
 };
 
 #endif //BOMBERMAN_CONFIG_HPP
