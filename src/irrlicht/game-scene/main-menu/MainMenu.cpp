@@ -27,6 +27,7 @@ bool Irrlicht::MainMenu::update()
                     changeCurrentGameScene("Game");
                     break;
                 case OPTIONS:
+                    this->_window.
                     changeCurrentGameScene("Options");
                     break;
                 case EXIT:
