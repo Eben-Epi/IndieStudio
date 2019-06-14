@@ -41,6 +41,7 @@ namespace Sound
 				auto &sound = this->_sounds[i];
 
 				if (sound->getStatus() == sf::Sound::Stopped) {
+					sound->stop();
 					sound->setBuffer(this->_loadedSounds.at(id));
 					sound->setVolume(volume);
 					sound->setLoop(false);
@@ -124,6 +125,7 @@ namespace Sound
 		if (!this->_backgroundMusic)
 			throw InvalidSoundIdentifierException("No background music is playing");
 		this->stop(*this->_backgroundMusic);
+		this->_backgroundMusic = nullptr;
 	}
 
 	void SoundSystem::resumeBackgroundMusic()

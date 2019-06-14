@@ -86,8 +86,6 @@ int main()
 		for (auto &sound_name : sound_to_load)
 			res.soundSystem.loadSound(sound_name);
 
-		res.soundSystem.setBackgroundMusic("battle_music", 45); // tmp
-
 		bool justPaused = false;
 		bool paused = false;
 
@@ -102,8 +100,18 @@ int main()
 					res.soundSystem.resumeBackgroundMusic();
 			} else if (!res.gameScene.isKeyPressed(irr::KEY_ESCAPE))
 				justPaused = false;
-			if (!paused)
-				map->update();
+			if (!paused && !map->update()) {
+				delete map;
+				map = new Map::Map(res);
+				map->generateMap({20, 20}, 7000, {"Alphaone", "Xenotype"}, {
+					{"Bonus", 40},
+					{"DroppedBonusSpeed", 20},
+					{"DroppedBonusBomb", 20},
+					{"DroppedBonusKick", 5},
+					{"DroppedBonusRange", 20},
+					{"Skull", 10}
+				});
+			}
 		}
 
 		std::ofstream stream("save.txt");

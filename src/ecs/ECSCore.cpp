@@ -131,12 +131,6 @@ namespace ECS
 		}
 	}
 
-	void ECSCore::reset()
-	{
-		this->_entities.erase(this->_entities.begin(), this->_entities.end());
-		this->_lastEntityId = 0;
-	}
-
 	std::ostream& ECSCore::serialize(std::ostream &stream) const
 	{
 		stream << "SerializedECSCore" << std::endl;
