@@ -25,8 +25,8 @@ namespace ECS
 
 	void ControllableSystem::updateEntity(ECS::Entity &entity)
 	{
-        auto &in = reinterpret_cast<ControllableComponent &>(entity.getComponentByName("Controllable"));
-        auto &mov = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
+		auto &in = reinterpret_cast<ControllableComponent &>(entity.getComponentByName("Controllable"));
+		auto &mov = reinterpret_cast<MovableComponent &>(entity.getComponentByName("Movable"));
 		auto &bombDropper = reinterpret_cast<BombDropperComponent &>(entity.getComponentByName("BombDropper"));
 		auto &uc = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
 		auto &disp = reinterpret_cast<DisplayableComponent &>(entity.getComponentByName("Displayable"));
@@ -35,13 +35,13 @@ namespace ECS
 		uc.castUlt = false;
 		disp.animation = Irrlicht::IDLE;
 		bombDropper.dropBomb = false;
-        if (in.stunLeft > 0) {
-            in.stunLeft -= 1;
-            mov.speed = 0;
-            return;
-        }
+		if (in.stunLeft > 0) {
+			in.stunLeft -= 1;
+			mov.speed = 0;
+			return;
+		}
 
-        auto actions = in.input.getActions();
+		auto actions = in.input.getActions();
 		for (auto &action : actions) {
 			switch (action) {
 			case Input::ACTION_UP:

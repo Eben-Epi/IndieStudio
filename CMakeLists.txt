@@ -244,7 +244,7 @@ add_executable(
 	src/sound/Exception.hpp
 	src/sound/SoundSystem.cpp
 	src/sound/SoundSystem.hpp
-	src/ecs/components/NameComponent.cpp src/ecs/components/NameComponent.hpp src/ecs/systems/NameSystem.cpp src/ecs/systems/NameSystem.hpp)
+	src/ecs/components/NameComponent.cpp src/ecs/components/NameComponent.hpp src/ecs/systems/NameSystem.cpp src/ecs/systems/NameSystem.hpp src/ecs/entities/PowerUps/DroppedBonusGhost.cpp src/ecs/entities/PowerUps/DroppedBonusGhost.hpp)
 
 find_package(Irrlicht REQUIRED)
 find_package(Sfml REQUIRED)

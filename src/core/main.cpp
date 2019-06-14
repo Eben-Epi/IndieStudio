@@ -22,12 +22,13 @@ Map::Map *loadMap(std::string path, Irrlicht::GameScene &gameScene, std::vector<
 
 	auto map = new Map::Map{gameScene, inputs, soundSystem};
 
-	map->generateMap({20, 20}, 7000, {"Faerie", "Xenotype"}, {
+	map->generateMap({20, 20}, 7000, {"Faerie"}, {
 		{"Bonus", 40},
 		{"DroppedBonusSpeed", 20},
 		{"DroppedBonusBomb", 20},
 		{"DroppedBonusKick", 5},
 		{"DroppedBonusRange", 20},
+		{"DroppedBonusGhost", 1},
 		{"Skull", 10}
 	});
 	return map;
@@ -133,7 +134,7 @@ int main()
 			if (!paused && !map->update() && displayEndGameMenu(*map, screen, soundSystem)) {
 				delete map;
 				map = new Map::Map(screen.getGameSceneByName("Game"), inputs, soundSystem);
-				map->generateMap({20, 20}, 7000, {"Alphaone", "Xenotype"}, {
+				map->generateMap({20, 20}, 7000, {"Faerie"}, {
 					{"Bonus", 40},
 					{"DroppedBonusSpeed", 20},
 					{"DroppedBonusBomb", 20},
