@@ -21,7 +21,7 @@ namespace ECS
 	{
 	}
 
-	BombDropperComponent::BombDropperComponent(ECS::Ressources &res, std::istream &stream) :
+	BombDropperComponent::BombDropperComponent(unsigned, ECS::Ressources &res, std::istream &stream) :
 		BombDropperComponent(res.soundSystem)
 	{
 		unsigned size;

@@ -38,7 +38,11 @@ namespace Irrlicht
         void setGameClosed(bool close);
         bool isValidGetterId(unsigned id);
         bool isValidGetterName(const std::string& name);
-        unsigned addGameScene(const std::string &name, bool isMainMenu = false);
+        //TODO LAMBDA ? (andgel, etienne ? mp moi (c'est eben))
+        unsigned addGameSceneGame(const std::string &name);
+        unsigned addGameSceneMainMenu(const std::string &name);
+        unsigned addGameSceneOptions(const std::string &name);
+        void resetButtonsStates();
         EventReceiver &getEventReceiver();
         GameScene &getGameSceneById(unsigned id);
         GameScene &getGameSceneByName(const std::string& name);

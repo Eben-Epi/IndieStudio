@@ -21,7 +21,7 @@ namespace ECS
     {
     }
 
-    BuffedComponent::BuffedComponent(ECS::Ressources &, std::istream &stream) :
+    BuffedComponent::BuffedComponent(unsigned, ECS::Ressources &, std::istream &stream) :
         BuffedComponent(0, 0.f, 0, false, 0)
     {
 	    std::string terminator;

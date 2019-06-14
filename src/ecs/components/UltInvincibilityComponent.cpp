@@ -15,7 +15,7 @@ ECS::UltInvincibilityComponent::UltInvincibilityComponent():
     oldPassThrough(0)
 {}
 
-ECS::UltInvincibilityComponent::UltInvincibilityComponent(ECS::Ressources &ressources, std::istream &stream):
+ECS::UltInvincibilityComponent::UltInvincibilityComponent(unsigned id, ECS::Ressources &ressources, std::istream &stream):
     UltInvincibilityComponent()
 {
     std::string terminator;

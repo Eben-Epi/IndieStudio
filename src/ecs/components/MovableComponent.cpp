@@ -24,7 +24,7 @@ namespace ECS
     	return stream << static_cast<int>(dir) << ' ' << speed << ' ' << maxSpeed << " EndOfComponent";
     }
 
-    MovableComponent::MovableComponent(ECS::Ressources &, std::istream &stream) :
+    MovableComponent::MovableComponent(unsigned, ECS::Ressources &, std::istream &stream) :
 	    MovableComponent(0)
     {
         int val;

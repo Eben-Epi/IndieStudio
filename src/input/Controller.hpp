@@ -44,10 +44,11 @@ namespace Input
             ~Controller() = default;
             std::vector<Action> getActions();
             void changeKey(Action, unsigned); //keyCode -> controller Key Code
+            bool isAI() override;
             void addJoystick(unsigned);
             void joystickIn();
             void removeJoystick();
-            void resetControl();
+            void resetControl() override;
 
         private:
             Irrlicht::GameScene &_scene;

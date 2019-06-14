@@ -20,12 +20,12 @@ namespace ECS
 	class ComponentFactory {
 	private:
 		Ressources &_ressources;
-		static std::map<std::string, std::function<Component *(Ressources &ressources, std::istream &stream)>> _functions;
+		static std::map<std::string, std::function<Component *(unsigned id, Ressources &ressources, std::istream &stream)>> _functions;
 
 	public:
 		explicit ComponentFactory(Ressources &ressources);
 
-		std::unique_ptr<Component> build(const std::string &name, std::istream &stream) const;
+		std::unique_ptr<Component> build(const std::string &name, unsigned id, std::istream &stream) const;
 	};
 }
 

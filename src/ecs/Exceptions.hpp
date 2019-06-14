@@ -49,6 +49,11 @@ namespace ECS
 		explicit InvalidStateException(const std::string &msg) : ECSException(msg) {};
 	};
 
+	class InvalidNameException : public ECSException {
+	public:
+		explicit InvalidNameException(const std::string &msg) : ECSException(msg) {};
+	};
+
 	class InvalidSerializedStringException : public ECSException {
 	public:
 		explicit InvalidSerializedStringException(const std::string &msg) : ECSException(msg) {};

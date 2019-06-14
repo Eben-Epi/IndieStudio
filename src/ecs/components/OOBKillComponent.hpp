@@ -18,7 +18,7 @@ namespace ECS {
         Point p1;
         Point p2;
         OOBKillComponent(Point p1, Point p2, bool size_mode=false);
-        OOBKillComponent(Ressources &ressources, std::istream &stream);
+        OOBKillComponent(unsigned id, Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
     };
 }

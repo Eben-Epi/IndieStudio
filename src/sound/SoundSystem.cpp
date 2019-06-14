@@ -41,7 +41,6 @@ namespace Sound
 				auto &sound = this->_sounds[i];
 
 				if (sound->getStatus() == sf::Sound::Stopped) {
-					sound->stop();
 					sound->setBuffer(this->_loadedSounds.at(id));
 					sound->setVolume(volume);
 					sound->setLoop(false);
@@ -61,18 +60,19 @@ namespace Sound
 		}
 	}
 
-
 	void SoundSystem::playSoundOverBackgroundMusic(const std::string &id, float volume)
 	{
 		int i = this->playSound(id);
 		if (this->_backgroundMusic) {
-			this->_sounds[*this->_backgroundMusic]->pause();
+			this->pauseBackgroundMusic();
 			if (this->_bgThread.joinable())
 				this->_bgThread.detach();
 			this->_bgThread = std::thread{[this, i, volume]() {
+				unsigned bg = this->_backgroundMusic ? *this->_backgroundMusic : 0;
+
 				while (this->_sounds[i]->getStatus() == sf::Sound::Playing)
 					std::this_thread::sleep_for(std::chrono::milliseconds(100));
-				if (this->_backgroundMusic) {
+				if (this->_backgroundMusic && bg == *this->_backgroundMusic) {
 					this->_sounds[*this->_backgroundMusic]->setVolume(volume);
 					this->_sounds[*this->_backgroundMusic]->play();
 				}
@@ -82,6 +82,8 @@ namespace Sound
 
 	void SoundSystem::setBackgroundMusic(const std::string &id, float volume)
 	{
+		for (auto &sound : this->_sounds)
+			sound->stop();
 		this->_backgroundMusic.reset(new unsigned(this->playSound(id, volume)));
 		this->_sounds[*this->_backgroundMusic]->setLoop(true);
 	}

@@ -21,8 +21,10 @@ namespace Map {
     class Map {
 
     private:
+        std::vector<std::unique_ptr<Input::Input>> &_inputs;
+        std::vector<std::unique_ptr<Input::Input>> _ai{};
+        ECS::Ressources _ressources;
         ECS::ECSCore _core;
-        ECS::Ressources &_ressources;
         unsigned _clock = 0;
         bool _ended = false;
         std::vector<unsigned> _XPairYPairSidesWallGenerator(ECS::Vector2<unsigned> sizeMap);
@@ -36,8 +38,8 @@ namespace Map {
         void _setArenaWallAround(ECS::Vector2<unsigned> sizeMap);
 
     public:
-        Map(ECS::Ressources &ressources);
-        Map(ECS::Ressources &ressources, std::istream &stream);
+        Map(Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input::Input>> &inputs, Sound::SoundSystem &soundSystem);
+        Map(Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input::Input>> &inputs, Sound::SoundSystem &soundSystem, std::istream &stream);
         ~Map() = default;
         bool update();
         void generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::vector<std::string> players, std::map<std::string, unsigned> ratiosBonus = {{"Bonus", 0}});

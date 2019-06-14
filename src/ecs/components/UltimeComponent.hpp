@@ -20,7 +20,7 @@ namespace ECS {
         Sound::SoundSystem &soundSystem;
 
         UltimeComponent(Sound::SoundSystem &soundSystem);
-        UltimeComponent(Ressources &ressources, std::istream &stream);
+        UltimeComponent(unsigned id, Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
 
         bool ultimeIsReady();

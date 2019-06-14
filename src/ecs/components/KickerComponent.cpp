@@ -22,7 +22,7 @@ namespace ECS
         return stream << this->canKick << " EndOfComponent";
     }
 
-    KickerComponent::KickerComponent(ECS::Ressources &, std::istream &stream) :
+    KickerComponent::KickerComponent(unsigned, ECS::Ressources &, std::istream &stream) :
         KickerComponent()
     {
         std::string terminator;

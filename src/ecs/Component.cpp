@@ -7,12 +7,16 @@
 
 #include <iostream>
 #include "Component.hpp"
+#include "Exceptions.hpp"
 
 namespace ECS
 {
 	Component::Component(std::string &&name) :
 		_name(name)
 	{
+		for (char c : name)
+			if (isspace(c))
+				throw InvalidNameException("Invalid name: " + name);
 	}
 
 	std::string Component::getName() const

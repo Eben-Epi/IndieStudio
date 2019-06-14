@@ -17,7 +17,7 @@ namespace ECS
         public:
             bool canKick = false;
             KickerComponent();
-            KickerComponent(Ressources &ressources, std::istream &stream);
+            KickerComponent(unsigned id, Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS

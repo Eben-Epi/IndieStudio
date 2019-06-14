@@ -28,7 +28,7 @@ namespace ECS
     	return stream << health << ' ' << speed << ' ' << nbBomb << ' ' << kick << ' ' << hardness << ' ' << range << " EndOfComponent";
     }
 
-    PowerUpComponent::PowerUpComponent(ECS::Ressources &ressources, std::istream &stream) :
+    PowerUpComponent::PowerUpComponent(unsigned id, ECS::Ressources &ressources, std::istream &stream) :
 	    PowerUpComponent(ressources.soundSystem, {})
     {
 	    std::string terminator;

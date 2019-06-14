@@ -16,6 +16,13 @@
 
 #define FRAME_TIME 1 / FRAME_RATE
 
+const std::vector<std::string> playerEntities = {
+    "Sydney",
+    "Alphaone",
+    "Faerie",
+    "Xenotype"
+};
+
 const std::vector<std::string> sound_to_load = {
     "battle_music",
     "ultimate_ready",
@@ -28,7 +35,13 @@ const std::vector<std::string> sound_to_load = {
     "announcer_triplekill",
     "pause",
     "ready",
-    "game"
+    "game",
+    "draw",
+    "lonie",
+    "cyrak",
+    "sydney",
+    "gunguy",
+    "winner"
 };
 
 #endif //BOMBERMAN_CONFIG_HPP

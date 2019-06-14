@@ -13,7 +13,7 @@ ECS::CurseOnPickComponent::CurseOnPickComponent(Sound::SoundSystem &soundSystem)
     Component("CurseOnPick")
 {}
 
-ECS::CurseOnPickComponent::CurseOnPickComponent(Ressources &ressources, std::istream &stream):
+ECS::CurseOnPickComponent::CurseOnPickComponent(unsigned id, Ressources &ressources, std::istream &stream):
     CurseOnPickComponent(ressources.soundSystem)
 {
     std::string terminator;

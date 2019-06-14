@@ -25,7 +25,7 @@ namespace ECS
 		bool dropBomb;
 
 		explicit BombDropperComponent(Sound::SoundSystem &system, unsigned max = 1, float timeToExplode = 5, unsigned range = 1);
-		BombDropperComponent(Ressources &ressources, std::istream &stream);
+		BombDropperComponent(unsigned id, Ressources &ressources, std::istream &stream);
 		std::ostream &serialize(std::ostream &stream) const override;
 	};
 } // namespace ECS

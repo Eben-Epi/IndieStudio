@@ -51,7 +51,7 @@ namespace Irrlicht
 		// O_K_P4_BOMB,
 		// O_K_P4_ULT,
 		// BACK,
-		NUMBER_BUTTONS
+        //NUMBER_BUTTONS
 	};
 
 	class MainMenu : public GameScene

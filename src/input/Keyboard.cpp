@@ -27,6 +27,11 @@ std::vector<Input::Action> Input::Keyboard::getActions() {
     return (actions);
 }
 
+bool Input::Keyboard::isAI()
+{
+	return false;
+}
+
 void Input::Keyboard::changeKey(Action act, irr::EKEY_CODE newKey) {
     this->_keys[act] = newKey;
 }

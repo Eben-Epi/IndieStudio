@@ -14,6 +14,7 @@
 #include "Screen.hpp"
 #include "../game-scene/GameScene.hpp"
 #include "../game-scene/main-menu/MainMenu.hpp"
+#include "../game-scene/options-menu/OptionsMenu.hpp"
 
 #if defined(_WIN32) && !defined(__GNUC__)
 #define driverType irr::video::EDT_DIRECT3D9
@@ -126,12 +127,21 @@ bool Irrlicht::Screen::setWindowAttributes(int width, int height, int colorDepth
     return (true);
 }
 
-unsigned Irrlicht::Screen::addGameScene(const std::string &name, bool isMainMenu) {
+unsigned Irrlicht::Screen::addGameSceneGame(const std::string &name) {
     this->_lastSceneId++;
-    if (!isMainMenu)
-        this->_scenes.emplace_back(new GameScene{*this, name, this->_lastSceneId});
-    else
-        this->_scenes.emplace_back(new MainMenu{*this, name, this->_lastSceneId});
+    this->_scenes.emplace_back(new GameScene{*this, name, this->_lastSceneId});
+    return (this->_lastSceneId);
+}
+
+unsigned Irrlicht::Screen::addGameSceneMainMenu(const std::string &name) {
+    this->_lastSceneId++;
+    this->_scenes.emplace_back(new MainMenu{*this, name, this->_lastSceneId});
+    return (this->_lastSceneId);
+}
+
+unsigned Irrlicht::Screen::addGameSceneOptions(const std::string &name) {
+    this->_lastSceneId++;
+    this->_scenes.emplace_back(new OptionsMenu{*this, name, this->_lastSceneId});
     return (this->_lastSceneId);
 }
 
@@ -151,6 +161,7 @@ bool Irrlicht::Screen::setCurrentGameScene(const std::string &name) {
     for (auto &gameScene : this->_scenes) {
         if (gameScene->sceneName == name) {
             this->_currentSceneId = gameScene->id;
+            this->resetButtonsStates();
             return (true);
         }
     }
@@ -215,4 +226,8 @@ void Irrlicht::Screen::setCursorVisible(bool cursor) {
 
 void Irrlicht::Screen::setGameClosed(bool close) {
     this->isGameClosed = close;
+}
+
+void Irrlicht::Screen::resetButtonsStates() {
+    this->_eventReceiver.resetButtonsStates();
 }
