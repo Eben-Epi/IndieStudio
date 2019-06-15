@@ -17,6 +17,9 @@ namespace ECS
 		_id(id),
 		_name(name)
 	{
+		for (char c : name)
+			if (isspace(c))
+				throw InvalidNameException("Invalid name: " + name);
 		for (Component *comp : components)
 			if (comp)
 				this->_components.emplace_back(comp);

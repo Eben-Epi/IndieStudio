@@ -25,6 +25,7 @@ namespace ECS
 		EntityFactory					_entityFactory;
 		std::vector<std::unique_ptr<System>>		_systems;
 		std::vector<std::unique_ptr<Entity>>		_entities;
+		std::vector<unsigned>				_destroyed;
 		std::map<std::string, std::vector<Entity *>>	_components;
 
 	public:

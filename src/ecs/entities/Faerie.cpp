@@ -7,8 +7,9 @@
 
 #include "Faerie.hpp"
 #include "../components/UltInvincibilityComponent.hpp"
+#include "../components/UltShockWaveComponent.hpp"
 
 ECS::Faerie::Faerie(unsigned id, ECS::Ressources &ressources) :
-	Player(id, ressources, "faerie", new UltInvincibilityComponent())
+	Player(id, ressources, "faerie", new UltShockWaveComponent(), "lonie")
 {
 }

@@ -237,8 +237,8 @@ void Input::AIBrain::updateRelativeVisionForBonuses(
                 ECS::Point newPoint = {(double) x, (double) y};
 
                 for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
-                    if (it.base()->x == newPoint.x && it.base()->y == newPoint.y) {
-                        *(infoIt.base()) += dangerLevel;
+                    if (it->x == newPoint.x && it->y == newPoint.y) {
+                        *infoIt += dangerLevel;
                         break;
                     }
                     ++infoIt;
@@ -266,6 +266,7 @@ void Input::AIBrain::updateRelativeVisionForPredictions(
             dangerZone.push_back({relaPos.x - (TILESIZE * i), relaPos.y});
             dangerZone.push_back({relaPos.x, relaPos.y + (TILESIZE * i)});
             dangerZone.push_back({relaPos.x, relaPos.y - (TILESIZE * i)});
+
             for (ECS::Point point : dangerZone) {
                 auto infoIt = bonusMalusZone.begin();
                 ECS::Point end = {point.x + ePos.size.x, point.y + ePos.size.y};
@@ -292,7 +293,7 @@ void Input::AIBrain::updateRelativeVisionForPredictions(
                                         break;
                                     }
                                 }*/
-                                *(infoIt.base()) += (dangerLevel * (eExpl.range + 1 - i));
+                                *infoIt += (dangerLevel * (eExpl.range + 1 - i));
                                 break;
                             }
                             ++infoIt;
@@ -339,10 +340,10 @@ void Input::AIBrain::updateRelativeVisionForBlocks(
                 auto infoIt = bonusMalusZone.begin();
 
                 for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
-                    if (it.base()->x == newPoint.x && it.base()->y == newPoint.y) {
-                        *(infoIt.base()) += dangerLevel;
+                    if (it->x == newPoint.x && it->y == newPoint.y) {
+                        *infoIt += dangerLevel;
                         if (e->hasComponent("OnCollisionDamageDealer") || e->hasComponent("Explode"))
-                            *(infoIt.base()) += 5000;
+                            *infoIt += 5000;
                         else if (e->hasComponent("Health")) {
                             bonusMalusZone[2] += -20;
                             if (e->getName() == "Player")
@@ -356,8 +357,8 @@ void Input::AIBrain::updateRelativeVisionForBlocks(
 
                     infoIt = bonusMalusCorners.begin();
                     for (auto it = relativeCorners.begin(); it < relativeCorners.end(); ++it) {
-                        if (it.base()->x == newPoint.x && it.base()->y == newPoint.y) {
-                            *(infoIt.base()) += dangerLevel;
+                        if (it->x == newPoint.x && it->y == newPoint.y) {
+                            *infoIt += dangerLevel;
                             break;
                         }
                         ++infoIt;
@@ -388,6 +389,7 @@ void Input::AIBrain::updateRelativeVisionForBlocks(
                             default:
                                 break;
                         }
+                        //TODO finir le further
                     }
                 }
             }

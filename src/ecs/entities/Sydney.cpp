@@ -9,6 +9,6 @@
 #include "../components/UltInvincibilityComponent.hpp"
 
 ECS::Sydney::Sydney(unsigned id, ECS::Ressources &ressources) :
-	Player(id, ressources, "sydney", new UltInvincibilityComponent())
+	Player(id, ressources, "sydney", new UltInvincibilityComponent(), "sydney")
 {
 }

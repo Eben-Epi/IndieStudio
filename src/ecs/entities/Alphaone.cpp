@@ -9,6 +9,6 @@
 #include "../components/UltInvincibilityComponent.hpp"
 
 ECS::Alphaone::Alphaone(unsigned id, ECS::Ressources &ressources) :
-	Player(id, ressources, "Alphaone", new UltInvincibilityComponent())
+	Player(id, ressources, "Alphaone", new UltInvincibilityComponent(), "gunguy")
 {
 }

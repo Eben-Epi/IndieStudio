@@ -33,6 +33,10 @@
 #include "../systems/UltInvincibilitySystem.hpp"
 #include "../systems/CurseOnPickSystem.hpp"
 #include "../systems/OOBKillSystem.hpp"
+#include "../systems/UltShockWaveSystem.hpp"
+#include "../systems/OwnerSystem.hpp"
+#include "../systems/KillCounterSystem.hpp"
+#include "../systems/NameSystem.hpp"
 
 namespace ECS
 {
@@ -57,9 +61,11 @@ namespace ECS
 		{"Health", [](ECS::ECSCore &core) { return new HealthSystem(core); }},
 		{"Kickable", [](ECS::ECSCore &core) { return new KickableSystem(core); }},
 		{"Kicker", [](ECS::ECSCore &core) { return new KickerSystem(core); }},
+		{"KillCounter", [](ECS::ECSCore &core) { return new KillCounterSystem(core); }},
 		{"Movable", [](ECS::ECSCore &core) { return new MovableSystem(core); }},
 		{"OnCollisionDamageDealer", [](ECS::ECSCore &core) { return new OnCollisionDamageDealerSystem(core); }},
 		{"OOBKill", [](ECS::ECSCore &core) { return new OOBKillSystem(core); }},
+		{"Owner", [](ECS::ECSCore &core) { return new OwnerSystem(core); }},
 		{"Pickable", [](ECS::ECSCore &core) { return new PickableSystem(core); }},
 		{"Picker", [](ECS::ECSCore &core) { return new PickerSystem(core); }},
 		{"Position", [](ECS::ECSCore &core) { return new PositionSystem(core); }},
@@ -67,7 +73,9 @@ namespace ECS
 		{"PowerUpPicked", [](ECS::ECSCore &core) { return new PowerUpPickedSystem(core); }},
 		{"Ultime", [](ECS::ECSCore &core) { return new UltimeSystem(core); }},
 		{"Mortal", [](ECS::ECSCore &core) { return new MortalSystem(core); }},
-		{"UltInvincibility", [](ECS::ECSCore &core) { return new UltInvincibilitySystem(core); }}
+		{"UltInvincibility", [](ECS::ECSCore &core) { return new UltInvincibilitySystem(core); }},
+		{"UltShockWave", [](ECS::ECSCore &core) { return new UltShockWaveSystem(core); }},
+		{"Name", [](ECS::ECSCore &core) { return new NameSystem(core); }}
 	};
 
 	std::unique_ptr<System> SystemFactory::build(std::string &&name) const

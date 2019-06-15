@@ -45,12 +45,17 @@ namespace Input
             std::vector<Action> getActions();
             void changeKey(Action, unsigned); //keyCode -> controller Key Code
             bool isAI() override;
+            void addJoystick(unsigned);
+            void joystickIn();
+            void removeJoystick();
+            void resetControl() override;
 
         private:
             Irrlicht::GameScene &_scene;
             std::vector<ControllerButtons> _keys;
             unsigned _id;
             unsigned _threshold;
+            int _joystickOn = 0;
     };
 }
 

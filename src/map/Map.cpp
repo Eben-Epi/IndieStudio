@@ -7,6 +7,7 @@
 
 #include <random>
 #include <algorithm>
+#include <fstream>
 #include "Map.hpp"
 #include "../ecs/components/PositionComponent.hpp"
 #include "MapException.hpp"
@@ -14,6 +15,7 @@
 #include "../ecs/components/PowerUpComponent.hpp"
 #include "../ecs/components/HealthComponent.hpp"
 #include "../input/AIBrain.hpp"
+#include "../ecs/Exceptions.hpp"
 
 Map::Map::Map(Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input::Input>> &inputs, Sound::SoundSystem &soundSystem) :
     _inputs(inputs),
@@ -25,13 +27,35 @@ Map::Map::Map(Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input:
 
 Map::Map::Map(Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input::Input>> &inputs, Sound::SoundSystem &soundSystem, std::istream &stream) :
     _inputs(inputs),
-    _ressources(gameScene, soundSystem, this->_core, [&inputs](){
-    	std::vector<Input::Input *> result;
+    _ressources(
+        gameScene,
+        soundSystem,
+        this->_core,
+        [&inputs](){
+    	    std::vector<Input::Input *> result;
 
-    	for (auto &val : inputs)
-    	    result.push_back(&*val);
-    	return result;
-    }()),
+    	    for (auto &val : inputs)
+    	        result.push_back(&*val);
+    	    return result;
+        }(),
+        {
+    	    [&stream](){
+                std::string header;
+	        unsigned result;
+
+		stream >> header >> result;
+		if (header != "BombermanMap")
+		    throw ECS::InvalidSerializedStringException("Invalid serialized string: Map Header invalid");
+		return result;
+	    }(),
+	    [&stream](){
+                unsigned result;
+
+                stream >> result;
+                return result;
+	    }()
+	}
+    ),
     _core(this->_ressources, stream),
     _clock(0)
 {
@@ -46,11 +70,11 @@ bool Map::Map::update()
 {
     if (this->_clock < 2 * FRAME_RATE) {
     	if (this->_clock++ == 0) {
-    	    this->_core.update();
-    	    this->_ressources.soundSystem.setBackgroundMusic("battle_music", 45); // tmp
-	    this->_ressources.soundSystem.playSoundOverBackgroundMusic("ready");
-	}
-    	return true;
+            this->_core.update();
+            this->_ressources.soundSystem.setBackgroundMusic("battle_music", 45); // tmp
+	    this->_ressources.soundSystem.playSoundOverBackgroundMusic("announcer_ready_go");
+        }
+        return true;
     }
 
     if (this->_clock % 10 == 0)
@@ -62,7 +86,7 @@ bool Map::Map::update()
     auto players = this->_core.getEntitiesByName("Player");
 
     if (players.size() < 2) {
-        this->_ressources.soundSystem.playSound("game");
+        this->_ressources.soundSystem.playSound("announcer_game");
         this->_ressources.soundSystem.stopBackgroundMusic();
         this->_ended = true;
         for (ECS::Entity *entity : players)
@@ -187,7 +211,7 @@ void Map::Map::_setArenaWallAround(ECS::Vector2<unsigned> sizeMap)
     }
 }
 
-void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, std::vector<std::string> players, std::map<std::string, unsigned> ratiosBonus)
+void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, const std::vector<PlayerConfig> &players, std::map<std::string, unsigned> ratiosBonus)
 {
     std::vector<unsigned> airBlocksPos = this->_generateAirBlocksPos(sizeMap);
     std::vector<unsigned> wallBlocksPos = this->_generateWallBlocksPos(sizeMap);
@@ -210,15 +234,24 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
         throw MapTooSmallException("Map is too small in x or in y (< 4).");
     this->_ai.clear();
     this->_ressources.inputs = {};
-    for (int i = 0; i < players.size(); i++)
-    	this->_ressources.inputs.push_back(&*this->_inputs[i]);
-    for (int i = players.size(); i < 4; i++) {
-        this->_ai.emplace_back(new Input::AIBrain(i, this->_core));
-        this->_ressources.inputs.push_back(&*this->_ai.back());
-        players.emplace_back(playerEntities[rand_device() % playerEntities.size()]);
+    for (size_t i = 0; i < players.size(); i++) {
+    	auto &player = players[i];
+
+    	if (player.input) {
+	    this->_ressources.inputs.push_back(player.input);
+	} else {
+    	    this->_ai.emplace_back(new Input::AIBrain(i, this->_core));
+	    this->_ressources.inputs.push_back(&*this->_ai.back());
+    	}
+        this->_setEntityComponentPosition(
+            this->_core.makeEntity(player.entity),
+            {
+                TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (player.pos % 2),
+                TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (player.pos / 2)
+            }
+        );
     }
     for (int i = 0; i < 4; i++)
-	this->_setEntityComponentPosition(this->_core.makeEntity(players[i]), {TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (i % 2), TILESIZE / 16. + TILESIZE * (sizeMap.x - 1) * (i / 2)});
     this->_setArenaWallAround(sizeMap);
     for (unsigned i = 0; i < sizeMap.x * sizeMap.y - 2; ++i) {
         if (!airBlocksPos.empty() && airBlocksPos[0] == i)
@@ -253,10 +286,21 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
 
 std::ostream& Map::Map::serialize(std::ostream &stream) const
 {
+    stream << "BombermanMap " << this->_ressources.mapSize.x << " " << this->_ressources.mapSize.y << std::endl;
     return stream << this->_core;
 }
 
 std::ostream &operator<<(std::ostream &stream, const Map::Map &map)
 {
     return map.serialize(stream);
+}
+
+bool Map::Map::save(const std::string &path)
+{
+	std::ofstream stream(path);
+
+	if (!stream.is_open())
+		return false;
+	stream << *this << std::endl;
+	return true;
 }
