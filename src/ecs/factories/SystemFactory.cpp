@@ -37,6 +37,8 @@
 #include "../systems/OwnerSystem.hpp"
 #include "../systems/KillCounterSystem.hpp"
 #include "../systems/NameSystem.hpp"
+#include "../systems/UltStrikeSystem.hpp"
+#include "../systems/UltBombRainSystem.hpp"
 
 namespace ECS
 {
@@ -73,9 +75,11 @@ namespace ECS
 		{"PowerUpPicked", [](ECS::ECSCore &core) { return new PowerUpPickedSystem(core); }},
 		{"Ultime", [](ECS::ECSCore &core) { return new UltimeSystem(core); }},
 		{"Mortal", [](ECS::ECSCore &core) { return new MortalSystem(core); }},
+        {"UltBombRain", [](ECS::ECSCore &core) { return new UltBombRainSystem(core); }},
 		{"UltInvincibility", [](ECS::ECSCore &core) { return new UltInvincibilitySystem(core); }},
 		{"UltShockWave", [](ECS::ECSCore &core) { return new UltShockWaveSystem(core); }},
-		{"Name", [](ECS::ECSCore &core) { return new NameSystem(core); }}
+        {"UltStrike", [](ECS::ECSCore &core) { return new UltStrikeSystem(core); }},
+        {"Name", [](ECS::ECSCore &core) { return new NameSystem(core); }}
 	};
 
 	std::unique_ptr<System> SystemFactory::build(std::string &&name) const

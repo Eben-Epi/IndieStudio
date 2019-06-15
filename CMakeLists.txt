@@ -244,7 +244,7 @@ add_executable(
 	src/sound/Exception.hpp
 	src/sound/SoundSystem.cpp
 	src/sound/SoundSystem.hpp
-	src/ecs/components/NameComponent.cpp src/ecs/components/NameComponent.hpp src/ecs/systems/NameSystem.cpp src/ecs/systems/NameSystem.hpp src/ecs/entities/PowerUps/DroppedBonusGhost.cpp src/ecs/entities/PowerUps/DroppedBonusGhost.hpp)
+	src/ecs/components/NameComponent.cpp src/ecs/components/NameComponent.hpp src/ecs/systems/NameSystem.cpp src/ecs/systems/NameSystem.hpp src/ecs/entities/PowerUps/DroppedBonusGhost.cpp src/ecs/entities/PowerUps/DroppedBonusGhost.hpp src/ecs/components/UltStrikeComponent.cpp src/ecs/components/UltStrikeComponent.hpp src/ecs/systems/UltStrikeSystem.cpp src/ecs/systems/UltStrikeSystem.hpp src/ecs/components/UltBombRainComponent.cpp src/ecs/components/UltBombRainComponent.hpp src/ecs/systems/UltBombRainSystem.cpp src/ecs/systems/UltBombRainSystem.hpp)
 
 find_package(Irrlicht REQUIRED)
 find_package(Sfml REQUIRED)
