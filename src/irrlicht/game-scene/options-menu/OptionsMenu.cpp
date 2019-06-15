@@ -27,11 +27,11 @@ bool Irrlicht::OptionsMenu::update()
 		{
 			switch (i)
 			{
-			case CHANGE_KEYS:
-				if (!this->_window.isValidGetterName("KeysChanging"))
-					this->_window.addKeyChangingScene("KeysChanging");
-				changeCurrentGameScene("KeysChanging");
-				break;
+			// case CHANGE_KEYS:
+			// 	if (!this->_window.isValidGetterName("KeysChanging"))
+			// 		this->_window.addKeyChangingScene("KeysChanging");
+			// 	changeCurrentGameScene("KeysChanging");
+			// 	break;
 			case BACK:
 				changeCurrentGameScene("MainMenu");
 				break;

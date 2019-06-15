@@ -19,12 +19,8 @@ namespace Irrlicht
 	enum ButtonName
 	{
 		START = 0,
-		OPTIONS,
+		LOAD,
 		EXIT,
-		// S_LOAD,
-		// S_NEW,
-		// BACK,
-        //NUMBER_BUTTONS
 	};
 
 	class MainMenu : public GameScene

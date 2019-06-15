@@ -15,7 +15,8 @@
 #include "../game-scene/GameScene.hpp"
 #include "../game-scene/main-menu/MainMenu.hpp"
 #include "../game-scene/options-menu/OptionsMenu.hpp"
-#include "../game-scene/keys-managing-menu/KeyManagingMenu.hpp"
+//#include "../game-scene/keys-managing-menu/KeyManagingMenu.hpp"
+#include "../game-scene/start-menu/StartMenu.hpp"
 
 #if defined(_WIN32) && !defined(__GNUC__)
 #define driverType irr::video::EDT_DIRECT3D9
@@ -146,12 +147,19 @@ unsigned Irrlicht::Screen::addGameSceneOptions(const std::string &name) {
     return (this->_lastSceneId);
 }
 
-unsigned Irrlicht::Screen::addKeyChangingScene(const std::string &name)
+unsigned Irrlicht::Screen::addGameSceneStart(const std::string &name)
 {
     this->_lastSceneId++;
-    this->_scenes.emplace_back(new KeyManagingMenu{*this, name, this->_lastSceneId});
+    this->_scenes.emplace_back(new StartMenu{*this, name, this->_lastSceneId});
     return (this->_lastSceneId);
 }
+
+// unsigned Irrlicht::Screen::addKeyChangingScene(const std::string &name)
+// {
+//     this->_lastSceneId++;
+//     this->_scenes.emplace_back(new KeyManagingMenu{*this, name, this->_lastSceneId});
+//     return (this->_lastSceneId);
+// }
 
 Irrlicht::GameScene &Irrlicht::Screen::getCurrentGameScene() {
     return (*this->_scenes.at(_currentSceneId - 1));
