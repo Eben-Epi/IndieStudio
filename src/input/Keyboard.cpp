@@ -27,10 +27,14 @@ std::vector<Input::Action> Input::Keyboard::getActions() {
     return (actions);
 }
 
-void Input::Keyboard::changeKey(Action act, irr::EKEY_CODE newKey) {
-    this->_keys[act] = newKey;
+void Input::Keyboard::changeKey(irr::EKEY_CODE newKey) {
+    this->_keys[this->_act] = newKey;
 }
 
 void Input::Keyboard::resetControl() {
     this->_keys = this->_default;
+}
+
+void Input::Keyboard::setAction(unsigned act) {
+	this->_act = static_cast<Action>(act);
 }

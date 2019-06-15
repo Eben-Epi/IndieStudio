@@ -21,14 +21,15 @@ namespace Input
 
         std::vector<Action> getActions();
         void resetControl();
-
-        void changeKey(Action, irr::EKEY_CODE);
+        void setAction(unsigned);
+        void changeKey(irr::EKEY_CODE);
 
     private:
         Irrlicht::GameScene &_scene;
         irr::SEvent *_event;
         std::vector<irr::EKEY_CODE> _keys;
         std::vector<irr::EKEY_CODE> _default;
+        Action _act = Action::NO_ACTION;
     };
 }
 

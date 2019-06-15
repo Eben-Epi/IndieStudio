@@ -34,7 +34,8 @@ namespace Input
         RIGHT_JOYSTICK,
         RT,
         LT,
-        NUMBER_BUTTONS
+        NUMBER_BUTTONS,
+        NO_ACTION
     };
 
     class Controller : public Input
@@ -43,11 +44,12 @@ namespace Input
             Controller(Irrlicht::GameScene &, std::vector<ControllerButtons> &&, unsigned, unsigned threshold = 16384);
             ~Controller() = default;
             std::vector<Action> getActions();
-            void changeKey(Action, unsigned); //keyCode -> controller Key Code
+            void changeKey(unsigned); //keyCode -> controller Key Code
             void addJoystick(unsigned);
             void joystickIn();
             void removeJoystick();
             void resetControl();
+            void setAction(unsigned);
 
         private:
             Irrlicht::GameScene &_scene;
@@ -55,6 +57,7 @@ namespace Input
             unsigned _id;
             unsigned _threshold;
             int _joystickOn = 0;
+            Action _act = Action::NO_ACTION;
     };
 }
 
