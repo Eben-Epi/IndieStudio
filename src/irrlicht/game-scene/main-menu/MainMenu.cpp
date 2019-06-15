@@ -13,6 +13,10 @@ Irrlicht::MainMenu::MainMenu(Screen &screen, const std::string &name, unsigned i
 	this->_buttons.emplace_back(new Button({280, 100}, {20, 240, 110, 240 + 32}, START, this->_window.getGuiEnv(), "START"));
 	this->_buttons.emplace_back(new Button({280, 300}, {20, 240, 110, 240 + 32}, OPTIONS, this->_window.getGuiEnv(), "OPTIONS"));
 	this->_buttons.emplace_back(new Button({280, 500}, {20, 240, 110, 240 + 32}, EXIT, this->_window.getGuiEnv(), "EXIT"));
+
+    this->_textBoxes.emplace_back(new TextBox({280, 25}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "BOMBERMAN", true, true, true));
+    for (unsigned i = 0; i < this->_textBoxes.size(); i++)
+        this->_textBoxes[i]->setTextAlignment(irr::gui::EGUIA_CENTER, irr::gui::EGUIA_CENTER);
 }
 
 bool Irrlicht::MainMenu::update()

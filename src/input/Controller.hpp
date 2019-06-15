@@ -35,7 +35,6 @@ namespace Input
         RT,
         LT,
         NUMBER_BUTTONS,
-        NO_ACTION
     };
 
     class Controller : public Input

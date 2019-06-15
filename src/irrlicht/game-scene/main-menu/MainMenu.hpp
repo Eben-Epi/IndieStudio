@@ -12,6 +12,7 @@
 #include <memory>
 #include "../GameScene.hpp"
 #include "Button.hpp"
+#include "../../textbox/TextBox.hpp"
 
 namespace Irrlicht
 {
@@ -37,6 +38,7 @@ namespace Irrlicht
 		private:
 			//PROPERTIES
 			std::vector<std::unique_ptr<Button>> _buttons;
+			std::vector<std::unique_ptr<TextBox>> _textBoxes;
 	};
 }
 

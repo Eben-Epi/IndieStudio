@@ -8,7 +8,7 @@
 #ifndef TEXTBOX_HPP
 #define TEXTBOX_HPP
 
-#include "../../../ecs/data/Vector2.hpp"
+#include "../../ecs/data/Vector2.hpp"
 #include <irrlicht/irrlicht.h>
 #include <string>
 #include <irrlicht/IGUIEnvironment.h>
@@ -17,7 +17,8 @@ namespace Irrlicht
 {
 	class TextBox {
 	public:
-		TextBox(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text = "");
+		TextBox(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text = "",\
+			bool border = false, bool worlWrap = false, bool fillBackground = false);
 		~TextBox();
 
 		const std::string &getText();
@@ -26,8 +27,11 @@ namespace Irrlicht
 		void setText(std::string text);
 		void setPos(ECS::Point pos);
 		void setSize(ECS::Vector4<int> size);
-		bool isPressed();
 		void setVisible(bool visible);
+		void setBackgroundColor(irr::video::SColor color);
+		void setDrawBackground(bool draw);
+		void setDrawBorder(bool draw);
+		void setTextAlignment(irr::gui::EGUI_ALIGNMENT horizontal, irr::gui::EGUI_ALIGNMENT vertical);
 
 		unsigned id;
 	private:
@@ -37,6 +41,9 @@ namespace Irrlicht
 		irr::gui::IGUIEnvironment* _guienv;
 		irr::gui::IGUIStaticText *_textBox;
 		bool _visible;
+		bool _border;
+		bool _worldWrap;
+		bool _fillbackground;
 	};
 } // namespace Irrlicht
 
