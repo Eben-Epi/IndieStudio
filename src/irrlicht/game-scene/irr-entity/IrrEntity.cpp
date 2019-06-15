@@ -49,7 +49,8 @@ Irrlicht::IrrEntity::IrrEntity(
 
 Irrlicht::IrrEntity::~IrrEntity()
 {
-    this->_smgr->addToDeletionQueue(this->_node);
+    if (this->_node && this->_smgr)
+        this->_smgr->addToDeletionQueue(this->_node);
 }
 
 bool Irrlicht::IrrEntity::isEntityLoaded() {
