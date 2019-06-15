@@ -74,6 +74,8 @@ namespace Input {
         ECS::Entity *_objective;
         int _timer = 0;
         int _onStepAbs;
+        int _bombTimer = 50;
+        int _blockDestroyed = 0;
     };
 }
 
