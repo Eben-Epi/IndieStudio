@@ -50,7 +50,7 @@ namespace ECS
 	Entity &ECSCore::getEntityById(unsigned id) const
 	{
 		for (auto &entity : this->_entities)
-			if (entity->getId() == id)
+			if (entity && entity->getId() == id)
 				return *entity;
 		throw NoSuchEntityException("Cannot find any entity with id " + std::to_string(id));
 	}
@@ -68,7 +68,7 @@ namespace ECS
 		std::vector<Entity *> found;
 
 		for (auto &entity : this->_entities)
-			if (entity->getName() == name)
+			if (entity && entity->getName() == name)
 				found.push_back(&*entity);
 		return found;
 	}
@@ -84,10 +84,22 @@ namespace ECS
 
 	Entity &ECSCore::makeEntity(const std::string &name)
 	{
-		this->_entities.push_back(this->_entityFactory.build(name, this->_lastEntityId++));
-		for (auto &comp : this->_entities.back()->getComponents())
-			this->_components[comp->getName()].push_back(&*this->_entities.back());
-		return *this->_entities.back();
+		if (this->_destroyed.empty()) {
+			this->_entities.push_back(this->_entityFactory.build(name,this->_lastEntityId++));
+			for (auto &comp : this->_entities.back()->getComponents())
+				this->_components[comp->getName()].push_back(&*this->_entities.back());
+			return *this->_entities.back();
+		}
+		auto value = this->_entityFactory.build(name,this->_lastEntityId++);
+
+		this->_entities[this->_destroyed.front()].swap(value);
+
+		Entity &entity = *this->_entities[this->_destroyed.front()];
+
+		for (auto &comp : entity.getComponents())
+			this->_components[comp->getName()].push_back(&entity);
+		this->_destroyed.erase(this->_destroyed.begin());
+		return entity;
 	}
 
 	void ECSCore::update()
@@ -95,6 +107,8 @@ namespace ECS
 		for (size_t i = 0; i < this->_entities.size(); i++) {
 			auto &entity = this->_entities[i];
 
+			if (!entity)
+				continue;
 			for (auto &comp : entity->getComponents()) {
 				try {
 					auto &system = this->getSystem(comp->getName());
@@ -117,7 +131,7 @@ namespace ECS
 			}
 		}
 		for (auto it = this->_entities.begin(); it < this->_entities.end(); it++) {
-			while (it < this->_entities.end() && (*it)->isDestroyed()) {
+			while (it < this->_entities.end() && *it && (*it)->isDestroyed()) {
 				for (auto &comp : (*it)->getComponents())
 					this->_components[comp->getName()].erase(
 						std::find(
@@ -126,7 +140,8 @@ namespace ECS
 							&**it
 						)
 					);
-				this->_entities.erase(it);
+				this->_destroyed.push_back(it - this->_entities.begin());
+				it->reset(nullptr);
 			}
 		}
 	}
@@ -135,7 +150,8 @@ namespace ECS
 	{
 		stream << "SerializedECSCore" << std::endl;
 		for (auto &entity : this->_entities)
-			stream << "Entity " << *entity << std::endl;
+			if (entity)
+				stream << "Entity " << *entity << std::endl;
 		return stream << "EndOfRecord";
 	}
 }
