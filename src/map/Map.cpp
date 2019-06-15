@@ -15,6 +15,7 @@
 #include "../ecs/components/PowerUpComponent.hpp"
 #include "../ecs/components/HealthComponent.hpp"
 #include "../input/AIBrain.hpp"
+#include "../ecs/Exceptions.hpp"
 
 Map::Map::Map(Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input::Input>> &inputs, Sound::SoundSystem &soundSystem) :
     _inputs(inputs),
@@ -26,13 +27,35 @@ Map::Map::Map(Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input:
 
 Map::Map::Map(Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input::Input>> &inputs, Sound::SoundSystem &soundSystem, std::istream &stream) :
     _inputs(inputs),
-    _ressources(gameScene, soundSystem, this->_core, [&inputs](){
-    	std::vector<Input::Input *> result;
+    _ressources(
+        gameScene,
+        soundSystem,
+        this->_core,
+        [&inputs](){
+    	    std::vector<Input::Input *> result;
 
-    	for (auto &val : inputs)
-    	    result.push_back(&*val);
-    	return result;
-    }()),
+    	    for (auto &val : inputs)
+    	        result.push_back(&*val);
+    	    return result;
+        }(),
+        {
+    	    [&stream](){
+                std::string header;
+	        unsigned result;
+
+		stream >> header >> result;
+		if (header != "BombermanMap")
+		    throw ECS::InvalidSerializedStringException("Invalid serialized string: Map Header invalid");
+		return result;
+	    }(),
+	    [&stream](){
+                unsigned result;
+
+                stream >> result;
+                return result;
+	    }()
+	}
+    ),
     _core(this->_ressources, stream),
     _clock(0)
 {
@@ -188,7 +211,7 @@ void Map::Map::_setArenaWallAround(ECS::Vector2<unsigned> sizeMap)
     }
 }
 
-void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, const std::vector<PlayerConfig> &&players, std::map<std::string, unsigned> ratiosBonus)
+void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, const std::vector<PlayerConfig> &players, std::map<std::string, unsigned> ratiosBonus)
 {
     std::vector<unsigned> airBlocksPos = this->_generateAirBlocksPos(sizeMap);
     std::vector<unsigned> wallBlocksPos = this->_generateWallBlocksPos(sizeMap);
@@ -263,6 +286,7 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
 
 std::ostream& Map::Map::serialize(std::ostream &stream) const
 {
+    stream << "BombermanMap " << this->_ressources.mapSize.x << " " << this->_ressources.mapSize.y << std::endl;
     return stream << this->_core;
 }
 

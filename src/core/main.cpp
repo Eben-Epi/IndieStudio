@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <random>
 #include "irrlicht/Keycodes.h"
 #include "../irrlicht/screen/Screen.hpp"
 #include "../irrlicht/game-scene/GameScene.hpp"
@@ -9,12 +10,12 @@
 #include "../ecs/Exceptions.hpp"
 #include "../ecs/components/NameComponent.hpp"
 
-void generateDefaultMap(Map::Map &map, const std::vector<Map::Map::PlayerConfig> &&players)
+void generateDefaultMap(Map::Map &map, const std::vector<Map::Map::PlayerConfig> &players)
 {
 	map.generateMap(
 		{20, 20},
 		7000,
-		std::move(players),
+		players,
 		{
 			{"Bonus", 40},
 			{"DroppedBonusSpeed", 20},
@@ -49,18 +50,58 @@ Map::Map *loadMap(std::string path, Irrlicht::GameScene &gameScene, std::vector<
 	return map;
 }
 
-bool displayEndGameMenu(Map::Map &map, Irrlicht::Screen &screen, Sound::SoundSystem &sound)
+void mainMenu(Irrlicht::Screen &screen, Sound::SoundSystem &soundSystem)
 {
-	if (map.getPlayersAlive().empty()) {
+	std::random_device _rand;
+	std::vector<std::unique_ptr<Input::Input>> inputs;
+	auto *map = new Map::Map{screen.getCurrentGameScene(), inputs, soundSystem};
+	std::vector<Map::Map::PlayerConfig> players;
+
+	for (unsigned i = 0; i < 4; i++)
+		players.push_back(Map::Map::PlayerConfig{nullptr, playerEntities[_rand() % playerEntities.size()], i});
+	generateDefaultMap(*map, players);
+	while (screen.display() && screen.getCurrentGameScene().sceneName != "Game") {
+		//TODO: Clément fix ta merde
+		screen.getGameSceneByName("MainMenu").addCamera(320, 500, -320, 320, 0, -319);
+		if (!map->update()) {
+			if (map->getPlayersAlive().empty()) {
+				soundSystem.playSound("announcer_draw");
+			} else {
+				soundSystem.playSound("announcer_winner");
+				for (int i = 0; i < 120; i++)
+					screen.display();
+				soundSystem.playSound("announcer_" + reinterpret_cast<ECS::NameComponent &>(map->getPlayersAlive()[0]->getComponentByName("Name")).name);
+			}
+			for (int i = 0; i < 120; i++)
+				screen.display();
+			delete map;
+			map = new Map::Map{screen.getCurrentGameScene(), inputs, soundSystem};
+			players.clear();
+			for (unsigned i = 0; i < 4; i++)
+				players.push_back(Map::Map::PlayerConfig{nullptr, playerEntities[_rand() % playerEntities.size()], i});
+			generateDefaultMap(*map, players);
+		}
+	}
+	delete map;
+
+}
+
+bool displayEndGameMenu(Map::Map *map, Irrlicht::Screen &screen, Sound::SoundSystem &sound)
+{
+	if (map->getPlayersAlive().empty()) {
 		sound.playSound("announcer_draw");
 	} else {
 		sound.playSound("announcer_winner");
-		std::this_thread::sleep_for(std::chrono::seconds(2));
-		sound.playSound("announcer_" + reinterpret_cast<ECS::NameComponent &>(map.getPlayersAlive()[0]->getComponentByName("Name")).name);
+		for (int i = 0; i < 120; i++)
+			screen.display();
+		sound.playSound("announcer_" + reinterpret_cast<ECS::NameComponent &>(map->getPlayersAlive()[0]->getComponentByName("Name")).name);
 	}
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+	delete map;
 	screen.setCursorVisible(true);
 	screen.setCurrentGameScene("MainMenu");
-	while (screen.display() && screen.getCurrentGameScene().sceneName != "Game");
+
+	mainMenu(screen, sound);
 	if (screen.isGameClosed)
 		exit(EXIT_SUCCESS);
 	return true;
@@ -69,16 +110,21 @@ bool displayEndGameMenu(Map::Map &map, Irrlicht::Screen &screen, Sound::SoundSys
 int main()
 {
 	try {
+		Sound::SoundSystem soundSystem;
 		Irrlicht::Screen screen(640, 640, 32, false, true);
 		screen.addGameSceneMainMenu("MainMenu");
 		std::vector<std::unique_ptr<Input::Input>> inputs;
+
 		if (!screen.setCurrentGameScene("MainMenu"))
 			return EXIT_FAILURE;
 
+		for (auto &sound_name : sound_to_load)
+			soundSystem.loadSound(sound_name);
+
 		irr::core::array<irr::SJoystickInfo> joystickInfos;
 
-		while (screen.display() && screen.getCurrentGameScene().sceneName != "Game");
-
+		screen.getGameSceneByName("MainMenu").addCamera(320, 500, -320, 320, 0, -319);
+		mainMenu(screen, soundSystem);
 		inputs.emplace_back(
 			new Input::Keyboard(screen.getGameSceneByName("Game"), {
 				irr::KEY_KEY_Z,
@@ -109,7 +155,6 @@ int main()
 			std::cout << "Joystick support is enabled and " << joystickInfos.size() << " joystick(s) are present." << std::endl;
 
 			screen.setCursorVisible(false);
-			screen.getGameSceneByName("Game").addCamera(320, 500, -320, 320, 0, -319);
 
 			if (!joystickInfos.empty()) {
 				for (irr::u32 joystick = 0; joystick < joystickInfos.size(); joystick++) {
@@ -126,11 +171,7 @@ int main()
 			}
 		}
 
-		Sound::SoundSystem soundSystem;
 		Map::Map *map = loadMap("save.txt", screen.getGameSceneByName("Game"), inputs, soundSystem);
-
-		for (auto &sound_name : sound_to_load)
-			soundSystem.loadSound(sound_name);
 
 		bool justPaused = false;
 		bool paused = false;
@@ -146,8 +187,9 @@ int main()
 					soundSystem.resumeBackgroundMusic();
 			} else if (!screen.getCurrentGameScene().isKeyPressed(irr::KEY_ESCAPE))
 				justPaused = false;
-			if (!paused && !map->update() && displayEndGameMenu(*map, screen, soundSystem)) {
-				delete map;
+			//TODO: Clément fix ta merde
+			screen.getGameSceneByName("MainMenu").addCamera(320, 500, -320, 320, 0, -319);
+			if (!paused && !map->update() && displayEndGameMenu(map, screen, soundSystem)) {
 				map = new Map::Map(screen.getGameSceneByName("Game"), inputs, soundSystem);
 				generateDefaultMap(*map, {
 					{&*inputs[0], "Faerie", 0},

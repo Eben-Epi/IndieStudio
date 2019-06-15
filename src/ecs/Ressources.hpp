@@ -22,13 +22,14 @@ namespace ECS
 		Sound::SoundSystem          &soundSystem;
 		ECSCore	                    &core;
 		std::vector<Input::Input *> inputs;
-		Vector2<unsigned>           mapSize = {0, 0};
+		Vector2<unsigned>           mapSize;
 
-		Ressources(Irrlicht::GameScene &scene, Sound::SoundSystem &soundSystem, ECSCore &core, std::vector<Input::Input *> &&inputs = {}) :
+		Ressources(Irrlicht::GameScene &scene, Sound::SoundSystem &soundSystem, ECSCore &core, std::vector<Input::Input *> &&inputs = {}, Vector2<unsigned> mapSize = {0, 0}) :
 			gameScene(scene),
 			soundSystem(soundSystem),
 			core(core),
-			inputs(inputs)
+			inputs(inputs),
+			mapSize(mapSize)
 		{}
 	};
 }

@@ -48,7 +48,7 @@ namespace Map {
         Map(Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input::Input>> &inputs, Sound::SoundSystem &soundSystem, std::istream &stream);
         ~Map() = default;
         bool update();
-        void generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, const std::vector<PlayerConfig> &&players, std::map<std::string, unsigned> ratiosBonus = {{"Bonus", 0}});
+        void generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, const std::vector<PlayerConfig> &players, std::map<std::string, unsigned> ratiosBonus = {{"Bonus", 0}});
         std::vector<ECS::Entity *> getPlayersAlive();
         std::ostream &serialize(std::ostream &stream) const;
         bool save(const std::string &path);
