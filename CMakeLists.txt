@@ -183,7 +183,6 @@ add_executable(
 	src/irrlicht/game-scene/GameScene.hpp
 	src/irrlicht/game-scene/irr-entity/IrrEntity.cpp
 	src/irrlicht/game-scene/irr-entity/IrrEntity.hpp
-	src/irrlicht/textbox/keys_to_str.hpp
 	src/irrlicht/textbox/TextBox.hpp
 	src/irrlicht/textbox/TextBox.cpp
 	src/irrlicht/game-scene/main-menu/Button.cpp
@@ -194,8 +193,6 @@ add_executable(
 	src/irrlicht/game-scene/main-menu/Menu.hpp
 	src/irrlicht/game-scene/options-menu/OptionsMenu.hpp
 	src/irrlicht/game-scene/options-menu/OptionsMenu.cpp
-	src/irrlicht/game-scene/start-menu/StartMenu.cpp
-	src/irrlicht/game-scene/start-menu/StartMenu.hpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.cpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.hpp
 	src/irrlicht/screen/Screen.cpp
