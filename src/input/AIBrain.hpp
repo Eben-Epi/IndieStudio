@@ -26,11 +26,7 @@ namespace Input {
 
         bool canEscape(std::vector<int> &bonusMalusZone);
 
-        std::vector<Action> getTheBestWay(
-            std::vector<int> &bonusMalusZone,
-            ECS::Entity *objective,
-            ECS::Point &myPos
-        );
+        std::vector<Action> getTheBestWay(std::vector<int> &bonusMalusZone, ECS::Point &myPos);
 
         void updateRelativeVisionForBlocks(
             std::vector<ECS::Entity *> &cannotMoveThere,
@@ -72,8 +68,10 @@ namespace Input {
         ECS::Entity *_objective;
         int _timer = 0;
         int _onStepAbs;
-        int _bombTimer = 50;
-        int _blockDestroyed = 0;
+        //int _bombTimer = 4;
+        bool _bombPlaced;
+        int _xTmp;
+        int _yTmp;
     };
 }
 
