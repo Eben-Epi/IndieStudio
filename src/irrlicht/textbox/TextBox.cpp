@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "TextBox.hpp"
+#include "keys_to_str.hpp"
 
 Irrlicht::TextBox::TextBox(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text, \
 bool border, bool worlWrap, bool fillBackground) :
@@ -119,6 +120,25 @@ void Irrlicht::TextBox::setDrawBorder(bool draw)
 void Irrlicht::TextBox::setTextAlignment(irr::gui::EGUI_ALIGNMENT horizontal, irr::gui::EGUI_ALIGNMENT vertical)
 {
     this->_textBox->setTextAlignment(horizontal, vertical);
+}
+
+void Irrlicht::TextBox::setColorOfText(irr::video::SColor color)
+{
+    this->_textBox->setOverrideColor(color);
+}
+
+void Irrlicht::TextBox::setTextFromIrrlichtKeysEnum(unsigned key, bool mode)
+{
+    delete this->_textBox;
+    if (mode)
+        this->_text = Irrlicht::ekey_code_str.at(key);
+    else
+        this->_text = Irrlicht::controller_code_str.at(key);
+
+    this->_textBox = this->_guienv->addStaticText(
+        reinterpret_cast<const wchar_t *>(&this->_text), irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d),
+        this->_border, this->_worldWrap, 0, this->id, this->_fillbackground);
+    setPos(this->_pos);
 }
 
 Irrlicht::TextBox::~TextBox() = default;

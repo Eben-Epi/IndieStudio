@@ -15,10 +15,11 @@
 
 namespace Irrlicht
 {
-	class TextBox {
+	class TextBox
+	{
 	public:
-		TextBox(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text = "",\
-			bool border = false, bool worlWrap = false, bool fillBackground = false);
+		TextBox(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text = "",
+				bool border = false, bool worlWrap = false, bool fillBackground = false);
 		~TextBox();
 
 		const std::string &getText();
@@ -32,13 +33,16 @@ namespace Irrlicht
 		void setDrawBackground(bool draw);
 		void setDrawBorder(bool draw);
 		void setTextAlignment(irr::gui::EGUI_ALIGNMENT horizontal, irr::gui::EGUI_ALIGNMENT vertical);
+		void setColorOfText(irr::video::SColor color);
+		void setTextFromIrrlichtKeysEnum(unsigned, bool);
 
 		unsigned id;
+
 	private:
 		std::string _text;
 		ECS::Point _pos;
 		ECS::Vector4<int> _size;
-		irr::gui::IGUIEnvironment* _guienv;
+		irr::gui::IGUIEnvironment *_guienv;
 		irr::gui::IGUIStaticText *_textBox;
 		bool _visible;
 		bool _border;
