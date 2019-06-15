@@ -228,8 +228,8 @@ void Input::AIBrain::updateRelativeVisionForBonuses(
                 ECS::Point newPoint = {(double) x, (double) y};
 
                 for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
-                    if (it.base()->x == newPoint.x && it.base()->y == newPoint.y) {
-                        *(infoIt.base()) += dangerLevel;
+                    if (it->x == newPoint.x && it->y == newPoint.y) {
+                        *infoIt += dangerLevel;
                         break;
                     }
                     ++infoIt;
@@ -268,8 +268,8 @@ void Input::AIBrain::updateRelativeVisionForPredictions(
                     ECS::Point newPoint = {(double) x, (double) y};
 
                     for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
-                        if (it.base()->x == newPoint.x && it.base()->y == newPoint.y) {
-                            *(infoIt.base()) += dangerLevel;
+                        if (it->x == newPoint.x && it->y == newPoint.y) {
+                            *infoIt += dangerLevel;
                             break;
                         }
                         ++infoIt;
@@ -315,10 +315,10 @@ void Input::AIBrain::updateRelativeVisionForBlocks(
                 auto infoIt = bonusMalusZone.begin();
 
                 for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
-                    if (it.base()->x == newPoint.x && it.base()->y == newPoint.y) {
-                        *(infoIt.base()) += dangerLevel;
+                    if (it->x == newPoint.x && it->y == newPoint.y) {
+                        *infoIt += dangerLevel;
                         if (e->hasComponent("OnCollisionDamageDealer") || e->hasComponent("Explode"))
-                            *(infoIt.base()) += 5000;
+                            *infoIt += 5000;
                         if (e->hasComponent("Health"))
                             bonusMalusZone[2] += -10;
                         break;
@@ -327,8 +327,8 @@ void Input::AIBrain::updateRelativeVisionForBlocks(
                 }
                 infoIt = bonusMalusCorners.begin();
                 for (auto it = relativeCorners.begin(); it < relativeCorners.end(); ++it) {
-                    if (it.base()->x == newPoint.x && it.base()->y == newPoint.y) {
-                        *(infoIt.base()) += dangerLevel;
+                    if (it->x == newPoint.x && it->y == newPoint.y) {
+                        *infoIt += dangerLevel;
                         break;
                     }
                     ++infoIt;

@@ -6,6 +6,10 @@ set(CMAKE_CXX_STANDARD 11)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/packages)
 
+if (MSVC)
+add_compile_options("/D_HAS_ITERATOR_DEBUGGING=0")
+endif(MSVC)
+
 add_executable(
 	bomberman
 	src/config.hpp
@@ -249,6 +253,12 @@ add_executable(
 find_package(Irrlicht REQUIRED)
 find_package(Sfml REQUIRED)
 find_package(Pthread REQUIRED)
+
+include_directories(
+	bomberman
+	${Irrlicht_INCLUDE_DIRS}
+	${Sfml_INCLUDE_DIRS}
+)
 
 target_link_libraries(
 	bomberman
