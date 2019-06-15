@@ -75,7 +75,7 @@ void ECS::UltShockWaveSystem::updateEntity(ECS::Entity &entity)
         self.timer = 1;
         self.origin.x = (static_cast<int>(pc.pos.x) + TILESIZE / 2) / TILESIZE * TILESIZE;
         self.origin.y = (static_cast<int>(pc.pos.y) + TILESIZE / 2) / TILESIZE * TILESIZE;
-        pc.pos = self.origin;
+        pc.pos = {static_cast<double>(self.origin.x + 2), static_cast<double>(self.origin.y + 2)};
         self.directon = mc.dir;
     }
 }
