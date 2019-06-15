@@ -5,7 +5,6 @@
 ** SoundSystem.cpp
 */
 
-#include <iostream>
 #include "SoundSystem.hpp"
 #include "Exception.hpp"
 
@@ -37,7 +36,6 @@ namespace Sound
 
 	unsigned SoundSystem::playSound(const std::string &id, float volume)
 	{
-		std::cout << volume << std::endl;
 		try {
 			for (unsigned i = 0; i < this->_sounds.size(); i++) {
 				auto &sound = this->_sounds[i];

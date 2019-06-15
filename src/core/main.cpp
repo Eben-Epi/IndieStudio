@@ -9,6 +9,24 @@
 #include "../ecs/Exceptions.hpp"
 #include "../ecs/components/NameComponent.hpp"
 
+void generateDefaultMap(Map::Map &map, const std::vector<Map::Map::PlayerConfig> &&players)
+{
+	map.generateMap(
+		{20, 20},
+		7000,
+		std::move(players),
+		{
+			{"Bonus", 40},
+			{"DroppedBonusSpeed", 20},
+			{"DroppedBonusBomb", 20},
+			{"DroppedBonusKick", 5},
+			{"DroppedBonusRange", 20},
+			{"DroppedBonusGhost", 1},
+			{"Skull", 10}
+		}
+	);
+}
+
 Map::Map *loadMap(std::string path, Irrlicht::GameScene &gameScene, std::vector<std::unique_ptr<Input::Input>> &inputs, Sound::SoundSystem &soundSystem)
 {
 	std::ifstream stream(path);
@@ -22,14 +40,11 @@ Map::Map *loadMap(std::string path, Irrlicht::GameScene &gameScene, std::vector<
 
 	auto map = new Map::Map{gameScene, inputs, soundSystem};
 
-	map->generateMap({20, 20}, 7000, {"Faerie"}, {
-		{"Bonus", 40},
-		{"DroppedBonusSpeed", 20},
-		{"DroppedBonusBomb", 20},
-		{"DroppedBonusKick", 5},
-		{"DroppedBonusRange", 20},
-		{"DroppedBonusGhost", 1},
-		{"Skull", 10}
+	generateDefaultMap(*map, {
+		{nullptr, "Faerie", 0},
+		{nullptr, "Xenotype", 1},
+		{nullptr, "Alphaone", 2},
+		{nullptr, "Sydney", 3},
 	});
 	return map;
 }
@@ -134,20 +149,16 @@ int main()
 			if (!paused && !map->update() && displayEndGameMenu(*map, screen, soundSystem)) {
 				delete map;
 				map = new Map::Map(screen.getGameSceneByName("Game"), inputs, soundSystem);
-				map->generateMap({20, 20}, 7000, {"Faerie"}, {
-					{"Bonus", 40},
-					{"DroppedBonusSpeed", 20},
-					{"DroppedBonusBomb", 20},
-					{"DroppedBonusKick", 5},
-					{"DroppedBonusRange", 20},
-					{"Skull", 10}
+				generateDefaultMap(*map, {
+					{&*inputs[0], "Faerie", 0},
+					{nullptr, "Xenotype", 1},
+					{nullptr, "Alphaone", 2},
+					{nullptr, "Sydney", 3},
 				});
 			}
 		}
 
-		std::ofstream stream("save.txt");
-
-		stream << *map << std::endl;
+		map->save("save.txt");
 		delete map;
 	} catch (std::exception &e) {
 		std::cerr << "Error: " << e.what() << std::endl;

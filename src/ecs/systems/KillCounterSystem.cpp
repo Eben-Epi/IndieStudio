@@ -32,7 +32,6 @@ void ECS::KillCounterSystem::updateEntity(ECS::Entity &entity)
         self.killedId.push_back(kill.id);
         try {
             ult.charge += kill_value.at(kill.name);
-            printf("%s has killed %s\n", entity.getName().c_str(), kill.name.c_str());
         }
         catch (std::out_of_range &) {
             continue;
