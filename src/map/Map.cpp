@@ -46,11 +46,11 @@ bool Map::Map::update()
 {
     if (this->_clock < 2 * FRAME_RATE) {
     	if (this->_clock++ == 0) {
-    	    this->_core.update();
-    	    this->_ressources.soundSystem.setBackgroundMusic("battle_music", 45); // tmp
+            this->_core.update();
+            this->_ressources.soundSystem.setBackgroundMusic("battle_music", 45); // tmp
 	    this->_ressources.soundSystem.playSoundOverBackgroundMusic("ready");
-	}
-    	return true;
+        }
+        return true;
     }
 
     if (this->_clock % 10 == 0)

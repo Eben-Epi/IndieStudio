@@ -82,6 +82,6 @@ void ECS::ExplodeSystem::updateEntity(ECS::Entity &entity)
     efVPos.pos.x = pc.pos.x + 1;
     efVPos.pos.y = min_y + 1;
     efVPos.size.y = static_cast<unsigned>(max_y - min_y) - 2;
-    exc.soundSystem.playSound("explode");
+    exc.soundSystem.playSound("explode", 85);
     entity.destroy();
 }
