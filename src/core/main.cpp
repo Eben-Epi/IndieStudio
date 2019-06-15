@@ -37,11 +37,11 @@ Map::Map *loadMap(std::string path, Irrlicht::GameScene &gameScene, std::vector<
 bool displayEndGameMenu(Map::Map &map, Irrlicht::Screen &screen, Sound::SoundSystem &sound)
 {
 	if (map.getPlayersAlive().empty()) {
-		sound.playSound("draw");
+		sound.playSound("announcer_draw");
 	} else {
-		sound.playSound("winner");
+		sound.playSound("announcer_winner");
 		std::this_thread::sleep_for(std::chrono::seconds(2));
-		sound.playSound(reinterpret_cast<ECS::NameComponent &>(map.getPlayersAlive()[0]->getComponentByName("Name")).name);
+		sound.playSound("announcer_" + reinterpret_cast<ECS::NameComponent &>(map.getPlayersAlive()[0]->getComponentByName("Name")).name);
 	}
 	screen.setCursorVisible(true);
 	screen.setCurrentGameScene("MainMenu");

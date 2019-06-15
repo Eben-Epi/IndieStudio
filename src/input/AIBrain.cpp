@@ -45,6 +45,8 @@ ECS::Entity *Input::AIBrain::setAIObjective(ECS::Entity &me, ECS::Entity *object
         chase = -1;
     }
     std::cout << players.size() << " players remaining" << std::endl;
+    if (players.size() == 1)
+        return (nullptr);
     if (!objective || chase == -1) {
         std::random_device randomDev;
         int nb = randomDev() % players.size();
@@ -407,6 +409,10 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
     //std::cout << "y : " << (int)(pos.pos.y / TILESIZE) << " // yTmp : " << yTmp << std::endl;
     if ((xTmp <= 15 && yTmp <= 15 && _timer == 0) || !_objective) {
         _objective = setAIObjective(*this->_entity, _objective, powerUps);
+        if (_objective == nullptr) {
+            _actions.clear();
+            return (_actions);
+        }
         std::cout << _objective->getName() << std::endl;
         for (ECS::Entity *e : colliders) {
             auto &eCollide = reinterpret_cast<ECS::ColliderComponent &>(e->getComponentByName("Collider"));

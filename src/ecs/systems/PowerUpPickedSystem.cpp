@@ -35,7 +35,7 @@ void ECS::PowerUpPickedSystem::updateEntity(ECS::Entity &entity)
             tphc.health += pucI.health;
         }
         if (pickable.pickedBy->hasComponent("Collision")) {
-            auto &cc = reinterpret_cast<CollisionComponent &>(pickable.pickedBy->getComponentByName("Collider"));
+            auto &cc = reinterpret_cast<CollisionComponent &>(pickable.pickedBy->getComponentByName("Collision"));
 
             cc.passThrough = pucI.hardness;
         }

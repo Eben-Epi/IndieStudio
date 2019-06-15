@@ -5,6 +5,7 @@
 ** SoundSystem.cpp
 */
 
+#include <iostream>
 #include "SoundSystem.hpp"
 #include "Exception.hpp"
 
@@ -36,15 +37,16 @@ namespace Sound
 
 	unsigned SoundSystem::playSound(const std::string &id, float volume)
 	{
+		std::cout << volume << std::endl;
 		try {
 			for (unsigned i = 0; i < this->_sounds.size(); i++) {
 				auto &sound = this->_sounds[i];
 
 				if (sound->getStatus() == sf::Sound::Stopped) {
 					sound->setBuffer(this->_loadedSounds.at(id));
+					sound->play();
 					sound->setVolume(volume);
 					sound->setLoop(false);
-					sound->play();
 					return i;
 				}
 			}
@@ -52,8 +54,8 @@ namespace Sound
 			sf::Sound &sound = *this->_sounds.back();
 
 			sound.setBuffer(this->_loadedSounds.at(id));
-			sound.setVolume(volume);
 			sound.play();
+			sound.setVolume(volume);
 			return this->_sounds.size() - 1;
 		} catch (std::out_of_range &) {
 			throw InvalidSoundIdentifierException("No sound loaded has id " + id);
@@ -73,7 +75,6 @@ namespace Sound
 				while (this->_sounds[i]->getStatus() == sf::Sound::Playing)
 					std::this_thread::sleep_for(std::chrono::milliseconds(100));
 				if (this->_backgroundMusic && bg == *this->_backgroundMusic) {
-					this->_sounds[*this->_backgroundMusic]->setVolume(volume);
 					this->_sounds[*this->_backgroundMusic]->play();
 				}
 			}};

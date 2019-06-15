@@ -46,11 +46,11 @@ bool Map::Map::update()
 {
     if (this->_clock < 2 * FRAME_RATE) {
     	if (this->_clock++ == 0) {
-    	    this->_core.update();
-    	    this->_ressources.soundSystem.setBackgroundMusic("battle_music", 45); // tmp
-	    this->_ressources.soundSystem.playSoundOverBackgroundMusic("ready");
-	}
-    	return true;
+            this->_core.update();
+            this->_ressources.soundSystem.setBackgroundMusic("battle_music", 45); // tmp
+	    this->_ressources.soundSystem.playSoundOverBackgroundMusic("announcer_ready_go");
+        }
+        return true;
     }
 
     if (this->_clock % 10 == 0)
@@ -62,7 +62,7 @@ bool Map::Map::update()
     auto players = this->_core.getEntitiesByName("Player");
 
     if (players.size() < 2) {
-        this->_ressources.soundSystem.playSound("game");
+        this->_ressources.soundSystem.playSound("announcer_game");
         this->_ressources.soundSystem.stopBackgroundMusic();
         this->_ended = true;
         for (ECS::Entity *entity : players)
