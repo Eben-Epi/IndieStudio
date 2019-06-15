@@ -73,7 +73,6 @@ void Irrlicht::TextBox::setText(std::string text)
 
 void Irrlicht::TextBox::setPos(ECS::Point pos)
 {
-
     if (pos.x != _pos.x && pos.y != _pos.y) {
         this->_pos = pos;
         this->_textBox->setRelativePosition(irr::core::position2di((int)_pos.x, (int)_pos.y));

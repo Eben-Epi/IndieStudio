@@ -15,6 +15,8 @@
 #include "../../ecs/data/Vector2.hpp"
 #include "irr-entity/IrrEntity.hpp"
 #include "../irr-input/event-receiver/EventReceiver.hpp"
+#include "hud/Button.hpp"
+#include "../textbox/TextBox.hpp"
 
 namespace Irrlicht {
 
@@ -54,6 +56,7 @@ namespace Irrlicht {
 		bool isGuiButtonPressed(unsigned id);
 		float getJoystickAxisPosition(unsigned joystickId, unsigned axis);
 		bool isJoystickAxisPressed(unsigned joystickId, ControllerAxisGS axis, unsigned threshold = 16384);
+        void changeCurrentGameScene(std::string sceneName);
 		virtual bool update();
 
 		const std::string sceneName;
@@ -61,6 +64,8 @@ namespace Irrlicht {
 	protected:
         IrrEntity &_getEntity(unsigned entity_id);
 		std::vector<std::unique_ptr<IrrEntity>> _entities;
+        std::vector<std::unique_ptr<Button>> _buttons;
+        std::vector<std::unique_ptr<TextBox>> _textBoxes;
 		unsigned _entitiesId;
 		Screen &_window;
 		EventReceiver &_eventReceiver;

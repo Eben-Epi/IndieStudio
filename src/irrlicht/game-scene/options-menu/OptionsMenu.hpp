@@ -11,14 +11,14 @@
 #include <vector>
 #include <memory>
 #include "../GameScene.hpp"
-#include "../main-menu/Button.hpp"
+#include "../hud/Button.hpp"
 
 namespace Irrlicht
 {
-	enum OptionButtonName
+	enum OptionMenuButtonName
 	{
 		CHANGE_KEYS = 0,
-		BACK,
+		BACK_OPTIONS,
 		VOLUME_LESS,
 		VOLUME_MORE,
 		VOLUME_MUTE

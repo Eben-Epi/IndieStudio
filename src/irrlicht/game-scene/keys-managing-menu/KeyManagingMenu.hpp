@@ -11,13 +11,13 @@
 #include <vector>
 #include <memory>
 #include "../GameScene.hpp"
-#include "../main-menu/Button.hpp"
+#include "../hud/Button.hpp"
 
 namespace Irrlicht
 {
 	enum KeysButtonName
 	{
-		BACKBACK = 0,
+		BACK_FROM_KEYS_MANAGING = 0,
 		P1_UP,
 		P1_DOWN,
 		P1_LEFT,

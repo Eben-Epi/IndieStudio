@@ -11,7 +11,7 @@
 #include <vector>
 #include <memory>
 #include "../GameScene.hpp"
-#include "../main-menu/Button.hpp"
+#include "../hud/Button.hpp"
 #include "../../textbox/TextBox.hpp"
 
 namespace Irrlicht

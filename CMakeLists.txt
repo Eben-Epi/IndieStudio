@@ -183,14 +183,12 @@ add_executable(
 	src/irrlicht/game-scene/GameScene.hpp
 	src/irrlicht/game-scene/irr-entity/IrrEntity.cpp
 	src/irrlicht/game-scene/irr-entity/IrrEntity.hpp
+	src/irrlicht/game-scene/hud/Button.cpp
+	src/irrlicht/game-scene/hud/Button.hpp
 	src/irrlicht/textbox/TextBox.hpp
 	src/irrlicht/textbox/TextBox.cpp
-	src/irrlicht/game-scene/main-menu/Button.cpp
-	src/irrlicht/game-scene/main-menu/Button.hpp
 	src/irrlicht/game-scene/main-menu/MainMenu.hpp
 	src/irrlicht/game-scene/main-menu/MainMenu.cpp
-	src/irrlicht/game-scene/main-menu/Menu.cpp
-	src/irrlicht/game-scene/main-menu/Menu.hpp
 	src/irrlicht/game-scene/options-menu/OptionsMenu.hpp
 	src/irrlicht/game-scene/options-menu/OptionsMenu.cpp
 	src/irrlicht/game-scene/start-menu/StartMenu.cpp
@@ -204,7 +202,10 @@ add_executable(
 	src/sound/Exception.hpp
 	src/sound/SoundSystem.cpp
 	src/sound/SoundSystem.hpp
-)
+	src/irrlicht/game-scene/new-game-menu/NewGameMenu.cpp
+	src/irrlicht/game-scene/new-game-menu/NewGameMenu.hpp
+	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.cpp
+	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.hpp)
 
 find_package(Irrlicht REQUIRED)
 find_package(Sfml REQUIRED)

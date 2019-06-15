@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Button.hpp"
+#include "../../../ecs/data/Vector2.hpp"
 
 Irrlicht::Button::Button(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text) :
     id(id),
@@ -58,11 +59,8 @@ void Irrlicht::Button::setText(std::string text) {
 }
 
 void Irrlicht::Button::setPos(ECS::Point pos) {
-
-    if (pos.x != _pos.x && pos.y != _pos.y) {
         this->_pos = pos;
         this->_button->setRelativePosition(irr::core::position2di((int)_pos.x, (int)_pos.y));
-    }
 }
 
 void Irrlicht::Button::setSize(ECS::Vector4<int> size) {

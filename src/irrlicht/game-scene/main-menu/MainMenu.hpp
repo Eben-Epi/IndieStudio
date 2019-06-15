@@ -11,15 +11,15 @@
 #include <vector>
 #include <memory>
 #include "../GameScene.hpp"
-#include "Button.hpp"
+#include "../hud/Button.hpp"
 #include "../../textbox/TextBox.hpp"
 
 namespace Irrlicht
 {
-	enum ButtonName
+	enum MainMenuButtonName
 	{
-		START = 0,
-		LOAD,
+		NEW_GAME = 0,
+		LOAD_GAME,
 		EXIT,
 	};
 
@@ -28,13 +28,7 @@ namespace Irrlicht
 		public:
 			MainMenu(Screen &screen, const std::string &name, unsigned id);
 			~MainMenu() = default;
-			void changeCurrentGameScene(std::string sceneName);
 			bool update() override;
-
-		private:
-			//PROPERTIES
-			std::vector<std::unique_ptr<Button>> _buttons;
-			std::vector<std::unique_ptr<TextBox>> _textBoxes;
 	};
 }
 

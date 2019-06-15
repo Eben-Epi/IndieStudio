@@ -15,8 +15,9 @@
 #include "../game-scene/GameScene.hpp"
 #include "../game-scene/main-menu/MainMenu.hpp"
 #include "../game-scene/options-menu/OptionsMenu.hpp"
-//#include "../game-scene/keys-managing-menu/KeyManagingMenu.hpp"
-#include "../game-scene/start-menu/StartMenu.hpp"
+#include "../game-scene/keys-managing-menu/KeyManagingMenu.hpp"
+#include "../game-scene/load-game-menu/LoadGameMenu.hpp"
+#include "../game-scene/new-game-menu/NewGameMenu.hpp"
 
 #if defined(_WIN32) && !defined(__GNUC__)
 #define driverType irr::video::EDT_DIRECT3D9
@@ -51,7 +52,7 @@ Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen,
     this->_driver = this->_device->getVideoDriver();
     this->_guienv = (this->_device->getGUIEnvironment());
     this->_smgr = (this->_device->getSceneManager());
-    this->_device->setResizable(true);
+    this->_device->setResizable(false);
 }
 
 
@@ -141,18 +142,24 @@ unsigned Irrlicht::Screen::addGameSceneMainMenu(const std::string &name) {
     return (this->_lastSceneId);
 }
 
-unsigned Irrlicht::Screen::addGameSceneOptions(const std::string &name) {
+unsigned Irrlicht::Screen::addGameSceneNewGameMenu(const std::string &name) {
     this->_lastSceneId++;
-    this->_scenes.emplace_back(new OptionsMenu{*this, name, this->_lastSceneId});
+    this->_scenes.emplace_back(new NewGameMenu{*this, name, this->_lastSceneId});
     return (this->_lastSceneId);
 }
 
-unsigned Irrlicht::Screen::addGameSceneStart(const std::string &name)
-{
+unsigned Irrlicht::Screen::addGameSceneLoadGameMenu(const std::string &name) {
     this->_lastSceneId++;
-    this->_scenes.emplace_back(new StartMenu{*this, name, this->_lastSceneId});
+    this->_scenes.emplace_back(new LoadGameMenu{*this, name, this->_lastSceneId});
     return (this->_lastSceneId);
 }
+//
+//unsigned Irrlicht::Screen::addGameSceneStart(const std::string &name)
+//{
+//    this->_lastSceneId++;
+//    this->_scenes.emplace_back(new StartMenu{*this, name, this->_lastSceneId});
+//    return (this->_lastSceneId);
+//}
 
 // unsigned Irrlicht::Screen::addKeyChangingScene(const std::string &name)
 // {

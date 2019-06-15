@@ -1,7 +1,3 @@
-#include <utility>
-
-#include <utility>
-
 //
 // Created by Eben on 05/06/2019.
 //
@@ -143,4 +139,14 @@ void Irrlicht::GameScene::addCamera(float posX, float posY, float posZ, float lo
 bool Irrlicht::GameScene::update() {
     return (true);
 }
+
+void Irrlicht::GameScene::changeCurrentGameScene(std::string sceneName)
+{
+    for (auto &_button : this->_buttons)
+        _button->setVisible(false);
+    for (auto &_textBox : this->_textBoxes)
+        _textBox->setVisible(false);
+    this->_window.setCurrentGameScene(sceneName);
+}
+
 

@@ -34,7 +34,7 @@ namespace Input
         RIGHT_JOYSTICK,
         RT,
         LT,
-        NUMBER_BUTTONS,
+        NUMBER_BUTTONS
     };
 
     class Controller : public Input
