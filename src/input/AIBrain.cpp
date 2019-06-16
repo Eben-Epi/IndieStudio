@@ -80,18 +80,10 @@ bool Input::AIBrain::canEscape(std::vector<int> &bonusMalusZone)
 {
     int escapableWays = 0;
 
-    /*if (_entity->getId() == 0)
-        std::cout << "bombTimer : " << _bombTimer << std::endl;
-    if (_bombTimer > 0) {
-        --_bombTimer;
-        return (false);
-    }*/
     for (int score : bonusMalusZone) {
         if (score >= -2)
             ++escapableWays;
     }
-    if (_entity->getId() == 0)
-        std::cout << "escapableWays : " << escapableWays << std::endl;
     if (escapableWays >= 1 && (this->_onStepAbs >= 1 && this->_onStepAbs < 9)) {
         return (true);
     }
@@ -131,75 +123,46 @@ std::vector<Input::Action> Input::AIBrain::getTheBestWay(std::vector<int> &bonus
     }
     if (abs(objPos.pos.x - myPos.x) + abs(objPos.pos.y - myPos.y) < TILESIZE && _objective->getName() == "Player" && !_bombPlaced) {
         actions.push_back(ACTION_ACTION);
-        //_bombTimer = 4;
         return (actions);
     }
     if (abs(objPos.pos.x - myPos.x) > abs(objPos.pos.y - myPos.y)) {
         if (bonusMalusZone[xBestWay] < -999000 && canEscape(bonusMalusZone) && !_bombPlaced) {
             actions.push_back(ACTION_ACTION);
-            //_bombTimer = 4;
             return (actions);
         }
-        /*for (int posi : pos) {
-            if (posi == xBestWay) {
-                moveChoice = xBestWay;
-                break;
-            }
-        }*/
-        if (bonusMalusZone[xBestWay] > -100 /*|| (bonusMalusZone[2] > -100 && bonusMalusZone[xBestWay] < -999000)*/)
+        if (bonusMalusZone[xBestWay] > -100)
             moveChoice = xBestWay;
-            /*for (int posi : pos) {
-                if (posi == yBestWay) {
-                    moveChoice = yBestWay;
-                    break;
-                }
-            }*/
-        else if (bonusMalusZone[yBestWay] > -100 /*|| (bonusMalusZone[2] > -100 && bonusMalusZone[yBestWay] < -999000)*/)
+        else if (bonusMalusZone[yBestWay] > -100)
             moveChoice = yBestWay;
-        else
-            moveChoice = pos[rand_device() % pos.size()];
+        else {
+            if (_bombPlaced && bonusMalusZone[2] > -100)
+                moveChoice = 2;
+            else
+                moveChoice = pos[rand_device() % pos.size()];
+        }
     } else {
         if (bonusMalusZone[yBestWay] < -999000 && canEscape(bonusMalusZone) && !_bombPlaced) {
             actions.push_back(ACTION_ACTION);
-            //_bombTimer = 4;
             return (actions);
         }
         if (relaObjPos.y - myPos.y != 0) {
-            /*for (int posi : pos) {
-                if (posi == yBestWay) {
-                    moveChoice = yBestWay;
-                    break;
-                }
-            }*/
-            if (bonusMalusZone[yBestWay] > -100 /*|| (bonusMalusZone[2] > -100 && bonusMalusZone[yBestWay] < -999000)*/)
+            if (bonusMalusZone[yBestWay] > -100)
                 moveChoice = yBestWay;
-                /*for (int posi : pos) {
-                    if (posi == xBestWay) {
-                        moveChoice = xBestWay;
-                        break;
-                    }
-                }*/
-            else if (bonusMalusZone[xBestWay] > -100 /*|| (bonusMalusZone[2] > -100 && bonusMalusZone[xBestWay] < -999000)*/)
+            else if (bonusMalusZone[xBestWay] > -100)
                 moveChoice = xBestWay;
             else {
                 if (bonusMalusZone[2] > -100 && bonusMalusZone[j] < 0) {
                     return (actions);
                 } else {
-                    moveChoice = pos[rand_device() % pos.size()];
+                    if (_bombPlaced && bonusMalusZone[2] > -100)
+                        moveChoice = 2;
+                    else
+                        moveChoice = pos[rand_device() % pos.size()];
                 }
             }
         }
     }
 
-    if (_entity->getId() == 0) {
-        std::cout << "moveChoice : " << moveChoice << std::endl;
-
-        std::cout << "actions : " << pos.size() << " -> ";
-        for (int posi : pos)
-            std::cout << posi << " // ";
-        std::cout << std::endl;
-        std::cout << "action engaged : " << moveChoice << std::endl;
-    }
     switch (moveChoice) {
         case 0:
             actions.push_back(ACTION_UP);
@@ -271,35 +234,18 @@ void Input::AIBrain::updateRelativeVisionForPredictions(
                 auto infoIt = bonusMalusZone.begin();
                 ECS::Point end = {point.x + ePos.size.x, point.y + ePos.size.y};
 
-                for (int y = point.y; y < end.y; y += TILESIZE) {
+                /*for (int y = point.y; y < end.y; y += TILESIZE) {
                     for (int x = point.x; x < end.x; x += TILESIZE) {
-                        ECS::Point newPoint = {(double) x, (double) y};
-
-                        for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
-                            if (it->x == newPoint.x && it->y == newPoint.y) {
-                                if (_entity->getId() == 0)
-                                    std::cout << "waw" << std::endl;
-                                /*if (i == 2) {
-                                    if (relativeVision[i].x - relaPos.x > 0 && bonusMalusZone[1] < -990000) {
-                                        break;
-                                    }
-                                    if (relativeVision[i].x - relaPos.x < 0 && bonusMalusZone[3] < -990000) {
-                                        break;
-                                    }
-                                    if (relativeVision[i].y - relaPos.y > 0 && bonusMalusZone[0] < -990000) {
-                                        break;
-                                    }
-                                    if (relativeVision[i].y - relaPos.y < 0 && bonusMalusZone[4] < -990000) {
-                                        break;
-                                    }
-                                }*/
+                        ECS::Point newPoint = {(double) x, (double) y};*/
+                        for (int j = 0; j < relativeVision.size(); ++j) {
+                            if (relativeVision[j].x == point.x && relativeVision[j].y == point.y) {
                                 *infoIt += (dangerLevel * (eExpl.range + 1 - i));
                                 break;
                             }
                             ++infoIt;
                         }
-                    }
-                }
+                /*    }
+                }*/
             }
             dangerZone.clear();
         }
@@ -346,7 +292,7 @@ void Input::AIBrain::updateRelativeVisionForBlocks(
                             *infoIt += 5000;
                         else if (e->hasComponent("Health")) {
                             bonusMalusZone[2] += -20;
-                            if (e->getName() == "Player")
+                            if (e->getName() == "Player" && !_bombPlaced)
                                 bonusMalusZone[2] = -20;
                         }
                         break;
@@ -389,7 +335,6 @@ void Input::AIBrain::updateRelativeVisionForBlocks(
                             default:
                                 break;
                         }
-                        //TODO finir le further
                     }
                 }
             }
@@ -405,11 +350,15 @@ void Input::AIBrain::updateRelativeVisionForBlocks(
 
         int j = 0;
         for (int k = 0; k < bonusMalusZone.size(); ++k) {
-            if (j != 2) {
-                ++j;
+            if (k != 2) {
+                if (_entity->getId() == 1)
+                    std::cout << "j : " << j << "----> " << (int) (abs(relativeFurther[j].x - relativeVision[k].x) +
+                                                                 abs(relativeFurther[j].y - relativeVision[k].y))
+                                                          / TILESIZE << std::endl;
                 bonusMalusZone[k] += (int) (abs(relativeFurther[j].x - relativeVision[k].x) +
                                             abs(relativeFurther[j].y - relativeVision[k].y))
                                             / TILESIZE;
+                ++j;
             }
         }
     }
@@ -419,16 +368,11 @@ std::vector<ECS::Point> Input::AIBrain::getRelativeVision(ECS::Point &point)
 {
     std::vector<ECS::Point> vision;
 
-    //vision.push_back({point.x - TILESIZE, point.y - TILESIZE});
     vision.push_back({point.x, point.y - TILESIZE});
-    //vision.push_back({point.x + TILESIZE, point.y - TILESIZE});
     vision.push_back({point.x - TILESIZE, point.y});
     vision.push_back({point.x, point.y});
     vision.push_back({point.x + TILESIZE, point.y});
-    //vision.push_back({point.x - TILESIZE, point.y + TILESIZE});
     vision.push_back({point.x, point.y + TILESIZE});
-    //vision.push_back({point.x + TILESIZE, point.y + TILESIZE});
-
 
     return (vision);
 }
@@ -478,29 +422,20 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
     ECS::Point relativePosPlayer = getRelativePosPlayer(this->_pos->pos);
     std::vector<ECS::Point> relativeVision = getRelativeVision(relativePosPlayer);
     std::vector<ECS::Entity *> blockZone;
-    std::vector<int> bonusMalusZone = {0, 0, -2, 0, 0/*, 0, 0, 0, 0*/};
-    //static int changingPosx = relativePos.x / TILESIZE;
-    //static int changingPosy = relativePos.y / TILESIZE;
+    std::vector<int> bonusMalusZone = {0, 0, -2, 0, 0};
 
-    //std::cout << "x : " << (int)(pos.pos.x / TILESIZE) << " // xTmp : " << xTmp << std::endl;
-    //std::cout << "y : " << (int)(pos.pos.y / TILESIZE) << " // yTmp : " << yTmp << std::endl;
     if ((_xTmp <= 10 && _yTmp <= 10 && _timer == 0) || !_objective || _actions.empty()) {
         _objective = setAIObjective(*this->_entity, _objective, powerUps);
         if (_objective == nullptr) {
             _actions.clear();
-            std::cout << "GAME !!!!!!! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" << std::endl;
             return (_actions);
         }
         _bombPlaced = _bombDropper->bombs.size() == 1;
-        if (_entity->getId() == 0) {
-            std::cout << "bombsPlaced : " << _bombPlaced << std::endl;
-            std::cout << "objective : " << _objective->getId() << std::endl;
-        }
         for (ECS::Entity *e : colliders) {
             auto &eCollide = reinterpret_cast<ECS::ColliderComponent &>(e->getComponentByName("Collider"));
             auto &eKicker = reinterpret_cast<ECS::KickerComponent &>(this->_entity->getComponentByName("Kicker"));
 
-            if (eCollide.hardness >= 1 || e->hasComponent("OnCollisionDamageDealer") || (/* !eKicker.canKick && */ e->hasComponent("Explode"))) {
+            if (eCollide.hardness >= 1 || e->hasComponent("OnCollisionDamageDealer") || e->hasComponent("Explode")) {
                 blockZone.emplace_back(e);
             }
         }
@@ -514,12 +449,10 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
         if (!explodableEntities.empty())
             updateRelativeVisionForPredictions(explodableEntities, relativeVision, bonusMalusZone, -1100);
 
-        std::cout << std::endl;
-
         if (!powerUps.empty())
             updateRelativeVisionForBonuses(powerUps, relativeVision, bonusMalusZone, 100);
 
-        if (_entity->getId() == 0) {
+        if (_entity->getId() == 1) {
             std::cout << "scores : ";
             for (int score : bonusMalusZone) {
                 std::cout << score << " || ";
@@ -531,16 +464,7 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
         if (this->_onStepAbs < 0)
             this->_onStepAbs *= -1;
         this->_onStepAbs = this->_onStepAbs % 100 / 10;
-        if (_entity->getId() == 0)
-            std::cout << "onStepLOL : " << this->_onStepAbs << std::endl;
         _actions = getTheBestWay(bonusMalusZone, relativePosPlayer);
-        /*if (!_actions.empty()) {
-            changingPosx = relativePos.x / TILESIZE;
-            changingPosy = relativePos.y / TILESIZE;
-        }*/
-        /*if (canEscape(bonusMalusZone) && _onStepAbs >= 1 && _onStepAbs < 9) {
-            _actions.push_back(ACTION_ACTION);
-        }*/
         _timer = 2;
     }
     if (_timer > 0)
