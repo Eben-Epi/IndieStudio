@@ -84,10 +84,7 @@ bool Input::AIBrain::canEscape(std::vector<int> &bonusMalusZone)
         if (score >= -2)
             ++escapableWays;
     }
-    if (escapableWays >= 1 && (this->_onStepAbs >= 1 && this->_onStepAbs < 9)) {
-        return (true);
-    }
-    return (false);
+    return (escapableWays >= 1 && (this->_onStepAbs >= 1 && this->_onStepAbs < 9));
 }
 
 std::vector<Input::Action> Input::AIBrain::getTheBestWay(std::vector<int> &bonusMalusZone, ECS::Point &myPos)
@@ -145,20 +142,18 @@ std::vector<Input::Action> Input::AIBrain::getTheBestWay(std::vector<int> &bonus
             actions.push_back(ACTION_ACTION);
             return (actions);
         }
-        if (relaObjPos.y - myPos.y != 0) {
-            if (bonusMalusZone[yBestWay] > -100)
-                moveChoice = yBestWay;
-            else if (bonusMalusZone[xBestWay] > -100)
-                moveChoice = xBestWay;
-            else {
-                if (bonusMalusZone[2] > -100 && bonusMalusZone[j] < 0) {
-                    return (actions);
-                } else {
-                    if (_bombPlaced && bonusMalusZone[2] > -100)
-                        moveChoice = 2;
-                    else
-                        moveChoice = pos[rand_device() % pos.size()];
-                }
+        if (bonusMalusZone[yBestWay] > -100)
+            moveChoice = yBestWay;
+        else if (bonusMalusZone[xBestWay] > -100)
+            moveChoice = xBestWay;
+        else {
+            if (bonusMalusZone[2] > -100 && bonusMalusZone[j] < 0) {
+                return (actions);
+            } else {
+                if (_bombPlaced && bonusMalusZone[2] > -100)
+                    moveChoice = 2;
+                else
+                    moveChoice = pos[rand_device() % pos.size()];
             }
         }
     }
@@ -232,20 +227,14 @@ void Input::AIBrain::updateRelativeVisionForPredictions(
 
             for (ECS::Point point : dangerZone) {
                 auto infoIt = bonusMalusZone.begin();
-                ECS::Point end = {point.x + ePos.size.x, point.y + ePos.size.y};
 
-                /*for (int y = point.y; y < end.y; y += TILESIZE) {
-                    for (int x = point.x; x < end.x; x += TILESIZE) {
-                        ECS::Point newPoint = {(double) x, (double) y};*/
-                        for (int j = 0; j < relativeVision.size(); ++j) {
-                            if (relativeVision[j].x == point.x && relativeVision[j].y == point.y) {
-                                *infoIt += (dangerLevel * (eExpl.range + 1 - i));
-                                break;
-                            }
-                            ++infoIt;
-                        }
-                /*    }
-                }*/
+                for (int j = 0; j < relativeVision.size(); ++j) {
+                    if (relativeVision[j].x == point.x && relativeVision[j].y == point.y) {
+                        *infoIt += (dangerLevel * (eExpl.range + 1 - i));
+                        break;
+                    }
+                    ++infoIt;
+                }
             }
             dangerZone.clear();
         }
@@ -351,10 +340,6 @@ void Input::AIBrain::updateRelativeVisionForBlocks(
         int j = 0;
         for (int k = 0; k < bonusMalusZone.size(); ++k) {
             if (k != 2) {
-                if (_entity->getId() == 1)
-                    std::cout << "j : " << j << "----> " << (int) (abs(relativeFurther[j].x - relativeVision[k].x) +
-                                                                 abs(relativeFurther[j].y - relativeVision[k].y))
-                                                          / TILESIZE << std::endl;
                 bonusMalusZone[k] += (int) (abs(relativeFurther[j].x - relativeVision[k].x) +
                                             abs(relativeFurther[j].y - relativeVision[k].y))
                                             / TILESIZE;
@@ -435,7 +420,8 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
             auto &eCollide = reinterpret_cast<ECS::ColliderComponent &>(e->getComponentByName("Collider"));
             auto &eKicker = reinterpret_cast<ECS::KickerComponent &>(this->_entity->getComponentByName("Kicker"));
 
-            if (eCollide.hardness >= 1 || e->hasComponent("OnCollisionDamageDealer") || e->hasComponent("Explode")) {
+            if (eCollide.hardness >= 1 || e->hasComponent("OnCollisionDamageDealer") ||
+            e->hasComponent("Explode") || e->hasComponent("CurseOnPickComponent")) {
                 blockZone.emplace_back(e);
             }
         }
@@ -452,7 +438,7 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
         if (!powerUps.empty())
             updateRelativeVisionForBonuses(powerUps, relativeVision, bonusMalusZone, 100);
 
-        if (_entity->getId() == 1) {
+        if (_entity->getId() == 2) {
             std::cout << "scores : ";
             for (int score : bonusMalusZone) {
                 std::cout << score << " || ";
