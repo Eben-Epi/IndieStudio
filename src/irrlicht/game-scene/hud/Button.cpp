@@ -87,6 +87,4 @@ void Irrlicht::Button::setVisible(bool visible)
 	this->_button->setVisible(visible);
 }
 
-Irrlicht::Button::~Button() {
-    this->_button->remove();
-}
+Irrlicht::Button::~Button() = default;
