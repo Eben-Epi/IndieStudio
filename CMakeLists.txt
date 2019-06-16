@@ -223,6 +223,8 @@ add_executable(
 	src/irrlicht/game-scene/main-menu/MainMenu.hpp
 	src/irrlicht/game-scene/new-game-menu/NewGameMenu.cpp
 	src/irrlicht/game-scene/new-game-menu/NewGameMenu.hpp
+	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.hpp
+	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.cpp
 	src/irrlicht/game-scene/keys-managing-menu-new/KeysManagingMenuNew.hpp
 	src/irrlicht/game-scene/keys-managing-menu-new/KeysManagingMenuNew.cpp
 	src/irrlicht/game-scene/keys-managing-menu-load/KeysManagingMenuLoad.hpp

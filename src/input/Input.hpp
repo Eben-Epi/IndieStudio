@@ -32,7 +32,9 @@ namespace Input {
 
     enum KeysButtonName
     {
-        P1_UP = 0,
+        BACK_FROM_KEYS_MANAGING = 0,
+        NEXT_FROM_KEYS_MANAGING,
+        P1_UP,
         P1_DOWN,
         P1_LEFT,
         P1_RIGHT,
@@ -59,9 +61,7 @@ namespace Input {
         P1_INPUT_CHOICE,
         P2_INPUT_CHOICE,
         P3_INPUT_CHOICE,
-        P4_INPUT_CHOICE,
-        BACK_FROM_KEYS_MANAGING,
-        NEXT_FROM_KEYS_MANAGING
+        P4_INPUT_CHOICE
     };
 
     class Input {

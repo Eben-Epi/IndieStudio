@@ -9,7 +9,10 @@
 #define CONTROLLER_HPP
 
 #include "Input.hpp"
-#include "../irrlicht/screen/Screen.hpp"
+
+namespace Irrlicht {
+    class GameScene;
+}
 
 namespace Input
 {
