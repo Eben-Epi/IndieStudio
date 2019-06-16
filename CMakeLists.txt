@@ -242,8 +242,8 @@ add_executable(
 	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.cpp
 	src/irrlicht/game-scene/how-to-play/HowToPlayMenu.hpp
 	src/irrlicht/game-scene/how-to-play/HowToPlayMenu.cpp
-	src/irrlicht/game-scene/save-menu/SaveMenu.hpp
-	src/irrlicht/game-scene/save-menu/SaveMenu.cpp
+	src/irrlicht/game-scene/pause-menu/PauseMenu.hpp
+	src/irrlicht/game-scene/pause-menu/PauseMenu.cpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.cpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.hpp
 	src/irrlicht/screen/Screen.cpp
