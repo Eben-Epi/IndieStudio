@@ -15,7 +15,7 @@ namespace Input
 {
     class Keyboard : public Input {
     public:
-        Keyboard(Irrlicht::GameScene &, std::vector<irr::EKEY_CODE> &&);
+        Keyboard(Irrlicht::GameScene &, std::vector<irr::EKEY_CODE> &);
 
         ~Keyboard();
 
@@ -23,6 +23,7 @@ namespace Input
         std::vector<Action> getActions() override;
         void resetControl() override;
         bool isAI() override;
+        std::string getEnumControlString(Action code);
 
     private:
         Irrlicht::GameScene &_scene;

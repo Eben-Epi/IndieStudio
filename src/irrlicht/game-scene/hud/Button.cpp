@@ -46,15 +46,19 @@ const ECS::Vector4<int> &Irrlicht::Button::getSize() {
 
 void Irrlicht::Button::setText(std::string text) {
     this->_button->remove();
-    this->_text = text;
+    wchar_t *val = reinterpret_cast<wchar_t *>(malloc(sizeof(*val) * (text.size() + 1)));
+
+    for (size_t i = 0; i < text.size(); i++)
+        val[i] = text[i];
+    val[text.size()] = 0;
     if (!text.empty()) {
+        this->_text = text;
         this->_button = this->_guienv->addButton(
-                irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d), 0, this->id,
-                reinterpret_cast<const wchar_t *>(&this->_text));
-        setPos(this->_pos);
-        return;
-    }
-    this->_button = this->_guienv->addButton(irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d), 0, this->id);
+                irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d), 0, this->id, val);
+    } else
+        this->_button = this->_guienv->addButton(irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d), 0,
+                                                 this->id);
+    free(val);
     setPos(this->_pos);
 }
 

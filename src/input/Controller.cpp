@@ -132,3 +132,8 @@ void Input::Controller::joystickIn() {
 void Input::Controller::resetControl() {
 	this->_keys = {LEFT_JOYSTICK, RT, LT};
 }
+
+std::string Input::Controller::getEnumControlString(Action code)
+{
+    return (Irrlicht::controller_code_str[this->_keys[code]]);
+}

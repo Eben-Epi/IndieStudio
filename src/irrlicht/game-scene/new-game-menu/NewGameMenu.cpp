@@ -5,7 +5,7 @@
 #include "NewGameMenu.hpp"
 
 Irrlicht::NewGameMenu::NewGameMenu(Screen &screen, const std::string &name, unsigned id) :
-        GameScene(screen, name, id), _playersNumber(1), _soundVolume(5), _tmpSoundVolume(5), _iaNumber(1)
+        GameScene(screen, name, id), _playersNumber(1), _soundVolume(5), _tmpSoundVolume(0), _iaNumber(1)
 {
     //TITLE
     this->_textBoxes.emplace_back(new TextBox({280, 25}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "GAME OPTIONS", true, true, true));
@@ -31,7 +31,7 @@ Irrlicht::NewGameMenu::NewGameMenu(Screen &screen, const std::string &name, unsi
 
     //BACK TO MAIN MENU && AND GO TO INPUT MENU
     this->_buttons.emplace_back(new Button({350, 550}, {20, 120, 110, 120 + 32}, NEXT_FROM_NEW_GAME, this->_window.getGuiEnv(), "NEXT"));
-    this->_buttons.emplace_back(new Button({210, 550}, {20, 120, 110, 120 + 32}, BACK_FROM_NEW_GAME, this->_window.getGuiEnv(), "BACK"));
+    this->_buttons.emplace_back(new Button({200, 550}, {20, 120, 110, 120 + 32}, BACK_FROM_NEW_GAME, this->_window.getGuiEnv(), "BACK"));
 }
 
 bool Irrlicht::NewGameMenu::update()
@@ -40,7 +40,7 @@ bool Irrlicht::NewGameMenu::update()
         if (this->isGuiButtonPressed(i)) {
             switch (i) {
                 case NUMBER_OF_PLAYERS_LESS:
-                    if (this->_playersNumber > 0 && this->_playersNumber + this->_iaNumber > 1) {
+                    if (this->_playersNumber > 0 && this->_playersNumber + this->_iaNumber > 2) {
                         this->_playersNumber--;
                         this->_textBoxes[2]->setText(std::to_string(this->_playersNumber));
                     }
@@ -72,7 +72,7 @@ bool Irrlicht::NewGameMenu::update()
                     this->_textBoxes[6]->setText(std::to_string(this->_soundVolume));
                     break;
                 case NUMBER_OF_AI_LESS:
-                    if (this->_iaNumber > 0 && this->_playersNumber + this->_iaNumber > 1) {
+                    if (this->_iaNumber > 0 && this->_playersNumber + this->_iaNumber > 2) {
                         this->_iaNumber--;
                         this->_textBoxes[4]->setText(std::to_string(this->_iaNumber));
                     }
@@ -89,9 +89,9 @@ bool Irrlicht::NewGameMenu::update()
                     changeCurrentGameScene("Main Menu");
                     return (true);
                 case NEXT_FROM_NEW_GAME:
-                    if (!this->_window.isValidGetterName("Game"))
-                        this->_window.addGameSceneGame("Game");
-                    changeCurrentGameScene("Game");
+                    if (!this->_window.isValidGetterName("Keys Managing Menu"))
+                        this->_window.addGameSceneKeysManagingMenuNew("Keys Managing Menu", this->_playersNumber, this->_iaNumber, this->_soundVolume);
+                    changeCurrentGameScene("Keys Managing Menu");
                     return (true);
                 default:
                     break;

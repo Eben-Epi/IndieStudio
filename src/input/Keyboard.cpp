@@ -7,7 +7,7 @@
 
 #include "Keyboard.hpp"
 
-Input::Keyboard::Keyboard(Irrlicht::GameScene &scene, std::vector<irr::EKEY_CODE> &&keys) :
+Input::Keyboard::Keyboard(Irrlicht::GameScene &scene, std::vector<irr::EKEY_CODE> &keys) :
     _scene(scene),
     _keys(keys),
     _default(keys)
@@ -39,3 +39,9 @@ void Input::Keyboard::changeKey(Action act, irr::EKEY_CODE newKey) {
 void Input::Keyboard::resetControl() {
     this->_keys = this->_default;
 }
+
+std::string Input::Keyboard::getEnumControlString(Action code)
+{
+    return (Irrlicht::ekey_code_str[this->_keys[code]]);
+}
+

@@ -38,9 +38,9 @@ bool Irrlicht::LoadGameMenu::update()
                     }
                     break;
                 case LOAD_GAME_NEXT:
-                    if (!this->_window.isValidGetterName("Game"))
-                        this->_window.addGameSceneGame("Game");
-                    changeCurrentGameScene("Game");
+                    if (!this->_window.isValidGetterName("Keys Managing Menu"))
+                        this->_window.addGameSceneKeysManagingMenuLoad("Keys Managing Menu", 1, 1, 5);
+                    changeCurrentGameScene("Keys Managing Menu");
                     return (true);
                 case LOAD_GAME_BACK:
                     if (!this->_window.isValidGetterName("Main Menu"))

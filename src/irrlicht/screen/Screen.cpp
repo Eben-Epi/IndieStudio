@@ -15,11 +15,13 @@
 #include "Screen.hpp"
 #include "../game-scene/GameScene.hpp"
 #include "../game-scene/main-menu/MainMenu.hpp"
-#include "../game-scene/keys-managing-menu/KeyManagingMenu.hpp"
+#include "../game-scene/keys-managing-menu-new/KeysManagingMenuNew.hpp"
 #include "../game-scene/load-game-menu/LoadGameMenu.hpp"
 #include "../game-scene/new-game-menu/NewGameMenu.hpp"
 #include "../game-scene/demo-menu/DemoMenu.hpp"
 #include "../Exceptions.hpp"
+#include "../game-scene/keys-managing-menu-load/KeysManagingMenuLoad.hpp"
+#include "../../config.hpp"
 
 #if defined(_WIN32) && !defined(__GNUC__)
 #define driverType irr::video::EDT_DIRECT3D9
@@ -58,7 +60,6 @@ Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen,
     this->_smgr = (this->_device->getSceneManager());
     this->_device->setResizable(false);
 }
-
 
 bool Irrlicht::Screen::display() {
     static int lastFPS = -1;
@@ -157,6 +158,14 @@ void Irrlicht::Screen::addGameSceneNewGameMenu(const std::string &name) {
 
 void Irrlicht::Screen::addGameSceneLoadGameMenu(const std::string &name) {
     this->_scenes.emplace_back(new LoadGameMenu{*this, name, static_cast<unsigned>(this->_scenes.size())});
+}
+
+void Irrlicht::Screen::addGameSceneKeysManagingMenuNew(const std::string &name, unsigned playerNb, unsigned iaNb, unsigned soundVolume) {
+    this->_scenes.emplace_back(new KeysManagingMenuNew{*this, name, static_cast<unsigned>(this->_scenes.size()), playerNb, iaNb, soundVolume});
+}
+
+void Irrlicht::Screen::addGameSceneKeysManagingMenuLoad(const std::string &name, unsigned playerNb, unsigned iaNb, unsigned soundVolume) {
+    this->_scenes.emplace_back(new KeysManagingMenuLoad{*this, name, static_cast<unsigned>(this->_scenes.size()), playerNb, iaNb, soundVolume});
 }
 
 void Irrlicht::Screen::addGameSceneDemoMenu(const std::string &name) {

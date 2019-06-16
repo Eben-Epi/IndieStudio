@@ -63,3 +63,11 @@ void Irrlicht::EventReceiver::resetButtonsStates() {
     for (auto i = 0; i < MAX_BUTTON_ON_SCREEN; i++)
         this->_buttonsStates[i] = false;
 }
+
+irr::EKEY_CODE Irrlicht::EventReceiver::returnNextKeyPressed() {
+    for (auto i = 0; i != irr::KEY_KEY_CODES_COUNT; i++) {
+        if (this->isKeyPressed(static_cast<irr::EKEY_CODE>(i)))
+            return static_cast<irr::EKEY_CODE>(i);
+    }
+    return(irr::KEY_KEY_CODES_COUNT);
+}
