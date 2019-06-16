@@ -30,8 +30,8 @@ void ECS::UltStrikeSystem::updateEntity(ECS::Entity &entity)
             auto &pcontrol = reinterpret_cast<ControllableComponent &>(player->getComponentByName("Controllable"));
             auto &pcurse = reinterpret_cast<CurseComponent &>(player->getComponentByName("Curse"));
 
-            pcontrol.stun(FRAME_RATE / 2);
-            pcurse.giveCurse(CurseComponent::CurseEffect::ULTRASLOW, static_cast<int>(5.5 * FRAME_RATE), true, false);
+            pcontrol.stun(FRAME_RATE);
+            pcurse.giveCurse(CurseComponent::CurseEffect::ULTRASLOW, static_cast<int>(6.5 * FRAME_RATE), true, false);
         }
         ult.soundSystem.playSoundOverBackgroundMusic("shock");
     }
