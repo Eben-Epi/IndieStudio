@@ -67,10 +67,9 @@ namespace Input {
         ECS::ECSCore &_core;
         ECS::PositionComponent *_pos;
         std::vector<Action> _actions = {};
-        ECS::Entity *_objective;
+        ECS::Entity *_objective = nullptr;
         int _timer = 0;
         int _onStepAbs;
-        //int _bombTimer = 4;
         bool _bombPlaced;
         int _xTmp;
         int _yTmp;

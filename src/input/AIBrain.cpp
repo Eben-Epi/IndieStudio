@@ -95,7 +95,6 @@ std::vector<Input::Action> Input::AIBrain::getTheBestWay(std::vector<int> &bonus
     std::vector<Action> actions;
     std::random_device rand_device;
     auto &objPos = reinterpret_cast<ECS::PositionComponent &>(_objective->getComponentByName("Position"));
-    ECS::Point relaObjPos = getRelativePosObj(objPos.pos);
     int xBestWay;
     int yBestWay;
     int moveChoice = 2;
@@ -281,7 +280,7 @@ void Input::AIBrain::updateRelativeVisionForBlocks(
                             *infoIt += 5000;
                         else if (e->hasComponent("Health")) {
                             bonusMalusZone[2] += -20;
-                            if (e->getName() == "Player" && !_bombPlaced)
+                            if (e->getName() == "Player" && !_bombPlaced && bonusMalusZone[2] > -100)
                                 bonusMalusZone[2] = -20;
                         }
                         break;
@@ -437,28 +436,6 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
 
         if (!powerUps.empty())
             updateRelativeVisionForBonuses(powerUps, relativeVision, bonusMalusZone, 100);
-
-        if (_entity->getId() == 1) {
-            std::cout << "1 | scores : ";
-            for (int score : bonusMalusZone) {
-                std::cout << score << " || ";
-            }
-            std::cout << std::endl;
-        }
-        /*if (_entity->getId() == 2) {
-            std::cout << "2 | scores : ";
-            for (int score : bonusMalusZone) {
-                std::cout << score << " || ";
-            }
-            std::cout << std::endl;
-        }
-        if (_entity->getId() == 3) {
-            std::cout << "3 | scores : ";
-            for (int score : bonusMalusZone) {
-                std::cout << score << " || ";
-            }
-            std::cout << std::endl;
-        }*/
 
         this->_onStepAbs = (bonusMalusZone[2] + 2);
         if (this->_onStepAbs < 0)
