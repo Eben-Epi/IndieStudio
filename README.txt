@@ -32,11 +32,11 @@ How to play :
 	There is bonuses and maluses that can be dropped when you destruct a brick wall.
 	- Bonuses :
 		Dark green : more bombs.
-		Light green : give kick bombs ability.
-		Purple : increase range of bombs
+		Blue : give kick bombs ability.
+		Light blue : Wall Pass
+		Red : increase range of bombs
 		Yellow : increase speed.
-		White : Wall Pass
-	- Malus :
+	- Maluses :
 		Skull : random malus among :	Ultra Speed,
 										Ultra slow,
 										Reverse Control,
