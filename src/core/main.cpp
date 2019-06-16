@@ -51,6 +51,8 @@ int main()
                 return (EXIT_SUCCESS);
             if (!screen.isValidGetterName("Game"))
                 exit(EXIT_FAILURE); //TODO EXCEPTION
+            else
+                screen.cleanGameScenes();
             screen.setCursorVisible(false);
             screen.getGameSceneByName("Game").addCamera(320, 500, -320, 320, 0, -319);
 

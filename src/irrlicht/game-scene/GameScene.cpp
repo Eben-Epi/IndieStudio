@@ -47,9 +47,8 @@ Irrlicht::IrrEntity& Irrlicht::GameScene::_getEntity(unsigned entity_id)
 	throw NoSuchEntityException("Cannot find entity with id " + std::to_string(entity_id));
 }
 
-void Irrlicht::GameScene::setAnimation(unsigned entity_id, Animations anim)
-{
-	this->_getEntity(entity_id).setAnimation(anim);
+void Irrlicht::GameScene::setAnimation(unsigned entity_id, Animations anim) {
+    this->_getEntity(entity_id).setAnimation(anim);
 }
 
 void Irrlicht::GameScene::setRotation(unsigned entity, float y)

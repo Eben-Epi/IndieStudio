@@ -45,7 +45,7 @@ const ECS::Vector4<int> &Irrlicht::Button::getSize() {
 }
 
 void Irrlicht::Button::setText(std::string text) {
-    delete this->_button;
+    this->_button->remove();
     this->_text = text;
     if (!text.empty()) {
         this->_button = this->_guienv->addButton(
@@ -64,7 +64,7 @@ void Irrlicht::Button::setPos(ECS::Point pos) {
 }
 
 void Irrlicht::Button::setSize(ECS::Vector4<int> size) {
-    delete this->_button;
+    this->_button->remove();
     if (size.a != _size.a && size.b != _size.b && size.c != _size.c && size.d && _size.d) {
         this->_size = size;
         this->_button = this->_guienv->addButton(
@@ -87,4 +87,6 @@ void Irrlicht::Button::setVisible(bool visible)
 	this->_button->setVisible(visible);
 }
 
-Irrlicht::Button::~Button() = default;
+Irrlicht::Button::~Button() {
+    this->_button->remove();
+}

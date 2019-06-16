@@ -61,7 +61,7 @@ const ECS::Vector4<int> &Irrlicht::TextBox::getSize()
 
 void Irrlicht::TextBox::setText(std::string text)
 {
-    delete this->_textBox;
+    this->_textBox->remove();
     wchar_t *val = reinterpret_cast<wchar_t *>(malloc(sizeof(*val) * (text.size() + 1)));
 
     for (size_t i = 0; i < text.size(); i++)
@@ -91,7 +91,7 @@ void Irrlicht::TextBox::setPos(ECS::Point pos)
 
 void Irrlicht::TextBox::setSize(ECS::Vector4<int> size)
 {
-    delete this->_textBox;
+    this->_textBox->remove();
     this->_size = size;
     this->_textBox = this->_guienv->addStaticText(
         reinterpret_cast<const wchar_t *>(&this->_text), irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d),
@@ -320,7 +320,7 @@ void Irrlicht::TextBox::setTextFromIrrlichtKeysEnum(irr::EKEY_CODE key)
 {
     std::string text = Irrlicht::ekey_code_str[key];
 
-    delete this->_textBox;
+    this->_textBox->remove();
     wchar_t *val = reinterpret_cast<wchar_t *>(malloc(sizeof(*val) * (text.size() + 1)));
 
     for (size_t i = 0; i < text.size(); i++)
@@ -346,7 +346,7 @@ void Irrlicht::TextBox::setTextFromIrrlichtKeysEnum(Input::ControllerButtons key
 {
     std::string text = Irrlicht::controller_code_str[key];
 
-    delete this->_textBox;
+    this->_textBox->remove();
     wchar_t *val = reinterpret_cast<wchar_t *>(malloc(sizeof(*val) * (text.size() + 1)));
 
     for (size_t i = 0; i < text.size(); i++)
@@ -368,4 +368,6 @@ void Irrlicht::TextBox::setTextFromIrrlichtKeysEnum(Input::ControllerButtons key
     this->setPos(this->_pos);
 }
 
-Irrlicht::TextBox::~TextBox() = default;
+Irrlicht::TextBox::~TextBox() {
+    this->_textBox->remove();
+}

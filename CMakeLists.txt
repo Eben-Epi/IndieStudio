@@ -189,8 +189,6 @@ add_executable(
 	src/irrlicht/textbox/TextBox.cpp
 	src/irrlicht/game-scene/main-menu/MainMenu.hpp
 	src/irrlicht/game-scene/main-menu/MainMenu.cpp
-	src/irrlicht/game-scene/options-menu/OptionsMenu.hpp
-	src/irrlicht/game-scene/options-menu/OptionsMenu.cpp
 	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.hpp
 	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.cpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.cpp

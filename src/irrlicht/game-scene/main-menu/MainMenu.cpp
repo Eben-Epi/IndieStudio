@@ -28,12 +28,12 @@ bool Irrlicht::MainMenu::update()
                     if (!this->_window.isValidGetterName("New Game Menu"))
                         this->_window.addGameSceneNewGameMenu("New Game Menu");
                     changeCurrentGameScene("New Game Menu");
-                    return (true);
+                    return (false);
                 case LOAD_GAME:
                     if (!this->_window.isValidGetterName("Load Game"))
                         this->_window.addGameSceneLoadGameMenu("Load Game");
                     changeCurrentGameScene("Load Game");
-                    return (true);
+                    return (false);
                 case EXIT:
                     this->_window.getDevice()->drop();
                     return (false);
