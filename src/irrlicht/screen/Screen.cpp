@@ -15,6 +15,7 @@
 #include "../game-scene/GameScene.hpp"
 #include "../game-scene/main-menu/MainMenu.hpp"
 #include "../game-scene/options-menu/OptionsMenu.hpp"
+#include "../game-scene/load-game-menu/LoadGameMenu.hpp"
 
 #if defined(_WIN32) && !defined(__GNUC__)
 #define driverType irr::video::EDT_DIRECT3D9
@@ -142,6 +143,12 @@ unsigned Irrlicht::Screen::addGameSceneMainMenu(const std::string &name) {
 unsigned Irrlicht::Screen::addGameSceneOptions(const std::string &name) {
     this->_lastSceneId++;
     this->_scenes.emplace_back(new OptionsMenu{*this, name, this->_lastSceneId});
+    return (this->_lastSceneId);
+}
+
+unsigned Irrlicht::Screen::addGameSceneLoadGame(const std::string &name) {
+    this->_lastSceneId++;
+    this->_scenes.emplace_back(new LoadGameMenu{*this, name, this->_lastSceneId});
     return (this->_lastSceneId);
 }
 

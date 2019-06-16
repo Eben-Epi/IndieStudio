@@ -193,6 +193,8 @@ add_executable(
 	src/irrlicht/game-scene/main-menu/Menu.hpp
 	src/irrlicht/game-scene/options-menu/OptionsMenu.hpp
 	src/irrlicht/game-scene/options-menu/OptionsMenu.cpp
+	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.hpp
+	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.cpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.cpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.hpp
 	src/irrlicht/screen/Screen.cpp

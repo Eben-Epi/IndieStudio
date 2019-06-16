@@ -36,9 +36,9 @@ bool Irrlicht::MainMenu::update()
                     changeCurrentGameScene("Start");
                     break;
                 case LOAD:
-                    if (!this->_window.isValidGetterName("Options"))
-                        this->_window.addGameSceneOptions("Options");
-                    changeCurrentGameScene("Options");
+                    if (!this->_window.isValidGetterName("LoadGame"))
+                        this->_window.addGameSceneLoadGame("LoadGame");
+                    changeCurrentGameScene("LoadGame");
                     break;
                 case EXIT:
                     this->_window.getDevice()->drop();
