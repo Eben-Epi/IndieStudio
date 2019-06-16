@@ -10,13 +10,13 @@
 Irrlicht::LoadGameMenu::LoadGameMenu(Screen &screen, const std::string &name, unsigned id) :
     GameScene(screen, name, id), _slotNumber(1)
 {
-	this->_buttons.emplace_back(new Button({200, 600}, {20, 240, 110, 240 + 32},LOAD_GAME_BACK, this->_window.getGuiEnv(), "BACK"));
-	this->_buttons.emplace_back(new Button({350, 600}, {20, 240, 110, 240 + 32}, LOAD_GAME_NEXT, this->_window.getGuiEnv(), "NEXT"));
-    this->_buttons.emplace_back(new Button({240, 290}, {20, 40, 60, 80}, SELECT_SLOT_LESS, this->_window.getGuiEnv(), "-"));
-    this->_buttons.emplace_back(new Button({370, 290}, {20, 40, 60, 80}, SELECT_SLOT_MORE, this->_window.getGuiEnv(), "+"));
+	this->_buttons.emplace_back(new Button({200, 550}, {20, 240, 110, 240 + 32},LOAD_GAME_BACK, this->_window.getGuiEnv(), "BACK"));
+	this->_buttons.emplace_back(new Button({350, 550}, {20, 240, 110, 240 + 32}, LOAD_GAME_NEXT, this->_window.getGuiEnv(), "NEXT"));
+    this->_buttons.emplace_back(new Button({240, 295}, {20, 40, 60, 80}, SELECT_SLOT_LESS, this->_window.getGuiEnv(), "-"));
+    this->_buttons.emplace_back(new Button({370, 295}, {20, 40, 60, 80}, SELECT_SLOT_MORE, this->_window.getGuiEnv(), "+"));
 
     this->_textBoxes.emplace_back(new TextBox({280, 25}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "LOAD GAME", true, true, true));
-    this->_textBoxes.emplace_back(new TextBox({280, 150}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "Save's slot", true, true, true));
+    this->_textBoxes.emplace_back(new TextBox({280, 235}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "Save's slot", true, true, true));
     this->_textBoxes.emplace_back(new TextBox({310, 300}, {15, 30, 45, 60}, 0, this->_window.getGuiEnv(), std::to_string(_slotNumber), true, true, true));
 }
 

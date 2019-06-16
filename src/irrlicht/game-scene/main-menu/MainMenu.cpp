@@ -10,9 +10,9 @@
 Irrlicht::MainMenu::MainMenu(Screen &screen, const std::string &name, unsigned id) :
 	GameScene(screen, name, id)
 {
-	this->_buttons.emplace_back(new Button({280, 100}, {20, 240, 110, 240 + 32}, NEW_GAME, this->_window.getGuiEnv(), "NEW GAME"));
-	this->_buttons.emplace_back(new Button({280, 300}, {20, 240, 110, 240 + 32}, LOAD_GAME, this->_window.getGuiEnv(), "LOAD GAME"));
-	this->_buttons.emplace_back(new Button({280, 500}, {20, 240, 110, 240 + 32}, EXIT, this->_window.getGuiEnv(), "EXIT"));
+	this->_buttons.emplace_back(new Button({280, 150}, {20, 240, 110, 240 + 32}, NEW_GAME, this->_window.getGuiEnv(), "NEW GAME"));
+	this->_buttons.emplace_back(new Button({280, 350}, {20, 240, 110, 240 + 32}, LOAD_GAME, this->_window.getGuiEnv(), "LOAD GAME"));
+	this->_buttons.emplace_back(new Button({280, 550}, {20, 240, 110, 240 + 32}, EXIT, this->_window.getGuiEnv(), "EXIT"));
 
     this->_textBoxes.emplace_back(new TextBox({280, 25}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "BOMBERMAN", true, true, true));
     this->_textBoxes[0]->setBackgroundColor(irr::video::SColor(255, 255, 0, 0));
