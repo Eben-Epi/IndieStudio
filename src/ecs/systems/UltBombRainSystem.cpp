@@ -24,7 +24,6 @@ void ECS::UltBombRainSystem::updateEntity(ECS::Entity &entity)
 
     if (self.timer > 0) {
         if (self.timer % (FRAME_RATE * 4) == 1) {
-            dprintf(2, "timer is %d\n", self.timer);
             auto players = this->_core.getEntitiesByName("Player");
             for (auto &player : players) {
                 auto &pp = reinterpret_cast<PositionComponent &>(player->getComponentByName("Position"));
@@ -52,7 +51,6 @@ void ECS::UltBombRainSystem::updateEntity(ECS::Entity &entity)
 
     auto &ult = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
     if (ult.castUlt && ult.ultimeIsReady()) {
-        dprintf(2, "ULT PRESSED\n");
         ult.resetUlt();
         self.timer = 1;
     }
