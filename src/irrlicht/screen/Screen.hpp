@@ -11,6 +11,7 @@
 #include "../../ecs/Entity.hpp"
 #include "../../ecs/data/Vector2.hpp"
 #include "../irr-input/event-receiver/EventReceiver.hpp"
+#include "../../sound/SoundSystem.hpp"
 
 
 //#define TRANSFORM_COLOR_TO_SFML_COLOR(color) sf::Color(static_cast<sf::Uint8>(color >> 16), static_cast<sf::Uint8>(color >> 8), static_cast<sf::Uint8>(color))
@@ -44,6 +45,7 @@ namespace Irrlicht
         void addGameSceneLoadGameMenu(const std::string &name);
         void addGameSceneHTPGameMenu(const std::string &name);
 //        void addGameScenePauseMenu(const std::string &name);
+        void addGameSceneDemoMenu(const std::string &name);
         void resetButtonsStates();
         EventReceiver &getEventReceiver();
         GameScene &getGameSceneById(unsigned id);
@@ -54,6 +56,7 @@ namespace Irrlicht
         irr::IrrlichtDevice *getDevice();
 
         bool isGameClosed;
+        Sound::SoundSystem soundSystem;
     private:
         irr::video::E_DRIVER_TYPE _driverType;
         int _width;

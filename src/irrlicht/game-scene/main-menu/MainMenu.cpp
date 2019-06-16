@@ -6,6 +6,7 @@
 */
 
 #include "MainMenu.hpp"
+#include "../../../config.hpp"
 
 Irrlicht::MainMenu::MainMenu(Screen &screen, const std::string &name, unsigned id) :
 	GameScene(screen, name, id)
@@ -22,14 +23,22 @@ Irrlicht::MainMenu::MainMenu(Screen &screen, const std::string &name, unsigned i
 
 bool Irrlicht::MainMenu::update()
 {
-	for (unsigned i = 0; i < this->_buttons.size(); i++) {
+    if (this->_clock >= FRAME_RATE * 40) {
+        if (!this->_window.isValidGetterName("Demo"))
+            this->_window.addGameSceneDemoMenu("Demo");
+        changeCurrentGameScene("Demo");
+        return (false);
+    }
+    this->_clock++;
+    for (unsigned i = 0; i < this->_buttons.size(); i++) {
         if (this->isGuiButtonPressed(i)) {
+	    this->_clock = 0;
             switch (i) {
                 case NEW_GAME:
                     if (!this->_window.isValidGetterName("New Game Menu"))
                         this->_window.addGameSceneNewGameMenu("New Game Menu");
                     changeCurrentGameScene("New Game Menu");
-                    return (false);
+                    return (true);
                 case LOAD_GAME:
                     if (!this->_window.isValidGetterName("Load Game"))
                         this->_window.addGameSceneLoadGameMenu("Load Game");
@@ -52,5 +61,5 @@ bool Irrlicht::MainMenu::update()
         this->_buttons.at(i)->setVisible(true);
     for (unsigned i = 0; i < this->_textBoxes.size(); i++)
         this->_textBoxes.at(i)->setVisible(true);
-	return (true);
+    return (true);
 }

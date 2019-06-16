@@ -19,10 +19,10 @@
 IF (NOT SFML_INCLUDE_DIRS OR NOT SFML_LIBRARIES)
     FIND_PATH(SFML_INCLUDE_DIRS
         NAMES
-            Audio.hpp
+            SFML/Audio.hpp
         PATHS
-            /usr/include/SFML/            # Default Fedora28 system include path
-            /usr/local/include/SFML/      # Default Fedora28 local include path
+            /usr/include/                 # Default Fedora28 system include path
+            /usr/local/include/           # Default Fedora28 local include path
             ${CMAKE_MODULE_PATH}/include/ # Expected to contain the path to this file for Windows10
             ${SFML_DIR}/include/          # SFML root directory (if provided)
     )

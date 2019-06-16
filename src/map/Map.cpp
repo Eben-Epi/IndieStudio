@@ -5,7 +5,6 @@
 ** Map.cpp
 */
 
-#include <random>
 #include <algorithm>
 #include <fstream>
 #include "Map.hpp"
@@ -215,7 +214,6 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
 {
     std::vector<unsigned> airBlocksPos = this->_generateAirBlocksPos(sizeMap);
     std::vector<unsigned> wallBlocksPos = this->_generateWallBlocksPos(sizeMap);
-    std::random_device rand_device;
     unsigned randNum;
     unsigned bonus = ratiosBonus["Bonus"];
     ECS::Point position;
@@ -261,11 +259,11 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
                 this->_setEntityComponentPosition(this->_core.makeEntity("Wall"), position);
                 wallBlocksPos.erase(wallBlocksPos.begin());
             } else {
-                randNum = rand_device() % 10000;
+                randNum = rand() % 10000;
                 if (randNum < brickRatio) {
                     ECS::Entity &brick = this->_core.makeEntity("Brick");
                     this->_setEntityComponentPosition(brick, position);
-                    if (!ratiosBonus.empty() && bonus > 0 && rand_device() % 100 < bonus) {
+                    if (!ratiosBonus.empty() && bonus > 0 && rand() % 100 < bonus) {
                         unsigned total = 0;
 
                         std::for_each(
@@ -275,7 +273,7 @@ void Map::Map::generateMap(ECS::Vector2<unsigned> sizeMap, unsigned brickRatio, 
                                 total += val.second;
                             }
                         );
-                        this->_setEntityDropperComponentInBrick(brick, rand_device() % (total ? total : 1), ratiosBonus);
+                        this->_setEntityDropperComponentInBrick(brick, rand() % (total ? total : 1), ratiosBonus);
                     }
                 }
             }

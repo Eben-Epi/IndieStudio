@@ -19,10 +19,10 @@
 IF (NOT Irrlicht_INCLUDE_DIRS OR NOT Irrlicht_LIBRARIES)
   FIND_PATH(Irrlicht_INCLUDE_DIRS
     NAMES
-      irrlicht.h
+      irrlicht/irrlicht.h
     PATHS
-      /usr/include/irrlicht/        # Default Fedora28 system include path
-      /usr/local/include/irrlicht/  # Default Fedora28 local include path
+      /usr/include/                 # Default Fedora28 system include path
+      /usr/local/include/           # Default Fedora28 local include path
       ${CMAKE_MODULE_PATH}/include/ # Expected to contain the path to this file for Windows10
       ${Irrlicht_DIR}/include/      # Irrlicht root directory (if provided)
   )
@@ -47,6 +47,7 @@ IF (NOT Irrlicht_INCLUDE_DIRS OR NOT Irrlicht_LIBRARIES)
       ${CMAKE_MODULE_PATH}/         # Expected to contain the path to this file for Windows10
       ${Irrlicht_DIR}/              # Irrlicht root directory (if provided)
   )
+  message(${Irrlicht_LIBRARIES})
 ENDIF (NOT Irrlicht_INCLUDE_DIRS OR NOT Irrlicht_LIBRARIES)
 
 IF (Irrlicht_INCLUDE_DIRS AND Irrlicht_LIBRARIES)

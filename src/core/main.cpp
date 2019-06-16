@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <random>
 #include "irrlicht/Keycodes.h"
 #include "../irrlicht/screen/Screen.hpp"
 #include "../irrlicht/game-scene/GameScene.hpp"
@@ -98,8 +97,8 @@ bool displayEndGameMenu(Map::Map *map, Irrlicht::Screen &screen, Sound::SoundSys
 	delete map;
 	screen.setCursorVisible(true);
 	if (!screen.isValidGetterName("Main Menu"))
-	    screen.addGameSceneMainMenu("Main Menu");
-    screen.setCurrentGameScene("Main Menu");
+		screen.addGameSceneMainMenu("Main Menu");
+	screen.setCurrentGameScene("Main Menu");
 
 	mainMenu(screen, sound);
 	if (screen.isGameClosed)
@@ -109,10 +108,11 @@ bool displayEndGameMenu(Map::Map *map, Irrlicht::Screen &screen, Sound::SoundSys
 
 int main()
 {
+	srand(time(NULL));
 	try {
 		Sound::SoundSystem soundSystem;
 		Irrlicht::Screen screen(640, 640, 32, false, true);
-        screen.addGameSceneMainMenu("Main Menu");
+		screen.addGameSceneMainMenu("Main Menu");
 		std::vector<std::unique_ptr<Input::Input>> inputs;
 		if (!screen.setCurrentGameScene("Main Menu"))
 			return EXIT_FAILURE;
@@ -151,43 +151,21 @@ int main()
 			})
 		);
 
-
 		if (screen.getDevice()->activateJoysticks(joystickInfos)) {
 			std::cout << "Joystick support is enabled and " << joystickInfos.size() << " joystick(s) are present." << std::endl;
 
-            screen.setCursorVisible(false);
+			screen.setCursorVisible(false);
 
-            while (screen.display() && screen.getCurrentGameScene().sceneName != "Game");
+			while (screen.display() && screen.getCurrentGameScene().sceneName != "Game");
 
-            if (screen.isGameClosed)
-                return (EXIT_SUCCESS);
-            if (!screen.isValidGetterName("Game"))
-                exit(EXIT_FAILURE); //TODO EXCEPTION
-            else
+			if (screen.isGameClosed)
+				return (EXIT_SUCCESS);
+			if (!screen.isValidGetterName("Game"))
+				exit(EXIT_FAILURE); //TODO EXCEPTION
+			else
 				screen.cleanGameScenes();
 			screen.setCursorVisible(false);
 			screen.getGameSceneByName("Game").addCamera(320, 500, -320, 320, 0, -319);
-
-			inputs.emplace_back(
-				new Input::Keyboard(screen.getGameSceneByName("Game"), {
-					irr::KEY_KEY_Z,
-					irr::KEY_KEY_D,
-					irr::KEY_KEY_S,
-					irr::KEY_KEY_Q,
-					irr::KEY_SPACE,
-					irr::KEY_KEY_A,
-				})
-			);
-			inputs.emplace_back(
-				new Input::Keyboard(screen.getGameSceneByName("Game"), {
-					irr::KEY_UP,
-					irr::KEY_RIGHT,
-					irr::KEY_DOWN,
-					irr::KEY_LEFT,
-					irr::KEY_RSHIFT,
-					irr::KEY_RETURN,
-				})
-			);
 
 			if (!joystickInfos.empty()) {
 				for (irr::u32 joystick = 0; joystick < joystickInfos.size(); joystick++) {
