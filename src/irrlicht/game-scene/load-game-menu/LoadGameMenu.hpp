@@ -1,6 +1,9 @@
-//
-// Created by eben_epitech on 6/15/19.
-//
+/*
+** EPITECH PROJECT, 2019
+** IndieStudio
+** File description:
+** LoadGameMenu.hpp
+*/
 
 #ifndef BOMBERMAN_LOADGAMEMENU_HPP
 #define BOMBERMAN_LOADGAMEMENU_HPP
@@ -11,14 +14,13 @@
 #include "../hud/Button.hpp"
 
 namespace Irrlicht {
-    enum LoadGameMenuButtonName {
-        SLOT_ONE = 0,
-        SLOT_TWO,
-        SLOT_THREE,
-        SLOT_FOUR,
-        SLOT_FIVE,
-        BACK_FROM_LOAD_GAME,
-    };
+    enum LoadGameButtonsName
+	{
+		LOAD_GAME_NEXT = 0,
+		LOAD_GAME_BACK,
+		SELECT_SLOT_LESS,
+		SELECT_SLOT_MORE,
+	};
 
     class LoadGameMenu : public GameScene {
     public:
@@ -30,6 +32,7 @@ namespace Irrlicht {
 
     private:
         //PROPERTIES
+        unsigned _slotNumber;
     };
 }
 

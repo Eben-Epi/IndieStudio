@@ -36,9 +36,9 @@ int main()
 {
 	try {
 		Irrlicht::Screen screen(640, 640, 32, false, true);
-        screen.addGameSceneMainMenu("MainMenu");
+        screen.addGameSceneMainMenu("Main Menu");
 		std::vector<std::unique_ptr<Input::Input>> inputs;
-		if (!screen.setCurrentGameScene("MainMenu"))
+		if (!screen.setCurrentGameScene("Main Menu"))
 			return EXIT_FAILURE;
 
 		irr::core::array<irr::SJoystickInfo> joystickInfos;

@@ -25,7 +25,7 @@ namespace Irrlicht
 	public:
 		TextBox(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text = "",
 				bool border = false, bool worlWrap = false, bool fillBackground = false,
-				irr::gui::EGUI_ALIGNMENT horizontal = irr::gui::EGUIA_UPPERLEFT, irr::gui::EGUI_ALIGNMENT vertical = irr::gui::EGUIA_UPPERLEFT);
+				irr::gui::EGUI_ALIGNMENT horizontal = irr::gui::EGUIA_CENTER, irr::gui::EGUI_ALIGNMENT vertical = irr::gui::EGUIA_CENTER);
 		~TextBox();
 
 		const std::string &getText();

@@ -33,7 +33,7 @@ bool Irrlicht::OptionsMenu::update()
 			// 	changeCurrentGameScene("KeysChanging");
 			// 	break;
 			case BACK_OPTIONS:
-				changeCurrentGameScene("MainMenu");
+				changeCurrentGameScene("Main Menu");
 				break;
 			default:
 				break;

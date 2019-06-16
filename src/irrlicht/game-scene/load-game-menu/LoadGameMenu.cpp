@@ -1,44 +1,61 @@
-//
-// Created by eben_epitech on 6/15/19.
-//
+/*
+** EPITECH PROJECT, 2019
+** IndieStudio
+** File description:
+** LoadGameMenu.cpp
+*/
 
 #include "LoadGameMenu.hpp"
 
 Irrlicht::LoadGameMenu::LoadGameMenu(Screen &screen, const std::string &name, unsigned id) :
-        GameScene(screen, name, id)
+    GameScene(screen, name, id), _slotNumber(1)
 {
-    this->_buttons.emplace_back(new Button({280, 100}, {20, 120, 110, 120 + 32}, SLOT_ONE, this->_window.getGuiEnv(), "SLOT ONE"));
-    this->_buttons.emplace_back(new Button({280, 150}, {20, 120, 110, 120 + 32}, SLOT_TWO, this->_window.getGuiEnv(), "SLOT TWO"));
-    this->_buttons.emplace_back(new Button({280, 200}, {20, 120, 110, 120 + 32}, SLOT_THREE, this->_window.getGuiEnv(), "SLOT THREE"));
-    this->_buttons.emplace_back(new Button({280, 250}, {20, 120, 110, 120 + 32}, SLOT_FOUR, this->_window.getGuiEnv(), "SLOT FOUR"));
-    this->_buttons.emplace_back(new Button({280, 300}, {20, 120, 110, 120 + 32}, SLOT_FIVE, this->_window.getGuiEnv(), "SLOT FIVE"));
-    this->_buttons.emplace_back(new Button({280, 350}, {20, 120, 110, 120 + 32}, BACK_FROM_LOAD_GAME, this->_window.getGuiEnv(), "BACK"));
+	this->_buttons.emplace_back(new Button({200, 600}, {20, 240, 110, 240 + 32},LOAD_GAME_BACK, this->_window.getGuiEnv(), "BACK"));
+	this->_buttons.emplace_back(new Button({350, 600}, {20, 240, 110, 240 + 32}, LOAD_GAME_NEXT, this->_window.getGuiEnv(), "NEXT"));
+    this->_buttons.emplace_back(new Button({240, 290}, {20, 40, 60, 80}, SELECT_SLOT_LESS, this->_window.getGuiEnv(), "-"));
+    this->_buttons.emplace_back(new Button({370, 290}, {20, 40, 60, 80}, SELECT_SLOT_MORE, this->_window.getGuiEnv(), "+"));
+
+    this->_textBoxes.emplace_back(new TextBox({280, 25}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "LOAD GAME", true, true, true));
+    this->_textBoxes.emplace_back(new TextBox({280, 150}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "Save's slot", true, true, true));
+    this->_textBoxes.emplace_back(new TextBox({310, 300}, {15, 30, 45, 60}, 0, this->_window.getGuiEnv(), std::to_string(_slotNumber), true, true, true));
 }
 
 bool Irrlicht::LoadGameMenu::update()
 {
-    for (unsigned i = 0; i < this->_buttons.size(); i++)
-        this->_buttons.at(i)->setVisible(true);
-    /*for (unsigned i = 0; i < this->_buttons.size(); i++) {
+	for (unsigned i = 0; i < this->_buttons.size(); i++) {
         if (this->isGuiButtonPressed(i)) {
             switch (i) {
-                case NEW_GAME:
-                    if (!this->_window.isValidGetterName("New Game Menu"))
-                        this->_window.addGameSceneLoadGameMenu("New Game Menu");
-                    changeCurrentGameScene("New Game Menu");
+                case SELECT_SLOT_LESS:
+                    if (this->_slotNumber >= 2) {
+                        this->_slotNumber--;
+                        this->_textBoxes[2]->setText(std::to_string(this->_slotNumber));
+                    }
                     break;
-                case LOAD_GAME:
-                    if (!this->_window.isValidGetterName("Load Game Menu"))
-                        this->_window.addGameSceneLoadGameMenu("Load Game Menu");
-                    changeCurrentGameScene("Load Game Menu");
+                case SELECT_SLOT_MORE:
+                    if (this->_slotNumber <= 4) {
+                        this->_slotNumber++;
+                        this->_textBoxes[2]->setText(std::to_string(this->_slotNumber));
+                    }
                     break;
-                case EXIT:
-                    this->_window.getDevice()->drop();
-                    return (false);
+                case LOAD_GAME_NEXT:
+                    if (!this->_window.isValidGetterName("Game"))
+                        this->_window.addGameSceneGame("Game");
+                    changeCurrentGameScene("Game");
+                    return (true);
+                case LOAD_GAME_BACK:
+                    if (!this->_window.isValidGetterName("Main Menu"))
+                        this->_window.addGameSceneMainMenu("Main Menu");
+                    changeCurrentGameScene("Main Menu");
+                    return (true);
                 default:
                     break;
             }
+            this->_window.resetButtonsStates();
         }
-    }*/
+    }
+    for (unsigned i = 0; i < this->_buttons.size(); i++)
+        this->_buttons.at(i)->setVisible(true);
+    for (unsigned i = 0; i < this->_textBoxes.size(); i++)
+        this->_textBoxes.at(i)->setVisible(true);
     return (true);
 }

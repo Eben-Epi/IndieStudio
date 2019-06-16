@@ -9,7 +9,7 @@
 #include "TextBox.hpp"
 
 Irrlicht::TextBox::TextBox(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text, \
-bool border, bool worlWrap, bool fillBackground, irr::gui::EGUI_ALIGNMENT vertical, irr::gui::EGUI_ALIGNMENT horizontal) :
+bool border, bool worlWrap, bool fillBackground, irr::gui::EGUI_ALIGNMENT horizontal, irr::gui::EGUI_ALIGNMENT vertical) :
     id(id),
     _pos({0, 0}),
     _size(size),
@@ -33,19 +33,14 @@ bool border, bool worlWrap, bool fillBackground, irr::gui::EGUI_ALIGNMENT vertic
         this->_textBox = this->_guienv->addStaticText(\
             val, irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d), \
             this->_border, this->_worldWrap, 0, this->id, this->_fillbackground);
-        this->setPos(pos);
-        this->setTextAlignment(this->_vertical, this->_horizontal);
-        this->setColorOfText(this->_color);
-        this->setBackgroundColor(this->_backgroundColor);
-        return;
-    }
+    } else
+        this->_textBox = this->_guienv->addStaticText(\
+            reinterpret_cast<const wchar_t *>(&this->_text), irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d), \
+            this->_border, this->_worldWrap, 0, this->id, this->_fillbackground);
     free(val);
-    this->_textBox = this->_guienv->addStaticText(\
-        reinterpret_cast<const wchar_t *>(&this->_text), irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d), \
-        this->_border, this->_worldWrap, 0, this->id, this->_fillbackground);
     this->setBackgroundColor(this->_backgroundColor);
-    this->setTextAlignment(this->_vertical, this->_horizontal);
     this->setColorOfText(this->_color);
+    this->setTextAlignment(this->_horizontal, this->_vertical);
     this->setPos(pos);
 }
 
@@ -77,20 +72,15 @@ void Irrlicht::TextBox::setText(std::string text)
         this->_textBox = this->_guienv->addStaticText(
             val, irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d),
             this->_border, this->_worldWrap, 0, this->id, this->_fillbackground);
-        this->setPos(this->_pos);
-        this->setTextAlignment(this->_vertical, this->_horizontal);
-        this->setColorOfText(this->_color);
-        this->setBackgroundColor(this->_backgroundColor);
-        return;
-    }
+    } else
+        this->_textBox = this->_guienv->addStaticText(
+            reinterpret_cast<const wchar_t *>(&this->_text), irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d),
+            this->_border, this->_worldWrap, 0, this->id, this->_fillbackground);
     free(val);
-    this->_textBox = this->_guienv->addStaticText(
-        reinterpret_cast<const wchar_t *>(&this->_text), irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d),
-        this->_border, this->_worldWrap, 0, this->id, this->_fillbackground);
-    this->setPos(this->_pos);
-    this->setTextAlignment(this->_vertical, this->_horizontal);
-    this->setColorOfText(this->_color);
     this->setBackgroundColor(this->_backgroundColor);
+    this->setColorOfText(this->_color);
+    this->setTextAlignment(this->_horizontal, this->_vertical);
+    this->setPos(this->_pos);
 }
 
 void Irrlicht::TextBox::setPos(ECS::Point pos)
@@ -102,17 +92,15 @@ void Irrlicht::TextBox::setPos(ECS::Point pos)
 void Irrlicht::TextBox::setSize(ECS::Vector4<int> size)
 {
     delete this->_textBox;
-    if (size.a != _size.a && size.b != _size.b && size.c != _size.c && size.d && _size.d) {
-        this->_size = size;
-        this->_textBox = this->_guienv->addStaticText(
-            reinterpret_cast<const wchar_t *>(&this->_text), irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d),
-            this->_border, this->_worldWrap, 0, this->id, this->_fillbackground);
-        this->setPos(this->_pos);
-        this->setTextAlignment(this->_vertical, this->_horizontal);
-        this->setColorOfText(this->_color);
-        this->setBackgroundColor(this->_backgroundColor);
-        return;
-    }
+    this->_size = size;
+    this->_textBox = this->_guienv->addStaticText(
+        reinterpret_cast<const wchar_t *>(&this->_text), irr::core::rect<irr::s32>(_size.a, _size.b, _size.c, _size.d),
+        this->_border, this->_worldWrap, 0, this->id, this->_fillbackground);
+    this->setBackgroundColor(this->_backgroundColor);
+    this->setColorOfText(this->_color);
+    this->setTextAlignment(this->_horizontal, this->_vertical);
+    this->setPos(this->_pos);
+    return;
 }
 
 void Irrlicht::TextBox::setVisible(bool visible)
@@ -141,6 +129,8 @@ void Irrlicht::TextBox::setDrawBorder(bool draw)
 
 void Irrlicht::TextBox::setTextAlignment(irr::gui::EGUI_ALIGNMENT horizontal, irr::gui::EGUI_ALIGNMENT vertical)
 {
+    this->_horizontal = horizontal;
+    this->_vertical = vertical;
     this->_textBox->setTextAlignment(horizontal, vertical);
 }
 

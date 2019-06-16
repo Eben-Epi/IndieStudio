@@ -89,9 +89,9 @@ bool Irrlicht::NewGameMenu::update()
                     changeCurrentGameScene("Main Menu");
                     return (true);
                 case NEXT_FROM_NEW_GAME:
-                    if (!this->_window.isValidGetterName("Input Menu"))
-                        this->_window.addGameSceneMainMenu("Input Menu");
-                    changeCurrentGameScene("Input Menu");
+                    if (!this->_window.isValidGetterName("Game"))
+                        this->_window.addGameSceneGame("Game");
+                    changeCurrentGameScene("Game");
                     return (true);
                 default:
                     break;
@@ -103,7 +103,5 @@ bool Irrlicht::NewGameMenu::update()
         this->_buttons.at(i)->setVisible(true);
     for (unsigned i = 0; i < this->_textBoxes.size(); i++)
         this->_textBoxes.at(i)->setVisible(true);
-    for (unsigned i = 0; i < this->_textBoxes.size(); i++)
-        this->_textBoxes[i]->setTextAlignment(irr::gui::EGUIA_CENTER, irr::gui::EGUIA_CENTER);
     return (true);
 }

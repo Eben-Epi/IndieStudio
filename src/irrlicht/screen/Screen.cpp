@@ -153,12 +153,6 @@ unsigned Irrlicht::Screen::addGameSceneLoadGameMenu(const std::string &name) {
     this->_scenes.emplace_back(new LoadGameMenu{*this, name, this->_lastSceneId});
     return (this->_lastSceneId);
 }
-//
-//unsigned Irrlicht::Screen::addGameSceneOptions(const std::string &name) {
-//    this->_lastSceneId++;
-//    this->_scenes.emplace_back(new OptionsMenu{*this, name, this->_lastSceneId});
-//    return (this->_lastSceneId);
-//}
 
 Irrlicht::GameScene &Irrlicht::Screen::getCurrentGameScene() {
     return (*this->_scenes.at(_currentSceneId - 1));
