@@ -42,6 +42,8 @@ namespace Irrlicht
         void addGameSceneMainMenu(const std::string &name);
         void addGameSceneNewGameMenu(const std::string &name);
         void addGameSceneLoadGameMenu(const std::string &name);
+        void addGameSceneKeysManagingMenuNew(const std::string &name, unsigned playerNb, unsigned iaNb, unsigned soundVolume);
+        void addGameSceneKeysManagingMenuLoad(const std::string &name, unsigned playerNb, unsigned iaNb, unsigned soundVolume);
         void resetButtonsStates();
         EventReceiver &getEventReceiver();
         GameScene &getGameSceneById(unsigned id);

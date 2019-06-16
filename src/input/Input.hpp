@@ -30,6 +30,36 @@ namespace Input {
         NO_ACTION
     };
 
+    enum KeysButtonName
+    {
+        BACK_FROM_KEYS_MANAGING = 0,
+        NEXT_FROM_KEYS_MANAGING,
+        P1_UP,
+        P1_DOWN,
+        P1_LEFT,
+        P1_RIGHT,
+        P1_DROP,
+        P1_ULT,
+        P2_UP,
+        P2_DOWN,
+        P2_LEFT,
+        P2_RIGHT,
+        P2_DROP,
+        P2_ULT,
+        P3_UP,
+        P3_DOWN,
+        P3_LEFT,
+        P3_RIGHT,
+        P3_DROP,
+        P3_ULT,
+        P4_UP,
+        P4_DOWN,
+        P4_LEFT,
+        P4_RIGHT,
+        P4_DROP,
+        P4_ULT,
+    };
+
     class Input {
     public:
         virtual std::vector<Action> getActions() = 0;
