@@ -8,26 +8,26 @@ Irrlicht::NewGameMenu::NewGameMenu(Screen &screen, const std::string &name, unsi
         GameScene(screen, name, id), _playersNumber(1), _soundVolume(5), _tmpSoundVolume(5), _iaNumber(1)
 {
     //TITLE
-    this->_textBoxes.emplace_back(new TextBox({280, 5}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "GAME OPTIONS", true, true, true));
+    this->_textBoxes.emplace_back(new TextBox({280, 25}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "GAME OPTIONS", true, true, true));
 
     //NUMBER OF PLAYERS
-    this->_textBoxes.emplace_back(new TextBox({280, 50}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "NUMBER OF PLAYERS", true, true, true));
-    this->_buttons.emplace_back(new Button({190, 110}, {20, 120, 110, 120 + 32}, NUMBER_OF_PLAYERS_LESS, this->_window.getGuiEnv(), "LESS"));
-    this->_textBoxes.emplace_back(new TextBox({315, 115}, {10, 20, 30, 40}, 0, this->_window.getGuiEnv(), std::to_string(this->_playersNumber), true, true, true));
-    this->_buttons.emplace_back(new Button({370, 110}, {20, 120, 110, 120 + 32}, NUMBER_OF_PLAYERS_MORE, this->_window.getGuiEnv(), "MORE"));
+    this->_textBoxes.emplace_back(new TextBox({280, 90}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "NUMBER OF PLAYERS", true, true, true));
+    this->_buttons.emplace_back(new Button({190, 145}, {20, 120, 110, 120 + 32}, NUMBER_OF_PLAYERS_LESS, this->_window.getGuiEnv(), "LESS"));
+    this->_textBoxes.emplace_back(new TextBox({305, 140}, {20, 40, 60, 80}, 0, this->_window.getGuiEnv(), std::to_string(this->_playersNumber), true, true, true));
+    this->_buttons.emplace_back(new Button({370, 145}, {20, 120, 110, 120 + 32}, NUMBER_OF_PLAYERS_MORE, this->_window.getGuiEnv(), "MORE"));
 
     //NUMBER OF IAs
-    this->_textBoxes.emplace_back(new TextBox({280, 140}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "NUMBER OF IAs", true, true, true));
-    this->_buttons.emplace_back(new Button({190, 200}, {20, 120, 110, 120 + 32}, NUMBER_OF_AI_LESS, this->_window.getGuiEnv(), "LESS"));
-    this->_textBoxes.emplace_back(new TextBox({315, 175}, {10, 20, 30, 40}, 0, this->_window.getGuiEnv(), std::to_string(this->_iaNumber), true, true, true));
-    this->_buttons.emplace_back(new Button({370, 200}, {20, 120, 110, 120 + 32}, NUMBER_OF_AI_MORE, this->_window.getGuiEnv(), "MORE"));
+    this->_textBoxes.emplace_back(new TextBox({280, 220}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "NUMBER OF IAs", true, true, true));
+    this->_buttons.emplace_back(new Button({190, 275}, {20, 120, 110, 120 + 32}, NUMBER_OF_AI_LESS, this->_window.getGuiEnv(), "LESS"));
+    this->_textBoxes.emplace_back(new TextBox({305, 270}, {20, 40, 60, 80}, 0, this->_window.getGuiEnv(), std::to_string(this->_iaNumber), true, true, true));
+    this->_buttons.emplace_back(new Button({370, 275}, {20, 120, 110, 120 + 32}, NUMBER_OF_AI_MORE, this->_window.getGuiEnv(), "MORE"));
 
     //NUMBER OF SOUND VOLUME
-    this->_textBoxes.emplace_back(new TextBox({280, 340}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "SOUND VOLUME", true, true, true));
-    this->_buttons.emplace_back(new Button({190, 400}, {20, 120, 110, 120 + 32}, SOUND_LESS, this->_window.getGuiEnv(), "LESS"));
-    this->_textBoxes.emplace_back(new TextBox({315, 405}, {10, 20, 30, 40}, 0, this->_window.getGuiEnv(), std::to_string(this->_soundVolume), true, true, true));
-    this->_buttons.emplace_back(new Button({370, 400}, {20, 120, 110, 120 + 32}, SOUND_MORE, this->_window.getGuiEnv(), "MORE"));
-    this->_buttons.emplace_back(new Button({280, 460}, {20, 120, 110, 120 + 32}, SOUND_MUTE, this->_window.getGuiEnv(), "MUTE"));
+    this->_textBoxes.emplace_back(new TextBox({280, 360}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "SOUND VOLUME", true, true, true));
+    this->_buttons.emplace_back(new Button({190, 415}, {20, 120, 110, 120 + 32}, SOUND_LESS, this->_window.getGuiEnv(), "LESS"));
+    this->_textBoxes.emplace_back(new TextBox({305, 410}, {20, 40, 60, 80}, 0, this->_window.getGuiEnv(), std::to_string(this->_soundVolume), true, true, true));
+    this->_buttons.emplace_back(new Button({370, 415}, {20, 120, 110, 120 + 32}, SOUND_MORE, this->_window.getGuiEnv(), "MORE"));
+    this->_buttons.emplace_back(new Button({280, 470}, {20, 120, 110, 120 + 32}, SOUND_MUTE, this->_window.getGuiEnv(), "MUTE"));
 
     //BACK TO MAIN MENU && AND GO TO INPUT MENU
     this->_buttons.emplace_back(new Button({350, 550}, {20, 120, 110, 120 + 32}, NEXT_FROM_NEW_GAME, this->_window.getGuiEnv(), "NEXT"));
