@@ -10,7 +10,6 @@
 
 #include "Input.hpp"
 #include "../irrlicht/screen/Screen.hpp"
-#include "../irrlicht/game-scene/GameScene.hpp"
 
 namespace Input
 {

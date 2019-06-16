@@ -14,9 +14,10 @@ Irrlicht::MainMenu::MainMenu(Screen &screen, const std::string &name, unsigned i
 	this->_buttons.emplace_back(new Button({280, 300}, {20, 240, 110, 240 + 32}, LOAD_GAME, this->_window.getGuiEnv(), "LOAD GAME"));
 	this->_buttons.emplace_back(new Button({280, 500}, {20, 240, 110, 240 + 32}, EXIT, this->_window.getGuiEnv(), "EXIT"));
 
-    this->_textBoxes.emplace_back(new TextBox({280, 5}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "BOMBERMAN", true, true, true));
-    for (unsigned i = 0; i < this->_textBoxes.size(); i++)
-        this->_textBoxes[i]->setTextAlignment(irr::gui::EGUIA_CENTER, irr::gui::EGUIA_CENTER);
+    this->_textBoxes.emplace_back(new TextBox({280, 25}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "BOMBERMAN", true, true, true));
+    this->_textBoxes[0]->setTextAlignment(irr::gui::EGUIA_CENTER, irr::gui::EGUIA_CENTER);
+    this->_textBoxes[0]->setBackgroundColor(irr::video::SColor(255, 255, 0, 0));
+    this->_textBoxes[0]->setColorOfText(irr::video::SColor(255, 0, 0, 0));
 }
 
 bool Irrlicht::MainMenu::update()
@@ -32,9 +33,9 @@ bool Irrlicht::MainMenu::update()
                     changeCurrentGameScene("New Game Menu");
                     break;
                 case LOAD_GAME:
-                    if (!this->_window.isValidGetterName("Load Game Menu"))
-                        this->_window.addGameSceneLoadGameMenu("Load Game Menu");
-                    changeCurrentGameScene("Load Game Menu");
+                    if (!this->_window.isValidGetterName("Game"))
+                        this->_window.addGameSceneGame("Game");
+                    changeCurrentGameScene("Game");
                     break;
                 case EXIT:
                     this->_window.getDevice()->drop();

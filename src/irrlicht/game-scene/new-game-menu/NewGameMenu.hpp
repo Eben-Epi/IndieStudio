@@ -34,6 +34,7 @@ namespace Irrlicht {
         //PROPERTIES
         unsigned _playersNumber;
         unsigned _soundVolume;
+        unsigned _iaNumber;
         unsigned _tmpSoundVolume;
     };
 }

@@ -8,17 +8,24 @@
 #ifndef TEXTBOX_HPP
 #define TEXTBOX_HPP
 
-#include "../../ecs/data/Vector2.hpp"
 #include <irrlicht/irrlicht.h>
 #include <string>
+#include <map>
 #include <irrlicht/IGUIEnvironment.h>
+#include "../../ecs/data/Vector2.hpp"
+#include "../../input/Controller.hpp"
 
 namespace Irrlicht
 {
-	class TextBox {
+	extern std::map<Input::ControllerButtons, std::string> controller_code_str;
+	extern std::map<irr::EKEY_CODE, std::string> ekey_code_str;
+
+	class TextBox
+	{
 	public:
-		TextBox(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text = "",\
-			bool border = false, bool worlWrap = false, bool fillBackground = false);
+		TextBox(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text = "",
+				bool border = false, bool worlWrap = false, bool fillBackground = false,
+				irr::gui::EGUI_ALIGNMENT horizontal = irr::gui::EGUIA_UPPERLEFT, irr::gui::EGUI_ALIGNMENT vertical = irr::gui::EGUIA_UPPERLEFT);
 		~TextBox();
 
 		const std::string &getText();
@@ -32,18 +39,26 @@ namespace Irrlicht
 		void setDrawBackground(bool draw);
 		void setDrawBorder(bool draw);
 		void setTextAlignment(irr::gui::EGUI_ALIGNMENT horizontal, irr::gui::EGUI_ALIGNMENT vertical);
+		void setColorOfText(irr::video::SColor color);
+		void setTextFromIrrlichtKeysEnum(irr::EKEY_CODE);
+		void setTextFromIrrlichtKeysEnum(Input::ControllerButtons);
 
 		unsigned id;
+
 	private:
 		std::string _text;
 		ECS::Point _pos;
 		ECS::Vector4<int> _size;
-		irr::gui::IGUIEnvironment* _guienv;
+		irr::gui::IGUIEnvironment *_guienv;
 		irr::gui::IGUIStaticText *_textBox;
 		bool _visible;
 		bool _border;
 		bool _worldWrap;
 		bool _fillbackground;
+		irr::gui::EGUI_ALIGNMENT _vertical;
+		irr::gui::EGUI_ALIGNMENT _horizontal;
+		irr::video::SColor _color;
+		irr::video::SColor _backgroundColor;
 	};
 } // namespace Irrlicht
 
