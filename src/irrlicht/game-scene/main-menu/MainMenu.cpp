@@ -11,6 +11,8 @@
 Irrlicht::MainMenu::MainMenu(Screen &screen, const std::string &name, unsigned id) :
 	GameScene(screen, name, id)
 {
+	screen.soundSystem.setBackgroundMusic("title_screen_loop");
+	screen.soundSystem.playSoundOverBackgroundMusic("title_screen_intro");
 	this->_buttons.emplace_back(new Button({280, 150}, {20, 240, 110, 240 + 32}, NEW_GAME, this->_window.getGuiEnv(), "NEW GAME"));
 	this->_buttons.emplace_back(new Button({280, 260}, {20, 240, 110, 240 + 32}, LOAD_GAME, this->_window.getGuiEnv(), "LOAD GAME"));
     this->_buttons.emplace_back(new Button({280, 370}, {20, 240, 110, 240 + 32}, HOW_TO_PLAY, this->_window.getGuiEnv(), "HOW TO PLAY"));
