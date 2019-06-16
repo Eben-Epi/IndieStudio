@@ -19,7 +19,7 @@ namespace ECS
     {
     public:
         PowerUpPickedComponent();
-        PowerUpPickedComponent(const Ressources &ressources, std::istream &stream);
+        PowerUpPickedComponent(const unsigned id, Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS

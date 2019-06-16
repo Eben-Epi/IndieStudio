@@ -13,6 +13,7 @@
 #include "../components/KickerComponent.hpp"
 #include "../components/BombDropperComponent.hpp"
 #include "../components/MovableComponent.hpp"
+#include "../components/CollisionComponent.hpp"
 
 ECS::PowerUpPickedSystem::PowerUpPickedSystem(ECS::ECSCore &core):
     System("PowerUpPicked", core)
@@ -33,10 +34,10 @@ void ECS::PowerUpPickedSystem::updateEntity(ECS::Entity &entity)
 
             tphc.health += pucI.health;
         }
-        if (pickable.pickedBy->hasComponent("Collider")) {
-            auto &cc = reinterpret_cast<ColliderComponent &>(pickable.pickedBy->getComponentByName("Collider"));
+        if (pickable.pickedBy->hasComponent("Collision")) {
+            auto &cc = reinterpret_cast<CollisionComponent &>(pickable.pickedBy->getComponentByName("Collision"));
 
-            cc.hardness = pucI.hardness;
+            cc.passThrough = pucI.hardness;
         }
         if (pickable.pickedBy->hasComponent("Kicker") && pucI.kick) {
             auto &kc = reinterpret_cast<KickerComponent &>(pickable.pickedBy->getComponentByName("Kicker"));

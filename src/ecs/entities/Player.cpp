@@ -23,8 +23,10 @@
 #include "../../config.hpp"
 #include "../components/OOBKillComponent.hpp"
 #include "../components/MortalComponent.hpp"
+#include "../components/KillCounterComponent.hpp"
+#include "../components/NameComponent.hpp"
 
-ECS::Player::Player(unsigned id, Ressources &ressources, std::string &&texture, Component *ultimate) :
+ECS::Player::Player(unsigned id, Ressources &ressources, std::string &&texture, Component *ultimate, const std::string &name) :
 	Entity(id, "Player", {
 		new PositionComponent({0, 0}, {PLAYERSIZE, PLAYERSIZE}),
 		new HealthComponent(1),
@@ -39,6 +41,8 @@ ECS::Player::Player(unsigned id, Ressources &ressources, std::string &&texture, 
 		new PickerComponent(),
 		new KickerComponent(),
 		new MortalComponent(),
+		new NameComponent(name),
+		new KillCounterComponent(ressources.soundSystem),
 		new BombDropperComponent(ressources.soundSystem),
 		new DisplayableComponent(std::move(texture), ressources),
 		new ControllableComponent(*ressources.inputs.at(id), id)

@@ -48,6 +48,7 @@ Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen,
         this->_vsync,
         &this->_eventReceiver
     );
+    this->_device->getLogger()->setLogLevel(irr::ELL_ERROR);
     this->_driver = this->_device->getVideoDriver();
     this->_guienv = (this->_device->getGUIEnvironment());
     this->_smgr = (this->_device->getSceneManager());
@@ -130,6 +131,7 @@ bool Irrlicht::Screen::setWindowAttributes(int width, int height, int colorDepth
         this->_vsync,
         &this->_eventReceiver
     );
+    this->_device->getLogger()->setLogLevel(irr::ELL_ERROR);
     this->_guienv = this->_device->getGUIEnvironment();
     this->_smgr = this->_device->getSceneManager();
     this->_driver = this->_device->getVideoDriver();

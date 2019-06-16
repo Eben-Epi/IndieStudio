@@ -25,6 +25,7 @@
 #include "../entities/Faerie.hpp"
 #include "../entities/Alphaone.hpp"
 #include "../entities/Xenotype.hpp"
+#include "../entities/PowerUps/DroppedBonusGhost.hpp"
 
 namespace ECS
 {
@@ -42,6 +43,7 @@ namespace ECS
 		{"DroppedBonusKick", [](Ressources &ressources, unsigned id) { return new DroppedBonusKick(id, ressources); }},
 		{"DroppedBonusRange", [](Ressources &ressources, unsigned id) { return new DroppedBonusRange(id, ressources); }},
 		{"DroppedBonusSpeed", [](Ressources &ressources, unsigned id) { return new DroppedBonusSpeed(id, ressources); }},
+		{"DroppedBonusGhost", [](Ressources &ressources, unsigned id) { return new DroppedBonusGhost(id, ressources); }},
 		{"Skull", [](Ressources &ressources, unsigned id) { return new Skull(id, ressources); }},
 		{"ExplosionFrame", [](Ressources &ressources, unsigned id) { return new ExplosionFrame(id, ressources); }},
 		{"Faerie", [](Ressources &ressources, unsigned id) { return new Faerie(id, ressources); }},

@@ -16,6 +16,8 @@
 #include "../components/ExplodeComponent.hpp"
 #include "../components/ColliderComponent.hpp"
 #include "../components/MovableComponent.hpp"
+#include "../components/BlockedComponent.hpp"
+#include "../components/OwnerComponent.hpp"
 
 ECS::Bomb::Bomb(unsigned id, Ressources &ressources) :
     Entity(id, "Bomb", {
@@ -27,6 +29,7 @@ ECS::Bomb::Bomb(unsigned id, Ressources &ressources) :
         new PositionComponent({0, 0}, {TILESIZE - TILESIZE / 8, TILESIZE - TILESIZE / 8}),
         new EphemeralComponent(3 * FRAME_RATE),
         new ExplodeComponent(ressources.soundSystem, 1, 1),
+        new OwnerComponent(),
         new DisplayableComponent("Bomb", ressources)
     })
 {

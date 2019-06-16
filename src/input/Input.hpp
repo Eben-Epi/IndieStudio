@@ -8,14 +8,14 @@
 #ifndef INPUT_HPP
 #define INPUT_HPP
 
+#include <iostream>
+#include <vector>
 #include <irrlicht/irrlicht.h>
 #include <irrlicht/Keycodes.h>
 #include <irrlicht/ILogger.h>
 #include <irrlicht/irrString.h>
 #include <irrlicht/IEventReceiver.h>
 #include "./error/Errors.hpp"
-#include <iostream>
-#include <vector>
 
 namespace Input {
     enum Action {
@@ -33,8 +33,8 @@ namespace Input {
     class Input {
     public:
         virtual std::vector<Action> getActions() = 0;
+        virtual bool isAI() = 0;
         virtual void resetControl() = 0;
-        virtual void setAction(unsigned) = 0;
 
     private:
     };

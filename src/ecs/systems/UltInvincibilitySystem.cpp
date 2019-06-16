@@ -41,7 +41,7 @@ void ECS::UltInvincibilitySystem::updateEntity(ECS::Entity &entity)
         auto &hc = reinterpret_cast<HealthComponent &>(entity.getComponentByName("Health"));
         auto &mc = reinterpret_cast<MovableComponent&>(entity.getComponentByName("Movable"));
 
-        uc.charge = 0;
+        uc.resetUlt();
         uc.soundSystem.playSoundOverBackgroundMusic("starman", 100);
         hc.invunerabilityTimeLeft = 25 * FRAME_RATE;
         mc.maxSpeed += 2.5;

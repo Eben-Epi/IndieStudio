@@ -24,7 +24,7 @@ namespace ECS
     	return stream << range << ' ' << strength << " EndOfComponent";
     }
 
-    ExplodeComponent::ExplodeComponent(ECS::Ressources &res, std::istream &stream) :
+    ExplodeComponent::ExplodeComponent(unsigned, ECS::Ressources &res, std::istream &stream) :
 	    ExplodeComponent(res.soundSystem, 0, 0)
     {
 	    std::string terminator;

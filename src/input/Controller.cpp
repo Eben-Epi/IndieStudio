@@ -68,7 +68,12 @@ std::vector<Input::Action> Input::Controller::getActions() { //WIP
 	return (actions);
 }
 
-void Input::Controller::changeKey(unsigned control) {
+bool Input::Controller::isAI()
+{
+	return false;
+}
+
+void Input::Controller::changeKey(Action act, unsigned control) {
 	joystickIn();
 	switch (this->_act)
 	{
@@ -125,21 +130,5 @@ void Input::Controller::joystickIn() {
 }
 
 void Input::Controller::resetControl() {
-	if (this->_keys[ACTION_UP] == LEFT_JOYSTICK || this->_keys[ACTION_UP] == RIGHT_JOYSTICK) {
-		this->_keys[ACTION_UP] = static_cast<ControllerButtons>(LEFT_JOYSTICK);
-		this->_keys[ACTION_ACTION - 3] = static_cast<ControllerButtons>(RT);
-		this->_keys[ACTION_ULT - 3] = static_cast<ControllerButtons>(LT);
-	}
-	else {
-		this->_keys.erase(this->_keys.begin() + ACTION_RIGHT);
-		this->_keys.erase(this->_keys.begin() + ACTION_LEFT);
-		this->_keys.erase(this->_keys.begin() + ACTION_DOWN);
-		this->_keys[ACTION_UP] = static_cast<ControllerButtons>(LEFT_JOYSTICK);
-		this->_keys[ACTION_ACTION - 3] = static_cast<ControllerButtons>(RT);
-		this->_keys[ACTION_ULT - 3] = static_cast<ControllerButtons>(LT);
-	}
-}
-
-void Input::Controller::setAction(unsigned act) {
-	this->_act = static_cast<Action>(act);
+	this->_keys = {LEFT_JOYSTICK, RT, LT};
 }

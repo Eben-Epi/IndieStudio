@@ -12,6 +12,7 @@
 #include "../components/ExplodeComponent.hpp"
 #include "../Exceptions.hpp"
 #include "../components/BlockedComponent.hpp"
+#include "../components/OwnerComponent.hpp"
 
 ECS::BombDropperSystem::BombDropperSystem(ECS::ECSCore &core):
 		System("BombDropper", core)
@@ -50,14 +51,18 @@ void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 	auto &newBomb = this->_core.makeEntity("Bomb");
 	auto &bomb_pos = reinterpret_cast<ECS::PositionComponent &>(newBomb.getComponentByName("Position"));
 	auto &bomb_explode = reinterpret_cast<ECS::ExplodeComponent &>(newBomb.getComponentByName("Explode"));
+    auto &bomb_owner = reinterpret_cast<ECS::OwnerComponent &>(newBomb.getComponentByName("Owner"));
 
 	bomb_pos.pos = pos;
 	bomb_explode.range = bombDropper.range;
 	bombDropper.bombs.push_back(newBomb.getId());
 	bombDropper.soundSystem.playSound("bip");
 	bombDropper.dropBomb = false;
+	bomb_owner.ownerId = entity.getId();
 
-	auto &bc = reinterpret_cast<BlockedComponent &>(entity.getComponentByName("Blocked"));
-	bc.whitelistId.push_back(&newBomb);
-
+    auto players = this->_core.getEntitiesByName("Player");
+    for (auto &player : players) {
+        auto &bc = reinterpret_cast<BlockedComponent &>(player->getComponentByName("Blocked"));
+        bc.whitelistId.push_back(&newBomb);
+    }
 }

@@ -21,7 +21,7 @@ namespace ECS
     	return stream << "EndOfComponent";
     }
 
-    KickableComponent::KickableComponent(ECS::Ressources &ressources, std::istream &stream) :
+    KickableComponent::KickableComponent(unsigned id, ECS::Ressources &ressources, std::istream &stream) :
 	    KickableComponent()
     {
 	    std::string terminator;

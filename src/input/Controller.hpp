@@ -42,12 +42,12 @@ namespace Input
             Controller(Irrlicht::GameScene &, std::vector<ControllerButtons> &&, unsigned, unsigned threshold = 16384);
             ~Controller() = default;
             std::vector<Action> getActions();
-            void changeKey(unsigned); //keyCode -> controller Key Code
+            void changeKey(Action, unsigned); //keyCode -> controller Key Code
+            bool isAI() override;
             void addJoystick(unsigned);
             void joystickIn();
             void removeJoystick();
-            void resetControl();
-            void setAction(unsigned);
+            void resetControl() override;
 
         private:
             Irrlicht::GameScene &_scene;

@@ -21,7 +21,7 @@ namespace ECS
             float speed;
             float maxSpeed;
             MovableComponent(float maxSpeed);
-            MovableComponent(Ressources &ressources, std::istream &stream);
+            MovableComponent(unsigned id, Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS

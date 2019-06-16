@@ -18,7 +18,7 @@ namespace ECS
         Sound::SoundSystem &soundSystem;
 
         CurseOnPickComponent(Sound::SoundSystem &soundSystem);
-        CurseOnPickComponent(Ressources &ressources, std::istream &stream);
+        CurseOnPickComponent(unsigned id, Ressources &ressources, std::istream &stream);
         std::ostream& serialize(std::ostream &stream) const;
     };
 }

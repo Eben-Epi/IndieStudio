@@ -22,7 +22,7 @@ namespace ECS
     	return stream << passThrough << " EndOfComponent";
     }
 
-    CollisionComponent::CollisionComponent(ECS::Ressources &, std::istream &stream) :
+    CollisionComponent::CollisionComponent(unsigned, ECS::Ressources &, std::istream &stream) :
         CollisionComponent(0)
     {
 	    std::string terminator;

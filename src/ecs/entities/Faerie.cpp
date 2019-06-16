@@ -6,9 +6,9 @@
 */
 
 #include "Faerie.hpp"
-#include "../components/UltInvincibilityComponent.hpp"
+#include "../components/UltStrikeComponent.hpp"
 
 ECS::Faerie::Faerie(unsigned id, ECS::Ressources &ressources) :
-	Player(id, ressources, "faerie", new UltInvincibilityComponent())
+	Player(id, ressources, "faerie", new UltStrikeComponent(), "lonie")
 {
 }

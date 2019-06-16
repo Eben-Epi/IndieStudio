@@ -14,7 +14,7 @@ ECS::BlockedComponent::BlockedComponent() :
 	whitelistId({})
 {}
 
-ECS::BlockedComponent::BlockedComponent(ECS::Ressources &, std::istream &stream) :
+ECS::BlockedComponent::BlockedComponent(unsigned, ECS::Ressources &, std::istream &stream) :
 	BlockedComponent()
 {
 	std::string terminator;

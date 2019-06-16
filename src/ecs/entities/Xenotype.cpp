@@ -6,9 +6,9 @@
 */
 
 #include "Xenotype.hpp"
-#include "../components/UltInvincibilityComponent.hpp"
+#include "../components/UltShockWaveComponent.hpp"
 
 ECS::Xenotype::Xenotype(unsigned id, ECS::Ressources &ressources) :
-	Player(id, ressources, "Xenotype", new UltInvincibilityComponent())
+	Player(id, ressources, "Xenotype", new UltShockWaveComponent(), "alphaone")
 {
 }

@@ -35,7 +35,7 @@ namespace ECS
 		return true;
 	}
 
-	HealthComponent::HealthComponent(ECS::Ressources &, std::istream &stream) :
+	HealthComponent::HealthComponent(unsigned, ECS::Ressources &, std::istream &stream) :
 		HealthComponent(0)
 	{
 		std::string terminator;

@@ -19,7 +19,7 @@ namespace ECS
 		ECS::Point pos;
 		ECS::Vector2<unsigned int> size;
 		PositionComponent(ECS::Point pos, ECS::Vector2<unsigned int> size);
-		PositionComponent(Ressources &ressources, std::istream &stream);
+		PositionComponent(unsigned id, Ressources &ressources, std::istream &stream);
 		std::ostream &serialize(std::ostream &stream) const override;
 	};
 } // namespace ECS
