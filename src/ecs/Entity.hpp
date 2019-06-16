@@ -25,7 +25,7 @@ namespace ECS
 		std::vector<std::unique_ptr<Component>> _components;
 
 	public:
-		Entity(unsigned id, std::string &&name, std::vector<Component *> &&components);
+		Entity(unsigned id, std::string &&name, const std::vector<Component *> &&components);
 		Entity(Ressources &ressources, std::istream &stream);
 		void destroy();
 		bool isDestroyed();

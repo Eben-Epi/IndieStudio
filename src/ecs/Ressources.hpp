@@ -10,15 +10,32 @@
 
 
 #include "../input/Input.hpp"
-#include "../irrlicht/game-scene/GameScene.hpp"
 #include "../sound/SoundSystem.hpp"
+#include "data/Vector2.hpp"
+#include "Component.hpp"
+
+namespace Irrlicht{
+    class GameScene;
+};
 
 namespace ECS
 {
+	class ECSCore;
+
 	struct Ressources {
-		Irrlicht::GameScene                        &gameScene;
-		std::vector<std::unique_ptr<Input::Input>> &inputs;
-		Sound::SoundSystem                         soundSystem;
+		Irrlicht::GameScene         &gameScene;
+		Sound::SoundSystem          &soundSystem;
+		ECSCore	                    &core;
+		std::vector<Input::Input *> inputs;
+		Vector2<unsigned>           mapSize;
+
+		Ressources(Irrlicht::GameScene &scene, Sound::SoundSystem &soundSystem, ECSCore &core, std::vector<Input::Input *> &&inputs = {}, Vector2<unsigned> mapSize = {0, 0}) :
+			gameScene(scene),
+			soundSystem(soundSystem),
+			core(core),
+			inputs(inputs),
+			mapSize(mapSize)
+		{}
 	};
 }
 

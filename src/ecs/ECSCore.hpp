@@ -25,11 +25,12 @@ namespace ECS
 		EntityFactory					_entityFactory;
 		std::vector<std::unique_ptr<System>>		_systems;
 		std::vector<std::unique_ptr<Entity>>		_entities;
+		std::vector<unsigned>				_destroyed;
 		std::map<std::string, std::vector<Entity *>>	_components;
 
 	public:
 		explicit ECSCore(Ressources &ressources);
-		explicit ECSCore(ECS::Ressources &ressources, std::istream &stream);
+		explicit ECSCore(Ressources &ressources, std::istream &stream);
 		Entity &getEntityById(unsigned id) const;
 		std::vector<Entity *> getEntitiesByName(const std::string &name) const;
 		std::vector<Entity *> getEntitiesByComponent(const std::string &name) const;
@@ -37,7 +38,6 @@ namespace ECS
 		Entity &makeEntity(const std::string &name);
 		std::ostream &serialize(std::ostream &stream) const;
 		void update();
-		void reset();
 	};
 }
 

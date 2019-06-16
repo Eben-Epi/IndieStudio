@@ -7,9 +7,10 @@
 
 #include "Keyboard.hpp"
 
-Input::Keyboard::Keyboard(Irrlicht::GameScene &scene, std::vector<irr::EKEY_CODE> &&keys) :
+Input::Keyboard::Keyboard(Irrlicht::GameScene &scene, std::vector<irr::EKEY_CODE> &keys) :
     _scene(scene),
-    _keys(keys)
+    _keys(keys),
+    _default(keys)
 {
    if (keys.size() != NB_OF_ACTIONS)
        throw KeyboardException("Invalid number of keys");
@@ -26,4 +27,21 @@ std::vector<Input::Action> Input::Keyboard::getActions() {
     return (actions);
 }
 
-void Input::Keyboard::changeKey(Action, irr::EKEY_CODE) {}
+bool Input::Keyboard::isAI()
+{
+	return false;
+}
+
+void Input::Keyboard::changeKey(Action act, irr::EKEY_CODE newKey) {
+    this->_keys[act] = newKey;
+}
+
+void Input::Keyboard::resetControl() {
+    this->_keys = this->_default;
+}
+
+std::string Input::Keyboard::getEnumControlString(Action code)
+{
+    return (Irrlicht::ekey_code_str[this->_keys[code]]);
+}
+

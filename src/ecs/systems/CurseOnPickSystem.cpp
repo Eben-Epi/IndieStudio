@@ -5,7 +5,6 @@
 ** CurseOnPickSystem.cpp
 */
 
-#include <random>
 #include "CurseOnPickSystem.hpp"
 #include "../components/PickableComponent.hpp"
 #include "../components/CurseComponent.hpp"
@@ -27,8 +26,7 @@ void ECS::CurseOnPickSystem::updateEntity(ECS::Entity &entity)
         return;
 
     auto &cc = reinterpret_cast<CurseComponent &>(pc.pickedBy->getComponentByName("Curse"));
-    std::random_device random_dev;
-    auto curse = static_cast<CurseComponent::CurseEffect>(random_dev() % (CurseComponent::_NUMBER_OF_CURSE - 1) + 1);
+    auto curse = static_cast<CurseComponent::CurseEffect>(rand() % (CurseComponent::_NUMBER_OF_CURSE - 1) + 1);
     cc.giveCurse(curse, 10 * FRAME_RATE, true);
     entity.destroy();
 }

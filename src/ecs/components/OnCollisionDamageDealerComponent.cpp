@@ -13,22 +13,23 @@ namespace ECS
 {
     OnCollisionDamageDealerComponent::OnCollisionDamageDealerComponent(int damage) :
         Component("OnCollisionDamageDealer"),
-        damage(damage)
+        damage(damage),
+        ownerId(-1)
     {
     }
 
     std::ostream& OnCollisionDamageDealerComponent::serialize(std::ostream &stream) const
     {
-    	return stream << damage << " EndOfComponent";
+    	return stream << damage << " " << ownerId << " EndOfComponent";
     }
 
-    OnCollisionDamageDealerComponent::OnCollisionDamageDealerComponent(ECS::Ressources &, std::istream &stream) :
+    OnCollisionDamageDealerComponent::OnCollisionDamageDealerComponent(unsigned, ECS::Ressources &, std::istream &stream) :
         OnCollisionDamageDealerComponent(0)
     {
         std::string terminator;
 
-        stream >> damage >> terminator;
-        if (terminator != "EndOfComponent")
-            throw InvalidSerializedStringException("The component terminator was not found");
+	    stream >> damage >> ownerId >> terminator;
+	    if (terminator != "EndOfComponent")
+		    throw InvalidSerializedStringException("The component terminator was not found");
     }
 }

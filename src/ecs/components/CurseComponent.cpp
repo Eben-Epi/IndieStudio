@@ -17,7 +17,7 @@ ECS::CurseComponent::CurseComponent(Sound::SoundSystem &soundSystem):
     timeLeft(0)
 {}
 
-ECS::CurseComponent::CurseComponent(ECS::Ressources &ressources, std::istream &stream):
+ECS::CurseComponent::CurseComponent(unsigned id, ECS::Ressources &ressources, std::istream &stream):
     CurseComponent(ressources.soundSystem)
 {
     unsigned tmp;
@@ -31,13 +31,14 @@ ECS::CurseComponent::CurseComponent(ECS::Ressources &ressources, std::istream &s
         throw InvalidSerializedStringException("The component terminator was not found");
 }
 
-bool ECS::CurseComponent::giveCurse(CurseEffect eff, int time, bool force)
+bool ECS::CurseComponent::giveCurse(CurseEffect eff, int time, bool force, bool playSound)
 {
     if (this->timeLeft > 0 && !force)
         return false;
     this->effect = eff;
     this->timeLeft = time;
-    this->soundSystem.playSound("skull");
+    if (playSound)
+        this->soundSystem.playSound("skull");
     return true;
 }
 

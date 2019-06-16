@@ -22,7 +22,7 @@ namespace ECS
 		Irrlicht::Animations	animation;
 
 		explicit DisplayableComponent(std::string &&striteId, Ressources &ressources);
-		DisplayableComponent(Ressources &ressources, std::istream &stream);
+		DisplayableComponent(unsigned id, Ressources &ressources, std::istream &stream);
 		~DisplayableComponent() override;
 		std::ostream &serialize(std::ostream &stream) const override;
 	};

@@ -17,7 +17,7 @@ namespace ECS
 	class MortalComponent : public Component {
 	public:
 		MortalComponent();
-		MortalComponent(const Ressources &ressources, std::istream &stream);
+		MortalComponent(const unsigned id, Ressources &ressources, std::istream &stream);
 		std::ostream &serialize(std::ostream &stream) const override;
 	};
 }

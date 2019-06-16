@@ -9,6 +9,7 @@
 #include "../components/DisplayableComponent.hpp"
 #include "../components/PositionComponent.hpp"
 #include "../components/MovableComponent.hpp"
+#include "../../irrlicht/game-scene/GameScene.hpp"
 
 #define M_PI_2		1.57079632679489661923
 

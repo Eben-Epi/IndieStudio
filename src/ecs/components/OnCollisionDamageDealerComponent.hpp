@@ -17,8 +17,9 @@ namespace ECS
     {
     public:
         int damage;
+        int ownerId; // -1 if no owner
         OnCollisionDamageDealerComponent(int damage);
-        OnCollisionDamageDealerComponent(Ressources &ressources, std::istream &stream);
+        OnCollisionDamageDealerComponent(unsigned id, Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
     };
 }

@@ -15,7 +15,7 @@ namespace ECS
 	{
 	}
 
-	MortalComponent::MortalComponent(const ECS::Ressources &ressources, std::istream &stream) :
+	MortalComponent::MortalComponent(const unsigned id, ECS::Ressources &ressources, std::istream &stream) :
 		MortalComponent()
 	{
 		std::string terminator;

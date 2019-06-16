@@ -16,10 +16,10 @@ namespace ECS
 {
 	class PositionComponent : public Component {
 	public:
-		ECS::PointF pos;
+		ECS::Point pos;
 		ECS::Vector2<unsigned int> size;
-		PositionComponent(ECS::PointF pos, ECS::Vector2<unsigned int> size);
-		PositionComponent(Ressources &ressources, std::istream &stream);
+		PositionComponent(ECS::Point pos, ECS::Vector2<unsigned int> size);
+		PositionComponent(unsigned id, Ressources &ressources, std::istream &stream);
 		std::ostream &serialize(std::ostream &stream) const override;
 	};
 } // namespace ECS

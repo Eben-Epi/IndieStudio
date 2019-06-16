@@ -9,8 +9,10 @@
 #define CONTROLLER_HPP
 
 #include "Input.hpp"
-#include "../irrlicht/screen/Screen.hpp"
-#include "../irrlicht/game-scene/GameScene.hpp"
+
+namespace Irrlicht {
+    class GameScene;
+}
 
 namespace Input
 {
@@ -44,12 +46,20 @@ namespace Input
             ~Controller() = default;
             std::vector<Action> getActions();
             void changeKey(Action, unsigned); //keyCode -> controller Key Code
+            bool isAI() override;
+            void addJoystick(unsigned);
+            void joystickIn();
+            void removeJoystick();
+            void resetControl() override;
+            std::string getEnumControlString(Action code);
 
         private:
             Irrlicht::GameScene &_scene;
             std::vector<ControllerButtons> _keys;
             unsigned _id;
             unsigned _threshold;
+            int _joystickOn = 0;
+            Action _act = Action::NO_ACTION;
     };
 }
 

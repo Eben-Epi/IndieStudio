@@ -22,7 +22,7 @@ namespace ECS
     	return stream << "EndOfComponent";
     }
 
-    PowerUpPickedComponent::PowerUpPickedComponent(const ECS::Ressources &ressources, std::istream &stream) :
+    PowerUpPickedComponent::PowerUpPickedComponent(const unsigned id, ECS::Ressources &ressources, std::istream &stream) :
         Component("PowerUpPicked")
     {
         std::string terminator;

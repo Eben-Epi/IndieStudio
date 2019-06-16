@@ -6,9 +6,9 @@
 */
 
 #include "Alphaone.hpp"
-#include "../components/UltInvincibilityComponent.hpp"
+#include "../components/UltBombRainComponent.hpp"
 
 ECS::Alphaone::Alphaone(unsigned id, ECS::Ressources &ressources) :
-	Player(id, ressources, "Alphaone", new UltInvincibilityComponent())
+	Player(id, ressources, "Alphaone", new UltBombRainComponent(), "gunguy")
 {
 }

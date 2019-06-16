@@ -15,7 +15,7 @@ namespace ECS
     {
     }
 
-    EntityDropperComponent::EntityDropperComponent(const Ressources &ressources, std::istream &stream) :
+    EntityDropperComponent::EntityDropperComponent(const unsigned id, Ressources &ressources, std::istream &stream) :
         Component("EntityDropper")
     {
 	    std::string terminator;

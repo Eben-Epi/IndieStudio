@@ -17,7 +17,7 @@ namespace ECS
     {
         public:
             PickerComponent();
-            PickerComponent(Ressources &ressources, std::istream &stream);
+            PickerComponent(unsigned id, Ressources &ressources, std::istream &stream);
 	    std::ostream &serialize(std::ostream &stream) const override;
     };
 } // namespace ECS

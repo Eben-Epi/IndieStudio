@@ -17,7 +17,7 @@ ECS::OOBKillComponent::OOBKillComponent(ECS::Point p1, ECS::Point p2, bool size_
         this->p2 = p2;
 }
 
-ECS::OOBKillComponent::OOBKillComponent(ECS::Ressources &ressources, std::istream &stream):
+ECS::OOBKillComponent::OOBKillComponent(unsigned id, ECS::Ressources &ressources, std::istream &stream):
     OOBKillComponent({0, 0}, {0, 0})
 {
     std::string terminator;

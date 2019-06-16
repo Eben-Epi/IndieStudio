@@ -5,8 +5,8 @@
 ** Exceptions.hpp
 */
 
-#ifndef BOMBERMAN_EXCEPTIONS_HPP
-#define BOMBERMAN_EXCEPTIONS_HPP
+#ifndef BOMBERMAN_ECS_EXCEPTIONS_HPP
+#define BOMBERMAN_ECS_EXCEPTIONS_HPP
 
 
 #include <exception>
@@ -47,6 +47,11 @@ namespace ECS
 	class InvalidStateException : public ECSException {
 	public:
 		explicit InvalidStateException(const std::string &msg) : ECSException(msg) {};
+	};
+
+	class InvalidNameException : public ECSException {
+	public:
+		explicit InvalidNameException(const std::string &msg) : ECSException(msg) {};
 	};
 
 	class InvalidSerializedStringException : public ECSException {
