@@ -20,18 +20,29 @@
 #include "../ecs/Exceptions.hpp"
 #include "../ecs/components/OOBKillComponent.hpp"
 
+
+
+Input::AIBrain::AIBrain(unsigned id, ECS::ECSCore &core) :
+    _core(core),
+    _id(id)
+{
+}
+
+bool Input::AIBrain::isAI()
+{
+    return true;
+}
+
+void Input::AIBrain::changeKey(Action, irr::EKEY_CODE) {}
+
+//getActions is the last function in this file
+
 void Input::AIBrain::initBadPos(ECS::PositionComponent &pos, int xTmp, int yTmp)
 {
     if (xTmp <= 15 && yTmp <= 15)
         return;
     pos.pos.x = (int)(pos.pos.x / TILESIZE) * TILESIZE + 5;
     pos.pos.y = (int)(pos.pos.y / TILESIZE) * TILESIZE + 5;
-}
-
-Input::AIBrain::AIBrain(unsigned id, ECS::ECSCore &core) :
-    _core(core),
-    _id(id)
-{
 }
 
 ECS::Entity *Input::AIBrain::setAIObjective(ECS::Entity &me, std::vector<ECS::Entity *> &bonuses)
@@ -227,8 +238,8 @@ void Input::AIBrain::updateRelativeVisionForPredictions(
             for (ECS::Point point : dangerZone) {
                 auto infoIt = bonusMalusZone.begin();
 
-                for (int j = 0; j < relativeVision.size(); ++j) {
-                    if (relativeVision[j].x == point.x && relativeVision[j].y == point.y) {
+                for (auto &j : relativeVision) {
+                    if (j.x == point.x && j.y == point.y) {
                         *infoIt += (dangerLevel * (eExpl.range + 1 - i));
                         break;
                     }
@@ -240,6 +251,61 @@ void Input::AIBrain::updateRelativeVisionForPredictions(
     }
 }
 
+void Input::AIBrain::updatingRelativeFurther(std::vector<ECS::Point> &relativeFurther, ECS::Point &newERelativePos) {
+    for (int i = 0; i < relativeFurther.size(); ++i) {
+        switch (i) {
+            case 0:
+                if (relativeFurther[i].y < newERelativePos.y
+                    && newERelativePos.y < getRelativePosPlayer(_pos->pos).y
+                    && relativeFurther[i].x == newERelativePos.x)
+                    relativeFurther[i].y = newERelativePos.y;
+            case 1:
+                if (relativeFurther[i].x < newERelativePos.x
+                    && newERelativePos.x < getRelativePosPlayer(_pos->pos).x
+                    && relativeFurther[i].y == newERelativePos.y)
+                    relativeFurther[i].x = newERelativePos.x;
+            case 2:
+                if (relativeFurther[i].x > newERelativePos.x
+                    && newERelativePos.x > getRelativePosPlayer(_pos->pos).x
+                    && relativeFurther[i].y == newERelativePos.y)
+                    relativeFurther[i].x = newERelativePos.x;
+            case 3:
+                if (relativeFurther[i].y > newERelativePos.y
+                    && newERelativePos.y > getRelativePosPlayer(_pos->pos).y
+                    && relativeFurther[i].x == newERelativePos.x)
+                    relativeFurther[i].y = newERelativePos.y;
+            default:
+                break;
+        }
+    }
+}
+
+void Input::AIBrain::bombPlacedChangesBonusMalusZoneScore(
+    std::vector<int> &bonusMalusZone,
+    std::vector<int> &bonusMalusCorners,
+    std::vector<ECS::Point> &relativeFurther,
+    std::vector<ECS::Point> &relativeVision
+)
+{
+    if (_bombPlaced) {
+        for (int j = 0; j < bonusMalusCorners.size(); ++j) {
+            if (bonusMalusCorners[j] == -1000000) {
+                bonusMalusZone[j % 2 ? 3 : 1] += -1;
+                bonusMalusZone[j / 2 * 4] += -1;
+            }
+        }
+
+        int j = 0;
+        for (int k = 0; k < bonusMalusZone.size(); ++k) {
+            if (k != 2) {
+                bonusMalusZone[k] += (int) (abs(relativeFurther[j].x - relativeVision[k].x) +
+                                            abs(relativeFurther[j].y - relativeVision[k].y))
+                                     / TILESIZE;
+                ++j;
+            }
+        }
+    }
+}
 
 void Input::AIBrain::updateRelativeVisionForBlocks(
     std::vector<ECS::Entity *> &cannotMoveThere,
@@ -297,55 +363,12 @@ void Input::AIBrain::updateRelativeVisionForBlocks(
                         }
                         ++infoIt;
                     }
-                    infoIt = bonusMalusZone.begin();
-                    for (int i = 0; i < relativeFurther.size(); ++i) {
-                        switch (i) {
-                            case 0:
-                                if (relativeFurther[i].y < newERelativePos.y
-                                && newERelativePos.y < getRelativePosPlayer(_pos->pos).y
-                                && relativeFurther[i].x == newERelativePos.x)
-                                    relativeFurther[i].y = newERelativePos.y;
-                            case 1:
-                                if (relativeFurther[i].x < newERelativePos.x
-                                && newERelativePos.x < getRelativePosPlayer(_pos->pos).x
-                                && relativeFurther[i].y == newERelativePos.y)
-                                    relativeFurther[i].x = newERelativePos.x;
-                            case 2:
-                                if (relativeFurther[i].x > newERelativePos.x
-                                && newERelativePos.x > getRelativePosPlayer(_pos->pos).x
-                                && relativeFurther[i].y == newERelativePos.y)
-                                    relativeFurther[i].x = newERelativePos.x;
-                            case 3:
-                                if (relativeFurther[i].y > newERelativePos.y
-                                && newERelativePos.y > getRelativePosPlayer(_pos->pos).y
-                                && relativeFurther[i].x == newERelativePos.x)
-                                    relativeFurther[i].y = newERelativePos.y;
-                            default:
-                                break;
-                        }
-                    }
+                    updatingRelativeFurther(relativeFurther, newERelativePos);
                 }
             }
         }
     }
-    if (_bombPlaced) {
-        for (int j = 0; j < bonusMalusCorners.size(); ++j) {
-            if (bonusMalusCorners[j] == -1000000) {
-                bonusMalusZone[j % 2 ? 3 : 1] += -1;
-                bonusMalusZone[j / 2 * 4] += -1;
-            }
-        }
-
-        int j = 0;
-        for (int k = 0; k < bonusMalusZone.size(); ++k) {
-            if (k != 2) {
-                bonusMalusZone[k] += (int) (abs(relativeFurther[j].x - relativeVision[k].x) +
-                                            abs(relativeFurther[j].y - relativeVision[k].y))
-                                            / TILESIZE;
-                ++j;
-            }
-        }
-    }
+    bombPlacedChangesBonusMalusZoneScore(bonusMalusZone, bonusMalusCorners, relativeFurther, relativeVision);
 }
 
 std::vector<ECS::Point> Input::AIBrain::getRelativeVision(ECS::Point &point)
@@ -397,6 +420,7 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
         initBadPos(*this->_pos, _xTmp, _yTmp);
         this->_init = true;
     }
+
     _xTmp = (int)(this->_pos->pos.x / TILESIZE * 100) % 100;
     _yTmp = (int)(this->_pos->pos.y / TILESIZE * 100) % 100;
     std::vector<ECS::Entity *> colliders = this->_core.getEntitiesByComponent("Collider");
@@ -408,7 +432,7 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
     std::vector<ECS::Entity *> blockZone;
     std::vector<int> bonusMalusZone = {0, 0, -2, 0, 0};
 
-    if ((_xTmp <= 10 && _yTmp <= 10 && _timer == 0) || !_objective || _actions.empty()) {
+    if ((_xTmp <= 10 && _yTmp <= 10) || !_objective || _actions.empty()) {
         _objective = setAIObjective(*this->_entity, powerUps);
         if (_objective == nullptr) {
             _actions.clear();
@@ -442,16 +466,6 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
             this->_onStepAbs *= -1;
         this->_onStepAbs = this->_onStepAbs % 100 / 10;
         _actions = getTheBestWay(bonusMalusZone, relativePosPlayer);
-        _timer = 0;
     }
-    if (_timer > 0)
-        --_timer;
     return (_actions);
 }
-
-bool Input::AIBrain::isAI()
-{
-	return true;
-}
-
-void Input::AIBrain::changeKey(Action, irr::EKEY_CODE) {}

@@ -23,10 +23,24 @@ namespace Input {
         ~AIBrain() = default;
 
         std::vector<Action> getActions();
+        void changeKey(Action, irr::EKEY_CODE);
+        bool isAI() override;
+
+        void resetControl() override {};
+
+    private:
 
         bool canEscape(std::vector<int> &bonusMalusZone);
 
         std::vector<Action> getTheBestWay(std::vector<int> &bonusMalusZone, ECS::Point &myPos);
+        void updatingRelativeFurther(std::vector<ECS::Point> &relativeFurther, ECS::Point &newERelativePos);
+
+        void bombPlacedChangesBonusMalusZoneScore(
+            std::vector<int> &bonusMalusZone,
+            std::vector<int> &bonusMalusCorners,
+            std::vector<ECS::Point> &relativeFurther,
+            std::vector<ECS::Point> &relativeVision
+        );
 
         void updateRelativeVisionForBlocks(
             std::vector<ECS::Entity *> &cannotMoveThere,
@@ -54,12 +68,8 @@ namespace Input {
         ECS::Entity *setAIObjective(ECS::Entity &me, std::vector<ECS::Entity *> &bonuses);
         void initBadPos(ECS::PositionComponent &pos, int xTmp, int yTmp);
 
-        void changeKey(Action, irr::EKEY_CODE);
-        bool isAI() override;
+        //values
 
-        void resetControl() override {};
-
-    private:
     	bool _init = false;
     	unsigned _id;
         ECS::Entity *_entity;
@@ -68,7 +78,6 @@ namespace Input {
         ECS::PositionComponent *_pos;
         std::vector<Action> _actions = {};
         ECS::Entity *_objective = nullptr;
-        int _timer = 0;
         int _onStepAbs;
         bool _bombPlaced;
         int _xTmp;
