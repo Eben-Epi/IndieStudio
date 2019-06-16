@@ -264,8 +264,6 @@ include_directories(
 	${Sfml_INCLUDE_DIRS}
 )
 
-message(${Irrlicht_LIBRARIES})
-
 target_link_libraries(
 	bomberman
 	${Irrlicht_LIBRARIES}
