@@ -61,7 +61,6 @@ void mainMenu(Irrlicht::Screen &screen, Sound::SoundSystem &soundSystem)
 //		players.push_back(Map::Map::PlayerConfig{nullptr, playerEntities[_rand() % playerEntities.size()], i});
 //	generateDefaultMap(*map, players);
 	while (screen.display() && screen.getCurrentGameScene().sceneName != "Game");
-		//TODO: Clément fix ta merde
 //		screen.getGameSceneByName("MainMenu").addCamera(320, 500, -320, 320, 0, -319);
 //		if (!map->update()) {
 //			if (map->getPlayersAlive().empty()) {
@@ -98,7 +97,9 @@ bool displayEndGameMenu(Map::Map *map, Irrlicht::Screen &screen, Sound::SoundSys
 	std::this_thread::sleep_for(std::chrono::seconds(2));
 	delete map;
 	screen.setCursorVisible(true);
-	screen.setCurrentGameScene("Main Menu");
+	if (!screen.isValidGetterName("Main Menu"))
+	    screen.addGameSceneMainMenu("Main Menu");
+    screen.setCurrentGameScene("Main Menu");
 
 	mainMenu(screen, sound);
 	if (screen.isGameClosed)
