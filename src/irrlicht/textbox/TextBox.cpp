@@ -368,6 +368,4 @@ void Irrlicht::TextBox::setTextFromIrrlichtKeysEnum(Input::ControllerButtons key
     this->setPos(this->_pos);
 }
 
-Irrlicht::TextBox::~TextBox() {
-    this->_textBox->remove();
-}
+Irrlicht::TextBox::~TextBox() = default;
