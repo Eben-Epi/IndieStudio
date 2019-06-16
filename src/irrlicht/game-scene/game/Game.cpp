@@ -6,8 +6,15 @@
 */
 
 #include "Game.hpp"
+#include <fstream>
 #include "../../../config.hpp"
 #include "../../../ecs/components/NameComponent.hpp"
+
+Irrlicht::Game::Game(Screen &screen, const std::string &name, unsigned id, std::vector<std::unique_ptr<Input::Input>> &inputs, std::ifstream &file) :
+	GameScene(screen, name, id),
+	_map(new Map::Map{*this, inputs, screen.soundSystem, file})
+{
+}
 
 Irrlicht::Game::Game(Screen &screen, const std::string &name, unsigned id, std::vector<Map::Map::PlayerConfig> configs) :
         GameScene(screen, name, id),
@@ -27,6 +34,21 @@ Irrlicht::Game::Game(Screen &screen, const std::string &name, unsigned id, std::
 
 bool Irrlicht::Game::update()
 {
+    if (this->_window.getCurrentGameScene().isKeyPressed(irr::KEY_ESCAPE)) {
+    	if (!this->_hasPaused) {
+		this->_hasPaused = true;
+		if (!this->_paused) {
+			this->_map->save("save.txt");
+			this->_window.soundSystem.playSound("pause");
+			this->_window.soundSystem.pauseBackgroundMusic();
+		} else
+			this->_window.soundSystem.resumeBackgroundMusic();
+		this->_paused = !this->_paused;
+	}
+    } else
+        this->_hasPaused = false;
+    if (this->_paused)
+    	return true;
     if (this->_gameClock)
         this->_gameClock++;
     if (this->_gameClock == 0 && !this->_map->update()) {

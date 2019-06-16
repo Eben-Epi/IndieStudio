@@ -6,7 +6,43 @@
 */
 
 #include "MainMenu.hpp"
+#include "../../../input/Keyboard.hpp"
 #include "../../../config.hpp"
+
+static std::vector<std::vector<irr::EKEY_CODE>> defaultKeyboardsKeys {
+	{
+		irr::KEY_KEY_Z,
+		irr::KEY_KEY_D,
+		irr::KEY_KEY_S,
+		irr::KEY_KEY_Q,
+		irr::KEY_KEY_E,
+		irr::KEY_KEY_A
+	},
+	{
+		irr::KEY_UP,
+		irr::KEY_RIGHT,
+		irr::KEY_DOWN,
+		irr::KEY_LEFT,
+		irr::KEY_RSHIFT,
+		irr::KEY_RCONTROL
+	},
+	{
+		irr::KEY_KEY_T,
+		irr::KEY_KEY_H,
+		irr::KEY_KEY_G,
+		irr::KEY_KEY_F,
+		irr::KEY_KEY_Y,
+		irr::KEY_KEY_R
+	},
+	{
+		irr::KEY_KEY_O,
+		irr::KEY_KEY_M,
+		irr::KEY_KEY_L,
+		irr::KEY_KEY_K,
+		irr::KEY_KEY_P,
+		irr::KEY_KEY_I
+	}
+};
 
 Irrlicht::MainMenu::MainMenu(Screen &screen, const std::string &name, unsigned id) :
 	GameScene(screen, name, id)
@@ -15,7 +51,6 @@ Irrlicht::MainMenu::MainMenu(Screen &screen, const std::string &name, unsigned i
 	screen.soundSystem.playSoundOverBackgroundMusic("title_screen_intro");
 	this->_buttons.emplace_back(new Button({280, 150}, {20, 240, 110, 240 + 32}, NEW_GAME, this->_window.getGuiEnv(), "NEW GAME"));
 	this->_buttons.emplace_back(new Button({280, 260}, {20, 240, 110, 240 + 32}, LOAD_GAME, this->_window.getGuiEnv(), "LOAD GAME"));
-    this->_buttons.emplace_back(new Button({280, 370}, {20, 240, 110, 240 + 32}, HOW_TO_PLAY, this->_window.getGuiEnv(), "HOW TO PLAY"));
     this->_buttons.emplace_back(new Button({280, 550}, {20, 240, 110, 240 + 32}, EXIT, this->_window.getGuiEnv(), "EXIT"));
 
     this->_textBoxes.emplace_back(new TextBox({280, 25}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "BOMBERMAN", true, true, true));
@@ -32,6 +67,7 @@ bool Irrlicht::MainMenu::update()
         return (false);
     }
     this->_clock++;
+	std::vector<std::unique_ptr<Input::Input>> inputs;
     for (unsigned i = 0; i < this->_buttons.size(); i++) {
         if (this->isGuiButtonPressed(i)) {
 	    this->_clock = 0;
@@ -42,15 +78,13 @@ bool Irrlicht::MainMenu::update()
                     changeCurrentGameScene("New Game Menu");
                     return (true);
                 case LOAD_GAME:
-                    if (!this->_window.isValidGetterName("Load Game"))
-                        this->_window.addGameSceneLoadGameMenu("Load Game");
-                    changeCurrentGameScene("Load Game");
-                    return (false);
-                case HOW_TO_PLAY:
-                    if (!this->_window.isValidGetterName("How To Play"))
-                        this->_window.addGameSceneHTPGameMenu("How To Play");
-                    changeCurrentGameScene("How To Play");
-                    return (false);
+
+			for (int j = 0; j != 4; j++)
+				inputs.emplace_back(new Input::Keyboard(*this, defaultKeyboardsKeys[i]));
+			if (!this->_window.isValidGetterName("Game"))
+				this->_window.addGameSceneGame("Game", inputs, "save.txt");
+		    changeCurrentGameScene("Game");
+		    return (true);
                 case EXIT:
                     this->_window.getDevice()->closeDevice();
                     return (false);

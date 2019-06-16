@@ -5,8 +5,8 @@
 ** Exceptions.hpp
 */
 
-#ifndef BOMBERMAN_EXCEPTIONS_HPP
-#define BOMBERMAN_EXCEPTIONS_HPP
+#ifndef BOMBERMAN_ECS_EXCEPTIONS_HPP
+#define BOMBERMAN_ECS_EXCEPTIONS_HPP
 
 
 #include <exception>

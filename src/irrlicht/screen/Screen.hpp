@@ -39,7 +39,8 @@ namespace Irrlicht
         void setGameClosed(bool close);
         bool isValidGetterId(unsigned id);
         bool isValidGetterName(const std::string& name);
-        void addGameSceneGame(const std::string &name, std::vector<Map::Map::PlayerConfig> configs);
+	    void addGameSceneGame(const std::string &name, std::vector<Map::Map::PlayerConfig> configs);
+	    void addGameSceneGame(const std::string &name, std::vector<std::unique_ptr<Input::Input>> &inputs, const std::string &file);
         void addGameSceneMainMenu(const std::string &name);
         void addGameSceneNewGameMenu(const std::string &name);
         void addGameSceneLoadGameMenu(const std::string &name);

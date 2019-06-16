@@ -5,6 +5,7 @@
 #include <iostream>
 #include <irrlicht/irrlicht.h>
 #include <algorithm>
+#include <fstream>
 
 
 #ifdef _IRR_WINDOWS_
@@ -25,6 +26,7 @@
 #include "../game-scene/keys-managing-menu-load/KeysManagingMenuLoad.hpp"
 #include "../../config.hpp"
 #include "../game-scene/game/Game.hpp"
+#include "../../ecs/Exceptions.hpp"
 
 #if defined(_WIN32) && !defined(__GNUC__)
 #define driverType irr::video::EDT_DIRECT3D9
@@ -149,6 +151,14 @@ bool Irrlicht::Screen::setWindowAttributes(int width, int height, int colorDepth
 
 void Irrlicht::Screen::addGameSceneGame(const std::string &name, std::vector<Map::Map::PlayerConfig> configs) {
     this->_scenes.emplace_back(new Game{*this, name, static_cast<unsigned>(this->_scenes.size()), configs});
+}
+
+void Irrlicht::Screen::addGameSceneGame(const std::string &name, std::vector<std::unique_ptr<Input::Input>> &inputs, const std::string &path) {
+	std::ifstream file(path);
+
+	if (!file.is_open())
+		throw ECS::InvalidSerializedStringException("Cannot open file save.txt");
+	this->_scenes.emplace_back(new Game{*this, name, static_cast<unsigned>(this->_scenes.size()), inputs, file});
 }
 
 void Irrlicht::Screen::addGameSceneMainMenu(const std::string &name) {

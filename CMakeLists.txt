@@ -231,8 +231,6 @@ add_executable(
 	src/irrlicht/game-scene/keys-managing-menu-load/KeysManagingMenuLoad.cpp
 	src/irrlicht/game-scene/how-to-play/HowToPlayMenu.hpp
 	src/irrlicht/game-scene/how-to-play/HowToPlayMenu.cpp
-	src/irrlicht/game-scene/pause-menu/PauseMenu.hpp
-	src/irrlicht/game-scene/pause-menu/PauseMenu.cpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.cpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.hpp
 	src/irrlicht/screen/Screen.cpp
@@ -260,6 +258,8 @@ add_executable(
 	src/ecs/components/UltBombRainComponent.hpp
 	src/ecs/systems/UltBombRainSystem.cpp
 	src/ecs/systems/UltBombRainSystem.hpp
+	src/irrlicht/game-scene/game/Game.cpp
+	src/irrlicht/game-scene/game/Game.hpp
 )
 
 find_package(Irrlicht REQUIRED)
