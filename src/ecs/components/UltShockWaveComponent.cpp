@@ -22,12 +22,12 @@ ECS::UltShockWaveComponent::UltShockWaveComponent(ECS::Ressources &ressources, s
 {
     std::string terminator;
 
-    stream >> this->timer >> terminator;
+    stream >> timer >> waveCount >> origin.x >> origin.y >> directon >> terminator;
     if (terminator != "EndOfComponent")
         throw InvalidSerializedStringException("The component terminator was not found");
 }
 
 std::ostream& ECS::UltShockWaveComponent::serialize(std::ostream &stream) const
 {
-    return stream << this->timer <<" EndOfComponent";
+    return stream << timer << waveCount << origin.x << origin.y << directon << " EndOfComponent";
 }

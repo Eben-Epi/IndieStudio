@@ -60,8 +60,9 @@ void ECS::BombDropperSystem::updateEntity(ECS::Entity &entity)
 	bombDropper.dropBomb = false;
 	bomb_owner.ownerId = entity.getId();
 
-
-	auto &bc = reinterpret_cast<BlockedComponent &>(entity.getComponentByName("Blocked"));
-	bc.whitelistId.push_back(&newBomb);
-
+    auto players = this->_core.getEntitiesByName("Player");
+    for (auto &player : players) {
+        auto &bc = reinterpret_cast<BlockedComponent &>(player->getComponentByName("Blocked"));
+        bc.whitelistId.push_back(&newBomb);
+    }
 }

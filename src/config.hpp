@@ -42,7 +42,8 @@ const std::vector<std::string> sound_to_load = {
     "announcer_sydney",
     "announcer_gunguy",
     "announcer_winner",
-    "announcer_alphaone"
+    "announcer_alphaone",
+    "shock"
 };
 
 #endif //BOMBERMAN_CONFIG_HPP
