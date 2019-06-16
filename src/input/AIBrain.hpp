@@ -23,13 +23,23 @@ namespace Input {
         ~AIBrain() = default;
 
         std::vector<Action> getActions();
+        void changeKey(Action, irr::EKEY_CODE);
+        bool isAI() override;
+
+        void resetControl() override {};
+
+    private:
 
         bool canEscape(std::vector<int> &bonusMalusZone);
 
-        std::vector<Action> getTheBestWay(
+        std::vector<Action> getTheBestWay(std::vector<int> &bonusMalusZone, ECS::Point &myPos);
+        void updatingRelativeFurther(std::vector<ECS::Point> &relativeFurther, ECS::Point &newERelativePos);
+
+        void bombPlacedChangesBonusMalusZoneScore(
             std::vector<int> &bonusMalusZone,
-            ECS::Entity *objective,
-            ECS::Point &myPos
+            std::vector<int> &bonusMalusCorners,
+            std::vector<ECS::Point> &relativeFurther,
+            std::vector<ECS::Point> &relativeVision
         );
 
         void updateRelativeVisionForBlocks(
@@ -55,15 +65,11 @@ namespace Input {
         std::vector<ECS::Point> getRelativeVision(ECS::Point &point);
         ECS::Point getRelativePosPlayer(ECS::Point &pos);
         ECS::Point getRelativePosObj(ECS::Point &pos);
-        ECS::Entity *setAIObjective(ECS::Entity &me, ECS::Entity *objective, std::vector<ECS::Entity *> bonuses);
+        ECS::Entity *setAIObjective(ECS::Entity &me, std::vector<ECS::Entity *> &bonuses);
         void initBadPos(ECS::PositionComponent &pos, int xTmp, int yTmp);
 
-        void changeKey(Action, irr::EKEY_CODE);
-        bool isAI() override;
+        //values
 
-        void resetControl() override {};
-
-    private:
     	bool _init = false;
     	unsigned _id;
         ECS::Entity *_entity;
@@ -71,11 +77,11 @@ namespace Input {
         ECS::ECSCore &_core;
         ECS::PositionComponent *_pos;
         std::vector<Action> _actions = {};
-        ECS::Entity *_objective;
-        int _timer = 0;
+        ECS::Entity *_objective = nullptr;
         int _onStepAbs;
-        int _bombTimer = 50;
-        int _blockDestroyed = 0;
+        bool _bombPlaced;
+        int _xTmp;
+        int _yTmp;
     };
 }
 
