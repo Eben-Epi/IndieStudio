@@ -25,6 +25,9 @@ namespace Irrlicht
 
 	class MainMenu : public GameScene
 	{
+		private:
+			unsigned _clock = 0;
+
 		public:
 			MainMenu(Screen &screen, const std::string &name, unsigned id);
 			~MainMenu() = default;

@@ -31,10 +31,6 @@ add_executable(
 	src/ecs/components/CurseComponent.cpp
 	src/ecs/components/CurseComponent.hpp
 	src/ecs/components/CurseOnPickComponent.cpp
-	src/ecs/components/CurseOnPickComponent.cpp
-	src/ecs/components/CurseOnPickComponent.cpp
-	src/ecs/components/CurseOnPickComponent.hpp
-	src/ecs/components/CurseOnPickComponent.hpp
 	src/ecs/components/CurseOnPickComponent.hpp
 	src/ecs/components/DisplayableComponent.cpp
 	src/ecs/components/DisplayableComponent.hpp
@@ -56,11 +52,11 @@ add_executable(
 	src/ecs/components/MortalComponent.hpp
 	src/ecs/components/MovableComponent.cpp
 	src/ecs/components/MovableComponent.hpp
+	src/ecs/components/NameComponent.cpp
+	src/ecs/components/NameComponent.hpp
 	src/ecs/components/OnCollisionDamageDealerComponent.cpp
 	src/ecs/components/OnCollisionDamageDealerComponent.hpp
 	src/ecs/components/OOBKillComponent.cpp
-	src/ecs/components/OOBKillComponent.cpp
-	src/ecs/components/OOBKillComponent.hpp
 	src/ecs/components/OOBKillComponent.hpp
 	src/ecs/components/OwnerComponent.cpp
 	src/ecs/components/OwnerComponent.hpp
@@ -74,14 +70,16 @@ add_executable(
 	src/ecs/components/PowerUpComponent.hpp
 	src/ecs/components/PowerUpPickedComponent.cpp
 	src/ecs/components/PowerUpPickedComponent.hpp
+	src/ecs/components/UltBombRainComponent.cpp
+	src/ecs/components/UltBombRainComponent.hpp
 	src/ecs/components/UltimeComponent.cpp
 	src/ecs/components/UltimeComponent.hpp
 	src/ecs/components/UltInvincibilityComponent.cpp
-	src/ecs/components/UltInvincibilityComponent.cpp
-	src/ecs/components/UltInvincibilityComponent.hpp
 	src/ecs/components/UltInvincibilityComponent.hpp
 	src/ecs/components/UltShockWaveComponent.cpp
 	src/ecs/components/UltShockWaveComponent.hpp
+	src/ecs/components/UltStrikeComponent.cpp
+	src/ecs/components/UltStrikeComponent.hpp
 	src/ecs/data/Directions.hpp
 	src/ecs/data/NumericValue.hpp
 	src/ecs/data/Vector2.hpp
@@ -90,8 +88,6 @@ add_executable(
 	src/ecs/entities/Alphaone.cpp
 	src/ecs/entities/Alphaone.hpp
 	src/ecs/entities/Bedrock.cpp
-	src/ecs/entities/Bedrock.cpp
-	src/ecs/entities/Bedrock.hpp
 	src/ecs/entities/Bedrock.hpp
 	src/ecs/entities/Bomb.cpp
 	src/ecs/entities/Bomb.hpp
@@ -100,13 +96,13 @@ add_executable(
 	src/ecs/entities/ExplosionFrame.cpp
 	src/ecs/entities/ExplosionFrame.hpp
 	src/ecs/entities/Faerie.cpp
-	src/ecs/entities/Faerie.cpp
-	src/ecs/entities/Faerie.hpp
 	src/ecs/entities/Faerie.hpp
 	src/ecs/entities/Player.cpp
 	src/ecs/entities/Player.hpp
 	src/ecs/entities/PowerUps/DroppedBonusBomb.cpp
 	src/ecs/entities/PowerUps/DroppedBonusBomb.hpp
+	src/ecs/entities/PowerUps/DroppedBonusGhost.cpp
+	src/ecs/entities/PowerUps/DroppedBonusGhost.hpp
 	src/ecs/entities/PowerUps/DroppedBonusHardness.cpp
 	src/ecs/entities/PowerUps/DroppedBonusHardness.hpp
 	src/ecs/entities/PowerUps/DroppedBonusHealth.cpp
@@ -120,16 +116,8 @@ add_executable(
 	src/ecs/entities/PowerUps/DroppedItem.cpp
 	src/ecs/entities/PowerUps/DroppedItem.hpp
 	src/ecs/entities/Skull.cpp
-	src/ecs/entities/Skull.cpp
-	src/ecs/entities/Skull.cpp
-	src/ecs/entities/Skull.cpp
-	src/ecs/entities/Skull.hpp
-	src/ecs/entities/Skull.hpp
-	src/ecs/entities/Skull.hpp
 	src/ecs/entities/Skull.hpp
 	src/ecs/entities/Sydney.cpp
-	src/ecs/entities/Sydney.cpp
-	src/ecs/entities/Sydney.hpp
 	src/ecs/entities/Sydney.hpp
 	src/ecs/entities/Wall.cpp
 	src/ecs/entities/Wall.hpp
@@ -160,10 +148,6 @@ add_executable(
 	src/ecs/systems/ControllableSystem.cpp
 	src/ecs/systems/ControllableSystem.hpp
 	src/ecs/systems/CurseOnPickSystem.cpp
-	src/ecs/systems/CurseOnPickSystem.cpp
-	src/ecs/systems/CurseOnPickSystem.cpp
-	src/ecs/systems/CurseOnPickSystem.hpp
-	src/ecs/systems/CurseOnPickSystem.hpp
 	src/ecs/systems/CurseOnPickSystem.hpp
 	src/ecs/systems/CurseSystem.cpp
 	src/ecs/systems/CurseSystem.hpp
@@ -187,11 +171,11 @@ add_executable(
 	src/ecs/systems/MortalSystem.hpp
 	src/ecs/systems/MovableSystem.cpp
 	src/ecs/systems/MovableSystem.hpp
+	src/ecs/systems/NameSystem.cpp
+	src/ecs/systems/NameSystem.hpp
 	src/ecs/systems/OnCollisionDamageDealerSystem.cpp
 	src/ecs/systems/OnCollisionDamageDealerSystem.hpp
 	src/ecs/systems/OOBKillSystem.cpp
-	src/ecs/systems/OOBKillSystem.cpp
-	src/ecs/systems/OOBKillSystem.hpp
 	src/ecs/systems/OOBKillSystem.hpp
 	src/ecs/systems/OwnerSystem.cpp
 	src/ecs/systems/OwnerSystem.hpp
@@ -205,15 +189,16 @@ add_executable(
 	src/ecs/systems/PowerUpPickedSystem.hpp
 	src/ecs/systems/PowerUpSystem.cpp
 	src/ecs/systems/PowerUpSystem.hpp
+	src/ecs/systems/UltBombRainSystem.cpp
+	src/ecs/systems/UltBombRainSystem.hpp
 	src/ecs/systems/UltimeSystem.cpp
 	src/ecs/systems/UltimeSystem.hpp
 	src/ecs/systems/UltInvincibilitySystem.cpp
-	src/ecs/systems/UltInvincibilitySystem.cpp
-	src/ecs/systems/UltInvincibilitySystem.hpp
-	src/ecs/systems/UltInvincibilitySystem.hpp
 	src/ecs/systems/UltInvincibilitySystem.hpp
 	src/ecs/systems/UltShockWaveSystem.cpp
 	src/ecs/systems/UltShockWaveSystem.hpp
+	src/ecs/systems/UltStrikeSystem.cpp
+	src/ecs/systems/UltStrikeSystem.hpp
 	src/input/AIBrain.cpp
 	src/input/AIBrain.hpp
 	src/input/Controller.cpp
@@ -224,48 +209,36 @@ add_executable(
 	src/input/Keyboard.hpp
 	src/irrlicht/Animations.hpp
 	src/irrlicht/Exceptions.hpp
-	src/irrlicht/Exceptions.hpp
-	src/irrlicht/Exceptions.hpp
+	src/irrlicht/game-scene/demo-menu/DemoMenu.cpp
+	src/irrlicht/game-scene/demo-menu/DemoMenu.hpp
 	src/irrlicht/game-scene/GameScene.cpp
 	src/irrlicht/game-scene/GameScene.hpp
-	src/irrlicht/game-scene/irr-entity/IrrEntity.cpp
-	src/irrlicht/game-scene/irr-entity/IrrEntity.hpp
 	src/irrlicht/game-scene/hud/Button.cpp
 	src/irrlicht/game-scene/hud/Button.hpp
-	src/irrlicht/textbox/TextBox.hpp
-	src/irrlicht/textbox/TextBox.cpp
-	src/irrlicht/game-scene/main-menu/MainMenu.hpp
+	src/irrlicht/game-scene/irr-entity/IrrEntity.cpp
+	src/irrlicht/game-scene/irr-entity/IrrEntity.hpp
+	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.cpp
+	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.hpp
 	src/irrlicht/game-scene/main-menu/MainMenu.cpp
+	src/irrlicht/game-scene/main-menu/MainMenu.hpp
 	src/irrlicht/game-scene/new-game-menu/NewGameMenu.cpp
 	src/irrlicht/game-scene/new-game-menu/NewGameMenu.hpp
 	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.hpp
 	src/irrlicht/game-scene/load-game-menu/LoadGameMenu.cpp
-		src/irrlicht/game-scene/keys-managing-menu-new/KeysManagingMenuNew.hpp
-		src/irrlicht/game-scene/keys-managing-menu-new/KeysManagingMenuNew.cpp
+	src/irrlicht/game-scene/keys-managing-menu-new/KeysManagingMenuNew.hpp
+	src/irrlicht/game-scene/keys-managing-menu-new/KeysManagingMenuNew.cpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.cpp
 	src/irrlicht/irr-input/event-receiver/EventReceiver.hpp
 	src/irrlicht/screen/Screen.cpp
 	src/irrlicht/screen/Screen.hpp
+	src/irrlicht/textbox/TextBox.cpp
+	src/irrlicht/textbox/TextBox.hpp
 	src/map/Map.cpp
 	src/map/Map.hpp
 	src/sound/Exception.hpp
-	src/sound/Exception.hpp
 	src/sound/SoundSystem.cpp
 	src/sound/SoundSystem.hpp
-	src/ecs/components/NameComponent.cpp
-	src/ecs/components/NameComponent.hpp
-	src/ecs/systems/NameSystem.cpp
-	src/ecs/systems/NameSystem.hpp
-	src/ecs/entities/PowerUps/DroppedBonusGhost.cpp
-	src/ecs/entities/PowerUps/DroppedBonusGhost.hpp
-	src/ecs/components/UltStrikeComponent.cpp
-	src/ecs/components/UltStrikeComponent.hpp
-	src/ecs/systems/UltStrikeSystem.cpp
-	src/ecs/systems/UltStrikeSystem.hpp
-	src/ecs/components/UltBombRainComponent.cpp
-	src/ecs/components/UltBombRainComponent.hpp
-	src/ecs/systems/UltBombRainSystem.cpp
-	src/ecs/systems/UltBombRainSystem.hpp src/irrlicht/game-scene/keys-managing-menu-load/KeysManagingMenuLoad.cpp src/irrlicht/game-scene/keys-managing-menu-load/KeysManagingMenuLoad.hpp)
+)
 
 find_package(Irrlicht REQUIRED)
 find_package(Sfml REQUIRED)

@@ -37,7 +37,8 @@ void ECS::PowerUpPickedSystem::updateEntity(ECS::Entity &entity)
         if (pickable.pickedBy->hasComponent("Collision")) {
             auto &cc = reinterpret_cast<CollisionComponent &>(pickable.pickedBy->getComponentByName("Collision"));
 
-            cc.passThrough = pucI.hardness;
+            if (cc.passThrough < pucI.hardness)
+            	cc.passThrough = pucI.hardness;
         }
         if (pickable.pickedBy->hasComponent("Kicker") && pucI.kick) {
             auto &kc = reinterpret_cast<KickerComponent &>(pickable.pickedBy->getComponentByName("Kicker"));

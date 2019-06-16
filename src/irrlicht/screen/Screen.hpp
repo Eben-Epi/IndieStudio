@@ -45,6 +45,7 @@ namespace Irrlicht
         void addGameSceneLoadGameMenu(const std::string &name);
         void addGameSceneKeysManagingMenuNew(const std::string &name, unsigned playerNb, unsigned iaNb, unsigned soundVolume);
         void addGameSceneKeysManagingMenuLoad(const std::string &name, unsigned playerNb, unsigned iaNb, unsigned soundVolume);
+        void addGameSceneDemoMenu(const std::string &name);
         void resetButtonsStates();
         EventReceiver &getEventReceiver();
         GameScene &getGameSceneById(unsigned id);
@@ -55,6 +56,7 @@ namespace Irrlicht
         irr::IrrlichtDevice *getDevice();
 
         bool isGameClosed;
+        Sound::SoundSystem soundSystem;
     private:
         irr::video::E_DRIVER_TYPE _driverType;
         int _width;
@@ -65,7 +67,6 @@ namespace Irrlicht
         std::string _currentSceneName;
         std::vector<std::unique_ptr<GameScene>> _scenes;
 
-        Sound::SoundSystem soundSystem;
         //PROPERTIES
         irr::IrrlichtDevice* _device;
         irr::video::IVideoDriver* _driver;

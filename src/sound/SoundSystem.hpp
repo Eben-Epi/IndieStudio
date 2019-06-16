@@ -32,12 +32,14 @@ namespace Sound
 		void stopBackgroundMusic();
 		void stop(unsigned id);
 		void setBackgroundMusic(const std::string &id, float volume = 100);
+		void setGlobalVolume(float volume = 100);
 
 	private:
-		std::thread                            _bgThread;
-		std::unique_ptr<unsigned>              _backgroundMusic;
-		std::map<std::string, sf::SoundBuffer> _loadedSounds;
-		std::vector<std::unique_ptr<sf::Sound>>_sounds;
+		float                                                    _baseVolume = 100;
+		std::thread                                              _bgThread;
+		std::unique_ptr<unsigned>                                _backgroundMusic;
+		std::map<std::string, sf::SoundBuffer>                   _loadedSounds;
+		std::vector<std::pair<std::unique_ptr<sf::Sound>, float>>_sounds;
 	};
 }
 

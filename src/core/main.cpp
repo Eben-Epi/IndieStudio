@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <random>
 #include "irrlicht/Keycodes.h"
 #include "../irrlicht/screen/Screen.hpp"
 #include "../irrlicht/game-scene/GameScene.hpp"
@@ -64,8 +63,8 @@ bool displayEndGameMenu(Map::Map *map, Irrlicht::Screen &screen, Sound::SoundSys
 	delete map;
 	screen.setCursorVisible(true);
 	if (!screen.isValidGetterName("Main Menu"))
-	    screen.addGameSceneMainMenu("Main Menu");
-    screen.setCurrentGameScene("Main Menu");
+		screen.addGameSceneMainMenu("Main Menu");
+	screen.setCurrentGameScene("Main Menu");
 
 	if (screen.isGameClosed)
 		exit(EXIT_SUCCESS);
@@ -74,13 +73,15 @@ bool displayEndGameMenu(Map::Map *map, Irrlicht::Screen &screen, Sound::SoundSys
 
 int main()
 {
+	srand(time(NULL));
 	try {
-        Irrlicht::Screen screen(640, 640, 32, false, true);
-        screen.addGameSceneMainMenu("Main Menu");
+		Irrlicht::Screen screen(640, 640, 32, false, true);
+		screen.addGameSceneMainMenu("Main Menu");
+
 		if (!screen.setCurrentGameScene("Main Menu"))
 			return EXIT_FAILURE;
 		screen.getGameSceneByName("Main Menu").addCamera(320, 500, -320, 320, 0, -319);
-        while (screen.display());
+		while (screen.display());
 
 //		std::vector<std::unique_ptr<Input::Input>> inputs;
 //		Sound::SoundSystem soundSystem;
