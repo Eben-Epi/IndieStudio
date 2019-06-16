@@ -63,6 +63,8 @@ Irrlicht::KeysManagingMenuNew::KeysManagingMenuNew(Screen &screen, const std::st
     this->_textBoxes.emplace_back(new TextBox({30, 440}, {20, 220, 80, 220 + 32}, 0, this->_window.getGuiEnv(), "DROP"));
     this->_textBoxes.emplace_back(new TextBox({30, 500}, {20, 220, 80, 220 + 32}, 0, this->_window.getGuiEnv(), "ULT"));
 
+    this->_buttons.emplace_back(new Button({200, 550}, {20, 240, 110, 240 + 32}, Input::BACK_FROM_KEYS_MANAGING, this->_window.getGuiEnv(), "BACK"));
+    this->_buttons.emplace_back(new Button({350, 550}, {20, 240, 110, 240 + 32}, Input::NEXT_FROM_KEYS_MANAGING, this->_window.getGuiEnv(), "NEXT"));
 	// KEYS
 	for (int i = 0; i != _playersNumber; i++) {
         this->_inputs.emplace_back(new Input::Keyboard(*this, defaultKeyboardsKeys[i]));
@@ -83,18 +85,18 @@ Irrlicht::KeysManagingMenuNew::KeysManagingMenuNew(Screen &screen, const std::st
         this->_buttons.emplace_back(new Button({120 + ((double)i * 120), 500}, {20, 240, 110, 240 + 32}, Input::P1_ULT + (i * 6),
                                                this->_window.getGuiEnv(), this->_inputs.back()->getEnumControlString(Input::ACTION_ULT)));
     }
-    this->_buttons.emplace_back(new Button({200, 550}, {20, 240, 110, 240 + 32}, Input::BACK_FROM_KEYS_MANAGING, this->_window.getGuiEnv(), "BACK"));
-    this->_buttons.emplace_back(new Button({350, 550}, {20, 240, 110, 240 + 32}, Input::NEXT_FROM_KEYS_MANAGING, this->_window.getGuiEnv(), "NEXT"));
 
 }
 
 
 bool Irrlicht::KeysManagingMenuNew::update()
 {
+    std::vector<Map::Map::PlayerConfig> configs;
     auto key = irr::KEY_KEY_CODES_COUNT;
     for (unsigned i = 0; i < this->_buttons.size(); i++) {
         if (this->isGuiButtonPressed(i)) {
-			switch (i) {
+            std::cout << i << " " << this->_buttons[i]->id<< std::endl;
+			switch (this->_buttons[i]->id) {
                 case Input::P1_UP:
                 case Input::P1_DOWN:
                 case Input::P1_LEFT:
@@ -124,31 +126,38 @@ bool Irrlicht::KeysManagingMenuNew::update()
                             this->_window.getDevice()->run();
                         }
                         if (key != irr::KEY_ESCAPE) {
-                            reinterpret_cast<Input::Keyboard&>(*this->_inputs[i / Input::P2_UP]).changeKey(static_cast<Input::Action>(this->_buttons[i]->id % Input::P2_UP), key);
-                            this->_buttons[i + 1]->setText(this->_inputs[i / Input::P2_UP]->getEnumControlString(static_cast<Input::Action>(this->_buttons[i]->id % Input::P2_UP)));
+                            reinterpret_cast<Input::Keyboard&>(*this->_inputs[(this->_buttons[i]->id + 2) / Input::P2_UP]).changeKey(static_cast<Input::Action>((this->_buttons[i]->id + 2) % Input::P2_UP), key);
+                            this->_buttons[i + 1]->setText(this->_inputs[(this->_buttons[i]->id + 2) / Input::P2_UP]->getEnumControlString(static_cast<Input::Action>((this->_buttons[i]->id + 2) % Input::P2_UP)));
                         }
                     }
-			        break;
-			    case Input::P1_INPUT_CHOICE:
-			    case Input::P2_INPUT_CHOICE:
-			    case Input::P3_INPUT_CHOICE:
-			    case Input::P4_INPUT_CHOICE:
-			        if (this->joysticksAvailable() > 0) {
+                    break;
+                case Input::P1_INPUT_CHOICE:
+                case Input::P2_INPUT_CHOICE:
+                case Input::P3_INPUT_CHOICE:
+                case Input::P4_INPUT_CHOICE:
+                    if (this->joysticksAvailable() > 0) {
                         this->assignNextJoystick(i - Input::P1_INPUT_CHOICE);
                         this->_buttons[i + 1]->setText("JOYSTICK");
-			        }
-			case Input::BACK_FROM_KEYS_MANAGING:
-				if (!this->_window.isValidGetterName("Main Menu"))
-					this->_window.addGameSceneMainMenu("Main Menu");
-				changeCurrentGameScene("Main Menu");
-				return (false);
-			case Input::NEXT_FROM_KEYS_MANAGING:
-				if (!this->_window.isValidGetterName("Game"))
-					this->_window.addGameSceneGame("Game");
-				changeCurrentGameScene("Game");
-				return (true);
-			default:
-				break;
+                    }
+                    break;
+                case Input::BACK_FROM_KEYS_MANAGING:
+                    if (!this->_window.isValidGetterName("Main Menu"))
+                        this->_window.addGameSceneMainMenu("Main Menu");
+                    changeCurrentGameScene("Main Menu");
+                    return (false);
+                case Input::NEXT_FROM_KEYS_MANAGING:
+                    for (unsigned j = 0; j != this->_playersNumber; j++) {
+                        configs.push_back(Map::Map::PlayerConfig{&*this->_inputs[j], playerEntities[rand() % playerEntities.size()], j});
+                    }
+                    for (unsigned j = 0; j != this->_iaNumber; j++) {
+                        configs.push_back(Map::Map::PlayerConfig{nullptr, playerEntities[rand() % playerEntities.size()], j + this->_playersNumber});
+                    }
+                    if (!this->_window.isValidGetterName("Game"))
+                        this->_window.addGameSceneGame("Game", configs);
+                    changeCurrentGameScene("Game");
+                    return (true);
+                default:
+                    break;
 			}
 		    this->_window.resetButtonsStates();
 		}

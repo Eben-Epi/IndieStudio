@@ -22,6 +22,7 @@
 #include "../Exceptions.hpp"
 #include "../game-scene/keys-managing-menu-load/KeysManagingMenuLoad.hpp"
 #include "../../config.hpp"
+#include "../game-scene/game/Game.hpp"
 
 #if defined(_WIN32) && !defined(__GNUC__)
 #define driverType irr::video::EDT_DIRECT3D9
@@ -145,8 +146,8 @@ bool Irrlicht::Screen::setWindowAttributes(int width, int height, int colorDepth
     return (true);
 }
 
-void Irrlicht::Screen::addGameSceneGame(const std::string &name) {
-    this->_scenes.emplace_back(new GameScene{*this, name, static_cast<unsigned>(this->_scenes.size())});
+void Irrlicht::Screen::addGameSceneGame(const std::string &name, std::vector<Map::Map::PlayerConfig> configs) {
+    this->_scenes.emplace_back(new Game{*this, name, static_cast<unsigned>(this->_scenes.size()), configs});
 }
 
 void Irrlicht::Screen::addGameSceneMainMenu(const std::string &name) {

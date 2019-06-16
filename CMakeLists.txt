@@ -240,7 +240,7 @@ add_executable(
 	src/sound/Exception.hpp
 	src/sound/SoundSystem.cpp
 	src/sound/SoundSystem.hpp
-)
+		src/irrlicht/game-scene/game/Game.cpp src/irrlicht/game-scene/game/Game.hpp)
 
 find_package(Irrlicht REQUIRED)
 find_package(Sfml REQUIRED)

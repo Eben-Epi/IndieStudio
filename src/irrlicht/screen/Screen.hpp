@@ -12,7 +12,7 @@
 #include "../../ecs/data/Vector2.hpp"
 #include "../irr-input/event-receiver/EventReceiver.hpp"
 #include "../../sound/SoundSystem.hpp"
-
+#include "../../map/Map.hpp"
 
 //#define TRANSFORM_COLOR_TO_SFML_COLOR(color) sf::Color(static_cast<sf::Uint8>(color >> 16), static_cast<sf::Uint8>(color >> 8), static_cast<sf::Uint8>(color))
 #define WINDOW_NAME "Bomberman"
@@ -39,7 +39,7 @@ namespace Irrlicht
         void setGameClosed(bool close);
         bool isValidGetterId(unsigned id);
         bool isValidGetterName(const std::string& name);
-        void addGameSceneGame(const std::string &name);
+        void addGameSceneGame(const std::string &name, std::vector<Map::Map::PlayerConfig> configs);
         void addGameSceneMainMenu(const std::string &name);
         void addGameSceneNewGameMenu(const std::string &name);
         void addGameSceneLoadGameMenu(const std::string &name);

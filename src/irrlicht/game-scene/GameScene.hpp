@@ -22,7 +22,6 @@ namespace Irrlicht {
 
 	class Screen;
 	class MainMenu;
-	class OptionsMenu;
 
 	enum ControllerAxisGS {
 		LEFT_JOYSTICK_UP = 0,

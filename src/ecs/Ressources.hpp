@@ -10,8 +10,13 @@
 
 
 #include "../input/Input.hpp"
-#include "../irrlicht/game-scene/GameScene.hpp"
 #include "../sound/SoundSystem.hpp"
+#include "data/Vector2.hpp"
+#include "Component.hpp"
+
+namespace Irrlicht{
+    class GameScene;
+};
 
 namespace ECS
 {

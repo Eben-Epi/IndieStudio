@@ -35,9 +35,6 @@ bool Irrlicht::KeysManagingMenuLoad::update()
                     changeCurrentGameScene("Main Menu");
                     return (true);
                 case Input::NEXT_FROM_KEYS_MANAGING:
-                    if (!this->_window.isValidGetterName("Game"))
-                        this->_window.addGameSceneGame("Game");
-                    changeCurrentGameScene("Game");
                     return (true);
                 default:
                     break;

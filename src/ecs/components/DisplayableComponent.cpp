@@ -10,6 +10,7 @@
 #include "../Ressources.hpp"
 #include "../../irrlicht/Animations.hpp"
 #include "../Exceptions.hpp"
+#include "../../irrlicht/game-scene/GameScene.hpp"
 
 namespace ECS
 {
