@@ -59,8 +59,6 @@ Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen,
     this->_guienv = (this->_device->getGUIEnvironment());
     this->_smgr = (this->_device->getSceneManager());
     this->_device->setResizable(false);
-    for (auto &sound_name : sound_to_load)
-	    soundSystem.loadSound(sound_name);
 }
 
 
