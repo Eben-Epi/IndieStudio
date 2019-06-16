@@ -20,6 +20,7 @@ namespace Irrlicht
 	{
 		NEW_GAME = 0,
 		LOAD_GAME,
+		HOW_TO_PLAY,
 		EXIT,
 	};
 

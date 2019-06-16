@@ -18,6 +18,8 @@
 #include "../game-scene/keys-managing-menu-new/KeysManagingMenuNew.hpp"
 #include "../game-scene/load-game-menu/LoadGameMenu.hpp"
 #include "../game-scene/new-game-menu/NewGameMenu.hpp"
+#include "../game-scene/how-to-play/HowToPlayMenu.hpp"
+#include "../game-scene/pause-menu/PauseMenu.hpp"
 #include "../game-scene/demo-menu/DemoMenu.hpp"
 #include "../Exceptions.hpp"
 #include "../game-scene/keys-managing-menu-load/KeysManagingMenuLoad.hpp"
@@ -167,6 +169,16 @@ void Irrlicht::Screen::addGameSceneKeysManagingMenuNew(const std::string &name, 
 void Irrlicht::Screen::addGameSceneKeysManagingMenuLoad(const std::string &name, unsigned playerNb, unsigned iaNb, unsigned soundVolume) {
     this->_scenes.emplace_back(new KeysManagingMenuLoad{*this, name, static_cast<unsigned>(this->_scenes.size()), playerNb, iaNb, soundVolume});
 }
+
+void Irrlicht::Screen::addGameSceneHTPGameMenu(const std::string &name)
+{
+    this->_scenes.emplace_back(new HowToPlayMenu{*this, name, static_cast<unsigned>(this->_scenes.size())});
+}
+/*
+void addGameScenePauseMenu(const std::string &name)
+{
+    this->_scenes.emplace_back(new PauseMenu{*this, name, static_cast<unsigned>(this->_scenes.size(), map)});
+}*/
 
 void Irrlicht::Screen::addGameSceneDemoMenu(const std::string &name) {
     this->_scenes.emplace_back(new DemoMenu{*this, name, static_cast<unsigned>(this->_scenes.size())});
