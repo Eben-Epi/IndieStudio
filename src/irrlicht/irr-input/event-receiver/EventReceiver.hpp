@@ -24,6 +24,7 @@ namespace Irrlicht
 		virtual bool OnEvent(const irr::SEvent &event) override;
 //		void addContext();
 		virtual bool isKeyPressed(irr::EKEY_CODE keyCode) const;
+		irr::EKEY_CODE returnNextKeyPressed();
 		const irr::SEvent::SJoystickEvent &GetJoystickState(unsigned id) const;
 		bool isGuiButtonPressed(unsigned id);
 		bool isJoystickKeyPressed(unsigned id, irr::u32 key) const;

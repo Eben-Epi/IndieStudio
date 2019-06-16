@@ -29,6 +29,9 @@ namespace Irrlicht
         unsigned _playersNumber;
         unsigned _soundVolume;
         unsigned _iaNumber;
+        std::vector<std::unique_ptr<Input::Input>> _inputs;
+        irr::core::array<irr::SJoystickInfo> _joystickInfos;
+
     };
 }
 

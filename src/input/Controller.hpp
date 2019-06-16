@@ -48,6 +48,7 @@ namespace Input
             void joystickIn();
             void removeJoystick();
             void resetControl() override;
+            std::string getEnumControlString(Action code);
 
         private:
             Irrlicht::GameScene &_scene;

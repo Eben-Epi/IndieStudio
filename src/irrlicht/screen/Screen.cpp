@@ -20,6 +20,7 @@
 #include "../game-scene/new-game-menu/NewGameMenu.hpp"
 #include "../Exceptions.hpp"
 #include "../game-scene/keys-managing-menu-load/KeysManagingMenuLoad.hpp"
+#include "../../config.hpp"
 
 #if defined(_WIN32) && !defined(__GNUC__)
 #define driverType irr::video::EDT_DIRECT3D9
@@ -54,6 +55,8 @@ Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen,
     this->_guienv = (this->_device->getGUIEnvironment());
     this->_smgr = (this->_device->getSceneManager());
     this->_device->setResizable(false);
+    for (auto &sound_name : sound_to_load)
+	    soundSystem.loadSound(sound_name);
 }
 
 

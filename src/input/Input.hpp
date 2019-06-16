@@ -32,9 +32,7 @@ namespace Input {
 
     enum KeysButtonName
     {
-        BACK_FROM_KEYS_MANAGING = 0,
-        NEXT_FROM_KEYS_MANAGING,
-        P1_UP,
+        P1_UP = 0,
         P1_DOWN,
         P1_LEFT,
         P1_RIGHT,
@@ -58,6 +56,12 @@ namespace Input {
         P4_RIGHT,
         P4_DROP,
         P4_ULT,
+        P1_INPUT_CHOICE,
+        P2_INPUT_CHOICE,
+        P3_INPUT_CHOICE,
+        P4_INPUT_CHOICE,
+        BACK_FROM_KEYS_MANAGING,
+        NEXT_FROM_KEYS_MANAGING
     };
 
     class Input {
@@ -65,6 +69,7 @@ namespace Input {
         virtual std::vector<Action> getActions() = 0;
         virtual bool isAI() = 0;
         virtual void resetControl() = 0;
+        virtual std::string getEnumControlString(Action code) = 0;
 
     private:
     };

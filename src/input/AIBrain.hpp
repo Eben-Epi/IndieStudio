@@ -27,7 +27,7 @@ namespace Input {
         bool isAI() override;
 
         void resetControl() override {};
-
+        std::string getEnumControlString(Action code);
     private:
 
         bool canEscape(std::vector<int> &bonusMalusZone);

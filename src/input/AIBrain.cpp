@@ -469,3 +469,7 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
     }
     return (_actions);
 }
+
+std::string Input::AIBrain::getEnumControlString(Action code) {
+    return ("");
+}

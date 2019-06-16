@@ -11,6 +11,7 @@
 #include "../../ecs/Entity.hpp"
 #include "../../ecs/data/Vector2.hpp"
 #include "../irr-input/event-receiver/EventReceiver.hpp"
+#include "../../sound/SoundSystem.hpp"
 
 
 //#define TRANSFORM_COLOR_TO_SFML_COLOR(color) sf::Color(static_cast<sf::Uint8>(color >> 16), static_cast<sf::Uint8>(color >> 8), static_cast<sf::Uint8>(color))
@@ -64,6 +65,7 @@ namespace Irrlicht
         std::string _currentSceneName;
         std::vector<std::unique_ptr<GameScene>> _scenes;
 
+        Sound::SoundSystem soundSystem;
         //PROPERTIES
         irr::IrrlichtDevice* _device;
         irr::video::IVideoDriver* _driver;

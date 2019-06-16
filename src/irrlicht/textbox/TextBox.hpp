@@ -40,8 +40,6 @@ namespace Irrlicht
 		void setDrawBorder(bool draw);
 		void setTextAlignment(irr::gui::EGUI_ALIGNMENT horizontal, irr::gui::EGUI_ALIGNMENT vertical);
 		void setColorOfText(irr::video::SColor color);
-		void setTextFromIrrlichtKeysEnum(irr::EKEY_CODE);
-		void setTextFromIrrlichtKeysEnum(Input::ControllerButtons);
 
 		unsigned id;
 
