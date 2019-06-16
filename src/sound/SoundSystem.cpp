@@ -26,7 +26,7 @@ namespace Sound
 			throw AlreadyLoadedException(id + " has already been loaded");
 		} catch (std::out_of_range &) {
 #if defined(_WIN32) && !defined(__GNUC__)
-			this->_loadedSounds[id];
+			this->_loadedSounds[id].loadFromFile("media/sounds/" + id + ".ogg");
 #else
 			if (!this->_loadedSounds[id].loadFromFile("media/sounds/" + id + ".ogg"))
 				throw InvalidFileException("Cannot load sound file media/sounds/" + id + ".ogg");
