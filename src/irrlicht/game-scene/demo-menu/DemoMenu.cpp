@@ -43,6 +43,8 @@ bool Irrlicht::DemoMenu::update()
 		this->changeCurrentGameScene("Main Menu");
 		return (false);
 	}
+	if (this->_gameClock)
+		this->_gameClock++;
 	if (this->_gameClock == 0 && !this->_map->update()) {
 		if (this->_map->getPlayersAlive().empty())
 			this->_window.soundSystem.playSound("announcer_draw");
@@ -51,10 +53,9 @@ bool Irrlicht::DemoMenu::update()
 		this->_gameClock++;
 	}
 	if (this->_gameClock == FRAME_RATE * 2) {
-		if (this->_map->getPlayersAlive().empty()) {
-			this->_map.reset(new Map::Map{*this, this->_ais, *new Sound::SoundSystem()});
+		if (this->_map->getPlayersAlive().empty())
 			this->_gameClock = FRAME_RATE * 4;
-		} else
+		else
 			this->_window.soundSystem.playSound("announcer_" + reinterpret_cast<ECS::NameComponent &>(this->_map->getPlayersAlive()[0]->getComponentByName("Name")).name);
 	}
 	if (this->_gameClock >= FRAME_RATE * 4) {
