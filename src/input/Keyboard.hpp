@@ -28,6 +28,7 @@ namespace Input
         Irrlicht::GameScene &_scene;
         std::vector<irr::EKEY_CODE> _keys;
         std::vector<irr::EKEY_CODE> _default;
+        Action _act = Action::NO_ACTION;
     };
 }
 

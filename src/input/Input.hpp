@@ -26,7 +26,8 @@ namespace Input {
         ACTION_ACTION,
         ACTION_ULT,
         NB_OF_ACTIONS,
-        ACTION_JOYSTICK
+        ACTION_JOYSTICK,
+        NO_ACTION
     };
 
     class Input {
