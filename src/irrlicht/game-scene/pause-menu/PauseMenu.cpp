@@ -30,10 +30,10 @@ bool Irrlicht::PauseMenu::update()
 					break;
 				case SAVE_AND_EXIT:
 					this->_map->save("save.txt");
-					this->_window.getDevice()->drop();
+					this->_window.getDevice()->closeDevice();
 					return (false);
 				case PAUSE_EXIT:
-					this->_window.getDevice()->drop();
+					this->_window.getDevice()->closeDevice();
 					return (false);
 				default:
 					break;

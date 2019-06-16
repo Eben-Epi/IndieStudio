@@ -41,7 +41,7 @@ bool Irrlicht::MainMenu::update()
                     changeCurrentGameScene("How To Play");
                     return (false);
                 case EXIT:
-                    this->_window.getDevice()->drop();
+                    this->_window.getDevice()->closeDevice();
                     return (false);
                 default:
                     break;
