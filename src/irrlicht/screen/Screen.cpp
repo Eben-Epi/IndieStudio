@@ -18,6 +18,7 @@
 #include "../game-scene/keys-managing-menu/KeyManagingMenu.hpp"
 #include "../game-scene/load-game-menu/LoadGameMenu.hpp"
 #include "../game-scene/new-game-menu/NewGameMenu.hpp"
+#include "../game-scene/how-to-play/HowToPlayMenu.hpp"
 #include "../Exceptions.hpp"
 
 #if defined(_WIN32) && !defined(__GNUC__)
@@ -153,6 +154,11 @@ void Irrlicht::Screen::addGameSceneNewGameMenu(const std::string &name) {
 
 void Irrlicht::Screen::addGameSceneLoadGameMenu(const std::string &name) {
     this->_scenes.emplace_back(new LoadGameMenu{*this, name, static_cast<unsigned>(this->_scenes.size())});
+}
+
+void Irrlicht::Screen::addGameSceneHTPGameMenu(const std::string &name)
+{
+    this->_scenes.emplace_back(new HowToPlayMenu{*this, name, static_cast<unsigned>(this->_scenes.size())});
 }
 
 Irrlicht::GameScene &Irrlicht::Screen::getCurrentGameScene() {
