@@ -16,7 +16,7 @@ namespace ECS {
         unsigned timer;
         unsigned waveCount;
         Vector2<int> origin;
-        char directon;
+        char direction;
 
         UltShockWaveComponent();
         UltShockWaveComponent(Ressources &ressources, std::istream &stream);

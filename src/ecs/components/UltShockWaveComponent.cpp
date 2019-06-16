@@ -13,7 +13,7 @@ ECS::UltShockWaveComponent::UltShockWaveComponent():
     timer(0),
     waveCount(0),
     origin({0, 0}),
-    directon(0)
+    direction(0)
 {
 }
 
@@ -21,13 +21,15 @@ ECS::UltShockWaveComponent::UltShockWaveComponent(ECS::Ressources &ressources, s
     UltShockWaveComponent()
 {
     std::string terminator;
+    int val;
 
-    stream >> timer >> waveCount >> origin.x >> origin.y >> directon >> terminator;
+    stream >> timer >> waveCount >> origin.x >> origin.y >> val >> terminator;
+    direction = val;
     if (terminator != "EndOfComponent")
         throw InvalidSerializedStringException("The component terminator was not found");
 }
 
 std::ostream& ECS::UltShockWaveComponent::serialize(std::ostream &stream) const
 {
-    return stream << timer << waveCount << origin.x << origin.y << directon << " EndOfComponent";
+    return stream << timer << " " << waveCount << " " << origin.x << " " << origin.y << " "  << static_cast<int>(direction) << " " << "EndOfComponent";
 }

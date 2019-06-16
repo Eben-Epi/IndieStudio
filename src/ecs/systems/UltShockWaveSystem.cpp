@@ -31,25 +31,25 @@ void ECS::UltShockWaveSystem::updateEntity(ECS::Entity &entity)
             self.waveCount++;
             ddc.ownerId = entity.getId();
 
-            if (self.directon & 0b0001) {     // UP
+            if (self.direction & 0b0001) {     // UP
                 explosion_position.size = {TILESIZE * 3, TILESIZE};
                 explosion_position.pos = {
                         static_cast<double>(self.origin.x - TILESIZE),
                         static_cast<double>(self.origin.y - TILESIZE * self.waveCount)};
             }
-            else if (self.directon & 0b0010) { // LEFT
+            else if (self.direction & 0b0010) { // LEFT
                 explosion_position.size = {TILESIZE, TILESIZE * 3};
                 explosion_position.pos = {
                         static_cast<double>(self.origin.x + TILESIZE * self.waveCount),
                         static_cast<double>(self.origin.y - TILESIZE)};
             }
-            else if (self.directon & 0b0100) { // DOWN
+            else if (self.direction & 0b0100) { // DOWN
                 explosion_position.size = {TILESIZE * 3, TILESIZE};
                 explosion_position.pos = {
                         static_cast<double>(self.origin.x - TILESIZE),
                         static_cast<double>(self.origin.y + TILESIZE * self.waveCount)};
             }
-            else if (self.directon & 0b1000) { // RIGHT
+            else if (self.direction & 0b1000) { // RIGHT
                 explosion_position.size = {TILESIZE, TILESIZE * 3};
                 explosion_position.pos = {
                         static_cast<double>(self.origin.x - TILESIZE * self.waveCount),
@@ -76,6 +76,6 @@ void ECS::UltShockWaveSystem::updateEntity(ECS::Entity &entity)
         self.origin.x = (static_cast<int>(pc.pos.x) + TILESIZE / 2) / TILESIZE * TILESIZE;
         self.origin.y = (static_cast<int>(pc.pos.y) + TILESIZE / 2) / TILESIZE * TILESIZE;
         pc.pos = {static_cast<double>(self.origin.x + 2), static_cast<double>(self.origin.y + 2)};
-        self.directon = mc.dir;
+        self.direction = mc.dir;
     }
 }

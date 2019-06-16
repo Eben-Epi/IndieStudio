@@ -4,6 +4,15 @@
 
 #include <utility>
 #include "IrrEntity.hpp"
+#include <sys/stat.h>
+#include <unistd.h>
+#include <string>
+#include <fstream>
+
+inline bool check_file_exists (const std::string& name) {
+    struct stat buffer;
+    return (stat (name.c_str(), &buffer) == 0);
+}
 
 Irrlicht::IrrEntity::IrrEntity(
         const std::string &filename,
@@ -23,7 +32,8 @@ Irrlicht::IrrEntity::IrrEntity(
         _node(nullptr),
         _parent(nullptr)
 {
-    this->_mesh = smgr->getMesh(this->_meshPath.c_str());
+    if (check_file_exists(this->_meshPath))
+        this->_mesh = smgr->getMesh(this->_meshPath.c_str());
     if (!this->_mesh) {
         this->_meshPath = "./media/models/" + filename + ".dae";
         this->_mesh = smgr->getMesh(this->_meshPath.c_str());
