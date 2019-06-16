@@ -51,7 +51,7 @@ namespace Input {
         std::vector<ECS::Point> getRelativeVision(ECS::Point &point);
         ECS::Point getRelativePosPlayer(ECS::Point &pos);
         ECS::Point getRelativePosObj(ECS::Point &pos);
-        ECS::Entity *setAIObjective(ECS::Entity &me, ECS::Entity *objective, std::vector<ECS::Entity *> bonuses);
+        ECS::Entity *setAIObjective(ECS::Entity &me, std::vector<ECS::Entity *> &bonuses);
         void initBadPos(ECS::PositionComponent &pos, int xTmp, int yTmp);
 
         void changeKey(Action, irr::EKEY_CODE);

@@ -34,7 +34,7 @@ Input::AIBrain::AIBrain(unsigned id, ECS::ECSCore &core) :
 {
 }
 
-ECS::Entity *Input::AIBrain::setAIObjective(ECS::Entity &me, ECS::Entity *objective, std::vector<ECS::Entity *> bonuses)
+ECS::Entity *Input::AIBrain::setAIObjective(ECS::Entity &me, std::vector<ECS::Entity *> &bonuses)
 {
     std::vector<ECS::Entity *> players = this->_core.getEntitiesByName("Player");
     static int chase = -1;
@@ -47,7 +47,7 @@ ECS::Entity *Input::AIBrain::setAIObjective(ECS::Entity &me, ECS::Entity *object
     }
     if (players.size() == 1)
         return (nullptr);
-    if (!objective || chase == -1 || chase == me.getId()) {
+    if (!_objective || chase == -1 || chase == me.getId()) {
         std::random_device randomDev;
         int nb = randomDev() % players.size();
 
@@ -410,7 +410,7 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
     std::vector<int> bonusMalusZone = {0, 0, -2, 0, 0};
 
     if ((_xTmp <= 10 && _yTmp <= 10 && _timer == 0) || !_objective || _actions.empty()) {
-        _objective = setAIObjective(*this->_entity, _objective, powerUps);
+        _objective = setAIObjective(*this->_entity, powerUps);
         if (_objective == nullptr) {
             _actions.clear();
             return (_actions);
@@ -438,20 +438,34 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
         if (!powerUps.empty())
             updateRelativeVisionForBonuses(powerUps, relativeVision, bonusMalusZone, 100);
 
-        if (_entity->getId() == 2) {
-            std::cout << "scores : ";
+        if (_entity->getId() == 1) {
+            std::cout << "1 | scores : ";
             for (int score : bonusMalusZone) {
                 std::cout << score << " || ";
             }
             std::cout << std::endl;
         }
+        /*if (_entity->getId() == 2) {
+            std::cout << "2 | scores : ";
+            for (int score : bonusMalusZone) {
+                std::cout << score << " || ";
+            }
+            std::cout << std::endl;
+        }
+        if (_entity->getId() == 3) {
+            std::cout << "3 | scores : ";
+            for (int score : bonusMalusZone) {
+                std::cout << score << " || ";
+            }
+            std::cout << std::endl;
+        }*/
 
         this->_onStepAbs = (bonusMalusZone[2] + 2);
         if (this->_onStepAbs < 0)
             this->_onStepAbs *= -1;
         this->_onStepAbs = this->_onStepAbs % 100 / 10;
         _actions = getTheBestWay(bonusMalusZone, relativePosPlayer);
-        _timer = 2;
+        _timer = 0;
     }
     if (_timer > 0)
         --_timer;
