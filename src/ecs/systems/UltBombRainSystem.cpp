@@ -21,10 +21,10 @@ ECS::UltBombRainSystem::UltBombRainSystem(ECS::ECSCore &core):
 void ECS::UltBombRainSystem::updateEntity(ECS::Entity &entity)
 {
     auto &self = reinterpret_cast<UltBombRainComponent &>(entity.getComponentByName("UltBombRain"));
+    auto &ult = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
 
     if (self.timer > 0) {
         if (self.timer % (FRAME_RATE * 4) == 1) {
-            dprintf(2, "timer is %d\n", self.timer);
             auto players = this->_core.getEntitiesByName("Player");
             for (auto &player : players) {
                 auto &pp = reinterpret_cast<PositionComponent &>(player->getComponentByName("Position"));
@@ -40,6 +40,7 @@ void ECS::UltBombRainSystem::updateEntity(ECS::Entity &entity)
                 nb_pos.pos.y = (static_cast<int>(pp.pos.y) + TILESIZE / 2) / TILESIZE * TILESIZE + 2;
                 nb_owner.ownerId = entity.getId();
             }
+            ult.soundSystem.playSound("bomb_rain");
             self.bombCount += 1;
             if (self.bombCount >= 3) { // reset
                 self.timer = 0;
@@ -50,9 +51,7 @@ void ECS::UltBombRainSystem::updateEntity(ECS::Entity &entity)
         self.timer += 1;
     }
 
-    auto &ult = reinterpret_cast<UltimeComponent &>(entity.getComponentByName("Ultime"));
     if (ult.castUlt && ult.ultimeIsReady()) {
-        dprintf(2, "ULT PRESSED\n");
         ult.resetUlt();
         self.timer = 1;
     }
