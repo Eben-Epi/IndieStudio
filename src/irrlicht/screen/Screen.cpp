@@ -19,6 +19,7 @@
 #include "../game-scene/load-game-menu/LoadGameMenu.hpp"
 #include "../game-scene/new-game-menu/NewGameMenu.hpp"
 #include "../game-scene/how-to-play/HowToPlayMenu.hpp"
+#include "../game-scene/save-menu/SaveMenu.hpp"
 #include "../Exceptions.hpp"
 
 #if defined(_WIN32) && !defined(__GNUC__)
@@ -160,6 +161,11 @@ void Irrlicht::Screen::addGameSceneHTPGameMenu(const std::string &name)
 {
     this->_scenes.emplace_back(new HowToPlayMenu{*this, name, static_cast<unsigned>(this->_scenes.size())});
 }
+
+// void addGameSceneSaveMenu(const std::string &name)
+// {
+//     this->_scenes.emplace_back(new SaveMenu{*this, name, static_cast<unsigned>(this->_scenes.size(), /*map*/)});
+// }
 
 Irrlicht::GameScene &Irrlicht::Screen::getCurrentGameScene() {
     for (auto &scene : this->_scenes)

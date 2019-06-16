@@ -12,6 +12,7 @@
 #include <memory>
 #include "../GameScene.hpp"
 #include "../hud/Button.hpp"
+#include "../../../map/Map.hpp"
 
 namespace Irrlicht {
     enum SaveGameButtonsName
@@ -21,17 +22,18 @@ namespace Irrlicht {
 		SAVE,
 	};
 
-    class LoadGameMenu : public GameScene {
+    class SaveMenu : public GameScene {
     public:
-        LoadGameMenu(Screen &screen, const std::string &name, unsigned id);
+        SaveMenu(Screen &screen, const std::string &name, unsigned id, Map::Map *map);
 
-        ~LoadGameMenu() = default;
+        ~SaveMenu() = default;
 
         bool update() override;
 
     private:
         //PROPERTIES
         unsigned _slotNumber;
+        Map::Map *_map;
     };
 }
 
