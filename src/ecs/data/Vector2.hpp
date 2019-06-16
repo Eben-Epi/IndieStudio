@@ -38,7 +38,7 @@ namespace ECS
         operator Vector2<type>() {
             return {
                static_cast<type>(this->x),
-	       static_cast<type>(this->y)
+               static_cast<type>(this->y)
             };
         }
     };

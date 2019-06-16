@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <irrlicht/irrlicht.h>
+#include <algorithm>
 
 
 #ifdef _IRR_WINDOWS_
@@ -14,7 +15,10 @@
 #include "Screen.hpp"
 #include "../game-scene/GameScene.hpp"
 #include "../game-scene/main-menu/MainMenu.hpp"
-#include "../game-scene/options-menu/OptionsMenu.hpp"
+#include "../game-scene/keys-managing-menu/KeyManagingMenu.hpp"
+#include "../game-scene/load-game-menu/LoadGameMenu.hpp"
+#include "../game-scene/new-game-menu/NewGameMenu.hpp"
+#include "../Exceptions.hpp"
 
 #if defined(_WIN32) && !defined(__GNUC__)
 #define driverType irr::video::EDT_DIRECT3D9
@@ -30,8 +34,6 @@ Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen,
     _vsync(vsync),
     _driverType(driverType),
     _device(nullptr),
-    _lastSceneId(0),
-    _currentSceneId(0),
     isGameClosed(false)
 {
     this->_device = irr::createDevice(
@@ -50,12 +52,13 @@ Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen,
     this->_driver = this->_device->getVideoDriver();
     this->_guienv = (this->_device->getGUIEnvironment());
     this->_smgr = (this->_device->getSceneManager());
-    this->_device->setResizable(true);
+    this->_device->setResizable(false);
 }
 
 
 bool Irrlicht::Screen::display() {
     static int lastFPS = -1;
+    auto &gameScene = this->getCurrentGameScene();
 
     if (this->_device->isWindowActive())
     {
@@ -64,11 +67,18 @@ bool Irrlicht::Screen::display() {
             this->_smgr->drawAll();
         if (this->_guienv)
             this->_guienv->drawAll();
-        if (this->_currentSceneId != 0)
-            if (!this->getCurrentGameScene().update()) {
+        if (!gameScene.update()) {
+            if (&getCurrentGameScene() == &gameScene) {
                 this->setGameClosed(true);
                 return (false);
             }
+            this->_scenes.erase(std::find_if(
+                    this->_scenes.begin(),
+                    this->_scenes.end(),
+                    [&gameScene](std::unique_ptr<GameScene>&scene){
+                        return &gameScene == &*scene;
+                    }));
+        }
         this->_driver->endScene();
 
         int fps = this->_driver->getFPS();
@@ -129,45 +139,38 @@ bool Irrlicht::Screen::setWindowAttributes(int width, int height, int colorDepth
     return (true);
 }
 
-unsigned Irrlicht::Screen::addGameSceneGame(const std::string &name) {
-    this->_lastSceneId++;
-    this->_scenes.emplace_back(new GameScene{*this, name, this->_lastSceneId});
-    return (this->_lastSceneId);
+void Irrlicht::Screen::addGameSceneGame(const std::string &name) {
+    this->_scenes.emplace_back(new GameScene{*this, name, static_cast<unsigned>(this->_scenes.size())});
 }
 
-unsigned Irrlicht::Screen::addGameSceneMainMenu(const std::string &name) {
-    this->_lastSceneId++;
-    this->_scenes.emplace_back(new MainMenu{*this, name, this->_lastSceneId});
-    return (this->_lastSceneId);
+void Irrlicht::Screen::addGameSceneMainMenu(const std::string &name) {
+    this->_scenes.emplace_back(new MainMenu{*this, name, static_cast<unsigned>(this->_scenes.size())});
 }
 
-unsigned Irrlicht::Screen::addGameSceneOptions(const std::string &name) {
-    this->_lastSceneId++;
-    this->_scenes.emplace_back(new OptionsMenu{*this, name, this->_lastSceneId});
-    return (this->_lastSceneId);
+void Irrlicht::Screen::addGameSceneNewGameMenu(const std::string &name) {
+    this->_scenes.emplace_back(new NewGameMenu{*this, name, static_cast<unsigned>(this->_scenes.size())});
+}
+
+void Irrlicht::Screen::addGameSceneLoadGameMenu(const std::string &name) {
+    this->_scenes.emplace_back(new LoadGameMenu{*this, name, static_cast<unsigned>(this->_scenes.size())});
 }
 
 Irrlicht::GameScene &Irrlicht::Screen::getCurrentGameScene() {
-    return (*this->_scenes.at(_currentSceneId - 1));
-}
-
-bool Irrlicht::Screen::setCurrentGameScene(unsigned id) {
-    if (id <= _lastSceneId) {
-        this->_currentSceneId = id;
-        return (true);
-    }
-    return (false);
+    for (auto &scene : this->_scenes)
+        if (scene->sceneName == this->_currentSceneName)
+            return (*scene);
+    throw NoSuchSceneException("Cannot find scene with name " + this->_currentSceneName);
 }
 
 bool Irrlicht::Screen::setCurrentGameScene(const std::string &name) {
     for (auto &gameScene : this->_scenes) {
         if (gameScene->sceneName == name) {
-            this->_currentSceneId = gameScene->id;
+            this->_currentSceneName = gameScene->sceneName;
             this->resetButtonsStates();
             return (true);
         }
     }
-    return false;
+    throw NoSuchSceneException("Cannot find scene with name " + name);
 }
 
 Irrlicht::EventReceiver &Irrlicht::Screen::getEventReceiver() {
@@ -192,15 +195,15 @@ irr::gui::IGUIEnvironment *Irrlicht::Screen::getGuiEnv() {
 
 Irrlicht::GameScene &Irrlicht::Screen::getGameSceneById(unsigned id) {
     size_t i;
-    for (i = 0; i != this->_lastSceneId; i++)
+    for (i = 0; i != this->_scenes.size(); i++)
         if (this->_scenes[i]->id == id)
-            break;
-    return (*this->_scenes.at(i));
+            return (*this->_scenes.at(i));
+    throw NoSuchSceneException("Cannot find entity with id " + std::to_string(id));
 }
 
 bool Irrlicht::Screen::isValidGetterId(unsigned id) {
     size_t i;
-    for (i = 0; i != this->_lastSceneId; i++)
+    for (i = 0; i != this->_scenes.size(); i++)
         if (this->_scenes[i]->id == id)
             return (true);
     return (false);
@@ -208,18 +211,18 @@ bool Irrlicht::Screen::isValidGetterId(unsigned id) {
 
 bool Irrlicht::Screen::isValidGetterName(const std::string& name) {
     size_t i;
-    for (i = 0; i != this->_lastSceneId; i++)
+    for (i = 0; i != this->_scenes.size(); i++)
         if (this->_scenes[i]->sceneName == name)
             return (true);
-    return (false); //TODO NEW EXCEPTION
+    return (false);
 }
 
 Irrlicht::GameScene &Irrlicht::Screen::getGameSceneByName(const std::string& name) {
     size_t i;
-    for (i = 0; i != this->_lastSceneId; i++)
+    for (i = 0; i != this->_scenes.size(); i++)
         if (this->_scenes[i]->sceneName == name)
-            break;
-    return (*this->_scenes.at(i));
+            return (*this->_scenes.at(i));
+    throw NoSuchSceneException("Cannot find entity with name " + name);
 }
 
 void Irrlicht::Screen::setCursorVisible(bool cursor) {
@@ -232,4 +235,10 @@ void Irrlicht::Screen::setGameClosed(bool close) {
 
 void Irrlicht::Screen::resetButtonsStates() {
     this->_eventReceiver.resetButtonsStates();
+}
+
+void Irrlicht::Screen::cleanGameScenes() {
+    for (size_t i = 0; i != this->_scenes.size(); i++)
+        if (this->_scenes[i]->sceneName != this->_currentSceneName)
+            this->_scenes.erase(this->_scenes.begin() + i);
 }

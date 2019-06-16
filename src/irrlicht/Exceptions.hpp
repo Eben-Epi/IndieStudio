@@ -24,6 +24,11 @@ namespace Irrlicht
     public:
         NoSuchEntityException(const std::string &msg) : IrrlichtException(msg) {};
     };
+
+    class NoSuchSceneException : public IrrlichtException {
+    public:
+        NoSuchSceneException(const std::string &msg) : IrrlichtException(msg) {};
+    };
 }
 
 

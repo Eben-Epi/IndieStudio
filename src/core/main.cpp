@@ -98,7 +98,7 @@ bool displayEndGameMenu(Map::Map *map, Irrlicht::Screen &screen, Sound::SoundSys
 	std::this_thread::sleep_for(std::chrono::seconds(2));
 	delete map;
 	screen.setCursorVisible(true);
-	screen.setCurrentGameScene("MainMenu");
+	screen.setCurrentGameScene("Main Menu");
 
 	mainMenu(screen, sound);
 	if (screen.isGameClosed)
@@ -111,10 +111,9 @@ int main()
 	try {
 		Sound::SoundSystem soundSystem;
 		Irrlicht::Screen screen(640, 640, 32, false, true);
-		screen.addGameSceneMainMenu("MainMenu");
+        screen.addGameSceneMainMenu("Main Menu");
 		std::vector<std::unique_ptr<Input::Input>> inputs;
-
-		if (!screen.setCurrentGameScene("MainMenu"))
+		if (!screen.setCurrentGameScene("Main Menu"))
 			return EXIT_FAILURE;
 
 		for (auto &sound_name : sound_to_load)
@@ -122,7 +121,7 @@ int main()
 
 		irr::core::array<irr::SJoystickInfo> joystickInfos;
 
-		screen.getGameSceneByName("MainMenu").addCamera(320, 500, -320, 320, 0, -319);
+		screen.getGameSceneByName("Main Menu").addCamera(320, 500, -320, 320, 0, -319);
 		mainMenu(screen, soundSystem);
 
 		if (screen.isGameClosed || !screen.getDevice()->isWindowActive())
@@ -155,7 +154,39 @@ int main()
 		if (screen.getDevice()->activateJoysticks(joystickInfos)) {
 			std::cout << "Joystick support is enabled and " << joystickInfos.size() << " joystick(s) are present." << std::endl;
 
-			screen.setCursorVisible(false);
+            screen.setCursorVisible(false);
+
+            while (screen.display() && screen.getCurrentGameScene().sceneName != "Game");
+
+            if (screen.isGameClosed)
+                return (EXIT_SUCCESS);
+            if (!screen.isValidGetterName("Game"))
+                exit(EXIT_FAILURE); //TODO EXCEPTION
+            else
+                screen.cleanGameScenes();
+            screen.setCursorVisible(false);
+            screen.getGameSceneByName("Game").addCamera(320, 500, -320, 320, 0, -319);
+
+			inputs.emplace_back(
+				new Input::Keyboard(screen.getGameSceneByName("Game"), {
+					irr::KEY_KEY_Z,
+					irr::KEY_KEY_D,
+					irr::KEY_KEY_S,
+					irr::KEY_KEY_Q,
+					irr::KEY_SPACE,
+					irr::KEY_KEY_A,
+				})
+			);
+			inputs.emplace_back(
+				new Input::Keyboard(screen.getGameSceneByName("Game"), {
+					irr::KEY_UP,
+					irr::KEY_RIGHT,
+					irr::KEY_DOWN,
+					irr::KEY_LEFT,
+					irr::KEY_RSHIFT,
+					irr::KEY_RETURN,
+				})
+			);
 
 			if (!joystickInfos.empty()) {
 				for (irr::u32 joystick = 0; joystick < joystickInfos.size(); joystick++) {
@@ -189,7 +220,7 @@ int main()
 			} else if (!screen.getCurrentGameScene().isKeyPressed(irr::KEY_ESCAPE))
 				justPaused = false;
 			//TODO: Clément fix ta merde
-			screen.getGameSceneByName("MainMenu").addCamera(320, 500, -320, 320, 0, -319);
+			screen.getGameSceneByName("Game").addCamera(320, 500, -320, 320, 0, -319);
 			if (!paused && !map->update() && displayEndGameMenu(map, screen, soundSystem)) {
 				map = new Map::Map(screen.getGameSceneByName("Game"), inputs, soundSystem);
 				generateDefaultMap(*map, {
