@@ -164,9 +164,9 @@ int main()
             if (!screen.isValidGetterName("Game"))
                 exit(EXIT_FAILURE); //TODO EXCEPTION
             else
-                screen.cleanGameScenes();
-            screen.setCursorVisible(false);
-            screen.getGameSceneByName("Game").addCamera(320, 500, -320, 320, 0, -319);
+				screen.cleanGameScenes();
+			screen.setCursorVisible(false);
+			screen.getGameSceneByName("Game").addCamera(320, 500, -320, 320, 0, -319);
 
 			inputs.emplace_back(
 				new Input::Keyboard(screen.getGameSceneByName("Game"), {
