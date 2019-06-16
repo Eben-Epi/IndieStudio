@@ -6,6 +6,43 @@
 */
 
 #include "LoadGameMenu.hpp"
+#include "../../../input/Keyboard.hpp"
+#include "../keys-managing-menu-new/KeysManagingMenuNew.hpp"
+
+static std::vector<std::vector<irr::EKEY_CODE>> defaultKeyboardsKeys {
+        {
+                irr::KEY_KEY_Z,
+                irr::KEY_KEY_D,
+                irr::KEY_KEY_S,
+                irr::KEY_KEY_Q,
+                irr::KEY_KEY_E,
+                irr::KEY_KEY_A
+        },
+        {
+                irr::KEY_UP,
+                irr::KEY_RIGHT,
+                irr::KEY_DOWN,
+                irr::KEY_LEFT,
+                irr::KEY_RSHIFT,
+                irr::KEY_RCONTROL
+        },
+        {
+                irr::KEY_KEY_T,
+                irr::KEY_KEY_H,
+                irr::KEY_KEY_G,
+                irr::KEY_KEY_F,
+                irr::KEY_KEY_Y,
+                irr::KEY_KEY_R
+        },
+        {
+                irr::KEY_KEY_O,
+                irr::KEY_KEY_M,
+                irr::KEY_KEY_L,
+                irr::KEY_KEY_K,
+                irr::KEY_KEY_P,
+                irr::KEY_KEY_I
+        }
+};
 
 Irrlicht::LoadGameMenu::LoadGameMenu(Screen &screen, const std::string &name, unsigned id) :
     GameScene(screen, name, id), _slotNumber(1)
@@ -18,6 +55,9 @@ Irrlicht::LoadGameMenu::LoadGameMenu(Screen &screen, const std::string &name, un
     this->_textBoxes.emplace_back(new TextBox({280, 25}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "LOAD GAME", true, true, true));
     this->_textBoxes.emplace_back(new TextBox({280, 235}, {20, 240, 110, 240 + 32}, 0, this->_window.getGuiEnv(), "Save's slot", true, true, true));
     this->_textBoxes.emplace_back(new TextBox({310, 300}, {15, 30, 45, 60}, 0, this->_window.getGuiEnv(), std::to_string(_slotNumber), true, true, true));
+
+    for (int i = 0; i != 4; i++) {
+        this->_inputs.emplace_back(new Input::Keyboard(*this, defaultKeyboardsKeys[i]));
 }
 
 bool Irrlicht::LoadGameMenu::update()
@@ -43,9 +83,9 @@ bool Irrlicht::LoadGameMenu::update()
                     changeCurrentGameScene("Keys Managing Menu");
                     return (true);
                 case LOAD_GAME_BACK:
-                    if (!this->_window.isValidGetterName("Main Menu"))
-                        this->_window.addGameSceneMainMenu("Main Menu");
-                    changeCurrentGameScene("Main Menu");
+                    if (!this->_window.isValidGetterName("Game"))
+                        this->_window.addGameSceneGame("Game");
+                    changeCurrentGameScene("Game");
                     return (true);
                 default:
                     break;

@@ -32,6 +32,7 @@ namespace Irrlicht {
 
     private:
         //PROPERTIES
+        std::vector<std::unique_ptr<Input::Input>> _inputs;
         unsigned _slotNumber;
     };
 }
