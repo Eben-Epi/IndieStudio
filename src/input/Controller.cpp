@@ -75,10 +75,11 @@ bool Input::Controller::isAI()
 
 void Input::Controller::changeKey(Action act, unsigned control) {
 	joystickIn();
-	switch (act)
+	switch (this->_act)
 	{
 	case ACTION_JOYSTICK:
 		addJoystick(control);
+		this->_act = Action::NO_ACTION;
 		break;
 	case ACTION_UP:
 	case ACTION_DOWN:
@@ -86,11 +87,13 @@ void Input::Controller::changeKey(Action act, unsigned control) {
 	case ACTION_RIGHT:
 		if (this->_joystickOn == 3)
 			removeJoystick();
-		this->_keys[act] = static_cast<ControllerButtons>(control);
+		this->_keys[this->_act] = static_cast<ControllerButtons>(control);
+		this->_act = Action::NO_ACTION;
 		break;
 	case ACTION_ACTION:
 	case ACTION_ULT:
-		this->_keys[act - this->_joystickOn] = static_cast<ControllerButtons>(control);
+		this->_keys[this->_act - this->_joystickOn] = static_cast<ControllerButtons>(control);
+		this->_act = Action::NO_ACTION;
 		break;
 	default:
 		break;

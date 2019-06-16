@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Button.hpp"
+#include "../../../ecs/data/Vector2.hpp"
 
 Irrlicht::Button::Button(ECS::Point pos, ECS::Vector4<int> size, unsigned id, irr::gui::IGUIEnvironment *guienv, std::string text) :
     id(id),
@@ -44,7 +45,7 @@ const ECS::Vector4<int> &Irrlicht::Button::getSize() {
 }
 
 void Irrlicht::Button::setText(std::string text) {
-    delete this->_button;
+    this->_button->remove();
     this->_text = text;
     if (!text.empty()) {
         this->_button = this->_guienv->addButton(
@@ -58,15 +59,12 @@ void Irrlicht::Button::setText(std::string text) {
 }
 
 void Irrlicht::Button::setPos(ECS::Point pos) {
-
-    if (pos.x != _pos.x && pos.y != _pos.y) {
         this->_pos = pos;
         this->_button->setRelativePosition(irr::core::position2di((int)_pos.x, (int)_pos.y));
-    }
 }
 
 void Irrlicht::Button::setSize(ECS::Vector4<int> size) {
-    delete this->_button;
+    this->_button->remove();
     if (size.a != _size.a && size.b != _size.b && size.c != _size.c && size.d && _size.d) {
         this->_size = size;
         this->_button = this->_guienv->addButton(
@@ -89,4 +87,6 @@ void Irrlicht::Button::setVisible(bool visible)
 	this->_button->setVisible(visible);
 }
 
-Irrlicht::Button::~Button() = default;
+Irrlicht::Button::~Button() {
+    this->_button->remove();
+}

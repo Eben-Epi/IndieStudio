@@ -28,8 +28,8 @@ namespace Irrlicht
         //MEMBER FUNCTIONS
         bool display();
         GameScene &getCurrentGameScene();
-        bool setCurrentGameScene(unsigned id);
         bool setCurrentGameScene(const std::string &name);
+        void cleanGameScenes();
         bool setFullscreen(bool fullscreen);
         bool setVsync(bool vsync);
         bool setWindowSize(int width, int height);
@@ -38,10 +38,10 @@ namespace Irrlicht
         void setGameClosed(bool close);
         bool isValidGetterId(unsigned id);
         bool isValidGetterName(const std::string& name);
-        //TODO LAMBDA ? (andgel, etienne ? mp moi (c'est eben))
-        unsigned addGameSceneGame(const std::string &name);
-        unsigned addGameSceneMainMenu(const std::string &name);
-        unsigned addGameSceneOptions(const std::string &name);
+        void addGameSceneGame(const std::string &name);
+        void addGameSceneMainMenu(const std::string &name);
+        void addGameSceneNewGameMenu(const std::string &name);
+        void addGameSceneLoadGameMenu(const std::string &name);
         void resetButtonsStates();
         EventReceiver &getEventReceiver();
         GameScene &getGameSceneById(unsigned id);
@@ -59,8 +59,7 @@ namespace Irrlicht
         int _colorDepth;
         bool _fullscreen;
         bool _vsync;
-        unsigned _currentSceneId;
-        unsigned _lastSceneId;
+        std::string _currentSceneName;
         std::vector<std::unique_ptr<GameScene>> _scenes;
 
         //PROPERTIES

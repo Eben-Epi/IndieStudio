@@ -10,7 +10,6 @@
 
 #include "Input.hpp"
 #include "../irrlicht/screen/Screen.hpp"
-#include "../irrlicht/game-scene/GameScene.hpp"
 
 namespace Input
 {
@@ -56,6 +55,7 @@ namespace Input
             unsigned _id;
             unsigned _threshold;
             int _joystickOn = 0;
+            Action _act = Action::NO_ACTION;
     };
 }
 
