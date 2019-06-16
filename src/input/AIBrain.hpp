@@ -67,6 +67,7 @@ namespace Input {
         ECS::Point getRelativePosObj(ECS::Point &pos);
         ECS::Entity *setAIObjective(ECS::Entity &me, std::vector<ECS::Entity *> &bonuses);
         void initBadPos(ECS::PositionComponent &pos, int xTmp, int yTmp);
+        void setUltimeIfGot(std::vector<int> &bonusMalusZone);
 
         //values
 

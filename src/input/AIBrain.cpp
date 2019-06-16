@@ -125,7 +125,7 @@ std::vector<Input::Action> Input::AIBrain::getTheBestWay(std::vector<int> &bonus
     } else {
         yBestWay = 0;
     }
-    if (abs(objPos.pos.x - myPos.x) + abs(objPos.pos.y - myPos.y) < TILESIZE && _objective->getName() == "Player" && !_bombPlaced) {
+    if (abs(objPos.pos.x - myPos.x) + abs(objPos.pos.y - myPos.y) < TILESIZE + 16 && _objective->getName() == "Player" && !_bombPlaced) {
         actions.push_back(ACTION_ACTION);
         return (actions);
     }
@@ -286,9 +286,9 @@ void Input::AIBrain::bombPlacedChangesBonusMalusZoneScore(
 {
     if (_bombPlaced) {
         for (int j = 0; j < bonusMalusCorners.size(); ++j) {
-            if (bonusMalusCorners[j] == -1000000) {
-                bonusMalusZone[j % 2 ? 3 : 1] += -1;
-                bonusMalusZone[j / 2 * 4] += -1;
+            if (bonusMalusCorners[j] < -990000) {
+                bonusMalusZone[j % 2 ? 3 : 1] += -20;
+                bonusMalusZone[j / 2 * 4] += -20;
             }
         }
 
@@ -297,7 +297,7 @@ void Input::AIBrain::bombPlacedChangesBonusMalusZoneScore(
             if (k != 2) {
                 bonusMalusZone[k] += (int) (abs(relativeFurther[j].x - relativeVision[k].x) +
                                             abs(relativeFurther[j].y - relativeVision[k].y))
-                                     / TILESIZE;
+                                     / TILESIZE * 70;
                 ++j;
             }
         }
@@ -338,13 +338,17 @@ void Input::AIBrain::updateRelativeVisionForBlocks(
 
                 for (auto it = relativeVision.begin(); it < relativeVision.end(); ++it) {
                     if (it->x == newPoint.x && it->y == newPoint.y) {
-                        *infoIt += dangerLevel;
+                        if (e->getName() != "Player")
+                            *infoIt += dangerLevel;
                         if (e->hasComponent("OnCollisionDamageDealer") || e->hasComponent("Explode"))
                             *infoIt += 5000;
                         else if (e->hasComponent("Health")) {
                             bonusMalusZone[2] += -20;
-                            if (e->getName() == "Player" && !_bombPlaced && bonusMalusZone[2] > -100)
-                                bonusMalusZone[2] = -20;
+                            if (e->getName() == "Player") {
+                                *infoIt += -500;
+                                if (!_bombPlaced && bonusMalusZone[2] > -100)
+                                    bonusMalusZone[2] = -20;
+                            }
                         }
                         break;
                     }
@@ -405,6 +409,14 @@ ECS::Point Input::AIBrain::getRelativePosObj(ECS::Point &pos)
     return (relative);
 }
 
+void Input::AIBrain::setUltimeIfGot(std::vector<int> &bonusMalusZone)
+{
+    auto &ultComp = reinterpret_cast<ECS::UltimeComponent &>(_entity->getComponentByName("Ultime"));
+
+    if (bonusMalusZone[2] > -100 && !_bombPlaced && ultComp.hasUlt)
+        _actions.emplace_back(ACTION_ULT);
+}
+
 std::vector<Input::Action> Input::AIBrain::getActions() {
     if (!this->_init) {
     	this->_entity = &this->_core.getEntityById(this->_id);
@@ -441,7 +453,7 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
             auto &eKicker = reinterpret_cast<ECS::KickerComponent &>(this->_entity->getComponentByName("Kicker"));
 
             if (eCollide.hardness >= 1 || e->hasComponent("OnCollisionDamageDealer") ||
-            e->hasComponent("Explode") || e->hasComponent("CurseOnPickComponent")) {
+            e->hasComponent("Explode") || e->hasComponent("CurseOnPick")) {
                 blockZone.emplace_back(e);
             }
         }
@@ -462,6 +474,9 @@ std::vector<Input::Action> Input::AIBrain::getActions() {
         if (this->_onStepAbs < 0)
             this->_onStepAbs *= -1;
         this->_onStepAbs = this->_onStepAbs % 100 / 10;
+
+        setUltimeIfGot(bonusMalusZone);
+
         _actions = getTheBestWay(bonusMalusZone, relativePosPlayer);
     }
     return (_actions);
