@@ -32,7 +32,7 @@ namespace ECS {
         CurseComponent(unsigned id, Ressources &ressources, std::istream &stream);
         std::ostream &serialize(std::ostream &stream) const override;
 
-        bool giveCurse(CurseEffect effect, int time, bool force=false);
+        bool giveCurse(CurseEffect effect, int time, bool force=false, bool playSound=true);
     };
 }
 
