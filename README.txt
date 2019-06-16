@@ -28,7 +28,7 @@ How to play :
 	The number max of players is 4 and the minimum is 2. For example, you can play with 2 players and 2 AI, but can't play with 3 players and 2 AI.
 
 	Commands for each player are defined when you create a new game.
-	There's ultimates that you need to charge to use them.
+	There are ultimates that you need to charge to use them.
 		Sydney : Became invincible and get a boost of movement speed.
 		AlphaOne : Throw a chock wave in column or in rows. It destructs everything on its way.
 		Lonie : Stun all enemies for a few seconds, then slow them a lot.
@@ -38,8 +38,8 @@ How to play :
 	- Bonuses :
 		Dark green : more bombs.
 		Blue : give kick bombs ability.
-		Light blue : Wall Pass
-		Red : increase range of bombs
+		Light blue : Wall Pass.
+		Red : increase range of bombs.
 		Yellow : increase speed.
 	- Penalties :
 		Skull : random among :	Ultra Speed,
