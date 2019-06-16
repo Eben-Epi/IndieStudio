@@ -6,7 +6,6 @@
 */
 
 #include "AIBrain.hpp"
-#include <random>
 #include "../ecs/components/MovableComponent.hpp"
 #include "../ecs/components/PositionComponent.hpp"
 #include "../ecs/components/BombDropperComponent.hpp"
@@ -59,11 +58,10 @@ ECS::Entity *Input::AIBrain::setAIObjective(ECS::Entity &me, std::vector<ECS::En
     if (players.size() == 1)
         return (nullptr);
     if (!_objective || chase == -1 || chase == me.getId()) {
-        std::random_device randomDev;
-        int nb = randomDev() % players.size();
+        int nb = rand() % players.size();
 
         while (players[nb]->getId() == me.getId()) {
-            nb = randomDev() % players.size();
+            nb = rand() % players.size();
         }
         chase = players[nb]->getId();
         return (players[nb]);
@@ -104,7 +102,6 @@ std::vector<Input::Action> Input::AIBrain::getTheBestWay(std::vector<int> &bonus
     int j = 0;
     std::vector<int> pos = {0};
     std::vector<Action> actions;
-    std::random_device rand_device;
     auto &objPos = reinterpret_cast<ECS::PositionComponent &>(_objective->getComponentByName("Position"));
     int xBestWay;
     int yBestWay;
@@ -145,7 +142,7 @@ std::vector<Input::Action> Input::AIBrain::getTheBestWay(std::vector<int> &bonus
             if (_bombPlaced && bonusMalusZone[2] > -100)
                 moveChoice = 2;
             else
-                moveChoice = pos[rand_device() % pos.size()];
+                moveChoice = pos[rand() % pos.size()];
         }
     } else {
         if (bonusMalusZone[yBestWay] < -999000 && canEscape(bonusMalusZone) && !_bombPlaced) {
@@ -163,7 +160,7 @@ std::vector<Input::Action> Input::AIBrain::getTheBestWay(std::vector<int> &bonus
                 if (_bombPlaced && bonusMalusZone[2] > -100)
                     moveChoice = 2;
                 else
-                    moveChoice = pos[rand_device() % pos.size()];
+                    moveChoice = pos[rand() % pos.size()];
             }
         }
     }

@@ -18,6 +18,7 @@
 #include "../game-scene/keys-managing-menu/KeyManagingMenu.hpp"
 #include "../game-scene/load-game-menu/LoadGameMenu.hpp"
 #include "../game-scene/new-game-menu/NewGameMenu.hpp"
+#include "../game-scene/demo-menu/DemoMenu.hpp"
 #include "../Exceptions.hpp"
 
 #if defined(_WIN32) && !defined(__GNUC__)
@@ -36,6 +37,9 @@ Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen,
     _device(nullptr),
     isGameClosed(false)
 {
+
+    for (auto &sound_name : sound_to_load)
+        this->soundSystem.loadSound(sound_name);
     this->_device = irr::createDevice(
         this->_driverType,
         irr::core::dimension2d<irr::u32>(
@@ -153,6 +157,10 @@ void Irrlicht::Screen::addGameSceneNewGameMenu(const std::string &name) {
 
 void Irrlicht::Screen::addGameSceneLoadGameMenu(const std::string &name) {
     this->_scenes.emplace_back(new LoadGameMenu{*this, name, static_cast<unsigned>(this->_scenes.size())});
+}
+
+void Irrlicht::Screen::addGameSceneDemoMenu(const std::string &name) {
+    this->_scenes.emplace_back(new DemoMenu{*this, name, static_cast<unsigned>(this->_scenes.size())});
 }
 
 Irrlicht::GameScene &Irrlicht::Screen::getCurrentGameScene() {

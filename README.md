@@ -36,16 +36,17 @@ How to play :
 
 	There are bonuses and penalties that can be dropped when you destruct a brick wall.
 	- Bonuses :
-		Dark green : more bombs.
+		Dark green : 1 more bombs.
 		Blue : give kick bombs ability.
 		Light blue : Wall Pass.
-		Red : increase range of bombs.
+		Red : increase range of bombs by one.
 		Yellow : increase speed.
 	- Penalties :
-		Skull : random among :	Ultra Speed,
-								Ultra slow,
-								Reverse Control,
-								No drop,
-								Auto drop
-
-
+		Skull :
+			The skull can be given to another player by touching it.
+			Effect random among :
+				Ultra Speed: Really high speed,
+				Ultra Slow: Really low speed,
+				Reverse Control: Control reversed,
+				No drop: Cannot drop bombs,
+				Auto drop: Automaticaly drop bombs
