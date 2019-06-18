@@ -67,7 +67,6 @@ bool Irrlicht::MainMenu::update()
         return (false);
     }
     this->_clock++;
-	std::vector<std::unique_ptr<Input::Input>> inputs;
     for (unsigned i = 0; i < this->_buttons.size(); i++) {
         if (this->isGuiButtonPressed(i)) {
 	    this->_clock = 0;
@@ -80,9 +79,9 @@ bool Irrlicht::MainMenu::update()
                 case LOAD_GAME:
 
 			for (int j = 0; j != 4; j++)
-				inputs.emplace_back(new Input::Keyboard(*this, defaultKeyboardsKeys[i]));
+				this->_inputs.emplace_back(new Input::Keyboard(*this, defaultKeyboardsKeys[i]));
 			if (!this->_window.isValidGetterName("Game"))
-				this->_window.addGameSceneGame("Game", inputs, "save.txt");
+				this->_window.addGameSceneGame("Game", this->_inputs, "save.txt");
 		    changeCurrentGameScene("Game");
 		    return (true);
                 case EXIT:

@@ -28,6 +28,7 @@ namespace Irrlicht
 	{
 		private:
 			unsigned _clock = 0;
+			std::vector<std::unique_ptr<Input::Input>> _inputs;
 
 		public:
 			MainMenu(Screen &screen, const std::string &name, unsigned id);
