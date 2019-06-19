@@ -69,6 +69,7 @@ namespace Irrlicht
         std::vector<std::unique_ptr<GameScene>> _scenes;
 
         //PROPERTIES
+        irr::core::dimension2du _screenSize;
         irr::IrrlichtDevice* _device;
         irr::video::IVideoDriver* _driver;
         irr::gui::IGUIEnvironment* _guienv;

@@ -24,7 +24,6 @@ namespace Irrlicht
 		~KeysManagingMenuNew() = default;
 		unsigned joysticksAvailable();
 		void assignNextJoystick(unsigned player);
-		void RemoveJoystick(unsigned player);
 
 		bool update() override;
 
@@ -34,7 +33,7 @@ namespace Irrlicht
         unsigned _iaNumber;
         std::vector<std::unique_ptr<Input::Input>> _inputs;
         irr::core::array<irr::SJoystickInfo> _joystickInfos;
-        std::map<unsigned, bool> isPlayerJoystick;
+        std::vector<unsigned> _isPlayerJoystick;
     };
 }
 

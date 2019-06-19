@@ -44,8 +44,8 @@ IF (NOT SFML_INCLUDE_DIRS OR NOT SFML_LIBRARIES)
             /usr/lib/x86_64-linux-gnu/    # Some more Linux library path
             /usr/local/lib/               # Some more Linux library path
             /usr/local/lib64/             # Some more Linux library path
-            ${CMAKE_MODULE_PATH}/         # Expected to contain the path to this file for Windows10
-            ${SFML_DIR}/                  # SFML root directory (if provided)
+            ${SFML_DIR}/lib/              # SFML root directory (if provided)
+            ${CMAKE_MODULE_PATH}/lib/     # Expected to contain the path to this file for Windows10
     )
 ENDIF (NOT SFML_INCLUDE_DIRS OR NOT SFML_LIBRARIES)
 
