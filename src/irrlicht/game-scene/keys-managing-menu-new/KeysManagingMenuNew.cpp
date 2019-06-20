@@ -161,7 +161,7 @@ bool Irrlicht::KeysManagingMenuNew::update()
                 case Input::P4_INPUT_CHOICE:
                     this->assignNextJoystick(button->id - Input::P1_INPUT_CHOICE);
                     if (this->_isPlayerJoystick[button->id - Input::P1_INPUT_CHOICE]) {
-                        button->setText("JOYSTICK " + std::to_string(button->id - Input::P1_INPUT_CHOICE));
+                        button->setText("JOYSTICK " + std::to_string(this->_isPlayerJoystick[button->id - Input::P1_INPUT_CHOICE] - 1));
                         this->_inputs[button->id - Input::P1_INPUT_CHOICE].reset(new Input::Controller(*this, defaultController, button->id - Input::P1_INPUT_CHOICE));
                     } else {
                         button->setText("KEYBOARD");

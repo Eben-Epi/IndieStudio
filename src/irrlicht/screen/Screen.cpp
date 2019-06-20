@@ -85,7 +85,7 @@ bool Irrlicht::Screen::display() {
         this->_driver->endScene();
         if (this->_screenSize != this->_driver->getScreenSize()) {
             this->_screenSize = this->_driver->getScreenSize();
-            this->getGameSceneByName("Game").addCamera(320, 500, -320, 320, 0, -319);
+            this->getCurrentGameScene().addCamera(320, 500, -320, 320, 0, -319);
         }
         int fps = this->_driver->getFPS();
 
