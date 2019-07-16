@@ -8,7 +8,7 @@
 #include "Controller.hpp"
 #include "../irrlicht/game-scene/GameScene.hpp"
 
-Input::Controller::Controller(Irrlicht::GameScene &scene, std::vector<ControllerButtons> &&keys, unsigned id, unsigned threshold) :
+Input::Controller::Controller(Irrlicht::GameScene &scene, const std::vector<ControllerButtons> &keys, unsigned id, unsigned threshold) :
 	_scene(scene),
 	_keys(keys),
 	_id(id),
@@ -135,5 +135,9 @@ void Input::Controller::resetControl() {
 
 std::string Input::Controller::getEnumControlString(Action code)
 {
+    if (this->_keys.size() == 3 && code < ::Input::Action::ACTION_ACTION)
+        return Irrlicht::controller_code_str[this->_keys[0]];
+    else if (this->_keys.size() == 3)
+        return Irrlicht::controller_code_str[this->_keys[code - 3]];
     return (Irrlicht::controller_code_str[this->_keys[code]]);
 }

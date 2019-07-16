@@ -9,6 +9,10 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/packages)
 if (MSVC)
 add_compile_options("/D_HAS_ITERATOR_DEBUGGING=0")
 endif(MSVC)
+set(CMAKE_BUILD_TYPE Debug)
+set(Irrlicht_DIR "C:/Users/Eternal/Documents/Libs/irrlicht")
+set(Pthread_DIR "C:/Users/Eternal/Documents/Libs/pthread/Pre-built.2/lib/x64")
+set(SFML_DIR "C:/Users/Eternal/Documents/Libs/SFML-2.5.1/")
 
 add_executable(
 	bomberman
@@ -269,7 +273,7 @@ find_package(Pthread REQUIRED)
 include_directories(
 	bomberman
 	${Irrlicht_INCLUDE_DIRS}
-	${Sfml_INCLUDE_DIRS}
+	${SFML_INCLUDE_DIRS}
 )
 
 target_link_libraries(
