@@ -22,16 +22,20 @@ namespace ECS
             return *this;
         }
 
-        Vector2<T> &operator+(T value) {
-            this->x += value;
-            this->y += value;
-            return *this;
+        Vector2<T> operator+(T value) {
+	    Vector2<T> val = *this;
+
+            val.x += value;
+	    val.y += value;
+            return val;
         }
 
-        Vector2<T> &operator*(T value) {
-            this->x *= value;
-            this->y *= value;
-            return *this;
+        Vector2<T> operator*(T value) {
+	    Vector2<T> val = *this;
+
+	    val.x *= value;
+	    val.y *= value;
+	    return val;
         }
 
         template <typename type>

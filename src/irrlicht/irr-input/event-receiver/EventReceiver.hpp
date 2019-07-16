@@ -10,7 +10,7 @@
 
 #include <irrlicht/irrlicht.h>
 #include <vector>
-#define MAX_BUTTON_ON_SCREEN 25
+#define MAX_BUTTON_ON_SCREEN 50
 
 namespace Irrlicht
 {

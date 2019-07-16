@@ -6,13 +6,6 @@
 #include <irrlicht/irrlicht.h>
 #include <algorithm>
 #include <fstream>
-
-
-#ifdef _IRR_WINDOWS_
-#pragma comment(lib, "Irrlicht.lib")
-#pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
-#endif
-
 #include "Screen.hpp"
 #include "../game-scene/GameScene.hpp"
 #include "../game-scene/main-menu/MainMenu.hpp"
@@ -44,7 +37,6 @@ Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen,
     _device(nullptr),
     isGameClosed(false)
 {
-
     for (auto &sound_name : sound_to_load)
         this->soundSystem.loadSound(sound_name);
     this->_device = irr::createDevice(
@@ -63,7 +55,8 @@ Irrlicht::Screen::Screen(int width, int height, int colorDepth, bool fullscreen,
     this->_driver = this->_device->getVideoDriver();
     this->_guienv = (this->_device->getGUIEnvironment());
     this->_smgr = (this->_device->getSceneManager());
-    this->_device->setResizable(false);
+    this->_screenSize = this->_driver->getScreenSize();
+    this->_device->setResizable(true);
 }
 
 bool Irrlicht::Screen::display() {
@@ -90,7 +83,10 @@ bool Irrlicht::Screen::display() {
                     }));
         }
         this->_driver->endScene();
-
+        if (this->_screenSize != this->_driver->getScreenSize()) {
+            this->_screenSize = this->_driver->getScreenSize();
+            this->getCurrentGameScene().addCamera(320, 500, -320, 320, 0, -319);
+        }
         int fps = this->_driver->getFPS();
 
         if (lastFPS != fps) {
@@ -145,6 +141,7 @@ bool Irrlicht::Screen::setWindowAttributes(int width, int height, int colorDepth
     this->_guienv = this->_device->getGUIEnvironment();
     this->_smgr = this->_device->getSceneManager();
     this->_driver = this->_device->getVideoDriver();
+    this->_screenSize = this->_driver->getScreenSize();
     this->_device->getCursorControl()->setVisible(false);
     return (true);
 }
